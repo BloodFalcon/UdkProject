@@ -1,3 +1,10 @@
+//////////////////////////
+// Author(s): Tyler Keller, Sean Mackey
+// Date: 11/20/2013
+// Status: Alpha
+// Being Used: Yes
+// Description: Weapon Systems for Player
+//////////////////////////
 
 class SeqAct_ProjectileSpawner extends SequenceAction;
 

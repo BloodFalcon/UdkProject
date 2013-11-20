@@ -1,3 +1,11 @@
+//////////////////////////
+// Author(s): Tyler Keller, Sean Mackey
+// Date: 11/20/2013
+// Status: Alpha
+// Being Used: Yes
+// Description: Enemy AI Script 2
+//////////////////////////
+
 class BFAI2 extends UDKBot;
 
 var Actor target;

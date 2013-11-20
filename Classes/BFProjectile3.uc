@@ -1,3 +1,11 @@
+//////////////////////////
+// Author(s): Tyler Keller, Sean Mackey
+// Date: 11/20/2013
+// Status: Alpha
+// Being Used: Yes
+// Description: Upgrade Weapon 2
+//////////////////////////
+
 class BFProjectile3 extends UDKProjectile;
 
 var ParticleSystemComponent ProjEffects;

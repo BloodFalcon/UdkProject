@@ -1,8 +1,6 @@
 //////////////////////////
-// Author(s): Tyler Keller, Sean Mackey
+// Author(s): Tyler Keller, Sean Mackey, Dewayne Cameron
 // Date: 11/5/2013
-// Credit: 
-// http://udn.epicgames.com/
 // Status: Alpha
 // Being Used: Yes
 // Description: HUD for Blood Falcon

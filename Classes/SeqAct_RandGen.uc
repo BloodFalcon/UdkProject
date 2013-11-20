@@ -1,8 +1,6 @@
 //////////////////////////
 // Author(s): Tyler Keller
 // Date: 11/14/2013
-// Credit: 
-// http://udn.epicgames.com/
 // Status: Alpha
 // Being Used: Yes
 // Description: Rule set for random world generation

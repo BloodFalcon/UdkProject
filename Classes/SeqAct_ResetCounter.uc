@@ -1,16 +1,12 @@
 //////////////////////////
 // Author(s): Tyler Keller
 // Date: 11/14/2013
-// Credit: 
-// http://udn.epicgames.com/
 // Status: Stable
 // Being Used: Yes
 // Description: Resets index for objectlist
 //////////////////////////
 
-// extend UIAction if this action should be UI Kismet Action instead of a Level Kismet Action
 class SeqAct_ResetCounter extends SequenceAction;
-	//native(Sequence);
 
 var() int Reset;
 var int ListIndex;

@@ -1,7 +1,14 @@
-// extend UIAction if this action should be UI Kismet Action instead of a Level Kismet Action
+//////////////////////////
+// Author(s): Tyler Keller, Sean Mackey
+// Date: 11/20/2013
+// Status: Alpha
+// Being Used: Yes
+// Description: Toggle for Absorbtion Mode
+//////////////////////////
+
 class SeqAct_AbsorbMode extends SequenceAction;
 
-	var bool P1;
+var bool P1;
 
 event Activated()
 {

@@ -1,7 +1,14 @@
+//////////////////////////
+// Author(s): Tyler Keller, Sean Mackey
+// Date: 11/20/2013
+// Status: Alpha
+// Being Used: Yes
+// Description: Enemy Pawn 1
+//////////////////////////
+
 class BFEP2 extends UDKPawn 
 placeable;
 
-//var BFGameInfo BFGI;
 
 function AddDefaultInventory()
 {

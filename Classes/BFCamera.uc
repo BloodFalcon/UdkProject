@@ -1,8 +1,6 @@
 //////////////////////////
 // Author(s): Tyler Keller, Sean Mackey
 // Date: 11/6/2013
-// Credit: 
-// http://udn.epicgames.com/
 // Status: Alpha
 // Being Used: Yes
 // Description: Camera for Blood Falcon
