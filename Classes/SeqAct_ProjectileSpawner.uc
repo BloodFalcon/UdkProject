@@ -208,8 +208,8 @@ defaultproperties
 	bCallHandler=false
 	ObjName="Projectile Spawner"
 	ObjCategory="BF Actions"
-	VariableLinks(0)=(ExpectedType=class'SeqVar_Vector',LinkDesc="A  SL",MinVars=1,MaxVars=1)
-	VariableLinks(1)=(ExpectedType=class'SeqVar_Vector',LinkDesc="A  TL",MinVars=1,MaxVars=1)
+	VariableLinks(0)=(ExpectedType=class'SeqVar_Vector',LinkDesc=" A  SL",MinVars=1,MaxVars=1)
+	VariableLinks(1)=(ExpectedType=class'SeqVar_Vector',LinkDesc=" A  TL",MinVars=1,MaxVars=1)
 		VariableLinks(2)=(ExpectedType=class'SeqVar_Vector',LinkDesc=" B  SL",MinVars=1,MaxVars=1)
 		VariableLinks(3)=(ExpectedType=class'SeqVar_Vector',LinkDesc=" B  TL",MinVars=1,MaxVars=1)
 	VariableLinks(4)=(ExpectedType=class'SeqVar_Vector',LinkDesc=" P1 SL",MinVars=1,MaxVars=1)

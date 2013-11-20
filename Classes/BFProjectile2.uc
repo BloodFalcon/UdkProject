@@ -80,8 +80,8 @@ defaultproperties
 	ProjFlightTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
 	ProjExplosionTemplate=ParticleSystem'WP_LinkGun.Effects.P_WP_Linkgun_Impact'
 	LifeSpan=1
-	DrawScale=2
-	Damage=10
+	DrawScale=5
+	Damage=1
     MomentumTransfer=0
 	CustomGravityScaling=0
 

@@ -88,7 +88,7 @@ defaultproperties
         End Object
         
         Begin Object Class=SkeletalMeshComponent Name=MyMesh
-                SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.SuicideFighter'
+                SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
                 //AnimSets(0)=AnimSet'VH_Cicada.Anims.VH_Cicada_Anims'
                 //AnimTreeTemplate=AnimTree'VH_Cicada.Anims.AT_VH_Cicada'
 				Scale=2.0

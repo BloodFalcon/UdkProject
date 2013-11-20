@@ -78,7 +78,7 @@ defaultproperties
 
 	Speed = 5000
 	ProjFlightTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
-	ProjExplosionTemplate=ParticleSystem'WP_LinkGun.Effects.P_WP_Linkgun_Impact'
+	ProjExplosionTemplate=ParticleSystem'BloodFalcon.ParticleSystem.AbsorbHit'
 	LifeSpan=1
 	DrawScale=2
 	Damage=2

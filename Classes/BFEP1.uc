@@ -9,8 +9,7 @@
 class BFEP1 extends UDKPawn 
 placeable;
 
-var BFGameInfo BFGI;
-//var int ACount;
+var bool AbsorbSuccess;
 
 function AddDefaultInventory()
 {
@@ -28,16 +27,19 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 	if(Damage == 2)
 	{
 	SetDrawScale((DrawScale-0.5));
-	//Health = Health+2;
-	//ACount++;
+	AbsorbSuccess = true;
 	}
+
+	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);  //Must Have To Process Standard Damage
 }
 
 
 
 function bool Died(Controller Killer, class<DamageType> damageType, vector HitLocation)
 {
+	if(AbsorbSuccess){
 	BFGameInfo(WorldInfo.Game).W1 = true;
+	}
 	owner.Destroy();
 	Self.Destroy();
 	return True;
