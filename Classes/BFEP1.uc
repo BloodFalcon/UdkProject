@@ -1,6 +1,8 @@
 class BFEP1 extends UDKPawn 
 placeable;
 
+//TEST FOR GIT
+
 var BFGameInfo BFGI;
 
 function AddDefaultInventory()
