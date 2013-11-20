@@ -17,14 +17,14 @@ var() class<Projectile> PC5;
 var() class<Projectile> PC6;
 var() class<Projectile> PC7;
 
-var bool P0;
-var bool P1;
-var bool P2;
-var bool P3;
-var bool P4;
-var bool P5;
-var bool P6;
-var bool P7;
+var bool Absorb;
+var bool Basic;
+var bool W1;
+var bool W2;
+var bool W3;
+var bool W4;
+var bool W5;
+var bool W6;
 
 event Activated()
 {
@@ -33,14 +33,14 @@ event Activated()
 	local vector SpawnLoc, TargetLoc;
 	local Projectile Proj;
 
-	P0 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).P0;
-	P1 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).P1;
-	P2 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).P2;
-	P3 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).P3;
-	P4 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).P4;
-	P5 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).P5;
-	P6 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).P6;
-	P7 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).P7;
+	Absorb = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Absorb;
+	Basic = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Basic;
+	W1 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W1;
+	W2 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W2;
+	W3 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W3;
+	W4 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W4;
+	W5 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W5;
+	W6 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W6;
 
 
 	if ( VariableLinks.length < 3 || VariableLinks[0].LinkedVariables.length == 0 ||
@@ -71,7 +71,7 @@ event Activated()
 				}
 			}
 		}
-		if(P0)
+		if(Absorb)
 		{
 		// get the spawn location
 		SpawnLoc = SeqVar_Vector(VariableLinks[0].LinkedVariables[0]).VectValue;
@@ -86,7 +86,7 @@ event Activated()
 		}
 		Proj.Init(Normal(TargetLoc - SpawnLoc));
 		}else{
-			if(P1)
+			if(Basic)
 			{
 			// get the spawn location
 			SpawnLoc = SeqVar_Vector(VariableLinks[2].LinkedVariables[0]).VectValue;
@@ -102,7 +102,7 @@ event Activated()
 			Proj.Init(Normal(TargetLoc - SpawnLoc));
 			}
 
-			if(P2)
+			if(W1)
 			{
 			// get the spawn location
 			SpawnLoc = SeqVar_Vector(VariableLinks[4].LinkedVariables[0]).VectValue;
@@ -118,7 +118,7 @@ event Activated()
 			Proj.Init(Normal(TargetLoc - SpawnLoc));
 			}
 
-			if(P3)
+			if(W2)
 			{
 			// get the spawn location
 			SpawnLoc = SeqVar_Vector(VariableLinks[6].LinkedVariables[0]).VectValue;
@@ -134,7 +134,7 @@ event Activated()
 			Proj.Init(Normal(TargetLoc - SpawnLoc));
 			}
 
-			if(P4)
+			if(W3)
 			{
 			// get the spawn location
 			SpawnLoc = SeqVar_Vector(VariableLinks[8].LinkedVariables[0]).VectValue;
@@ -150,7 +150,7 @@ event Activated()
 			Proj.Init(Normal(TargetLoc - SpawnLoc));
 			}
 
-			if(P5)
+			if(W4)
 			{
 			// get the spawn location
 			SpawnLoc = SeqVar_Vector(VariableLinks[10].LinkedVariables[0]).VectValue;
@@ -166,7 +166,7 @@ event Activated()
 			Proj.Init(Normal(TargetLoc - SpawnLoc));
 			}
 
-			if(P6)
+			if(W5)
 			{
 			// get the spawn location
 			SpawnLoc = SeqVar_Vector(VariableLinks[12].LinkedVariables[0]).VectValue;
@@ -182,7 +182,7 @@ event Activated()
 			Proj.Init(Normal(TargetLoc - SpawnLoc));
 			}
 
-			if(P7)
+			if(W6)
 			{
 			// get the spawn location
 			SpawnLoc = SeqVar_Vector(VariableLinks[14].LinkedVariables[0]).VectValue;
@@ -208,10 +208,10 @@ defaultproperties
 	bCallHandler=false
 	ObjName="Projectile Spawner"
 	ObjCategory="BF Actions"
-	VariableLinks(0)=(ExpectedType=class'SeqVar_Vector',LinkDesc="Absorb SL",MinVars=1,MaxVars=1)
-	VariableLinks(1)=(ExpectedType=class'SeqVar_Vector',LinkDesc="Absorb TL",MinVars=1,MaxVars=1)
-		VariableLinks(2)=(ExpectedType=class'SeqVar_Vector',LinkDesc=" Base SL",MinVars=1,MaxVars=1)
-		VariableLinks(3)=(ExpectedType=class'SeqVar_Vector',LinkDesc=" Base P1 TL",MinVars=1,MaxVars=1)
+	VariableLinks(0)=(ExpectedType=class'SeqVar_Vector',LinkDesc="A  SL",MinVars=1,MaxVars=1)
+	VariableLinks(1)=(ExpectedType=class'SeqVar_Vector',LinkDesc="A  TL",MinVars=1,MaxVars=1)
+		VariableLinks(2)=(ExpectedType=class'SeqVar_Vector',LinkDesc=" B  SL",MinVars=1,MaxVars=1)
+		VariableLinks(3)=(ExpectedType=class'SeqVar_Vector',LinkDesc=" B  TL",MinVars=1,MaxVars=1)
 	VariableLinks(4)=(ExpectedType=class'SeqVar_Vector',LinkDesc=" P1 SL",MinVars=1,MaxVars=1)
 	VariableLinks(5)=(ExpectedType=class'SeqVar_Vector',LinkDesc=" P1 TL",MinVars=1,MaxVars=1)
 		VariableLinks(6)=(ExpectedType=class'SeqVar_Vector',LinkDesc=" P2 SL",MinVars=1,MaxVars=1)
@@ -225,13 +225,5 @@ defaultproperties
 		VariableLinks(14)=(ExpectedType=class'SeqVar_Vector',LinkDesc=" P6 SL",MinVars=1,MaxVars=1)
 		VariableLinks(15)=(ExpectedType=class'SeqVar_Vector',LinkDesc=" P6 TL",MinVars=1,MaxVars=1)
 	VariableLinks(16)=(ExpectedType=class'SeqVar_Object',LinkDesc="Instigator",MinVars=0,MaxVars=1)
-    
-	P0 = false
-	P1 = true
-	P2 = false
-	P3 = false
-	P4 = false
-	P5 = false
-	P6 = false
-	P7 = false
+   
 }

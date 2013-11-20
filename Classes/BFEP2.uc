@@ -26,7 +26,7 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 	if(Damage == 2)
 	{
 	SetDrawScale((DrawScale-0.5));
-	Health = Health+2;
+	//Health = Health+2;
 	}
 }
 
@@ -51,8 +51,7 @@ function bool Died(Controller Killer, class<DamageType> damageType, vector HitLo
 	}
 	return false;
 	*/
-	`Log("I HAVE DIED==========================================================================================");
-	BFGameInfo(WorldInfo.Game).P3 = true;
+	BFGameInfo(WorldInfo.Game).W2 = true;
 	owner.Destroy();
 	Self.Destroy();
 	return True;

@@ -46,16 +46,6 @@ simulated function AttachWeaponTo(SkeletalMeshComponent MeshCpnt, optional Name 
         MeshCpnt.AttachComponentToSocket(Mesh,'EP1_Nose_Gun');
 }
 
-//function suckit()
-//{
-	//if(ProjectileType==2)
-	//{
-		//Projectiles[1]=class'UdkProject.BFProjectile2';
-	//}
-//}
-
-
-
 //set weapons position
 simulated event SetPosition(UDKPawn Holder)
 {

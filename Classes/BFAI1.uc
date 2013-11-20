@@ -8,7 +8,6 @@
 
 class BFAI1 extends UDKBot;
 
-
 var vector EnemyLoc;
 var float EnemyDistance;
 
@@ -59,6 +58,8 @@ simulated event GetPlayerViewPoint(out vector out_Location, out Rotator out_Rota
 	    else
 	        Super.GetPlayerViewPoint(out_Location, out_Rotation);
 }
+
 defaultproperties
 {
+
 }

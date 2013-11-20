@@ -8,19 +8,24 @@
 
 class SeqAct_AbsorbMode extends SequenceAction;
 
-var bool P1;
-
 event Activated()
 {
 
+
 	if(InputLinks[0].bHasImpulse == true){
-		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).P0 = true;
+		OutputLinks[0].bHasImpulse = true;
 	}
 
 	if(InputLinks[1].bHasImpulse == true){
-		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).P0 = false;
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Absorb = false;
+		OutputLinks[0].bHasImpulse = false;
+		OutputLinks[1].bHasImpulse = false;
 	}
 
+	if(InputLinks[2].bHasImpulse == true){
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Absorb = true;
+		OutputLinks[1].bHasImpulse = true;
+	}
 
 }
 
@@ -29,8 +34,12 @@ defaultproperties
 	ObjName="Absorb Mode Toggle"
 	ObjCategory="BF Actions"
 
-	InputLinks[0]=(LinkDesc="Absorb")
-	InputLinks[1]=(LinkDesc="Weapon")
+	OutputLinks[0]=(LinkDesc="L")
+	OutputLinks[1]=(LinkDesc="R")
+
+	InputLinks[0]=(LinkDesc="Basic")
+	InputLinks[1]=(LinkDesc="Released")
+	InputLinks[2]=(LinkDesc="Absorb")
 
 	VariableLinks.Empty
 

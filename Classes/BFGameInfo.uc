@@ -1,6 +1,6 @@
 //////////////////////////
 // Author(s): Tyler Keller, Sean Mackey
-// Date: 11/5/2013
+// Date: 11/20/2013
 // Status: Alpha
 // Being Used: Yes
 // Description: GameInfo for Blood Falcon
@@ -8,28 +8,14 @@
 
 class BFGameInfo extends UDKGame;
 
-var bool P0;
-var bool P1;
-var bool P2;
-var bool P3;
-var bool P4;
-var bool P5;
-var bool P6;
-var bool P7;
-
-/*struct WeapStatus
-{
-	var bool Base;
-	var bool Absorb;
-	var bool Laser;
-
-	structdefaultproperties
-	{
-		Base = true;
-		Absorb = true;
-		Laser = false;
-	}
-};*/
+var bool Absorb;
+var bool Basic;
+var bool W1;
+var bool W2;
+var bool W3;
+var bool W4;
+var bool W5;
+var bool W6;
 
 static event class<GameInfo> SetGameType(string MapName, string Options, string Portal)
 {
@@ -38,17 +24,17 @@ static event class<GameInfo> SetGameType(string MapName, string Options, string 
 
 defaultproperties
 {
-        bDelayedStart=false
-        DefaultPawnClass=class'UdkProject.BFPawn'
-        PlayerControllerClass=class'UdkProject.BFPlayerController'
-	    HUDType=class'BFHUD'
+    bDelayedStart=false
+    DefaultPawnClass=class'UdkProject.BFPawn'
+    PlayerControllerClass=class'UdkProject.BFPlayerController'
+	HUDType=class'UdkProject.BFHUD'
 
-	P0 = false
-	P1 = true
-	P2 = false
-	P3 = false
-	P4 = false
-	P5 = false
-	P6 = false
-	P7 = false
+	Absorb = false
+	Basic = true
+	W1 = false
+	W2 = false
+	W3 = false
+	W4 = false
+	W5 = false
+	W6 = false
 }

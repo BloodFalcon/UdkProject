@@ -1,5 +1,5 @@
 //////////////////////////
-// Author(s): Tyler Keller, Sean Mackey, Dewayne Cameron
+// Author(s): Dewayne Cameron
 // Date: 11/5/2013
 // Status: Alpha
 // Being Used: Yes
@@ -11,7 +11,6 @@ class BFHUD extends HUD;
 var Texture2D Jetbar;
 var MultiFont BF_Font;
 var Texture2D Bomb;
-//var WeapStatus WeapStatus;
 
 function drawHUD()
 {
@@ -32,12 +31,6 @@ function drawTitle()
 	Canvas.DrawText("BLOOD FALCON");
 }
 
-//------------------------------------------------------------------------------------------------------------
-// Created By Dewayne Cameron 
-// This is the HUD concept for Blood Falcon a stuuts bar with Text and Weapons Indicator renders at the lower
-// left hand conner of the screen 
-
-
 // draw text line above the draw_PBT over the Status bar
 function darwPBT()
 {
@@ -46,7 +39,6 @@ function darwPBT()
 	Canvas.Font = BF_Font;
 	Canvas.DrawText("WEAPON",,0.5,0.5);
 }
-
 
 // draw text line under the drawPBT over the Status bar
 function darw_PBT()
@@ -70,21 +62,14 @@ function drawPlayerBar()
 
 function activeWeapons()
 {
-	//if(WeapStatus.Absorb)
-	//{
+/*
 	//weapon bay 1
-	//Canvas.SetPos(75, 950);
-	//Canvas.DrawBox(7,11);
-	//Canvas.SetDrawColor(0,255,0);
-	//}else{
-	//Canvas.SetPos(75, 950);
-	//Canvas.DrawBox(7,11);
-	//Canvas.SetDrawColor(255,0,0);
-	//}
-	
+	Canvas.SetPos(75, 950);
+	Canvas.DrawBox(7,11);
+	Canvas.SetDrawColor(255,0,0);
 	//Canvas.SetDrawColor(255,0,0); if damaged turn this color 
 
-	/*//weapon bay 2
+	//weapon bay 2
 	Canvas.SetPos(86, 940);
 	Canvas.DrawBox(7,11);
 	Canvas.SetDrawColor(255,0,0);
@@ -115,12 +100,6 @@ function drawBombIcon()
 // when the bomb class is made and this function will change the color of the icon to indicate its been used and player is out of bombs 
 	//Canvas.SetDrawColor(255, 0, 0, 195 );
 }
-
-//------------------------------------------------------------------------------------------------------------------
-// End Dewayne Cameron Scripts
-
-
-
 
 DefaultProperties
 {

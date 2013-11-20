@@ -11,30 +11,13 @@ class BFPawn extends UDKPawn;
 var bool FirstRun;
 var Vector PawnLoc;
 var Vector BFcamLoc;
-// Internal int which stores the desired yaw of the pawn
-var int DesiredYaw;
-// Internal int which store the current yaw of the pawn
-var int CurrentYaw;
-// Internal int which stores the current pitch of the pawn
-var int CurrentPitch;
 var array<Weapon> MasterPlayerInventory;
-//var WeapStatus WeapStat;
-
-/*simulated event PostBeginPlay()
-{
-	Super.PostBeginPlay();
-
-	//Set the desired and current yaw to the same as what the pawn spawned in
-	DesiredYaw = Rotation.Yaw;
-	CurrentYaw = Rotation.Yaw;
-}*/
 
 event PostBeginPlay()
 {
 super.PostBeginPlay();
 SetPhysics(PHYS_Flying);
 }
-
 
 simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out rotator out_CamRot, out float out_FOV )
 {
