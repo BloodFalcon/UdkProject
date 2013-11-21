@@ -77,10 +77,10 @@ defaultproperties
 {
 
 	Speed = 5000
-	ProjFlightTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
+	//ProjFlightTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
 	ProjExplosionTemplate=ParticleSystem'WP_LinkGun.Effects.P_WP_Linkgun_Impact'
 	LifeSpan=1
-	DrawScale=2
+	DrawScale=1
 	Damage=10
     MomentumTransfer=0
 	CustomGravityScaling=0
@@ -96,9 +96,9 @@ defaultproperties
     Components.Add(MyLightEnvironment)
 
     Begin Object class=StaticMeshComponent name=MyMesh
-            StaticMesh=StaticMesh'WP_ShockRifle.Mesh.S_Sphere_Good'
+            StaticMesh=StaticMesh'E3_Demo.Meshes.SM_Barrel_01'
             LightEnvironment=MyLightEnvironment
-			HiddenGame=true
+			HiddenGame=false
     End Object
     Components.Add(MyMesh)
 	bBlockedByInstigator=false

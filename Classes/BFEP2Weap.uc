@@ -36,7 +36,6 @@ var(Weapon) const array<SoundCue> WeaponFireSounds;
 simulated function TimeWeaponEquipping()
 {
         AttachWeaponTo(Instigator.Mesh,'EP2_Left_Gun');
-		AttachWeaponTo(Instigator.Mesh,'EP2_Right_Gun');
         super.TimeWeaponEquipping();
 }
 
@@ -45,7 +44,6 @@ simulated function TimeWeaponEquipping()
 simulated function AttachWeaponTo(SkeletalMeshComponent MeshCpnt, optional Name SocketName)
 {
         MeshCpnt.AttachComponentToSocket(Mesh,'EP2_Left_Gun');
-		MeshCpnt.AttachComponentToSocket(Mesh,'EP2_Right_Gun');
 }
 
 //set weapons position
