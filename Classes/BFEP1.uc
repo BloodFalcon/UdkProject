@@ -10,6 +10,7 @@ class BFEP1 extends UDKPawn
 placeable;
 
 var bool AbsorbSuccess;
+var BFPawn OurPlayer;
 
 function AddDefaultInventory()
 {
@@ -44,7 +45,19 @@ function bool Died(Controller Killer, class<DamageType> damageType, vector HitLo
 	Self.Destroy();
 	return True;
 }
- 
+
+event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
+{
+	local UDKPawn HitPawn;
+	HitPawn = UDKPawn(Other);
+
+			if(HitPawn != none)
+			{
+				`Log("Call Weapon Damage");
+				OurPlayer.WeaponDamage();
+			}
+}
+
 DefaultProperties
 {
 	
@@ -69,6 +82,10 @@ DefaultProperties
  
     bJumpCapable=false
     bCanJump=false
+
+	BlockRigidBody=true
+	bCollideActors=true
+	bBlockActors=true
  
     GroundSpeed=200.0 //Making the bot slower than the player
 	DrawScale = 5

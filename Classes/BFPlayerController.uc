@@ -17,6 +17,7 @@ function UpdateRotation( float DeltaTime )
 	ProcessViewRotation( DeltaTime, ViewRotation, DeltaRot );
 }
 
+
 defaultproperties
 {
 

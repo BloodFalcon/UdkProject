@@ -19,6 +19,11 @@ super.PostBeginPlay();
 SetPhysics(PHYS_Flying);
 }
 
+function WeaponDamage()
+{
+
+}
+
 simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out rotator out_CamRot, out float out_FOV )
 {
 	if(FirstRun)
@@ -77,6 +82,24 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 
 }
 
+function bool Died(Controller Killer, class<DamageType> damageType, vector HitLocation)
+{
+	owner.Destroy();
+	Self.Destroy();
+	return True;
+}
+
+event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
+{
+	local UDKPawn HitPawn;
+	HitPawn = UDKPawn(Other);
+
+			if(HitPawn != none)
+			{
+				`Log("Kill Enemy!");
+				HitPawn.TakeDamage( 1000, None, HitPawn.Location, vect(0,0,0) , class'Engine.DmgType_Crushed');
+			}
+}
 
 defaultproperties
 {
@@ -107,4 +130,10 @@ defaultproperties
         Components.Add(MyMesh)
         Mesh=MyMesh
 		FirstRun = True
+		Health = 100;
+		BlockRigidBody=true
+		bBlockActors = true
+		bCollideActors = true
+		CollisionType=COLLIDE_BlockAll
+		CylinderComponent=CollisionCylinder
 }
