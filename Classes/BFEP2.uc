@@ -69,8 +69,7 @@ event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
 
 			if(HitPawn != none)
 			{
-				`Log("Call Weapon Damage");
-				OurPlayer.WeaponDamage();
+				`Log("Enemy Hit");
 			}
 }
  

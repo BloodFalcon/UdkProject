@@ -21,7 +21,7 @@ SetPhysics(PHYS_Flying);
 
 function WeaponDamage()
 {
-
+	`log("This worked again!");
 }
 
 simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out rotator out_CamRot, out float out_FOV )
@@ -96,8 +96,8 @@ event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
 
 			if(HitPawn != none)
 			{
-				`Log("Kill Enemy!");
-				HitPawn.TakeDamage( 1000, None, HitPawn.Location, vect(0,0,0) , class'Engine.DmgType_Crushed');
+				`log("Player Hit");
+				WeaponDamage();
 			}
 }
 
