@@ -11,6 +11,8 @@ class BFHUD extends HUD;
 var Texture2D Jetbar;
 var MultiFont BF_Font;
 var Texture2D Bomb;
+var MultiFont StatusFont;
+
 
 function drawHUD()
 {
@@ -21,6 +23,8 @@ function drawHUD()
 	darw_PBT();
 	drawBombIcon();
 	activeWeapons();
+	//drawLvlComplete();
+	//drawGameOver();
 }
 
 function drawTitle()
@@ -101,10 +105,28 @@ function drawBombIcon()
 	//Canvas.SetDrawColor(255, 0, 0, 195 );
 }
 
+/*function drawLvlComplete()
+{
+	Canvas.SetPos(((Canvas.ClipX / 2) - 225), Canvas.ClipY / 2);
+	Canvas.SetDrawColor(0, 204, 0);
+	Canvas.Font = StatusFont;
+	Canvas.DrawText("LEVEL COMPLETE");
+}*/
+
+/*function drawGameOver()
+{
+	Canvas.SetPos(((Canvas.ClipX / 2) - 145), Canvas.ClipY / 2);
+	Canvas.SetDrawColor(255, 0, 0);
+	Canvas.Font = StatusFont;
+	Canvas.DrawText("GAME OVER");
+}*/
+
+
 DefaultProperties
 {
 	BF_Font = MultiFont'UI_Fonts_Final.menus.Fonts_AmbexHeavy'
 	Jetbar = Texture2D'BloodFalcon.Texture.Jetbar'
 	Bomb = Texture2D'BloodFalcon.Texture.BombICON'
+	StatusFont = MultiFont'UI_Fonts.MultiFonts.MF_LargeFont'
 }
 
