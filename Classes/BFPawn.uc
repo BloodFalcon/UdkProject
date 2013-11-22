@@ -21,7 +21,35 @@ SetPhysics(PHYS_Flying);
 
 function WeaponDamage()
 {
-	`log("This worked again!");
+	local bool W1;
+	local bool W2;
+	local bool W3;
+	local bool W4;
+	local bool W5;
+	local bool W6;
+
+	W1 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W1;
+	W2 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W2;
+	W3 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W3;
+	W4 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W4;
+	W5 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W5;
+	W6 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W6;
+
+	if(W6){
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W6 = false;
+	}else if(W5){
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W5 = false;
+	}else if(W4){
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W4 = false;
+	}else if(W3){
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W3 = false;
+	}else if(W2){
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W2 = false;
+	}else if(W1){
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W1 = false;
+	}else{
+		Self.Destroy();
+	}
 }
 
 simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out rotator out_CamRot, out float out_FOV )
