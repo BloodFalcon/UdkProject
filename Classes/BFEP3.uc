@@ -6,7 +6,7 @@
 // Description: Enemy Pawn 1
 //////////////////////////
 
-class BFEP2 extends UDKPawn 
+class BFEP3 extends UDKPawn 
 placeable;
 
 var bool AbsorbSuccess;
@@ -14,13 +14,13 @@ var BFPawn OurPlayer;
 
 function AddDefaultInventory()
 {
-    InvManager.CreateInventory(class'UdkProject.BFEP2Weap');
+    InvManager.CreateInventory(class'UdkProject.BFEP3Weap');
 }
  
 event PostBeginPlay()
 {
     super.PostBeginPlay();
-    AddDefaultInventory(); //GameInfo calls it only for players, so we have to do it ourselves for AI.
+    AddDefaultInventory(); //GameInfo calls it only for players, so we have to do it ourselves for AI.'
 	SetPhysics(PHYS_Flying);
 }
 
@@ -31,32 +31,16 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 	SetDrawScale((DrawScale-0.5));
 	AbsorbSuccess = true;
 	}
-	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser); //Must Have To Process Standard Damage
+
+	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);  //Must Have To Process Standard Damage
 }
+
+
 
 function bool Died(Controller Killer, class<DamageType> damageType, vector HitLocation)
 {
-	/*
-	if (Super.Died(Killer, DamageType, HitLocation))
-	{
-		StartFallImpactTime = WorldInfo.TimeSeconds;
-		bCanPlayFallingImpacts=true;
-		if(ArmsMesh[0] != none)
-		{
-			ArmsMesh[0].SetHidden(true);
-		}
-		if(ArmsMesh[1] != none)
-		{
-			ArmsMesh[1].SetHidden(true);
-		}
-		SetPawnAmbientSound(None);
-		SetWeaponAmbientSound(None);
-		return true;
-	}
-	return false;
-	*/
 	if(AbsorbSuccess){
-	BFGameInfo(WorldInfo.Game).W2 = true;
+	BFGameInfo(WorldInfo.Game).W1 = true;
 	}
 	owner.Destroy();
 	Self.Destroy();
@@ -73,34 +57,36 @@ event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
 				`Log("Enemy Hit");
 			}
 }
- 
+
 DefaultProperties
 {
+	
 	Health = 10
     Begin Object Name=CollisionCylinder
         CollisionHeight=+44.000000
     End Object
  
-    Begin Object Class=SkeletalMeshComponent Name=EP2Mesh
-        SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Drone'
+    Begin Object Class=SkeletalMeshComponent Name=EP1Mesh
+        SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.SuicideFighter'
         //AnimSets(0)=AnimSet'CH_AnimHuman.Anims.K_AnimHuman_BaseMale'
         //AnimTreeTemplate=AnimTree'CH_AnimHuman_Tree.AT_CH_Human'
         HiddenGame=FALSE
         HiddenEditor=FALSE
     End Object
  
-    Mesh=EP2Mesh
+    Mesh=EP1Mesh
  
-    Components.Add(EP2Mesh)
-    ControllerClass=class'UdkProject.BFAI2'
+    Components.Add(EP1Mesh)
+    ControllerClass=class'UdkProject.BFAI3'
     InventoryManagerClass=class'UdkProject.BFEP1InvManager'
  
     bJumpCapable=false
     bCanJump=false
+
 	BlockRigidBody=true
 	bCollideActors=true
 	bBlockActors=true
  
     //GroundSpeed=200.0 //Making the bot slower than the player
-	DrawScale=1
+	DrawScale = 1
 }
