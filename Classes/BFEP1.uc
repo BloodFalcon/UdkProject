@@ -34,17 +34,7 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);  //Must Have To Process Standard Damage
 }
 
-simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out rotator out_CamRot, out float out_FOV )
-{
-	local Vector CamLoc;
-	CamLoc = OurPlayer.BFcamLoc;
 
-	if((Location.Y-750)>=CamLoc.Y)
-	{
-		self.Destroy();
-	}
-	return true;
-}
 
 function bool Died(Controller Killer, class<DamageType> damageType, vector HitLocation)
 {
@@ -56,7 +46,7 @@ function bool Died(Controller Killer, class<DamageType> damageType, vector HitLo
 	return True;
 }
 
-/*event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
+event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
 {
 	local UDKPawn HitPawn;
 	HitPawn = UDKPawn(Other);
@@ -66,14 +56,14 @@ function bool Died(Controller Killer, class<DamageType> damageType, vector HitLo
 				`Log("Call Weapon Damage");
 				OurPlayer.WeaponDamage();
 			}
-}*/
+}
 
 DefaultProperties
 {
 	
 	Health = 10
     Begin Object Name=CollisionCylinder
-        CollisionHeight=+128.000000
+        CollisionHeight=+44.000000
     End Object
  
     Begin Object Class=SkeletalMeshComponent Name=EP1Mesh
@@ -96,13 +86,7 @@ DefaultProperties
 	BlockRigidBody=true
 	bCollideActors=true
 	bBlockActors=true
-	CollisionType=COLLIDE_BlockAll
-	CylinderComponent=CollisionCylinder
  
     GroundSpeed=200.0 //Making the bot slower than the player
-<<<<<<< HEAD
 	DrawScale = 5
-=======
-	DrawScale = 1
->>>>>>> 8d550b8fe8484bce7a0677d4f2a5b5717d45acb6
 }
