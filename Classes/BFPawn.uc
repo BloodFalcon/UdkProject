@@ -89,18 +89,6 @@ function bool Died(Controller Killer, class<DamageType> damageType, vector HitLo
 	return True;
 }
 
-event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
-{
-	local UDKPawn HitPawn;
-	HitPawn = UDKPawn(Other);
-
-			if(HitPawn != none)
-			{
-				`Log("Kill Enemy!");
-				HitPawn.TakeDamage( 1000, None, HitPawn.Location, vect(0,0,0) , class'Engine.DmgType_Crushed');
-			}
-}
-
 defaultproperties
 {
 		bCanJump = false
