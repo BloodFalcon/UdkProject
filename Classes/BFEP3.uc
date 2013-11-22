@@ -88,6 +88,10 @@ DefaultProperties
 	bCollideActors=true
 	bBlockActors=true
  
+<<<<<<< HEAD
 	AirSpeed=5
+=======
+    GroundSpeed=200.0 //Making the bot slower than the player
+>>>>>>> 8d550b8fe8484bce7a0677d4f2a5b5717d45acb6
 	DrawScale = 1
 }

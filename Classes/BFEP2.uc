@@ -62,7 +62,7 @@ function bool Died(Controller Killer, class<DamageType> damageType, vector HitLo
 	return True;
 }
 
-event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
+/*event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
 {
 	local UDKPawn HitPawn;
 	HitPawn = UDKPawn(Other);
@@ -72,13 +72,13 @@ event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
 				`Log("Call Weapon Damage");
 				OurPlayer.WeaponDamage();
 			}
-}
+}*/
  
 DefaultProperties
 {
 	Health = 10
     Begin Object Name=CollisionCylinder
-        CollisionHeight=+44.000000
+        CollisionHeight=+128.000000
     End Object
  
     Begin Object Class=SkeletalMeshComponent Name=EP2Mesh
@@ -100,7 +100,13 @@ DefaultProperties
 	BlockRigidBody=true
 	bCollideActors=true
 	bBlockActors=true
+	CollisionType=COLLIDE_BlockAll
+	CylinderComponent=CollisionCylinder
  
     GroundSpeed=200.0 //Making the bot slower than the player
+<<<<<<< HEAD
 	DrawScale=5
+=======
+	DrawScale=1
+>>>>>>> 8d550b8fe8484bce7a0677d4f2a5b5717d45acb6
 }
