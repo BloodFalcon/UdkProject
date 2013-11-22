@@ -20,8 +20,7 @@ function AddDefaultInventory()
 event PostBeginPlay()
 {
     super.PostBeginPlay();
-    AddDefaultInventory(); //GameInfo calls it only for players, so we have to do it ourselves for AI.'
-	SetPhysics(PHYS_Flying);
+    AddDefaultInventory(); //GameInfo calls it only for players, so we have to do it ourselves for AI.
 }
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
@@ -54,7 +53,8 @@ event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
 
 			if(HitPawn != none)
 			{
-				`Log("Enemy Hit");
+				`Log("Call Weapon Damage");
+				OurPlayer.WeaponDamage();
 			}
 }
 
@@ -87,6 +87,6 @@ DefaultProperties
 	bCollideActors=true
 	bBlockActors=true
  
-    //GroundSpeed=200.0 //Making the bot slower than the player
-	DrawScale = 1
+    GroundSpeed=200.0 //Making the bot slower than the player
+	DrawScale = 5
 }

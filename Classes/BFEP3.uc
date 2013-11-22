@@ -49,13 +49,14 @@ function bool Died(Controller Killer, class<DamageType> damageType, vector HitLo
 
 event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
 {
-	local UDKPawn HitPawn;
+	/*local UDKPawn HitPawn;
 	HitPawn = UDKPawn(Other);
 
 			if(HitPawn != none)
 			{
 				`Log("Enemy Hit");
-			}
+			{
+*/
 }
 
 DefaultProperties
@@ -66,7 +67,7 @@ DefaultProperties
         CollisionHeight=+44.000000
     End Object
  
-    Begin Object Class=SkeletalMeshComponent Name=EP1Mesh
+    Begin Object Class=SkeletalMeshComponent Name=EP3Mesh
         SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.SuicideFighter'
         //AnimSets(0)=AnimSet'CH_AnimHuman.Anims.K_AnimHuman_BaseMale'
         //AnimTreeTemplate=AnimTree'CH_AnimHuman_Tree.AT_CH_Human'
@@ -74,9 +75,9 @@ DefaultProperties
         HiddenEditor=FALSE
     End Object
  
-    Mesh=EP1Mesh
+    Mesh=EP3Mesh
  
-    Components.Add(EP1Mesh)
+    Components.Add(EP3Mesh)
     ControllerClass=class'UdkProject.BFAI3'
     InventoryManagerClass=class'UdkProject.BFEP1InvManager'
  
@@ -87,6 +88,6 @@ DefaultProperties
 	bCollideActors=true
 	bBlockActors=true
  
-    //GroundSpeed=200.0 //Making the bot slower than the player
+	AirSpeed=5
 	DrawScale = 1
 }

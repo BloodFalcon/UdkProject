@@ -21,7 +21,6 @@ event PostBeginPlay()
 {
     super.PostBeginPlay();
     AddDefaultInventory(); //GameInfo calls it only for players, so we have to do it ourselves for AI.
-	SetPhysics(PHYS_Flying);
 }
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
@@ -70,7 +69,8 @@ event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
 
 			if(HitPawn != none)
 			{
-				`Log("Enemy Hit");
+				`Log("Call Weapon Damage");
+				OurPlayer.WeaponDamage();
 			}
 }
  
@@ -82,7 +82,7 @@ DefaultProperties
     End Object
  
     Begin Object Class=SkeletalMeshComponent Name=EP2Mesh
-        SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Drone'
+        SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.GunShip'
         //AnimSets(0)=AnimSet'CH_AnimHuman.Anims.K_AnimHuman_BaseMale'
         //AnimTreeTemplate=AnimTree'CH_AnimHuman_Tree.AT_CH_Human'
         HiddenGame=FALSE
@@ -101,6 +101,6 @@ DefaultProperties
 	bCollideActors=true
 	bBlockActors=true
  
-    //GroundSpeed=200.0 //Making the bot slower than the player
-	DrawScale=1
+    GroundSpeed=200.0 //Making the bot slower than the player
+	DrawScale=5
 }
