@@ -12,6 +12,7 @@ var bool FirstRun;
 var Vector PawnLoc;
 var Vector BFcamLoc;
 var array<Weapon> MasterPlayerInventory;
+var bool playerCanBeHurt;
 
 event PostBeginPlay()
 {
@@ -21,6 +22,7 @@ SetPhysics(PHYS_Flying);
 
 function WeaponDamage()
 {
+	
 	local bool W1;
 	local bool W2;
 	local bool W3;
@@ -34,6 +36,8 @@ function WeaponDamage()
 	W4 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W4;
 	W5 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W5;
 	W6 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W6;
+
+	`log("This Worked!");
 
 	if(W6){
 		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W6 = false;
@@ -127,6 +131,7 @@ event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
 				`log("Player Hit");
 				WeaponDamage();
 			}
+
 }
 
 defaultproperties
@@ -140,7 +145,7 @@ defaultproperties
         Components.Add(MyLightEnvironment)
 
         Begin Object Name=CollisionCylinder
-                CollisionHeight=+44.000000
+                CollisionHeight=+168.000000
         End Object
         
         Begin Object Class=SkeletalMeshComponent Name=MyMesh
@@ -164,4 +169,5 @@ defaultproperties
 		bCollideActors = true
 		CollisionType=COLLIDE_BlockAll
 		CylinderComponent=CollisionCylinder
+		playerCanBeHurt = true;
 }
