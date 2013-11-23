@@ -15,8 +15,13 @@ var array<Weapon> MasterPlayerInventory;
 
 event PostBeginPlay()
 {
-super.PostBeginPlay();
-SetPhysics(PHYS_Flying);
+	super.PostBeginPlay();
+	SetPhysics(PHYS_Flying); // wake the physics up
+	
+	// set up collision detection based on mesh's PhysicsAsset
+	CylinderComponent.SetActorCollision(false, false); // disable cylinder collision
+	Mesh.SetActorCollision(true, true); // enable PhysicsAsset collision
+	Mesh.SetTraceBlocking(true, true); // block traces (i.e. anything touching mesh)
 }
 
 function WeaponDamage()
@@ -89,6 +94,17 @@ function bool Died(Controller Killer, class<DamageType> damageType, vector HitLo
 	return True;
 }
 
+event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
+{
+	local UDKPawn HitPawn;
+	HitPawn = UDKPawn(Other);
+
+			if(HitPawn != none)
+			{
+				`Log("BUMP!");
+			}
+}
+
 defaultproperties
 {
 		bCanJump = false
@@ -98,21 +114,17 @@ defaultproperties
                 bEnabled=TRUE
         End Object
         Components.Add(MyLightEnvironment)
-
-        Begin Object Name=CollisionCylinder
-                CollisionHeight=+44.000000
-        End Object
         
         Begin Object Class=SkeletalMeshComponent Name=MyMesh
                 SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
-                //AnimSets(0)=AnimSet'VH_Cicada.Anims.VH_Cicada_Anims'
-                //AnimTreeTemplate=AnimTree'VH_Cicada.Anims.AT_VH_Cicada'
+				PhysicsAsset=PhysicsAsset'BloodFalcon.SkeletalMesh.Player_Physics'
 				Scale=2.0
-				/*SkeletalMesh=SkeletalMesh'CH_IronGuard_Male.Mesh.SK_CH_IronGuard_MaleA'
-                AnimSets(0)=AnimSet'CH_AnimHuman.Anims.K_AnimHuman_BaseMale'
-                AnimTreeTemplate=AnimTree'CH_AnimHuman_Tree.AT_CH_Human'*/
                 HiddenGame=FALSE
                 HiddenEditor=FALSE
+				BlockNonZeroExtent=true
+				BlockZeroExtent=true
+				BlockActors=true
+				CollideActors=true
                 LightEnvironment=MyLightEnvironment
         End Object
         Components.Add(MyMesh)
@@ -122,6 +134,5 @@ defaultproperties
 		BlockRigidBody=true
 		bBlockActors = true
 		bCollideActors = true
-		CollisionType=COLLIDE_BlockAll
-		CylinderComponent=CollisionCylinder
+		bCollideWorld = true
 }

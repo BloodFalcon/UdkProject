@@ -21,6 +21,12 @@ event PostBeginPlay()
 {
     super.PostBeginPlay();
     AddDefaultInventory(); //GameInfo calls it only for players, so we have to do it ourselves for AI.
+	SetPhysics(PHYS_Flying); // wake the physics up
+	
+	// set up collision detection based on mesh's PhysicsAsset
+	CylinderComponent.SetActorCollision(false, false); // disable cylinder collision
+	Mesh.SetActorCollision(true, true); // enable PhysicsAsset collision
+	Mesh.SetTraceBlocking(true, true); // block traces (i.e. anything touching mesh)
 }
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
@@ -53,8 +59,8 @@ event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
 
 			if(HitPawn != none)
 			{
-				`Log("Call Weapon Damage");
-				OurPlayer.WeaponDamage();
+				`Log("ENEMY KILLED!");
+				self.Destroy();
 			}
 }
 
@@ -62,16 +68,16 @@ DefaultProperties
 {
 	
 	Health = 10
-    Begin Object Name=CollisionCylinder
-        CollisionHeight=+44.000000
-    End Object
  
     Begin Object Class=SkeletalMeshComponent Name=EP1Mesh
         SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.GunShip'
-        //AnimSets(0)=AnimSet'CH_AnimHuman.Anims.K_AnimHuman_BaseMale'
-        //AnimTreeTemplate=AnimTree'CH_AnimHuman_Tree.AT_CH_Human'
+		PhysicsAsset=PhysicsAsset'BloodFalcon.SkeletalMesh.GunShip_Physics'
         HiddenGame=FALSE
         HiddenEditor=FALSE
+		BlockNonZeroExtent=true
+		BlockZeroExtent=true
+		BlockActors=true
+		CollideActors=true
     End Object
  
     Mesh=EP1Mesh
@@ -84,9 +90,10 @@ DefaultProperties
     bCanJump=false
 
 	BlockRigidBody=true
-	bCollideActors=true
-	bBlockActors=true
+	bBlockActors = true
+	bCollideActors = true
+	bCollideWorld = true
  
     GroundSpeed=200.0 //Making the bot slower than the player
-	DrawScale = 1
+	DrawScale = 5
 }
