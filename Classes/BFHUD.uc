@@ -19,8 +19,8 @@ function drawHUD()
 	super.drawHUD();
 	drawTitle();
 	drawPlayerBar();
-	darwPBT();
-	darw_PBT();
+	drawPBT();
+	draw_PBT();
 	drawBombIcon();
 	activeWeapons();
 	//drawLvlComplete();
@@ -36,7 +36,7 @@ function drawTitle()
 }
 
 // draw text line above the draw_PBT over the Status bar
-function darwPBT()
+function drawPBT()
 {
 	Canvas.SetPos(33, 882);
 	Canvas.SetDrawColor(255, 0, 0);
@@ -45,7 +45,7 @@ function darwPBT()
 }
 
 // draw text line under the drawPBT over the Status bar
-function darw_PBT()
+function draw_PBT()
 {
 
 	Canvas.SetPos(36, 892);
@@ -66,32 +66,74 @@ function drawPlayerBar()
 
 function activeWeapons()
 {
-/*
-	//weapon bay 1
+	local bool Absorb;
+	//local bool Basic;
+	local bool W1;
+	local bool W2;
+	//local bool W3;
+	//local bool W4;
+	//local bool W5;
+	//local bool W6;
+
+	Absorb = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Absorb;
+	//Basic = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Basic;
+	W1 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W1;
+	W2 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W2;
+	//W3 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W3;
+	//W4 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W4;
+	//W5 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W5;
+	//W6 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W6;
+
+	if(W2){     //weapon bay 1
+	Canvas.SetDrawColor(0,255,0);
 	Canvas.SetPos(75, 950);
 	Canvas.DrawBox(7,11);
-	Canvas.SetDrawColor(255,0,0);
 	//Canvas.SetDrawColor(255,0,0); if damaged turn this color 
+	}else{
+	Canvas.SetDrawColor(255,0,0);
+	Canvas.SetPos(75, 950);
+	Canvas.DrawBox(7,11);
+	}
 
-	//weapon bay 2
+	if(W1){     //weapon bay 2
+	Canvas.SetDrawColor(0,255,0);
 	Canvas.SetPos(86, 940);
 	Canvas.DrawBox(7,11);
-	Canvas.SetDrawColor(255,0,0);
-	
-	//weapon bay 3
+	}else{
+	Canvas.SetDrawColor(255,0,0);	
+	Canvas.SetPos(86, 940);
+	Canvas.DrawBox(7,11);
+	}
+
+	if(W1){     //weapon bay 3
+	Canvas.SetDrawColor(0,255,0);	
 	Canvas.SetPos(116, 950);
 	Canvas.DrawBox(7,11);
-	Canvas.SetDrawColor(255,0,0);
+	}else{
+	Canvas.SetDrawColor(255,0,0);		
+	Canvas.SetPos(116, 950);
+	Canvas.DrawBox(7,11);
+	}
 
-	//weapon bay 4
+	if(W2){     //weapon bay 4
+	Canvas.SetDrawColor(0,255,0);	
 	Canvas.SetPos(107, 940);
 	Canvas.DrawBox(7,11);
-	Canvas.SetDrawColor(255,0,0);
+	}else{
+	Canvas.SetDrawColor(255,0,0);	
+	Canvas.SetPos(107, 940);
+	Canvas.DrawBox(7,11);
+	}
 	
-	//weapon bay 5
+	if(Absorb){     //weapon bay 5
+	Canvas.SetDrawColor(0,255,0);	
 	Canvas.SetPos(96, 920);
 	Canvas.DrawBox(7,11);
-	Canvas.SetDrawColor(255,0,0);*/
+	}else{
+	Canvas.SetDrawColor(255,0,255);	
+	Canvas.SetPos(96, 920);
+	Canvas.DrawBox(7,11);
+	}
 }
 
 function drawBombIcon()

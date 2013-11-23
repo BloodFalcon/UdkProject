@@ -57,6 +57,12 @@ function WeaponDamage()
  }
 }
 
+event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
+{
+  Health+=Damage;
+  WeaponDamage();
+}
+
 simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out rotator out_CamRot, out float out_FOV )
 {
 	if(FirstRun)
