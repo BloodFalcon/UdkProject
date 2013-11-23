@@ -24,7 +24,7 @@ event PostBeginPlay()
 	SetPhysics(PHYS_Flying); // wake the physics up
 	
 	// set up collision detection based on mesh's PhysicsAsset
-	CylinderComponent.SetActorCollision(false, false); // disable cylinder collision
+	//CylinderComponent.SetActorCollision(false, false); // disable cylinder collision
 	Mesh.SetActorCollision(true, true); // enable PhysicsAsset collision
 	Mesh.SetTraceBlocking(true, true); // block traces (i.e. anything touching mesh)
 }
@@ -68,7 +68,10 @@ DefaultProperties
 {
 	
 	Health = 10
- 
+    Begin Object Name=CollisionCylinder
+		CollisionHeight=+44.000000
+    End Object
+
     Begin Object Class=SkeletalMeshComponent Name=EP1Mesh
         SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.GunShip'
 		PhysicsAsset=PhysicsAsset'BloodFalcon.SkeletalMesh.GunShip_Physics'
@@ -93,7 +96,9 @@ DefaultProperties
 	bBlockActors = true
 	bCollideActors = true
 	bCollideWorld = true
+	CollisionType=COLLIDE_BlockAll
+	CylinderComponent=CollisionCylinder
  
     GroundSpeed=200.0 //Making the bot slower than the player
-	DrawScale = 5
+	DrawScale = 2
 }

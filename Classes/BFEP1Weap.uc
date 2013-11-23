@@ -108,7 +108,7 @@ defaultproperties
 {
         FiringStatesArray(0)=WeaponFiring
         WeaponFireTypes(0)=EWFT_Projectile
-		WeaponProjectiles(0)=class'UdkProject.BFProjectile2'
+		WeaponProjectiles(0)=class'UdkProject.BFProjectile3'
         FireInterval(0)=0.5
         Spread(0)=0
 

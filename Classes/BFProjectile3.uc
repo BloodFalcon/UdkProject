@@ -81,7 +81,7 @@ defaultproperties
 	ProjExplosionTemplate=ParticleSystem'WP_LinkGun.Effects.P_WP_Linkgun_Impact'
 	LifeSpan=1
 	DrawScale=5
-	Damage=1
+	Damage=10
     MomentumTransfer=0
 	CustomGravityScaling=0
 

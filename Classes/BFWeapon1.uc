@@ -1,12 +1,4 @@
-//////////////////////////
-// Author(s): Tyler Keller, Sean Mackey
-// Date: 11/20/2013
-// Status: Alpha
-// Being Used: Yes
-// Description: Enemy Weapon 2
-//////////////////////////
-
-class BFEP2Weap extends UDKWeapon;
+class BFWeapon1 extends UDKWeapon;
 
 // Name of the socket which represents the muzzle socket
 var(Weapon) const Name MuzzleSocketName;
@@ -16,11 +8,20 @@ var(Weapon) const ParticleSystemComponent MuzzleFlash;
 var(Weapon) const array< class<Projectile> > Projectiles<DisplayName=Weapon Projectiles>;
 // Sounds to play back when the weapon is fired
 var(Weapon) const array<SoundCue> WeaponFireSounds;
+var BFInventoryManager LocBFInventoryManager;
+var BFPlayerController BFPC;
+var bool W1;
+var bool W2;
+var bool W3;
 
+simulated event PostBeginPlay()
+{
+	super.PostBeginPlay();
+}
 //SINGLE SHOT OR AUTOFIRE
 /*simulated function bool StillFiring(byte FireMode)
 {
-        if(CurrentFireMode == 0)
+        if(WeapStatus.Base == false)
         {
                 StopFire(CurrentFireMode);
 	        return false;
@@ -35,7 +36,7 @@ var(Weapon) const array<SoundCue> WeaponFireSounds;
 //Set weapon position on equipping
 simulated function TimeWeaponEquipping()
 {
-        AttachWeaponTo(Instigator.Mesh,'EP2_Left_Gun');
+        AttachWeaponTo(Instigator.Mesh,'Nose_Gun');
         super.TimeWeaponEquipping();
 }
 
@@ -43,8 +44,9 @@ simulated function TimeWeaponEquipping()
 //set which socket the weapon should be attached to
 simulated function AttachWeaponTo(SkeletalMeshComponent MeshCpnt, optional Name SocketName)
 {
-        MeshCpnt.AttachComponentToSocket(Mesh,'EP2_Left_Gun');
+        MeshCpnt.AttachComponentToSocket(Mesh,'Nose_Gun');
 }
+
 
 //set weapons position
 simulated event SetPosition(UDKPawn Holder)
@@ -57,7 +59,7 @@ simulated event SetPosition(UDKPawn Holder)
 
         if (compo != none)
         {
-                socket = compo.GetSocketByName('EP2_Left_Gun');
+                socket = compo.GetSocketByName('Nose_Gun');
 
                 if (socket != none)
                 {
@@ -94,7 +96,7 @@ simulated event vector GetPhysicalFireStartLoc(optional vector AimDir)
 
         if (compo != none)
         {
-                socket = compo.GetSocketByName('EP2_Left_Gun');
+                socket = compo.GetSocketByName('Nose_Gun');
 
                 if (socket != none)
                 {
@@ -103,21 +105,73 @@ simulated event vector GetPhysicalFireStartLoc(optional vector AimDir)
         }
 }
 
+simulated function Projectile ProjectileFire()
+{
+	local vector		StartTrace, EndTrace, RealStartLoc, AimDir;
+	local ImpactInfo	TestImpact;
+	local Projectile	SpawnedProjectile;
+	
+
+	// tell remote clients that we fired, to trigger effects
+	IncrementFlashCount();
+
+	if( Role == ROLE_Authority )
+	{
+		// This is where we would start an instant trace. (what CalcWeaponFire uses)
+		
+		StartTrace = Instigator.GetWeaponStartTraceLocation();
+		AimDir = Vector(GetAdjustedAim( StartTrace ));
+
+		// this is the location where the projectile is spawned.
+		RealStartLoc = GetPhysicalFireStartLoc(AimDir);
+
+		if( StartTrace != RealStartLoc )
+		{
+			// if projectile is spawned at different location of crosshair,
+			// then simulate an instant trace where crosshair is aiming at, Get hit info.
+			EndTrace = StartTrace + AimDir * GetTraceRange();
+			TestImpact = CalcWeaponFire( StartTrace, EndTrace );
+
+			// Then we realign projectile aim direction to match where the crosshair did hit.
+			AimDir = Normal(TestImpact.HitLocation - RealStartLoc);
+		}
+
+		// Spawn projectile
+		SpawnedProjectile = Spawn(class'BFProjectile1', Self,, RealStartLoc);
+		if( SpawnedProjectile != None && !SpawnedProjectile.bDeleteMe && W2 == true)
+		{
+			SpawnedProjectile.Init( AimDir );
+		}
+
+		// Return it up the line
+		return SpawnedProjectile;
+	}
+	else
+	{
+		//do something
+	}   
+
+	return None;
+}
+
 
 defaultproperties
 {
-        FiringStatesArray(0)=WeaponFiring
-        WeaponFireTypes(0)=EWFT_Projectile
-		WeaponProjectiles(0)=class'UdkProject.BFProjectile4'
-        FireInterval(0)=0.5
-        Spread(0)=0
+        FiringStatesArray(0)= WeaponFiring;
+        WeaponFireTypes(0)=EWFT_Projectile;
+		WeaponProjectiles(0)=class'UdkProject.BFProjectile2'
+        FireInterval(0)=0.1
+		Spread(0)=0.0
 
 //      GUN MESH
-        Begin Object class=SkeletalMeshComponent Name=MyMesh
-                SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.GunShip'
+        Begin Object class=SkeletalMeshComponent Name=Mesh
+                SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.SuicideFighter'
                 HiddenGame=true
                 HiddenEditor=true
         End object
-        Mesh=MyMesh
-        Components.Add(MyMesh)
+        Mesh=Mesh
+        Components.Add(Mesh)
+		W1 = false
+		W2 = false
+		W3 = false
 }

@@ -1,24 +1,7 @@
-//////////////////////////
-// Author(s): Tyler Keller, Sean Mackey
-// Date: 11/20/2013
-// Status: Alpha
-// Being Used: Yes
-// Description: Enemy Weapon 2
-//////////////////////////
-
-class BFEP2Weap extends UDKWeapon;
-
-// Name of the socket which represents the muzzle socket
-var(Weapon) const Name MuzzleSocketName;
-// Particle system representing the muzzle flash
-var(Weapon) const ParticleSystemComponent MuzzleFlash;
-// Projectile classes that this weapon fires. DisplayName lets the editor show this as WeaponProjectiles
-var(Weapon) const array< class<Projectile> > Projectiles<DisplayName=Weapon Projectiles>;
-// Sounds to play back when the weapon is fired
-var(Weapon) const array<SoundCue> WeaponFireSounds;
+class BFWeapon extends UDKWeapon;
 
 //SINGLE SHOT OR AUTOFIRE
-/*simulated function bool StillFiring(byte FireMode)
+simulated function bool StillFiring(byte FireMode)
 {
         if(CurrentFireMode == 0)
         {
@@ -29,13 +12,13 @@ var(Weapon) const array<SoundCue> WeaponFireSounds;
 	{
 	        return ( PendingFire(FireMode) );
 	}
-}*/
+}
 
 
 //Set weapon position on equipping
 simulated function TimeWeaponEquipping()
 {
-        AttachWeaponTo(Instigator.Mesh,'EP2_Left_Gun');
+        AttachWeaponTo(Instigator.Mesh,'WeaponPoint');
         super.TimeWeaponEquipping();
 }
 
@@ -43,8 +26,9 @@ simulated function TimeWeaponEquipping()
 //set which socket the weapon should be attached to
 simulated function AttachWeaponTo(SkeletalMeshComponent MeshCpnt, optional Name SocketName)
 {
-        MeshCpnt.AttachComponentToSocket(Mesh,'EP2_Left_Gun');
+        MeshCpnt.AttachComponentToSocket(Mesh,SocketName);
 }
+
 
 //set weapons position
 simulated event SetPosition(UDKPawn Holder)
@@ -57,7 +41,7 @@ simulated event SetPosition(UDKPawn Holder)
 
         if (compo != none)
         {
-                socket = compo.GetSocketByName('EP2_Left_Gun');
+                socket = compo.GetSocketByName('WeaponPoint');
 
                 if (socket != none)
                 {
@@ -71,7 +55,7 @@ simulated event SetPosition(UDKPawn Holder)
 
 
 //INSTANT FIRE SHOT
-/*simulated function ProcessInstantHit(byte FiringMode, ImpactInfo Impact, optional int NumHits)
+simulated function ProcessInstantHit(byte FiringMode, ImpactInfo Impact, optional int NumHits)
 {
         WorldInfo.MyDecalManager.SpawnDecal(DecalMaterial'T_FX.DecalMaterials.M_FX_BloodDecal_FadeViaDissolving', // UMaterialInstance used for this decal.
                                             Impact.HitLocation, // Decal spawned at the hit location.
@@ -82,7 +66,7 @@ simulated event SetPosition(UDKPawn Holder)
                                             FRand() * 360, // random rotation
                                             Impact.HitInfo.HitComponent // If non-NULL, consider this component only. 
                                             );
-}*/
+}
 
 //AUTOFIRE SHOT
 simulated event vector GetPhysicalFireStartLoc(optional vector AimDir)
@@ -94,7 +78,7 @@ simulated event vector GetPhysicalFireStartLoc(optional vector AimDir)
 
         if (compo != none)
         {
-                socket = compo.GetSocketByName('EP2_Left_Gun');
+                socket = compo.GetSocketByName('MussleFlashSocket');
 
                 if (socket != none)
                 {
@@ -107,17 +91,21 @@ simulated event vector GetPhysicalFireStartLoc(optional vector AimDir)
 defaultproperties
 {
         FiringStatesArray(0)=WeaponFiring
-        WeaponFireTypes(0)=EWFT_Projectile
-		WeaponProjectiles(0)=class'UdkProject.BFProjectile4'
-        FireInterval(0)=0.5
+        FiringStatesArray(1)=WeaponFiring
+        WeaponFireTypes(0)=EWFT_InstantHit
+        WeaponFireTypes(1)=EWFT_Projectile
+        WeaponProjectiles(1)=class'UdkProject.BFProjectile'
+        FireInterval(0)=0.1
+        FireInterval(1)=0.01
         Spread(0)=0
+        Spread(1)=0
 
 //      GUN MESH
-        Begin Object class=SkeletalMeshComponent Name=MyMesh
-                SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.GunShip'
-                HiddenGame=true
-                HiddenEditor=true
+        Begin Object class=SkeletalMeshComponent Name=GunMesh
+                SkeletalMesh=SkeletalMesh'WP_LinkGun.Mesh.SK_WP_Linkgun_3P'
+                HiddenGame=FALSE
+                HiddenEditor=FALSE
         End object
-        Mesh=MyMesh
-        Components.Add(MyMesh)
+        Mesh=GunMesh
+        Components.Add(GunMesh)
 }

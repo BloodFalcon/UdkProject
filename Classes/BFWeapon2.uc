@@ -1,12 +1,4 @@
-//////////////////////////
-// Author(s): Tyler Keller, Sean Mackey
-// Date: 11/20/2013
-// Status: Alpha
-// Being Used: Yes
-// Description: Enemy Weapon 2
-//////////////////////////
-
-class BFEP2Weap extends UDKWeapon;
+class BFWeapon2 extends UDKWeapon;
 
 // Name of the socket which represents the muzzle socket
 var(Weapon) const Name MuzzleSocketName;
@@ -16,6 +8,7 @@ var(Weapon) const ParticleSystemComponent MuzzleFlash;
 var(Weapon) const array< class<Projectile> > Projectiles<DisplayName=Weapon Projectiles>;
 // Sounds to play back when the weapon is fired
 var(Weapon) const array<SoundCue> WeaponFireSounds;
+var BFPlayerController BFPC;
 
 //SINGLE SHOT OR AUTOFIRE
 /*simulated function bool StillFiring(byte FireMode)
@@ -35,7 +28,7 @@ var(Weapon) const array<SoundCue> WeaponFireSounds;
 //Set weapon position on equipping
 simulated function TimeWeaponEquipping()
 {
-        AttachWeaponTo(Instigator.Mesh,'EP2_Left_Gun');
+        AttachWeaponTo(Instigator.Mesh,'LF_WP');
         super.TimeWeaponEquipping();
 }
 
@@ -43,8 +36,18 @@ simulated function TimeWeaponEquipping()
 //set which socket the weapon should be attached to
 simulated function AttachWeaponTo(SkeletalMeshComponent MeshCpnt, optional Name SocketName)
 {
-        MeshCpnt.AttachComponentToSocket(Mesh,'EP2_Left_Gun');
+        MeshCpnt.AttachComponentToSocket(Mesh,'LF_WP');
 }
+
+//function suckit()
+//{
+	//if(ProjectileType==2)
+	//{
+		//Projectiles[1]=class'UdkProject.BFProjectile2';
+	//}
+//}
+
+
 
 //set weapons position
 simulated event SetPosition(UDKPawn Holder)
@@ -57,7 +60,7 @@ simulated event SetPosition(UDKPawn Holder)
 
         if (compo != none)
         {
-                socket = compo.GetSocketByName('EP2_Left_Gun');
+                socket = compo.GetSocketByName('LF_WP');
 
                 if (socket != none)
                 {
@@ -94,7 +97,7 @@ simulated event vector GetPhysicalFireStartLoc(optional vector AimDir)
 
         if (compo != none)
         {
-                socket = compo.GetSocketByName('EP2_Left_Gun');
+                socket = compo.GetSocketByName('LF_WP');
 
                 if (socket != none)
                 {
@@ -103,18 +106,65 @@ simulated event vector GetPhysicalFireStartLoc(optional vector AimDir)
         }
 }
 
+simulated function Projectile ProjectileFire()
+{
+	local vector		StartTrace, EndTrace, RealStartLoc, AimDir;
+	local ImpactInfo	TestImpact;
+	local Projectile	SpawnedProjectile;
+
+	// tell remote clients that we fired, to trigger effects
+	IncrementFlashCount();
+
+	if( Role == ROLE_Authority )
+	{
+		// This is where we would start an instant trace. (what CalcWeaponFire uses)
+		StartTrace = Instigator.GetWeaponStartTraceLocation();
+		AimDir = Vector(GetAdjustedAim( StartTrace ));
+
+		// this is the location where the projectile is spawned.
+		RealStartLoc = GetPhysicalFireStartLoc(AimDir);
+
+		if( StartTrace != RealStartLoc )
+		{
+			// if projectile is spawned at different location of crosshair,
+			// then simulate an instant trace where crosshair is aiming at, Get hit info.
+			EndTrace = StartTrace + AimDir * GetTraceRange();
+			TestImpact = CalcWeaponFire( StartTrace, EndTrace );
+
+			// Then we realign projectile aim direction to match where the crosshair did hit.
+			AimDir = Normal(TestImpact.HitLocation - RealStartLoc);
+		}
+
+		// Spawn projectile
+		SpawnedProjectile = Spawn(GetProjectileClass(), Self,, RealStartLoc);
+		if( SpawnedProjectile != None && !SpawnedProjectile.bDeleteMe )
+		{
+			SpawnedProjectile.Init( AimDir );
+		}
+
+		// Return it up the line
+		return SpawnedProjectile;
+	}
+	else
+	{
+		//do something
+	}   
+
+	return None;
+}
+
 
 defaultproperties
 {
-        FiringStatesArray(0)=WeaponFiring
-        WeaponFireTypes(0)=EWFT_Projectile
-		WeaponProjectiles(0)=class'UdkProject.BFProjectile4'
-        FireInterval(0)=0.5
+        FiringStatesArray(0)= WeaponFiring;
+        WeaponFireTypes(0)=EWFT_Projectile;
+		WeaponProjectiles(0)=class'UdkProject.BFProjectile3'
+        FireInterval(0)=0.15
         Spread(0)=0
 
 //      GUN MESH
         Begin Object class=SkeletalMeshComponent Name=MyMesh
-                SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.GunShip'
+                SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Drone'
                 HiddenGame=true
                 HiddenEditor=true
         End object
