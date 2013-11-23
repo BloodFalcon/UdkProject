@@ -16,7 +16,7 @@ var(Weapon) const ParticleSystemComponent MuzzleFlash;
 var(Weapon) const array< class<Projectile> > Projectiles<DisplayName=Weapon Projectiles>;
 // Sounds to play back when the weapon is fired
 var(Weapon) const array<SoundCue> WeaponFireSounds;
-
+var bool LorR;
 //SINGLE SHOT OR AUTOFIRE
 /*simulated function bool StillFiring(byte FireMode)
 {
@@ -35,7 +35,11 @@ var(Weapon) const array<SoundCue> WeaponFireSounds;
 //Set weapon position on equipping
 simulated function TimeWeaponEquipping()
 {
-        AttachWeaponTo(Instigator.Mesh,'EP1_Nose_Gun');
+        if(LorR){
+		AttachWeaponTo(Instigator.Mesh,'EP2_Left_Gun');
+        }else{
+		AttachWeaponTo(Instigator.Mesh,'EP2_Right_Gun');
+        }
         super.TimeWeaponEquipping();
 }
 
@@ -43,7 +47,11 @@ simulated function TimeWeaponEquipping()
 //set which socket the weapon should be attached to
 simulated function AttachWeaponTo(SkeletalMeshComponent MeshCpnt, optional Name SocketName)
 {
-        MeshCpnt.AttachComponentToSocket(Mesh,'EP1_Nose_Gun');
+		if(LorR){
+        MeshCpnt.AttachComponentToSocket(Mesh,'EP2_Left_Gun');
+        }else{
+        MeshCpnt.AttachComponentToSocket(Mesh,'EP2_Right_Gun');
+        }
 }
 
 //set weapons position
@@ -57,7 +65,11 @@ simulated event SetPosition(UDKPawn Holder)
 
         if (compo != none)
         {
-                socket = compo.GetSocketByName('EP1_Nose_Gun');
+			if(LorR){
+                socket = compo.GetSocketByName('EP2_Left_Gun');
+			}else{
+                socket = compo.GetSocketByName('EP2_Right_Gun');
+			}
 
                 if (socket != none)
                 {
@@ -94,8 +106,13 @@ simulated event vector GetPhysicalFireStartLoc(optional vector AimDir)
 
         if (compo != none)
         {
-                socket = compo.GetSocketByName('EP1_Nose_Gun');
-
+			if(LorR){
+                socket = compo.GetSocketByName('EP2_Left_Gun');
+				LorR=false;
+			}else{
+                socket = compo.GetSocketByName('EP2_Right_Gun');
+				LorR=true;
+			}
                 if (socket != none)
                 {
                         return compo.GetBoneLocation(socket.BoneName);

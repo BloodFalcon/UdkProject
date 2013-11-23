@@ -84,7 +84,7 @@ function activeWeapons()
 	//W5 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W5;
 	//W6 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W6;
 
-	if(W2){     //weapon bay 1
+	if(W1){     //weapon bay 1
 	Canvas.SetDrawColor(0,255,0);
 	Canvas.SetPos(75, 950);
 	Canvas.DrawBox(7,11);
@@ -95,7 +95,7 @@ function activeWeapons()
 	Canvas.DrawBox(7,11);
 	}
 
-	if(W1){     //weapon bay 2
+	if(W2){     //weapon bay 2
 	Canvas.SetDrawColor(0,255,0);
 	Canvas.SetPos(86, 940);
 	Canvas.DrawBox(7,11);
@@ -126,11 +126,11 @@ function activeWeapons()
 	}
 	
 	if(Absorb){     //weapon bay 5
-	Canvas.SetDrawColor(0,255,0);	
+	Canvas.SetDrawColor(0,50,155);	
 	Canvas.SetPos(96, 920);
 	Canvas.DrawBox(7,11);
 	}else{
-	Canvas.SetDrawColor(255,0,255);	
+	Canvas.SetDrawColor(0,255,0);	
 	Canvas.SetPos(96, 920);
 	Canvas.DrawBox(7,11);
 	}

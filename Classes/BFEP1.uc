@@ -102,5 +102,5 @@ DefaultProperties
 	CylinderComponent=CollisionCylinder
  
 	AirSpeed=200
-	DrawScale=2
+	DrawScale=3
 }

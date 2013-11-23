@@ -114,7 +114,7 @@ defaultproperties
 
 //      GUN MESH
         Begin Object class=SkeletalMeshComponent Name=MyMesh
-                SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.GunShip'
+                SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Drone'
                 HiddenGame=true
                 HiddenEditor=true
         End object
