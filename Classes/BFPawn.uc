@@ -12,6 +12,7 @@ var bool FirstRun;
 var Vector PawnLoc;
 var Vector BFcamLoc;
 var array<Weapon> MasterPlayerInventory;
+var BFHUD BFH;
 
 event PostBeginPlay()
 {
@@ -59,7 +60,6 @@ function WeaponDamage()
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
-  Health+=Damage;
   WeaponDamage();
 }
 
@@ -79,6 +79,7 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 	PawnLoc.Y-=5;
 	SetLocation(PawnLoc);
 	out_CamLoc.Y-=5;
+	Health=1000;
 
 	if((Location.Z+650)!=out_CamLoc.Z)
 	{
@@ -124,6 +125,7 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 function bool Died(Controller Killer, class<DamageType> damageType, vector HitLocation)
 {
 	//owner.Destroy();
+	BFH.drawGameOver();
 	Self.Destroy();
 	return True;
 }
@@ -142,8 +144,8 @@ event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
 
 defaultproperties
 {
-		bCanJump = false
-		bCanFly = false
+		bCanJump=false
+		bCanFly=false
 		LandMovementState=PlayerFlying
         Begin Object Class=DynamicLightEnvironmentComponent Name=MyLightEnvironment
                 bEnabled=TRUE
@@ -164,8 +166,8 @@ defaultproperties
         End Object
         Components.Add(MyMesh)
         Mesh=MyMesh
-		FirstRun = True
-		Health = 100;
+		FirstRun=True
+		Health=1000
 		BlockRigidBody=true
 		bBlockActors = true
 		bCollideActors = true

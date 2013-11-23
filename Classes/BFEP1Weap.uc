@@ -126,7 +126,7 @@ defaultproperties
         FiringStatesArray(0)=WeaponFiring
         WeaponFireTypes(0)=EWFT_Projectile
 		WeaponProjectiles(0)=class'UdkProject.BFProjectile3'
-        FireInterval(0)=0.5
+        FireInterval(0)=1
         Spread(0)=0
 
 //      GUN MESH

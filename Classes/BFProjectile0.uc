@@ -79,7 +79,7 @@ defaultproperties
 	Speed = 5000
 	ProjFlightTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
 	ProjExplosionTemplate=ParticleSystem'BloodFalcon.ParticleSystem.AbsorbHit'
-	LifeSpan=1
+	LifeSpan=0.5
 	DrawScale=2
 	Damage=2
     MomentumTransfer=0

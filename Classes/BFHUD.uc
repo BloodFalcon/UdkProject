@@ -155,13 +155,16 @@ function drawBombIcon()
 	Canvas.DrawText("LEVEL COMPLETE");
 }*/
 
-/*function drawGameOver()
+function drawGameOver()
 {
+	Canvas.SetPos(0,0);
+	Canvas.SetDrawColor(255,255,255);
+	Canvas.DrawRect(768,1024);//DoesntWork
 	Canvas.SetPos(((Canvas.ClipX / 2) - 145), Canvas.ClipY / 2);
 	Canvas.SetDrawColor(255, 0, 0);
 	Canvas.Font = StatusFont;
 	Canvas.DrawText("GAME OVER");
-}*/
+}
 
 
 DefaultProperties

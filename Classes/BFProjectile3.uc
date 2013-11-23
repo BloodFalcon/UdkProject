@@ -76,11 +76,11 @@ simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
 defaultproperties
 {
 
-	Speed = 5000
+	Speed = 1000
 	ProjFlightTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
 	ProjExplosionTemplate=ParticleSystem'WP_LinkGun.Effects.P_WP_Linkgun_Impact'
 	LifeSpan=1
-	DrawScale=5
+	DrawScale=1
 	Damage=10
     MomentumTransfer=0
 	CustomGravityScaling=0
