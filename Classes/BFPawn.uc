@@ -70,9 +70,9 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 	
 
 	PawnLoc = Location;
-	PawnLoc.Y-=10;
+	PawnLoc.Y-=5;
 	SetLocation(PawnLoc);
-	out_CamLoc.Y-=10;
+	out_CamLoc.Y-=5;
 
 	if((Location.Z+650)!=out_CamLoc.Z)
 	{

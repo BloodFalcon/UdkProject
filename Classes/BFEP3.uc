@@ -67,6 +67,8 @@ DefaultProperties
 {
 	
 	Health = 10 
+	LandMovementState=PlayerFlying
+
     Begin Object Class=SkeletalMeshComponent Name=EP3Mesh
         SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.SuicideFighter'
 		PhysicsAsset=PhysicsAsset'BloodFalcon.SkeletalMesh.SuicideFighter_Physics'
@@ -90,5 +92,6 @@ DefaultProperties
 	bCollideActors=true
 	bBlockActors=true
 
-	DrawScale = 1
+	AirSpeed=200
+	DrawScale=2
 }

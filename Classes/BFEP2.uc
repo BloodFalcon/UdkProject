@@ -84,6 +84,8 @@ event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
 DefaultProperties
 {
 	Health = 10
+	LandMovementState=PlayerFlying
+
     Begin Object Name=CollisionCylinder
 		CollisionHeight=+44.000000
     End Object
@@ -114,6 +116,6 @@ DefaultProperties
 	CollisionType=COLLIDE_BlockAll
 	CylinderComponent=CollisionCylinder
  
-    GroundSpeed=200.0 //Making the bot slower than the player
+	AirSpeed=200
 	DrawScale=2
 }
