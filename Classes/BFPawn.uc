@@ -54,6 +54,7 @@ function WeaponDamage()
 	}else if(W1){
  		BFGameInfo(WorldInfo.Game).W1 = false;
 	}else{
+		BFGameInfo(WorldInfo.Game).playerdead = true;
  		self.Destroy();
  }
 }
@@ -125,7 +126,6 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 function bool Died(Controller Killer, class<DamageType> damageType, vector HitLocation)
 {
 	//owner.Destroy();
-	BFH.drawGameOver();
 	Self.Destroy();
 	return True;
 }

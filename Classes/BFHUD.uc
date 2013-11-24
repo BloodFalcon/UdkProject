@@ -12,11 +12,11 @@ var Texture2D Jetbar;
 var MultiFont BF_Font;
 var Texture2D Bomb;
 var MultiFont StatusFont;
-
+var bool playerdead;
 
 function drawHUD()
 {
-	super.drawHUD();
+	playerdead = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).playerdead;
 	drawTitle();
 	drawPlayerBar();
 	drawPBT();
@@ -24,7 +24,10 @@ function drawHUD()
 	drawBombIcon();
 	activeWeapons();
 	//drawLvlComplete();
-	//drawGameOver();
+	if(playerdead){
+	drawGameOver();
+	}
+	super.drawHUD();
 }
 
 function drawTitle()
@@ -158,7 +161,7 @@ function drawBombIcon()
 function drawGameOver()
 {
 	Canvas.SetPos(0,0);
-	Canvas.SetDrawColor(255,255,255);
+	Canvas.SetDrawColor(0,0,0);
 	Canvas.DrawRect(768,1024);//DoesntWork
 	Canvas.SetPos(((Canvas.ClipX / 2) - 145), Canvas.ClipY / 2);
 	Canvas.SetDrawColor(255, 0, 0);
@@ -173,5 +176,6 @@ DefaultProperties
 	Jetbar = Texture2D'BloodFalcon.Texture.Jetbar'
 	Bomb = Texture2D'BloodFalcon.Texture.BombICON'
 	StatusFont = MultiFont'UI_Fonts.MultiFonts.MF_LargeFont'
+	playerdead=false
 }
 

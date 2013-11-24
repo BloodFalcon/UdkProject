@@ -1,7 +1,7 @@
 class BFInventoryManager extends InventoryManager;
 
 /** Holds the current "Fire" status for both firing modes */
-var BFWeapon1 LocBFWeapon1;
+//var BFWeapon1 LocBFWeapon1;
 
 
 

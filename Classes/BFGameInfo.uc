@@ -16,6 +16,7 @@ var bool W3;
 var bool W4;
 var bool W5;
 var bool W6;
+var bool playerdead;
 
 static event class<GameInfo> SetGameType(string MapName, string Options, string Portal)
 {
@@ -37,4 +38,5 @@ defaultproperties
 	W4 = false
 	W5 = false
 	W6 = false
+	playerdead = false
 }
