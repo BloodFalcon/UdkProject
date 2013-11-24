@@ -77,8 +77,8 @@ defaultproperties
 {
 
 	Speed = 1000
-	//ProjFlightTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
-	ProjExplosionTemplate=ParticleSystem'WP_LinkGun.Effects.P_WP_Linkgun_Impact'
+	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Weap3'
+	//ProjExplosionTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
 	LifeSpan=0.5
 	DrawScale=0.5
 	Damage=10
@@ -98,7 +98,7 @@ defaultproperties
     Begin Object class=StaticMeshComponent name=MyMesh
             StaticMesh=StaticMesh'E3_Demo.Meshes.SM_Barrel_01'
             LightEnvironment=MyLightEnvironment
-			HiddenGame=false
+			HiddenGame=true
     End Object
     Components.Add(MyMesh)
 	bBlockedByInstigator=false
