@@ -76,11 +76,11 @@ simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
 defaultproperties
 {
 
-	Speed = 1000
+	Speed = 1200
 	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Weap3'
 	//ProjExplosionTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
-	LifeSpan=0.5
-	DrawScale=0.5
+	LifeSpan=1
+	DrawScale=1.5
 	Damage=10
     MomentumTransfer=0
 	CustomGravityScaling=0
