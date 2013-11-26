@@ -3,10 +3,10 @@
 // Date: 11/20/2013
 // Status: Alpha
 // Being Used: Yes
-// Description: Enemy Weapon 2
+// Description: Enemy Weapon 1
 //////////////////////////
 
-class BFEP2Weap extends UDKWeapon;
+class BF_Weap_SuicideFighter extends UDKWeapon;
 
 // Name of the socket which represents the muzzle socket
 var(Weapon) const Name MuzzleSocketName;
@@ -35,7 +35,7 @@ var(Weapon) const array<SoundCue> WeaponFireSounds;
 //Set weapon position on equipping
 simulated function TimeWeaponEquipping()
 {
-        AttachWeaponTo(Instigator.Mesh,'RT_WP');
+        AttachWeaponTo(Instigator.Mesh,'Nose_Gun');
         super.TimeWeaponEquipping();
 }
 
@@ -43,7 +43,7 @@ simulated function TimeWeaponEquipping()
 //set which socket the weapon should be attached to
 simulated function AttachWeaponTo(SkeletalMeshComponent MeshCpnt, optional Name SocketName)
 {
-        MeshCpnt.AttachComponentToSocket(Mesh,'RT_WP');
+        MeshCpnt.AttachComponentToSocket(Mesh,'Nose_Gun');
 }
 
 //set weapons position
@@ -57,7 +57,7 @@ simulated event SetPosition(UDKPawn Holder)
 
         if (compo != none)
         {
-                socket = compo.GetSocketByName('RT_WP');
+                socket = compo.GetSocketByName('Nose_Gun');
 
                 if (socket != none)
                 {
@@ -94,7 +94,7 @@ simulated event vector GetPhysicalFireStartLoc(optional vector AimDir)
 
         if (compo != none)
         {
-                socket = compo.GetSocketByName('RT_WP');
+                socket = compo.GetSocketByName('Nose_Gun');
 
                 if (socket != none)
                 {
@@ -108,13 +108,13 @@ defaultproperties
 {
         FiringStatesArray(0)=WeaponFiring
         WeaponFireTypes(0)=EWFT_Projectile
-		WeaponProjectiles(0)=class'UdkProject.BFProjectile3'
+		WeaponProjectiles(0)=class'UdkProject.BF_Proj_Red'
         FireInterval(0)=1
         Spread(0)=0
 
 //      GUN MESH
         Begin Object class=SkeletalMeshComponent Name=MyMesh
-                SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Drone'
+                SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.SuicideFighter'
                 HiddenGame=true
                 HiddenEditor=true
         End object

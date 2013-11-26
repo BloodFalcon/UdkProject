@@ -6,7 +6,7 @@
 // Description: Enemy Inventory 1
 //////////////////////////
 
-class BFEP1InvManager extends InventoryManager;
+class BF_Enemy_Inventory extends InventoryManager;
 
 DefaultProperties
 {

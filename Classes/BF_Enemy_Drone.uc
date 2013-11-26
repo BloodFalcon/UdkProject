@@ -6,7 +6,7 @@
 // Description: Enemy Pawn 1
 //////////////////////////
 
-class BFEP2 extends UDKPawn 
+class BF_Enemy_Drone extends UDKPawn 
 placeable;
 
 var bool AbsorbSuccess;
@@ -14,7 +14,7 @@ var BFPawn OurPlayer;
 
 function AddDefaultInventory()
 {
-    InvManager.CreateInventory(class'UdkProject.BFEP2Weap');
+    InvManager.CreateInventory(class'UdkProject.BF_Weap_Drone');
 }
  
 event PostBeginPlay()
@@ -104,8 +104,8 @@ DefaultProperties
     Mesh=EP2Mesh
  
     Components.Add(EP2Mesh)
-    ControllerClass=class'UdkProject.BFAI2'
-    InventoryManagerClass=class'UdkProject.BFEP1InvManager'
+    ControllerClass=class'UdkProject.BF_AI_Drone'
+    InventoryManagerClass=class'UdkProject.BF_Enemy_Inventory'
  
     bJumpCapable=false
     bCanJump=false

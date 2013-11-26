@@ -6,7 +6,7 @@
 // Description: Enemy AI Script 1
 //////////////////////////
 
-class BFAI3 extends UDKBot;
+class BF_AI_GunShip extends UDKBot;
 
 var vector EnemyLoc;
 var float EnemyDistance;

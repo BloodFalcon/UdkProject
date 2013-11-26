@@ -3,10 +3,10 @@
 // Date: 11/20/2013
 // Status: Alpha
 // Being Used: Yes
-// Description: Upgrade Weapon 3
+// Description: Upgrade Weapon 1
 //////////////////////////
 
-class BFProjectile4 extends UDKProjectile;
+class BF_Proj_Blue extends UDKProjectile;
 
 var ParticleSystemComponent ProjEffects;
 var ParticleSystem ProjFlightTemplate;
@@ -28,6 +28,7 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNorma
 		if (!Other.bStatic && DamageRadius == 0.0)
 		{
 			Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);
+			`log("Proj 2");
 		}
 		Explode(HitLocation, HitNormal);
 	}
@@ -77,7 +78,7 @@ defaultproperties
 {
 
 	Speed = 1200
-	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Weap5'
+	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Weap2'
 	//ProjExplosionTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
 	LifeSpan=1
 	DrawScale=1.5

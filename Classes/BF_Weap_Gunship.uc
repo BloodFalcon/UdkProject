@@ -6,7 +6,7 @@
 // Description: Enemy Weapon 1
 //////////////////////////
 
-class BFEP1Weap extends UDKWeapon;
+class BF_Weap_Gunship extends UDKWeapon;
 
 // Name of the socket which represents the muzzle socket
 var(Weapon) const Name MuzzleSocketName;
@@ -125,7 +125,7 @@ defaultproperties
 {
         FiringStatesArray(0)=WeaponFiring
         WeaponFireTypes(0)=EWFT_Projectile
-		WeaponProjectiles(0)=class'UdkProject.BFProjectile2'
+		WeaponProjectiles(0)=class'UdkProject.BF_Proj_Blue'
         FireInterval(0)=1
         Spread(0)=0
 

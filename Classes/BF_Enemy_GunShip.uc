@@ -6,7 +6,7 @@
 // Description: Enemy Pawn 1
 //////////////////////////
 
-class BFEP1 extends UDKPawn 
+class BF_Enemy_GunShip extends UDKPawn 
 placeable;
 
 var bool AbsorbSuccess;
@@ -14,7 +14,7 @@ var BFPawn OurPlayer;
 
 function AddDefaultInventory()
 {
-    InvManager.CreateInventory(class'UdkProject.BFEP1Weap');
+    InvManager.CreateInventory(class'UdkProject.BF_Weap_Gunship');
 }
  
 event PostBeginPlay()
@@ -88,8 +88,8 @@ DefaultProperties
     Mesh=EP1Mesh
  
     Components.Add(EP1Mesh)
-    ControllerClass=class'UdkProject.BFAI1'
-    InventoryManagerClass=class'UdkProject.BFEP1InvManager'
+    ControllerClass=class'UdkProject.BF_AI_GunShip'
+    InventoryManagerClass=class'UdkProject.BF_Enemy_Inventory'
  
     bJumpCapable=false
     bCanJump=false

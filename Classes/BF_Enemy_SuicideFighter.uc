@@ -6,7 +6,7 @@
 // Description: Enemy Pawn 1
 //////////////////////////
 
-class BFEP3 extends UDKPawn 
+class BF_Enemy_SuicideFighter extends UDKPawn 
 placeable;
 
 var bool AbsorbSuccess;
@@ -14,7 +14,7 @@ var BFPawn OurPlayer;
 
 function AddDefaultInventory()
 {
-    InvManager.CreateInventory(class'UdkProject.BFEP3Weap');
+    InvManager.CreateInventory(class'UdkProject.BF_Weap_SuicideFighter');
 }
  
 event PostBeginPlay()
@@ -83,8 +83,8 @@ DefaultProperties
     Mesh=EP3Mesh
  
     Components.Add(EP3Mesh)
-    ControllerClass=class'UdkProject.BFAI3'
-    InventoryManagerClass=class'UdkProject.BFEP1InvManager'
+    ControllerClass=class'UdkProject.BF_AI_SuicideFighter'
+    InventoryManagerClass=class'UdkProject.BF_Enemy_Inventory'
  
     bJumpCapable=false
     bCanJump=false

@@ -3,10 +3,10 @@
 // Date: 11/20/2013
 // Status: Alpha
 // Being Used: Yes
-// Description: Absorbtion Projectile
+// Description: Base Weapon
 //////////////////////////
 
-class BFProjectile0 extends UDKProjectile;
+class BF_Proj_Basic extends UDKProjectile;
 
 var ParticleSystemComponent ProjEffects;
 var ParticleSystem ProjFlightTemplate;
@@ -76,12 +76,12 @@ simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
 defaultproperties
 {
 
-	Speed = 5000
-	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Weap1'
+	Speed = 1200
+	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Weap3'
 	//ProjExplosionTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
-	LifeSpan=0.25
-	DrawScale=2
-	Damage=2
+	LifeSpan=1
+	DrawScale=1.5
+	Damage=10
     MomentumTransfer=0
 	CustomGravityScaling=0
 
@@ -96,7 +96,7 @@ defaultproperties
     Components.Add(MyLightEnvironment)
 
     Begin Object class=StaticMeshComponent name=MyMesh
-            StaticMesh=StaticMesh'WP_ShockRifle.Mesh.S_Sphere_Good'
+            StaticMesh=StaticMesh'E3_Demo.Meshes.SM_Barrel_01'
             LightEnvironment=MyLightEnvironment
 			HiddenGame=true
     End Object

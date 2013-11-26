@@ -3,10 +3,10 @@
 // Date: 11/20/2013
 // Status: Alpha
 // Being Used: Yes
-// Description: Enemy AI Script 1
+// Description: Enemy AI Script 2
 //////////////////////////
 
-class BFAI1 extends UDKBot;
+class BF_AI_Drone extends UDKBot;
 
 var vector EnemyLoc;
 var float EnemyDistance;

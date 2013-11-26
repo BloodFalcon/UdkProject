@@ -3,10 +3,10 @@
 // Date: 11/20/2013
 // Status: Alpha
 // Being Used: Yes
-// Description: Upgrade Weapon 2
+// Description: Upgrade Weapon 3
 //////////////////////////
 
-class BFProjectile3 extends UDKProjectile;
+class BF_Proj_Red extends UDKProjectile;
 
 var ParticleSystemComponent ProjEffects;
 var ParticleSystem ProjFlightTemplate;
@@ -77,7 +77,7 @@ defaultproperties
 {
 
 	Speed = 1200
-	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Weap4'
+	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Weap5'
 	//ProjExplosionTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
 	LifeSpan=1
 	DrawScale=1.5
