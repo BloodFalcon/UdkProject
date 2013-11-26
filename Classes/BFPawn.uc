@@ -18,7 +18,6 @@ event PostBeginPlay()
 {
 	super.PostBeginPlay();
 	SetPhysics(PHYS_Flying); // wake the physics up
-	
 	// set up collision detection based on mesh's PhysicsAsset
 	CylinderComponent.SetActorCollision(false, false); // disable cylinder collision
 	Mesh.SetActorCollision(true, true); // enable PhysicsAsset collision

@@ -11,12 +11,13 @@ placeable;
 
 var bool AbsorbSuccess;
 var BFPawn OurPlayer;
+var Vector NewLoc;
 
 function AddDefaultInventory()
 {
     InvManager.CreateInventory(class'UdkProject.BF_Weap_SuicideFighter');
 }
- 
+
 event PostBeginPlay()
 {
     super.PostBeginPlay();

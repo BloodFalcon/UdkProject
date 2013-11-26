@@ -20,5 +20,5 @@ function UpdateRotation( float DeltaTime )
 
 defaultproperties
 {
-
+	bIsPlayer=true
 }
