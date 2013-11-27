@@ -10,17 +10,18 @@ class BF_AI_SuicideFighter extends UDKBot;
 
 var vector EnemyLoc;
 var Vector NewLoc;
-var bool pattern;
+var bool atPlayer;
 var float EnemyDistance;
+var Actor PlayerTarget;
 
 event Possess(Pawn inPawn, bool bVehicleTransition)
 {
     super.Possess(inPawn, bVehicleTransition);
     Pawn.SetMovementPhysics();
-	pattern=true;
+	atPlayer=false;
 }
 
-auto state Idle
+/*auto state Idle
 {	
 	event SeePlayer (Pawn Seen)
 	{
@@ -28,33 +29,45 @@ auto state Idle
 		Enemy = Seen;
 		GotoState('Firing');
 	}
-}
+}*/
 
 function Tick(float DeltaTime){
-
-	if(pattern){
-		if(Pawn != none){
-		//Pawn.MoveToward(Enemy,Enemy); HOW TO MAKE SUICIDE FLY INTO PLAYER's COORDINATES???
-		}
-	}
+GotoState('Firing');
 }
 
+function EnemyDeath(){
+`log("Expired");
+GotoState('Expire');
+}
 
 state Firing
 {
 Begin:
 	if(Pawn != none){
-	EnemyLoc = Enemy.location;
-	Focus = Enemy;
-	EnemyDistance = VSize( Pawn.Location - Enemy.location );
+	PlayerTarget = GetALocalPlayerController().Pawn;
+	//EnemyLoc = Enemy.location;
+	//Focus = Enemy;
+	//EnemyDistance = VSize( Pawn.Location - Enemy.location );
 
-		if (EnemyDistance < 1500)
+	if(Pawn != none && PlayerTarget != none){
+		if(VSize(Pawn.Location-PlayerTarget.Location)>500 && atPlayer==false){
+			MoveToward(PlayerTarget, PlayerTarget);
+		}else{
+			atPlayer=true;
+			//NewLoc = Pawn.Location;	
+			//NewLoc.Y-=5;
+			//Pawn.SetLocation(NewLoc);
+			//SetTimer(5,false,'EnemyDeath');
+		}
+	}
+			
+	
+	if (EnemyDistance < 1500)
 		{
 			//Pawn.StartFire(0);
 		}
 		else
 		{
-			pattern=false;
 			Pawn.StopFire(0);
 			GotoState('Expire');
 		}
