@@ -67,13 +67,13 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 {
 	if(FirstRun)
 	{
-		out_CamLoc.X = (Location.X);
-		out_CamLoc.Y = (Location.Y - 400);
+		out_CamLoc.X = (Location.X + 750);
+		out_CamLoc.Y = (Location.Y);
 		out_CamLoc.Z = (Location.Z + 650);
 		out_CamRot.Pitch-=16384;
 		FirstRun=false;
 	}
-	
+/*	
 
 	PawnLoc = Location;
 	PawnLoc.Y-=5;
@@ -116,7 +116,7 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 		SetLocation(PawnLoc);
 	}
 
-	BFcamLoc = out_CamLoc;
+	BFcamLoc = out_CamLoc;*/
 
 	return true;
 
