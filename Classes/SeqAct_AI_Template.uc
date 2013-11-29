@@ -1,4 +1,4 @@
-class SeqAct_ZigZag extends SequenceAction;
+class SeqAct_AI_Template extends SequenceAction;
 
 var int MoveTo;
 var int Start;
@@ -7,23 +7,22 @@ var int i;
 event Activated()
 {
 	if(InputLinks[0].bHasImpulse==true){
-		Start = RandRange(75,77);
-		MoveTo = Start;
+
 		OutputLinks[0].bHasImpulse=true;
 	}
 	
 	if(InputLinks[1].bHasImpulse==true){
-		if(i==0){
-			MoveTo-=8;
-			i++;
-		}else{
-			MoveTo-=10;
-			i=0;
-		}
+
 		OutputLinks[1].bHasImpulse=true;
 	}
+	
+	if(InputLinks[2].bHasImpulse==true){
 
-	if(InputLinks[3].bHasImpulse==true || Start<0){
+		OutputLinks[2].bHasImpulse=true;
+	}
+	
+	if(InputLinks[3].bHasImpulse==true){
+
 		OutputLinks[3].bHasImpulse=true;
 	}
 }
@@ -36,7 +35,7 @@ defaultproperties
 
 	bAutoActivateOutputLinks=false
 
-	ObjName="ZigZag"
+	ObjName="Put Name Here"
 	ObjCategory="BF Patterns"
 	
 	InputLinks.Empty

@@ -154,7 +154,7 @@ defaultproperties
         Begin Object Class=SkeletalMeshComponent Name=MyMesh
                 SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
 				PhysicsAsset=PhysicsAsset'BloodFalcon.SkeletalMesh.Player_Physics'
-				Scale=2.0
+				Scale=1.5
                 HiddenGame=FALSE
                 HiddenEditor=FALSE
 				BlockNonZeroExtent=true

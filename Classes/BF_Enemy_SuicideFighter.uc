@@ -93,6 +93,6 @@ DefaultProperties
 	bCollideActors=true
 	bBlockActors=true
 
-	AirSpeed=200
-	DrawScale=2
+	AirSpeed=300
+	DrawScale=1.5
 }

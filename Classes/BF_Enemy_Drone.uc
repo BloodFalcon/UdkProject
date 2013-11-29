@@ -116,6 +116,6 @@ DefaultProperties
 	CollisionType=COLLIDE_BlockAll
 	CylinderComponent=CollisionCylinder
  
-	AirSpeed=200
-	DrawScale=2
+	AirSpeed=300
+	DrawScale=1.5
 }
