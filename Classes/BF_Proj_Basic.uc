@@ -96,7 +96,7 @@ defaultproperties
     Components.Add(MyLightEnvironment)
 
     Begin Object class=StaticMeshComponent name=MyMesh
-            StaticMesh=StaticMesh'E3_Demo.Meshes.SM_Barrel_01'
+            StaticMesh=StaticMesh'WP_ShockRifle.Mesh.S_Sphere_Good'
             LightEnvironment=MyLightEnvironment
 			HiddenGame=true
     End Object

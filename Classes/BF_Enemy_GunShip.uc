@@ -52,15 +52,19 @@ function bool Died(Controller Killer, class<DamageType> damageType, vector HitLo
 	return True;
 }
 
-event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
+event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vector HitNormal )
 {
 	local UDKPawn HitPawn;
-	HitPawn = UDKPawn(Other);
+	HitPawn = BFPawn(Other);
 
 			if(HitPawn != none)
 			{
-				`Log("ENEMY KILLED!");
+				`Log("Touch Player");
 				self.Destroy();
+			}
+			else
+			{
+				`log("Touch Enemy");
 			}
 }
 
@@ -81,7 +85,7 @@ DefaultProperties
         HiddenEditor=FALSE
 		BlockNonZeroExtent=true
 		BlockZeroExtent=true
-		BlockActors=true
+		BlockActors=false
 		CollideActors=true
     End Object
  
@@ -94,11 +98,11 @@ DefaultProperties
     bJumpCapable=false
     bCanJump=false
 
-	BlockRigidBody=true
-	bBlockActors = true
+	BlockRigidBody=false
+	bBlockActors = false
 	bCollideActors = true
 	bCollideWorld = true
-	CollisionType=COLLIDE_BlockAll
+	CollisionType=COLLIDE_TouchAll
 	CylinderComponent=CollisionCylinder
  
 	AirSpeed=300

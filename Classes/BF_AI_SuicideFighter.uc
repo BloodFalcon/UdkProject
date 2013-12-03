@@ -98,5 +98,4 @@ state Expire
 
 defaultproperties
 {
-
 }

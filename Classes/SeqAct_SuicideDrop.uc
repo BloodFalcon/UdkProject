@@ -9,7 +9,7 @@ var int StepNum;
 event Activated()
 {
 	if(InputLinks[0].bHasImpulse==true){
-		Start = RandRange(83,87);
+		Start = RandRange(94,96);
 		MoveTo = Start;
 		OutputLinks[0].bHasImpulse=true;
 	}
@@ -43,7 +43,7 @@ function movement()
 		StepNum++;
 		OutputLinks[5].bHasImpulse=true;
 	}else if(StepNum==1){
-		MoveTo-=63;
+		MoveTo-=72;
 		Wait=3;
 		StepNum++;
 	}else if(StepNum==2){
@@ -58,9 +58,9 @@ function movement()
 defaultproperties
 {
 	Wait=0
-	StepNum=1
-	MoveTo=85
-	Start=85
+	StepNum=0
+	MoveTo=94
+	Start=94
 	Firing=false
 
 	bAutoActivateOutputLinks=false

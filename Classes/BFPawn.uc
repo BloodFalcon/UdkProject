@@ -17,7 +17,7 @@ var BFHUD BFH;
 event PostBeginPlay()
 {
 	super.PostBeginPlay();
-	SetPhysics(PHYS_Flying); // wake the physics up
+	SetPhysics(PHYS_Walking); // wake the physics up
 	// set up collision detection based on mesh's PhysicsAsset
 	CylinderComponent.SetActorCollision(false, false); // disable cylinder collision
 	Mesh.SetActorCollision(true, true); // enable PhysicsAsset collision
@@ -67,18 +67,15 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 {
 	if(FirstRun)
 	{
-		out_CamLoc.X = (Location.X + 750);
-		out_CamLoc.Y = (Location.Y);
+		out_CamLoc.X = (Location.X);
+		out_CamLoc.Y = (Location.Y - 750);
 		out_CamLoc.Z = (Location.Z + 650);
 		out_CamRot.Pitch-=16384;
 		FirstRun=false;
-	}
-/*	
+	}	
 
 	PawnLoc = Location;
-	PawnLoc.Y-=5;
 	SetLocation(PawnLoc);
-	out_CamLoc.Y-=5;
 	Health=1000;
 
 	if((Location.Z+650)!=out_CamLoc.Z)
@@ -102,21 +99,21 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 		SetLocation(PawnLoc);
 	}
 
-	if((Location.X+500)<=out_CamLoc.X)
+	if((Location.X+600)<=out_CamLoc.X)
 	{
 		PawnLoc = Location;
-		PawnLoc.X = (out_CamLoc.X-500);
+		PawnLoc.X = (out_CamLoc.X-600);
 		SetLocation(PawnLoc);
 	}
 	
-	if((Location.X-500)>=out_CamLoc.X)
+	if((Location.X-600)>=out_CamLoc.X)
 	{
 		PawnLoc = Location;
-		PawnLoc.X = (out_CamLoc.X+500);
+		PawnLoc.X = (out_CamLoc.X+600);
 		SetLocation(PawnLoc);
 	}
 
-	BFcamLoc = out_CamLoc;*/
+	BFcamLoc = out_CamLoc;
 
 	return true;
 
@@ -129,7 +126,7 @@ function bool Died(Controller Killer, class<DamageType> damageType, vector HitLo
 	return True;
 }
 
-event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
+event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vector HitNormal )
 {
 	local UDKPawn HitPawn;
 	HitPawn = UDKPawn(Other);
@@ -145,7 +142,7 @@ defaultproperties
 {
 		bCanJump=false
 		bCanFly=false
-		LandMovementState=PlayerFlying
+		//LandMovementState=PlayerFlying
         Begin Object Class=DynamicLightEnvironmentComponent Name=MyLightEnvironment
                 bEnabled=TRUE
         End Object
@@ -171,4 +168,6 @@ defaultproperties
 		bBlockActors = true
 		bCollideActors = true
 		bCollideWorld = true
+		GroundSpeed = 700
+		AccelRate = 5600
 }

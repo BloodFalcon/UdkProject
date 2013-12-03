@@ -27,6 +27,7 @@ event PostBeginPlay()
 	//CylinderComponent.SetActorCollision(false, false); // disable cylinder collision
 	Mesh.SetActorCollision(true, true); // enable PhysicsAsset collision
 	Mesh.SetTraceBlocking(true, true); // block traces (i.e. anything touching mesh)
+	//SuicideSpeed = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).SuicideSpeed;
 }
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
@@ -52,23 +53,31 @@ function bool Died(Controller Killer, class<DamageType> damageType, vector HitLo
 	return True;
 }
 
-event Bump (Actor Other, PrimitiveComponent OtherComp, Object.Vector HitNormal)
+event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vector HitNormal )
 {
 	local UDKPawn HitPawn;
-	HitPawn = UDKPawn(Other);
+	HitPawn = BFPawn(Other);
 
 			if(HitPawn != none)
 			{
-				`Log("ENEMY KILLED!");
+				`Log("Touch Player");
 				self.Destroy();
+			}
+			else
+			{
+				`log("Touch Enemy");
 			}
 }
 
 DefaultProperties
 {
-	
-	Health = 10 
+	Health = 10
 	LandMovementState=PlayerFlying
+
+    Begin Object Name=CollisionCylinder
+		CollisionHeight=+44.000000
+    End Object
+
 
     Begin Object Class=SkeletalMeshComponent Name=EP3Mesh
         SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.SuicideFighter'
@@ -89,10 +98,14 @@ DefaultProperties
  
     bJumpCapable=false
     bCanJump=false
-	BlockRigidBody=true
-	bCollideActors=true
-	bBlockActors=true
 
-	AirSpeed=300
-	DrawScale=1.5
+	BlockRigidBody=false
+	bBlockActors = false
+	bCollideActors = true
+	bCollideWorld = true
+	CollisionType=COLLIDE_TouchAll
+	CylinderComponent=CollisionCylinder
+
+	GroundSpeed = 1200
+	DrawScale=1.25
 }
