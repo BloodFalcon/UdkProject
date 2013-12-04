@@ -23,7 +23,7 @@ event PostBeginPlay()
     AddDefaultInventory(); //GameInfo calls it only for players, so we have to do it ourselves for AI.
 	SetPhysics(PHYS_Flying); // wake the physics up
 	
-	// set up collision detection based on mesh's PhysicsAsset
+	//Set up collision detection based on mesh's PhysicsAsset
 	//CylinderComponent.SetActorCollision(false, false); // disable cylinder collision
 	Mesh.SetActorCollision(true, true); // enable PhysicsAsset collision
 	Mesh.SetTraceBlocking(true, true); // block traces (i.e. anything touching mesh)
