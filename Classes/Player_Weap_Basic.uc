@@ -16,7 +16,7 @@ var(Weapon) const ParticleSystemComponent MuzzleFlash;
 var(Weapon) const array< class<Projectile> > Projectiles<DisplayName=Weapon Projectiles>;
 // Sounds to play back when the weapon is fired
 var(Weapon) const array<SoundCue> WeaponFireSounds;
-var Player_Weap_Red OurPartner;
+//var Player_Weap_Red OurPartner;
 //var ParticleSystem AbsorbBeam;
 
 //SINGLE SHOT OR AUTOFIRE

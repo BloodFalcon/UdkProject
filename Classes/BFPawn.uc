@@ -19,6 +19,8 @@ var Vector StartLine;
 var Vector EndLine;
 var ParticleSystemComponent AbsorbBeam;
 var Actor AbsorbedEnemy;
+var int AbsorbTimer;
+var Vector NewEnemyLoc;
 
 event PostBeginPlay()
 {
@@ -41,55 +43,67 @@ event Tick(float DeltaTime)
 
 	
 	StartLocation = Location;
-	EndLocation = Location + vect(0,-9999,0);
+	EndLocation = Location + vect(0,-3000,0);
 	StartLine = Location;
 	EndLine = EndLocation;
 
 	super.Tick(DeltaTime);
-	if(BeamFire)
-	{
-		HitBot = Trace( HitLocation, HitNormal, EndLocation, StartLocation, true);
-		if(AbsorbedEnemy == none )
-		{
-			AbsorbedEnemy = HitBot;
-		}
-		else
-		{
-			EndLine = AbsorbedEnemy.Location;
-			CheckDist = VSize2D(Location - AbsorbedEnemy.Location);
-			if(AbsorbedEnemy != none && AbsorbedEnemy.IsA('BF_Enemy_GunShip') && CheckDist < 1000.0)
-			{
-				`log("Hit Enemy with Trace");
-				Missiles = true;
-				if(AbsorbBeam == none)
-				{
-					AbsorbBeam = WorldInfo.MyEmitterPool.SpawnEmitter(ParticleSystem'BloodFalcon.ParticleSystem.AbsorbBeam_Particle', Location, Rotation, self );
 
-				}
-				
-				if(AbsorbBeam != none && AbsorbedEnemy != none)
-				{
-					AbsorbBeam.SetVectorParameter('LinkBeamEnd', AbsorbedEnemy.Location);
-				}
-			}
-			else if(AbsorbBeam != none)
+	if(AbsorbTimer>200){
+		Missiles=true;
+		killbeam();
+		
+	}else{
+		if(BeamFire)
+		{
+			HitBot = Trace( HitLocation, HitNormal, EndLocation, StartLocation, true);
+			if(AbsorbedEnemy == none )
 			{
-				AbsorbBeam.SetKillOnDeactivate(0, true);
-				AbsorbBeam.DeactivateSystem();
-				AbsorbBeam = none;
-				AbsorbedEnemy = none;
+				AbsorbedEnemy = HitBot;
+				if(AbsorbedEnemy.IsA('BF_Enemy_GunShip') && Missiles==true) //if enemy has been absorbed before, empty the AbsorbedEnemy Variable
+				{
+					AbsorbedEnemy=none;
+				}
+			}else{
+				//EndLine = AbsorbedEnemy.Location;
+				CheckDist = VSize2D(Location - AbsorbedEnemy.Location);
+				if(AbsorbedEnemy != none && AbsorbedEnemy.IsA('BF_Enemy_GunShip') && CheckDist < 750.0)
+				{
+					`log("Hit Enemy with Trace");
+					AbsorbTimer++;
+					StartLine = Location; //Erase Debug Line When Enemy Is Caught
+					EndLine = Location;
+					//Missiles = true;
+					if(AbsorbBeam == none)
+					{
+						AbsorbBeam = WorldInfo.MyEmitterPool.SpawnEmitter(ParticleSystem'BloodFalcon.ParticleSystem.AbsorbBeam_Particle', Location, Rotation, self );
+					}
+				
+					if(AbsorbBeam != none && AbsorbedEnemy != none)
+					{
+						AbsorbBeam.SetVectorParameter('LinkBeamEnd', AbsorbedEnemy.Location);
+					}
+				}else if(AbsorbBeam != none){
+					killbeam();
+				}
 			}
+		}else if(AbsorbBeam != none){
+			killbeam();
 		}
-	}
-	else if(AbsorbBeam != none)
-	{
-		AbsorbBeam.SetKillOnDeactivate(0, true);
-		AbsorbBeam.DeactivateSystem();
-		AbsorbBeam = none;
-		AbsorbedEnemy = none;
 	}
 	DrawDebugLine( StartLine, EndLine, 255, 0, 0, false);
 }
+
+
+function killbeam()
+{
+	AbsorbBeam.SetKillOnDeactivate(0, true);
+	AbsorbBeam.DeactivateSystem();
+	AbsorbBeam = none;
+	AbsorbedEnemy = none;
+	AbsorbTimer=0;
+}
+
 
 function WeaponDamage()
 {
@@ -155,7 +169,6 @@ simulated function Rotator GetAdjustedAimFor(Weapon W, vector StartFireLoc)
 function AddDefaultInventory()
 {
 	InvManager.CreateInventory(class'Player_Weap_Basic');
-	InvManager.CreateInventory(class'Player_Weap_Red');
 }
 
 simulated function StartFire(byte FireModeNum)
@@ -265,6 +278,7 @@ event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vect
 
 defaultproperties
 {
+		AbsorbTimer=0
 		bCanJump=false
 		bCanFly=false
 		//LandMovementState=PlayerFlying
