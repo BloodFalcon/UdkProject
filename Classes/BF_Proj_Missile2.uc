@@ -3,10 +3,10 @@
 // Date: 12/4/2013
 // Status: Alpha
 // Being Used: Yes
-// Description: Missile
+// Description: Missile using distance instead of velocity
 //////////////////////////
 
-class BF_Proj_Missile extends UDKProjectile;
+class BF_Proj_Missile2 extends UDKProjectile;
 
 var ParticleSystemComponent ProjEffects;
 var ParticleSystem ProjFlightTemplate;
@@ -15,8 +15,10 @@ var SoundCue ProjSound1;
 var vector VelocityCur;
 var vector AccelerationCur;
 var Vector StartingLoc;
-var int Distance;
 var bool Neg;
+var int CurDistance;
+var int HDistance;
+var int VDistance;
 
 simulated function PostBeginPlay()
 {
@@ -25,12 +27,14 @@ simulated function PostBeginPlay()
 	SpawnFlightEffects();
 	SpawnFireEffect();
 	StartingLoc = self.Location;
-	while(VelocityCur.X<150 && VelocityCur.X>(-150)){
-	VelocityCur.X = RandRange(-250, 250);
+	while(HDistance<50 && HDistance>(-50)){
+	HDistance = RandRange(-75, 75);
 	}
-	if(VelocityCur.X>0){
+	if(HDistance>0){
+		VelocityCur.X = 250;
 		Neg=false;
 	}else{
+		VelocityCur.X = (-250);
 		Neg=true;
 	}
 	VelocityCur.Y = 1.0;
@@ -96,8 +100,10 @@ simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
 
 function tick(float DeltTime)
 {
+	CurDistance = VSize(StartingLoc - self.Location);
+`log(CurDistance);
 	if(Neg){
-		if(VelocityCur.X<(-10.0) && VelocityCur.Y>0.0){
+		if(CurDistance>=HDistance && VelocityCur.Y>0.0){
 			VelocityCur.X+=5;
 			VelocityCur.Y+=2;
 		}else{
@@ -105,7 +111,7 @@ function tick(float DeltTime)
 			VelocityCur.Y-=100;
 		}
 	}else{
-		if(VelocityCur.X>10.0 && VelocityCur.Y>0.0){
+		if(CurDistance>=(-HDistance) && VelocityCur.Y>0.0){
 			VelocityCur.X-=5;
 			VelocityCur.Y+=2;
 		}else{
@@ -114,10 +120,9 @@ function tick(float DeltTime)
 		}
 	}
 	Velocity = VelocityCur;
-	Distance = VSize(StartingLoc - self.Location);
-	`log(Distance);
-	if(Distance >= 5000){
-	self.Destroy();
+	if(CurDistance >= 5000){
+		Destroyed();
+		self.Destroy();
 	}
 //Velocity = vect(0,10000,0);
 //Acceleration =vect(0.0,1000.0,0.0);
@@ -127,6 +132,8 @@ function tick(float DeltTime)
 
 defaultproperties
 {
+	HDistance=0
+	VDistance=0
 	Neg=0
 	//VelocityCur =(x=0.0,y=100.0,z=0.0)
 	//AccelerationCur =(x=0.0,y=100.0,z=0.0)
@@ -158,4 +165,4 @@ defaultproperties
     Components.Add(MyMesh)
 	bBlockedByInstigator=false
 	ProjSound1=SoundCue'A_Weapon_Link.Cue.A_Weapon_Link_FireCue'
-}
+})
