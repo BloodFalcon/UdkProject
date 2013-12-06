@@ -59,12 +59,12 @@ event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vect
 
 			if(HitPawn != none)
 			{
-				`Log("Touch Player");
+				//`Log("Touch Player");
 				self.Destroy();
 			}
 			else
 			{
-				`log("Touch Enemy");
+				//`log("Touch Enemy");
 			}
 }
 
@@ -75,6 +75,7 @@ DefaultProperties
 	LandMovementState=PlayerFlying
 
     Begin Object Name=CollisionCylinder
+		CollisionRadius=+100.000000
 		CollisionHeight=+44.000000
     End Object
 

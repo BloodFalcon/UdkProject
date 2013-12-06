@@ -75,12 +75,12 @@ event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vect
 
 			if(HitPawn != none)
 			{
-				`Log("Touch Player");
+				//`Log("Touch Player");
 				self.Destroy();
 			}
 			else
 			{
-				`log("Touch Enemy");
+				//`log("Touch Enemy");
 			}
 }
  

@@ -11,8 +11,14 @@ class BFPawn extends UDKPawn;
 var bool FirstRun;
 var Vector PawnLoc;
 var Vector BFcamLoc;
-var array<Weapon> MasterPlayerInventory;
 var BFHUD BFH;
+var bool Missiles;
+var bool CurFire;
+var bool BeamFire;
+var Vector StartLine;
+var Vector EndLine;
+var ParticleSystemComponent AbsorbBeam;
+var Actor AbsorbedEnemy;
 
 event PostBeginPlay()
 {
@@ -22,6 +28,67 @@ event PostBeginPlay()
 	CylinderComponent.SetActorCollision(false, false); // disable cylinder collision
 	Mesh.SetActorCollision(true, true); // enable PhysicsAsset collision
 	Mesh.SetTraceBlocking(true, true); // block traces (i.e. anything touching mesh)
+	AddDefaultInventory();
+
+}
+
+event Tick(float DeltaTime)
+{
+	local Actor HitBot;
+	local Vector StartLocation, EndLocation, HitLocation, HitNormal;
+	local float CheckDist;
+
+
+	
+	StartLocation = Location;
+	EndLocation = Location + vect(0,-9999,0);
+	StartLine = Location;
+	EndLine = EndLocation;
+
+	super.Tick(DeltaTime);
+	if(BeamFire)
+	{
+		HitBot = Trace( HitLocation, HitNormal, EndLocation, StartLocation, true);
+		if(AbsorbedEnemy == none )
+		{
+			AbsorbedEnemy = HitBot;
+		}
+		else
+		{
+			EndLine = AbsorbedEnemy.Location;
+			CheckDist = VSize2D(Location - AbsorbedEnemy.Location);
+			if(AbsorbedEnemy != none && AbsorbedEnemy.IsA('BF_Enemy_GunShip') && CheckDist < 1000.0)
+			{
+				`log("Hit Enemy with Trace");
+				Missiles = true;
+				if(AbsorbBeam == none)
+				{
+					AbsorbBeam = WorldInfo.MyEmitterPool.SpawnEmitter(ParticleSystem'BloodFalcon.ParticleSystem.AbsorbBeam_Particle', Location, Rotation, self );
+
+				}
+				
+				if(AbsorbBeam != none && AbsorbedEnemy != none)
+				{
+					AbsorbBeam.SetVectorParameter('LinkBeamEnd', AbsorbedEnemy.Location);
+				}
+			}
+			else if(AbsorbBeam != none)
+			{
+				AbsorbBeam.SetKillOnDeactivate(0, true);
+				AbsorbBeam.DeactivateSystem();
+				AbsorbBeam = none;
+				AbsorbedEnemy = none;
+			}
+		}
+	}
+	else if(AbsorbBeam != none)
+	{
+		AbsorbBeam.SetKillOnDeactivate(0, true);
+		AbsorbBeam.DeactivateSystem();
+		AbsorbBeam = none;
+		AbsorbedEnemy = none;
+	}
+	DrawDebugLine( StartLine, EndLine, 255, 0, 0, false);
 }
 
 function WeaponDamage()
@@ -60,7 +127,65 @@ function WeaponDamage()
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
-  WeaponDamage();
+	WeaponDamage();
+	`log("Damage");
+}
+
+simulated function Rotator GetAdjustedAimFor(Weapon W, vector StartFireLoc)
+{
+	local Vector SocketLocation;
+	local Rotator SocketRotation;
+	local Player_Weap_Basic PlayerWeap;
+	local SkeletalMeshComponent WeaponSkeletalMeshComponent;
+
+	PlayerWeap = Player_Weap_Basic(Weapon);
+	if (PlayerWeap != None)
+	{
+		WeaponSkeletalMeshComponent = SkeletalMeshComponent(PlayerWeap.Mesh);
+		if (WeaponSkeletalMeshComponent != None && WeaponSkeletalMeshComponent.GetSocketByName(PlayerWeap.MuzzleSocketName) != None)
+		{			
+			WeaponSkeletalMeshComponent.GetSocketWorldLocationAndRotation(PlayerWeap.MuzzleSocketName, SocketLocation, SocketRotation);
+			return SocketRotation;
+		}
+	}
+
+	return Rotation;
+}
+
+function AddDefaultInventory()
+{
+	InvManager.CreateInventory(class'Player_Weap_Basic');
+	InvManager.CreateInventory(class'Player_Weap_Red');
+}
+
+simulated function StartFire(byte FireModeNum)
+{	
+	CurFire = true;
+	if(CurFire == true && BeamFire == false && FireModeNum == 0)
+	{
+		Player_Weap_Basic(Weapon).StartFire(FireModeNum);
+		SetTimer(0.1f, true, 'ShootUpgrades');
+	}
+	else if(FireModeNum == 1){
+		BeamFire = true;
+		//Player_Weap_Basic(Weapon).StartFire(FireModeNum);		
+	}
+}
+
+simulated function StopFire(byte FireModeNum)
+{
+	CurFire = false;
+	BeamFire = false;
+	Player_Weap_Basic(Weapon).StopFire(FireModeNum);
+	ClearTimer('ShootUpgrades');
+}
+
+function ShootUpgrades(byte FireModeNum)
+{
+	if(Missiles == true && CurFire == true)
+	{
+		Spawn(class'BF_Proj_Missile');
+	}
 }
 
 simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out rotator out_CamRot, out float out_FOV )
@@ -170,4 +295,9 @@ defaultproperties
 		bCollideWorld = true
 		GroundSpeed = 700
 		AccelRate = 5600
+		InventoryManagerClass=class'UdkProject.Player_Inventory'
+		Missiles = false;
+		CurFire = false;
+		BeamFire = false;
+		AbsorbedEnemy = none;
 }

@@ -7,6 +7,7 @@
 //////////////////////////
 
 class BFPlayerController extends UDKPlayerController;
+var BFPawn OurPlayer;
 
 function UpdateRotation( float DeltaTime )
 {
