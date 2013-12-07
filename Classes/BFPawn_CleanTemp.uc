@@ -14,6 +14,7 @@ var Vector PawnLoc, BFcamLoc; //Used for player bounding on the screen
 var Vector BeamStartLoc, BeamEndLoc; //Trace
 var ParticleSystemComponent AbsorbBeam;
 var ParticleSystemComponent EnemyDeath;
+var SoundCue EnemyDeathSound;
 var Actor TargetEnemy; //Enemyhit and Trace
 var int AbsorbTimer;
 var int EnemyAbsorbTime;
@@ -40,6 +41,7 @@ event PostBeginPlay()
 	Mesh.SetActorCollision(true, true); // enable PhysicsAsset collision
 	Mesh.SetTraceBlocking(true, true); // block traces (i.e. anything touching mesh)
 	AddDefaultInventory();
+	EnemyDeathSound = SoundCue'A_Weapon_BioRifle.Weapon.A_BioRifle_FireImpactExplode_Cue';
 }
 
 
@@ -110,16 +112,17 @@ event Tick(float DeltaTime)
 		if(BeamFire) //Altfire = true
 		{
 			if(BeamOffStep){
-				BeamOffset.X-=10.0;
-				if(BeamOffset.X<-250){
+				BeamOffset.X-=45.0;
+				if(BeamOffset.X<-300){
 					BeamOffStep = false;
 				}
 			}else{
-				BeamOffset.X+=10.0;
-				if(BeamOffset.X>250){
+				BeamOffset.X+=45.0;
+				if(BeamOffset.X>300){
 					BeamOffStep = true;
 				}
 			}
+
 			TracedEnemy = Trace(HitLocation, HitNormal, BeamEndLoc, BeamStartLoc, true);
 			//DrawDebugLine( BeamStartLoc, BeamEndLoc, 255, 0, 0, false);
 			if(TargetEnemy == none) //If you havent tried to trace an enemy yet
@@ -128,7 +131,7 @@ event Tick(float DeltaTime)
 				{
 					AbsorbBeam = WorldInfo.MyEmitterPool.SpawnEmitter(ParticleSystem'BloodFalcon.ParticleSystem.AbsorbBeam_Particle', Location, Rotation, self );
 				}else{
-					AbsorbBeam.SetVectorParameter('LinkBeamEnd', BeamEndLoc);
+					AbsorbBeam.SetVectorParameter('LinkBeamEnd', (Location + vect(0,-750,0)));
 				}
 				TargetEnemy = TracedEnemy;  //(BELOW) Checks to see if you are absorbing a weapon you already have
 				if(TargetEnemy != none)
@@ -156,6 +159,7 @@ event Tick(float DeltaTime)
 		UpgradeUpdate();	
 		EnemyDeath = WorldInfo.MyEmitterPool.SpawnEmitter(ParticleSystem'FX_VehicleExplosions.Effects.P_FX_VehicleDeathExplosion', TargetEnemy.Location, TargetEnemy.Rotation, self );
 		EnemyDeath.SetVectorParameter('LinkBeamEnd', (TargetEnemy.Location+vect(0,20,50)));
+		PlaySound(EnemyDeathSound);
 		TargetEnemy.Destroy();
 		killbeam();
 	}
