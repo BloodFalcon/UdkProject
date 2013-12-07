@@ -13,6 +13,7 @@ var Vector PawnLoc, BFcamLoc; //Used for player bounding on the screen
 //var Vector StartLine, EndLine; //Debug Line
 var Vector BeamStartLoc, BeamEndLoc; //Trace
 var ParticleSystemComponent AbsorbBeam;
+var ParticleSystemComponent EnemyDeath;
 var Actor TargetEnemy; //Enemyhit and Trace
 var int AbsorbTimer;
 var int EnemyAbsorbTime;
@@ -120,7 +121,7 @@ event Tick(float DeltaTime)
 				}
 			}
 			TracedEnemy = Trace(HitLocation, HitNormal, BeamEndLoc, BeamStartLoc, true);
-			DrawDebugLine( BeamStartLoc, BeamEndLoc, 255, 0, 0, false);
+			//DrawDebugLine( BeamStartLoc, BeamEndLoc, 255, 0, 0, false);
 			if(TargetEnemy == none) //If you havent tried to trace an enemy yet
 			{
 				if(AbsorbBeam == none)
@@ -140,13 +141,10 @@ event Tick(float DeltaTime)
 				}
 			}else{ //If you have a target enemy already, currently beaming
 				CheckDist = VSize2D(Location - TargetEnemy.Location);
-				if(CheckDist<600)
+				if(CheckDist<750)
 				{
 					AbsorbTimer++;
-					//if(AbsorbBeam != none)
-					//{
-						AbsorbBeam.SetVectorParameter('LinkBeamEnd', TargetEnemy.Location);
-					//}
+					AbsorbBeam.SetVectorParameter('LinkBeamEnd', TargetEnemy.Location);
 				}else{
 					killbeam();
 				}
@@ -155,7 +153,10 @@ event Tick(float DeltaTime)
 			killbeam();
 		}
 	}else{
-		UpgradeUpdate();
+		UpgradeUpdate();	
+		EnemyDeath = WorldInfo.MyEmitterPool.SpawnEmitter(ParticleSystem'FX_VehicleExplosions.Effects.P_FX_VehicleDeathExplosion', TargetEnemy.Location, TargetEnemy.Rotation, self );
+		EnemyDeath.SetVectorParameter('LinkBeamEnd', (TargetEnemy.Location+vect(0,20,50)));
+		TargetEnemy.Destroy();
 		killbeam();
 	}
 	super.Tick(DeltaTime);
@@ -179,6 +180,7 @@ function killbeam() //Resets The Absorb Beam
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
+	BeamFire = false;
 	if(DroneRank == Rank){
 		Rank--;
 		DroneRank = -1;
@@ -195,9 +197,6 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 		Health=0;
 		self.Destroy();
 	}
-	
-	
-
 }
 
 
