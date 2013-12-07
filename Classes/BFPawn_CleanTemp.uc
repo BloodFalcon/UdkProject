@@ -18,6 +18,8 @@ var int AbsorbTimer;
 var int EnemyAbsorbTime;
 var Vector NewEnemyLoc;
 var float CheckDist;
+var Vector BeamOffset;
+var bool BeamOffStep;
 //Weapon Equip Information (BECAUSE THE DAMN STRUCTS DONT WORK)
 	var int Rank;
 	var int DroneRank;
@@ -100,33 +102,51 @@ event Tick(float DeltaTime)
 	local Vector HitLocation, HitNormal;
 	local Actor TracedEnemy;
 	BeamStartLoc = Location;
-	BeamEndLoc = Location + vect(0,-750,0);
+	BeamEndLoc = Location + BeamOffset;
 
-	if(AbsorbTimer<EnemyAbsorbTime) //If you havent held the Absord for the required time yet
+	if(AbsorbTimer<EnemyAbsorbTime) //If you havent held the Absorb for the required time yet
 	{
 		if(BeamFire) //Altfire = true
 		{
+			if(BeamOffStep){
+				BeamOffset.X-=10.0;
+				if(BeamOffset.X<-250){
+					BeamOffStep = false;
+				}
+			}else{
+				BeamOffset.X+=10.0;
+				if(BeamOffset.X>250){
+					BeamOffStep = true;
+				}
+			}
 			TracedEnemy = Trace(HitLocation, HitNormal, BeamEndLoc, BeamStartLoc, true);
 			DrawDebugLine( BeamStartLoc, BeamEndLoc, 255, 0, 0, false);
 			if(TargetEnemy == none) //If you havent tried to trace an enemy yet
 			{
-				TargetEnemy = TracedEnemy;  //(BELOW) Checks to see if you are absorbing a weapon you already have
-				if((TargetEnemy.IsA('BF_Enemy_Drone') && DroneEquip) || (TargetEnemy.IsA('BF_Enemy_GunShip') && GunShipEquip) || (TargetEnemy.IsA('BF_Enemy_SuicideFighter') && SuicideFighterEquip))
+				if(AbsorbBeam == none)
 				{
-					TargetEnemy = none;
+					AbsorbBeam = WorldInfo.MyEmitterPool.SpawnEmitter(ParticleSystem'BloodFalcon.ParticleSystem.AbsorbBeam_Particle', Location, Rotation, self );
+				}else{
+					AbsorbBeam.SetVectorParameter('LinkBeamEnd', BeamEndLoc);
 				}
-				EnemyTimeReference();
+				TargetEnemy = TracedEnemy;  //(BELOW) Checks to see if you are absorbing a weapon you already have
+				if(TargetEnemy != none)
+				{
+					if((TargetEnemy.IsA('BF_Enemy_Drone') && DroneEquip) || (TargetEnemy.IsA('BF_Enemy_GunShip') && GunShipEquip) || (TargetEnemy.IsA('BF_Enemy_SuicideFighter') && SuicideFighterEquip))
+					{
+						TargetEnemy = none;
+					}
+					EnemyTimeReference();
+				}
 			}else{ //If you have a target enemy already, currently beaming
 				CheckDist = VSize2D(Location - TargetEnemy.Location);
 				if(CheckDist<600)
 				{
 					AbsorbTimer++;
-					if(AbsorbBeam == none)
-					{
-						AbsorbBeam = WorldInfo.MyEmitterPool.SpawnEmitter(ParticleSystem'BloodFalcon.ParticleSystem.AbsorbBeam_Particle', Location, Rotation, self );
-					}else{
+					//if(AbsorbBeam != none)
+					//{
 						AbsorbBeam.SetVectorParameter('LinkBeamEnd', TargetEnemy.Location);
-					}
+					//}
 				}else{
 					killbeam();
 				}
@@ -144,9 +164,14 @@ event Tick(float DeltaTime)
 
 function killbeam() //Resets The Absorb Beam
 {
-	AbsorbBeam.SetKillOnDeactivate(0, true);
-	AbsorbBeam.DeactivateSystem();
-	AbsorbBeam = none;
+	if(AbsorbBeam != none)
+	{
+		AbsorbBeam.SetKillOnDeactivate(0, true);
+		AbsorbBeam.DeactivateSystem();
+		AbsorbBeam = none;
+	}
+	BeamOffset = vect(0,-750,0);
+	BeamOffStep = true;
 	TargetEnemy = none;
 	AbsorbTimer = 0;
 }
@@ -166,6 +191,9 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 		Rank--;
 		SuicideFighterRank = -1;
 		SuicideFighterEquip = false;
+	}else{
+		Health=0;
+		self.Destroy();
 	}
 	
 	
@@ -254,7 +282,7 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 		SetLocation(PawnLoc);
 	}
 	
-	if((Location.Y+300)<=out_CamLoc.Y)
+	if((Location.Y+750)<=out_CamLoc.Y)
 	{
 		PawnLoc = Location;
 		PawnLoc.Y = (out_CamLoc.Y-750);
