@@ -26,7 +26,7 @@ static event class<GameInfo> SetGameType(string MapName, string Options, string 
 defaultproperties
 {
     bDelayedStart=false
-    DefaultPawnClass=class'UdkProject.BFPawn'
+    DefaultPawnClass=class'UdkProject.BFPawn_CleanTemp'
     PlayerControllerClass=class'UdkProject.BFPlayerController'
 	HUDType=class'UdkProject.BFHUD'
 

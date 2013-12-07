@@ -11,6 +11,7 @@ placeable;
 
 var bool AbsorbSuccess;
 var BFPawn OurPlayer;
+var int EnemyAbsorbTime;
 
 function AddDefaultInventory()
 {

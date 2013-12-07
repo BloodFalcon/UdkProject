@@ -1,149 +1,177 @@
-//////////////////////////
+/***************************************
 // Author(s): Tyler Keller, Sean Mackey
-// Date: 11/5/2013
-// Status: Alpha
+// Date: 12/6/2013
+// Status: Beta
 // Being Used: Yes
 // Description: Pawn for Blood Falcon
-//////////////////////////
+***************************************/
 
-class BFPawn extends UDKPawn;
-/*
-var bool FirstRun;
-var Vector PawnLoc;
-var Vector BFcamLoc;
-var BFHUD BFH;
-var bool Missiles;
-var bool CurFire;
-var bool BeamFire;
-var Vector StartLine;
-var Vector EndLine;
+class BFPawn_CleanTemp extends UDKPawn;
+
+var bool FirstRun, CurFire, BeamFire; //Checks Firing and if Beam, FirstRun Sets Camera
+var Vector PawnLoc, BFcamLoc; //Used for player bounding on the screen
+//var Vector StartLine, EndLine; //Debug Line
+var Vector BeamStartLoc, BeamEndLoc; //Trace
 var ParticleSystemComponent AbsorbBeam;
-var Actor AbsorbedEnemy;
+var Actor TargetEnemy; //Enemyhit and Trace
 var int AbsorbTimer;
+var int EnemyAbsorbTime;
 var Vector NewEnemyLoc;
+var float CheckDist;
+//Weapon Equip Information (BECAUSE THE DAMN STRUCTS DONT WORK)
+	var int Rank;
+	var int DroneRank;
+	var bool DroneEquip;
+	var int GunShipRank;
+	var bool GunShipEquip;
+	var int SuicideFighterRank;
+	var bool SuicideFighterEquip;		
+//Weapon Equip Information (BECAUSE THE DAMN STRUCTS DONT WORK)
+
 
 event PostBeginPlay()
 {
 	super.PostBeginPlay();
 	SetPhysics(PHYS_Walking); // wake the physics up
-	// set up collision detection based on mesh's PhysicsAsset
 	CylinderComponent.SetActorCollision(false, false); // disable cylinder collision
 	Mesh.SetActorCollision(true, true); // enable PhysicsAsset collision
 	Mesh.SetTraceBlocking(true, true); // block traces (i.e. anything touching mesh)
 	AddDefaultInventory();
-
 }
+
+
+function EnemyTimeReference() //Set The Absorbtion Time Per Enemy
+{
+	if(TargetEnemy.IsA('BF_Enemy_Drone')){
+		EnemyAbsorbTime=200;
+	}else if(TargetEnemy.IsA('BF_Enemy_GunShip')){
+		EnemyAbsorbTime=200;
+	}else if(TargetEnemy.IsA('BF_Enemy_SuicideFighter')){
+		EnemyAbsorbTime=200;
+	}else{
+
+	}
+}
+
+
+function UpgradeUpdate()
+{
+	if(TargetEnemy.IsA('BF_Enemy_Drone')){
+		Rank++;
+		DroneRank = Rank;
+		DroneEquip = true;
+	}else if(TargetEnemy.IsA('BF_Enemy_GunShip')){
+		Rank++;
+		GunShipRank = Rank;
+		GunShipEquip = true;
+	}else if(TargetEnemy.IsA('BF_Enemy_SuicideFighter')){
+		Rank++;
+		SuicideFighterRank = Rank;
+		SuicideFighterEquip = true;
+	}else{
+
+	}
+}
+
+
+function ShootUpgrades(byte FireModeNum) //Place All the upgrades to be fired here
+{
+	if(DroneEquip && CurFire == true)
+	{
+		Spawn(class'BF_Proj_Red');
+	}
+	
+	if(GunShipEquip && CurFire == true)
+	{
+		Spawn(class'BF_Proj_Missile');
+		//Spawn(class'BF_Proj_Player_Missile_L');
+		//Spawn(class'BF_Proj_Player_Missile_R');
+	}
+	
+	if(SuicideFighterEquip && CurFire == true)
+	{
+		Spawn(class'BF_Proj_Blue');
+	}
+}
+
 
 event Tick(float DeltaTime)
 {
-	local Actor HitBot;
-	local Vector StartLocation, EndLocation, HitLocation, HitNormal;
-	local float CheckDist;
+	local Vector HitLocation, HitNormal;
+	local Actor TracedEnemy;
+	BeamStartLoc = Location;
+	BeamEndLoc = Location + vect(0,-750,0);
 
-
-	
-	StartLocation = Location;
-	EndLocation = Location + vect(0,-3000,0);
-	StartLine = Location;
-	EndLine = EndLocation;
-
-	super.Tick(DeltaTime);
-
-	if(AbsorbTimer>200){
-		Missiles=true;
-		killbeam();
-		
-	}else{
-		if(BeamFire)
+	if(AbsorbTimer<EnemyAbsorbTime) //If you havent held the Absord for the required time yet
+	{
+		if(BeamFire) //Altfire = true
 		{
-			HitBot = Trace( HitLocation, HitNormal, EndLocation, StartLocation, true);
-			if(AbsorbedEnemy == none )
+			TracedEnemy = Trace(HitLocation, HitNormal, BeamEndLoc, BeamStartLoc, true);
+			DrawDebugLine( BeamStartLoc, BeamEndLoc, 255, 0, 0, false);
+			if(TargetEnemy == none) //If you havent tried to trace an enemy yet
 			{
-				AbsorbedEnemy = HitBot;
-				if(AbsorbedEnemy.IsA('BF_Enemy_GunShip') && Missiles==true) //if enemy has been absorbed before, empty the AbsorbedEnemy Variable
+				TargetEnemy = TracedEnemy;  //(BELOW) Checks to see if you are absorbing a weapon you already have
+				if((TargetEnemy.IsA('BF_Enemy_Drone') && DroneEquip) || (TargetEnemy.IsA('BF_Enemy_GunShip') && GunShipEquip) || (TargetEnemy.IsA('BF_Enemy_SuicideFighter') && SuicideFighterEquip))
 				{
-					AbsorbedEnemy=none;
+					TargetEnemy = none;
 				}
-			}else{
-				//EndLine = AbsorbedEnemy.Location;
-				CheckDist = VSize2D(Location - AbsorbedEnemy.Location);
-				if(AbsorbedEnemy != none && AbsorbedEnemy.IsA('BF_Enemy_GunShip') && CheckDist < 750.0)
+				EnemyTimeReference();
+			}else{ //If you have a target enemy already, currently beaming
+				CheckDist = VSize2D(Location - TargetEnemy.Location);
+				if(CheckDist<600)
 				{
-					`log("Hit Enemy with Trace");
 					AbsorbTimer++;
-					StartLine = Location; //Erase Debug Line When Enemy Is Caught
-					EndLine = Location;
-					//Missiles = true;
 					if(AbsorbBeam == none)
 					{
 						AbsorbBeam = WorldInfo.MyEmitterPool.SpawnEmitter(ParticleSystem'BloodFalcon.ParticleSystem.AbsorbBeam_Particle', Location, Rotation, self );
+					}else{
+						AbsorbBeam.SetVectorParameter('LinkBeamEnd', TargetEnemy.Location);
 					}
-				
-					if(AbsorbBeam != none && AbsorbedEnemy != none)
-					{
-						AbsorbBeam.SetVectorParameter('LinkBeamEnd', AbsorbedEnemy.Location);
-					}
-				}else if(AbsorbBeam != none){
+				}else{
 					killbeam();
 				}
 			}
-		}else if(AbsorbBeam != none){
+		}else{
 			killbeam();
 		}
+	}else{
+		UpgradeUpdate();
+		killbeam();
 	}
-	DrawDebugLine( StartLine, EndLine, 255, 0, 0, false);
+	super.Tick(DeltaTime);
 }
 
 
-function killbeam()
+function killbeam() //Resets The Absorb Beam
 {
 	AbsorbBeam.SetKillOnDeactivate(0, true);
 	AbsorbBeam.DeactivateSystem();
 	AbsorbBeam = none;
-	AbsorbedEnemy = none;
-	AbsorbTimer=0;
+	TargetEnemy = none;
+	AbsorbTimer = 0;
 }
 
-
-function WeaponDamage()
-{
-	local bool W1;
-	local bool W2;
-	local bool W3;
-	local bool W4;
-	local bool W5;
-	local bool W6;
-
-	W1 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W1;
-	W2 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W2;
-	W3 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W3;
-	W4 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W4;
-	W5 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W5;
-	W6 = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).W6;
-
-	if(W6){
- 		BFGameInfo(WorldInfo.Game).W6 = false;
-	}else if(W5){
- 		BFGameInfo(WorldInfo.Game).W5 = false;
-	}else if(W4){
- 		BFGameInfo(WorldInfo.Game).W4 = false;
-	}else if(W3){
- 		BFGameInfo(WorldInfo.Game).W3 = false;
-	}else if(W2){
- 		BFGameInfo(WorldInfo.Game).W2 = false;
-	}else if(W1){
- 		BFGameInfo(WorldInfo.Game).W1 = false;
-	}else{
-		BFGameInfo(WorldInfo.Game).playerdead = true;
- 		self.Destroy();
- }
-}
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
-	WeaponDamage();
-	`log("Damage");
+	if(DroneRank == Rank){
+		Rank--;
+		DroneRank = -1;
+		DroneEquip = false;
+	}else if(GunShipRank == Rank){
+		Rank--;
+		GunShipRank = -1;
+		GunShipEquip = false;
+	}else if(SuicideFighterRank == Rank){
+		Rank--;
+		SuicideFighterRank = -1;
+		SuicideFighterEquip = false;
+	}
+	
+	
+
 }
+
 
 simulated function Rotator GetAdjustedAimFor(Weapon W, vector StartFireLoc)
 {
@@ -166,10 +194,12 @@ simulated function Rotator GetAdjustedAimFor(Weapon W, vector StartFireLoc)
 	return Rotation;
 }
 
+
 function AddDefaultInventory()
 {
 	InvManager.CreateInventory(class'Player_Weap_Basic');
 }
+
 
 simulated function StartFire(byte FireModeNum)
 {	
@@ -185,6 +215,7 @@ simulated function StartFire(byte FireModeNum)
 	}
 }
 
+
 simulated function StopFire(byte FireModeNum)
 {
 	CurFire = false;
@@ -193,13 +224,6 @@ simulated function StopFire(byte FireModeNum)
 	ClearTimer('ShootUpgrades');
 }
 
-function ShootUpgrades(byte FireModeNum)
-{
-	if(Missiles == true && CurFire == true)
-	{
-		Spawn(class'BF_Proj_Missile');
-	}
-}
 
 simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out rotator out_CamRot, out float out_FOV )
 {
@@ -233,7 +257,7 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 	if((Location.Y+300)<=out_CamLoc.Y)
 	{
 		PawnLoc = Location;
-		PawnLoc.Y = (out_CamLoc.Y-300);
+		PawnLoc.Y = (out_CamLoc.Y-750);
 		SetLocation(PawnLoc);
 	}
 
@@ -252,10 +276,9 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 	}
 
 	BFcamLoc = out_CamLoc;
-
 	return true;
-
 }
+
 
 function bool Died(Controller Killer, class<DamageType> damageType, vector HitLocation)
 {
@@ -264,6 +287,7 @@ function bool Died(Controller Killer, class<DamageType> damageType, vector HitLo
 	return True;
 }
 
+
 event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vector HitNormal )
 {
 	local UDKPawn HitPawn;
@@ -271,14 +295,14 @@ event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vect
 
 			if(HitPawn != none)
 			{
-				`Log("BUMP!");
-				WeaponDamage();
+				//`Log("BUMP!");
+				//WeaponDamage();
 			}
 }
-*/
+
+
 defaultproperties
 {
-		/*AbsorbTimer=0
 		bCanJump=false
 		bCanFly=false
 		//LandMovementState=PlayerFlying
@@ -310,8 +334,16 @@ defaultproperties
 		GroundSpeed = 700
 		AccelRate = 5600
 		InventoryManagerClass=class'UdkProject.Player_Inventory'
-		Missiles = false;
-		CurFire = false;
-		BeamFire = false;
-		AbsorbedEnemy = none;*/
+		
+		CurFire = false
+		BeamFire = false
+		TargetEnemy = none	
+		AbsorbTimer=0
+		EnemyAbsorbTime=200
+		GunShipRank = -1
+		GunShipEquip = false
+		DroneRank = -1
+		DroneEquip = false
+		SuicideFighterRank = -1
+		SuicideFighterEquip = false
 }
