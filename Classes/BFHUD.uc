@@ -10,7 +10,9 @@ class BFHUD extends HUD;
 
 var Texture2D BFUI;
 var Texture2D BFMissile;
+var Texture2D BFMissileEmpty;
 var Texture2D BFFlamethrower;
+var Texture2D BFFlamethrowerEmpty;
 var Texture2D BFTemplate;
 var MultiFont BF_Font;
 var bool PlayerDead;
@@ -49,21 +51,21 @@ function LoadUI()
 		Canvas.DrawTile(BFMissile, 64, 64, 0, 0, 64, 64);
 	}else{
 		Canvas.SetPos(9, 944);
-		Canvas.DrawTile(BFTemplate, 64, 64, 0, 0, 64, 64);
+		Canvas.DrawTile(BFMissileEmpty, 64, 64, 0, 0, 64, 64);
 	}
 	if(DroneEquip){ //DRONE FLAMETHROWER
 		Canvas.SetPos(85, 944);
 		Canvas.DrawTile(BFFlamethrower, 64, 64, 0, 0, 64, 64);
 	}else{
 		Canvas.SetPos(85, 944);
-		Canvas.DrawTile(BFTemplate, 64, 64, 0, 0, 64, 64);
+		Canvas.DrawTile(BFFlamethrowerEmpty, 64, 64, 0, 0, 64, 64);
 	}
 	if(SuicideFighterEquip){ //SUICIDEFIGHTER MACHINEGUN?
 		Canvas.SetPos(161, 944);
 		Canvas.DrawTile(BFFlameThrower, 64, 64, 0, 0, 64, 64);
 	}else{
 		Canvas.SetPos(161, 944);
-		Canvas.DrawTile(BFTemplate, 64, 64, 0, 0, 64, 64);
+		Canvas.DrawTile(BFFlamethrowerEmpty, 64, 64, 0, 0, 64, 64);
 	}
 		Canvas.SetPos(237, 944);
 		Canvas.DrawTile(BFTemplate, 64, 64, 0, 0, 64, 64);
@@ -108,7 +110,9 @@ DefaultProperties
 {
 	BFUI = Texture2D'BloodFalcon.Texture.BF_HUDUI'
 	BFMissile = Texture2D'BloodFalcon.Texture.BF_HUD_Missile'
+	BFMissileEmpty = Texture2D'BloodFalcon.Texture.BF_HUD_MissileEmpty'
 	BFFlamethrower = Texture2D'BloodFalcon.Texture.BF_HUD_FlameThrower'
+	BFFlamethrowerEmpty = Texture2D'BloodFalcon.Texture.BF_HUD_FlameThrowerEmpty'
 	BFTemplate = Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
 	BF_Font = MultiFont'UI_Fonts_Final.menus.Fonts_AmbexHeavy'
 	playerdead=false
