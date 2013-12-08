@@ -15,6 +15,7 @@ var Vector BeamStartLoc, BeamEndLoc; //Trace
 var ParticleSystemComponent AbsorbBeam;
 var ParticleSystemComponent EnemyDeath;
 var SoundCue EnemyDeathSound;
+var AudioComponent BeamFireSound, BeamAbsorbSound;
 var Actor TargetEnemy; //Enemyhit and Trace
 var int AbsorbTimer;
 var int EnemyAbsorbTime;
@@ -42,7 +43,10 @@ event PostBeginPlay()
 	Mesh.SetTraceBlocking(true, true); // block traces (i.e. anything touching mesh)
 	AddDefaultInventory();
 	EnemyDeathSound = SoundCue'A_Weapon_BioRifle.Weapon.A_BioRifle_FireImpactExplode_Cue';
+	//BeamFireSound = SoundCue'A_Pickups_Powerups.PowerUps.A_Powerup_Berzerk_GroundLoopCue';
+	//BeamHitSound = SoundCue'A_Pickups_Powerups.PowerUps.A_Powerup_Berzerk_PowerLoopCue';
 }
+
 
 
 function EnemyTimeReference() //Set The Absorbtion Time Per Enemy
@@ -136,6 +140,8 @@ event Tick(float DeltaTime)
 				TargetEnemy = TracedEnemy;  //(BELOW) Checks to see if you are absorbing a weapon you already have
 				if(TargetEnemy != none)
 				{
+					BeamFireSound.Stop();
+					BeamAbsorbSound.Play();
 					if((TargetEnemy.IsA('BF_Enemy_Drone') && DroneEquip) || (TargetEnemy.IsA('BF_Enemy_GunShip') && GunShipEquip) || (TargetEnemy.IsA('BF_Enemy_SuicideFighter') && SuicideFighterEquip))
 					{
 						TargetEnemy = none;
@@ -149,6 +155,7 @@ event Tick(float DeltaTime)
 					AbsorbTimer++;
 					AbsorbBeam.SetVectorParameter('LinkBeamEnd', TargetEnemy.Location);
 				}else{
+					BeamFireSound.Play();
 					killbeam();
 				}
 			}
@@ -160,6 +167,7 @@ event Tick(float DeltaTime)
 		EnemyDeath = WorldInfo.MyEmitterPool.SpawnEmitter(ParticleSystem'FX_VehicleExplosions.Effects.P_FX_VehicleDeathExplosion', TargetEnemy.Location, TargetEnemy.Rotation, self );
 		EnemyDeath.SetVectorParameter('LinkBeamEnd', (TargetEnemy.Location+vect(0,20,50)));
 		PlaySound(EnemyDeathSound);
+		BeamAbsorbSound.Stop();
 		TargetEnemy.Destroy();
 		killbeam();
 	}
@@ -179,6 +187,11 @@ function killbeam() //Resets The Absorb Beam
 	BeamOffStep = true;
 	TargetEnemy = none;
 	AbsorbTimer = 0;
+	BeamAbsorbSound.Stop();
+	if(BeamFire)
+	{
+		BeamFireSound.Play();
+	}
 }
 
 
@@ -242,6 +255,7 @@ simulated function StartFire(byte FireModeNum)
 	}
 	else if(FireModeNum == 1){
 		BeamFire = true;
+		BeamFireSound.Play();
 		//Player_Weap_Basic(Weapon).StartFire(FireModeNum);		
 	}
 }
@@ -251,6 +265,7 @@ simulated function StopFire(byte FireModeNum)
 {
 	CurFire = false;
 	BeamFire = false;
+	BeamFireSound.Stop();
 	Player_Weap_Basic(Weapon).StopFire(FireModeNum);
 	ClearTimer('ShootUpgrades');
 }
@@ -342,6 +357,18 @@ defaultproperties
         End Object
         Components.Add(MyLightEnvironment)
         
+		Begin Object Class=AudioComponent Name=AltFireSound
+			SoundCue = SoundCue'A_Pickups_Powerups.PowerUps.A_Powerup_Berzerk_GroundLoopCue'
+		End Object
+		Components.Add(AltFireSound)
+		BeamFireSound = AltFireSound
+
+		Begin Object Class=AudioComponent Name=AbsorbSound
+			SoundCue = SoundCue'A_Pickups_Powerups.PowerUps.A_Powerup_Berzerk_PowerLoopCue';
+		End Object
+		Components.Add(AbsorbSound)
+		BeamAbsorbSound = AbsorbSound
+
         Begin Object Class=SkeletalMeshComponent Name=MyMesh
                 SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
 				PhysicsAsset=PhysicsAsset'BloodFalcon.SkeletalMesh.Player_Physics'
