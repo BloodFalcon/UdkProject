@@ -60,9 +60,6 @@ function bool Died(Controller Killer, class<DamageType> damageType, vector HitLo
 	}
 	return false;
 	*/
-	if(AbsorbSuccess){
-	BFGameInfo(WorldInfo.Game).W2 = true;
-	}
 	owner.Destroy();
 	Self.Destroy();
 	return True;

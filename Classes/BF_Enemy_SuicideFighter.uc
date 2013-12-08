@@ -45,9 +45,6 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 
 function bool Died(Controller Killer, class<DamageType> damageType, vector HitLocation)
 {
-	if(AbsorbSuccess){
-	BFGameInfo(WorldInfo.Game).W1 = true;
-	}
 	owner.Destroy();
 	Self.Destroy();
 	return True;

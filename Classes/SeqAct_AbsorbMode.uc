@@ -18,13 +18,13 @@ event Activated()
 	}
 
 	if(InputLinks[1].bHasImpulse == true){
-		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Absorb = false;
+		//BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Absorb = false;
 		OutputLinks[0].bDisabled = true;
 		OutputLinks[1].bDisabled = true;
 	}
 
 	if(InputLinks[2].bHasImpulse == true){
-		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Absorb = true;
+		//BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Absorb = true;
 		OutputLinks[1].bHasImpulse = true;
 		OutputLinks[0].bDisabled = true;
 	}

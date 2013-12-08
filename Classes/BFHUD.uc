@@ -14,9 +14,23 @@ var Texture2D BFFlamethrower;
 var Texture2D BFTemplate;
 var MultiFont BF_Font;
 var bool playerdead;
+	var byte Rank;
+	var byte DroneRank;
+	var bool DroneEquip;
+	var byte GunShipRank;
+	var bool GunShipEquip;
+	var byte SuicideFighterRank;
+	var bool SuicideFighterEquip;	
 
 function drawHUD()
 {
+	DroneEquip = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).DroneEquip;
+	GunShipEquip = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GunShipEquip;
+	SuicideFighterEquip = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).SuicideFighterEquip;
+	DroneRank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).DroneRank;
+	GunShipRank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GunShipRank;
+	SuicideFighterRank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).SuicideFighterRank;
+	Rank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Rank;
 	Canvas.Font = BF_Font;
 	LoadUI();
 	playerdead = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).playerdead;
@@ -31,7 +45,9 @@ function LoadUI()
 	Canvas.SetPos(-6, 936);
 	Canvas.DrawTile(BFUI, 1024, 1024, 0, 0, 1024, 1024);
 	Canvas.SetPos(9, 944);
-	Canvas.DrawTile(BFMissile, 64, 64, 0, 0, 64, 64);
+	if(GunShipEquip){
+		Canvas.DrawTile(BFMissile, 64, 64, 0, 0, 64, 64);
+	}
 	Canvas.SetPos(85, 944);
 	Canvas.DrawTile(BFFlamethrower, 64, 64, 0, 0, 64, 64);
 	Canvas.SetPos(706,936);

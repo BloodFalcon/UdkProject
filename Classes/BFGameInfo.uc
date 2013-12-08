@@ -8,15 +8,15 @@
 
 class BFGameInfo extends UDKGame;
 
-var bool Absorb;
-var bool Basic;
-var bool W1;
-var bool W2;
-var bool W3;
-var bool W4;
-var bool W5;
-var bool W6;
 var bool playerdead;
+	var bool DroneEquip;
+	var bool GunShipEquip;
+	var bool SuicideFighterEquip;
+	var byte DroneRank;
+	var byte GunShipRank;
+	var byte SuicideFighterRank;
+	var byte Rank;
+
 
 static event class<GameInfo> SetGameType(string MapName, string Options, string Portal)
 {
@@ -26,17 +26,9 @@ static event class<GameInfo> SetGameType(string MapName, string Options, string 
 defaultproperties
 {
     bDelayedStart=false
-    DefaultPawnClass=class'UdkProject.BFPawn_CleanTemp'
+    DefaultPawnClass=class'UdkProject.BFPawn'
     PlayerControllerClass=class'UdkProject.BFPlayerController'
 	HUDType=class'UdkProject.BFHUD'
 
-	Absorb = false
-	Basic = true
-	W1 = false
-	W2 = false
-	W3 = false
-	W4 = false
-	W5 = false
-	W6 = false
 	playerdead = false
 }
