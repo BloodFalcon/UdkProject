@@ -10,10 +10,14 @@ class BFHUD extends HUD;
 
 var Texture2D BFUI;
 var Texture2D BFMissile;
+var Texture2D BFFlamethrower;
+var Texture2D BFTemplate;
+var MultiFont BF_Font;
 var bool playerdead;
 
 function drawHUD()
 {
+	Canvas.Font = BF_Font;
 	LoadUI();
 	playerdead = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).playerdead;
 	if(playerdead){
@@ -24,10 +28,15 @@ function drawHUD()
 
 function LoadUI()
 {
-	Canvas.SetPos(-6, 0);
+	Canvas.SetPos(-6, 936);
 	Canvas.DrawTile(BFUI, 1024, 1024, 0, 0, 1024, 1024);
-	Canvas.SetPos(9, 8);
+	Canvas.SetPos(9, 944);
 	Canvas.DrawTile(BFMissile, 64, 64, 0, 0, 64, 64);
+	Canvas.SetPos(85, 944);
+	Canvas.DrawTile(BFFlamethrower, 64, 64, 0, 0, 64, 64);
+	Canvas.SetPos(706,936);
+	Canvas.SetDrawColor(0,0,0);
+	Canvas.DrawText("1",,2.5,3);
 }
 
 /*function activeWeapons()
@@ -64,6 +73,9 @@ DefaultProperties
 {
 	BFUI = Texture2D'BloodFalcon.Texture.BF_HUDUI'
 	BFMissile = Texture2D'BloodFalcon.Texture.BF_HUD_Missile'
+	BFFlamethrower = Texture2D'BloodFalcon.Texture.BF_HUD_FlameThrower'
+	BFTemplate = Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
+	BF_Font = MultiFont'UI_Fonts_Final.menus.Fonts_AmbexHeavy'
 	playerdead=false
 }
 

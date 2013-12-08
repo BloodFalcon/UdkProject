@@ -293,10 +293,10 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 		SetLocation(PawnLoc);
 	}
 
-	if((Location.Y-750)>=out_CamLoc.Y)
+	if((Location.Y-650)>=out_CamLoc.Y)
 	{
 		PawnLoc = Location;
-		PawnLoc.Y = (out_CamLoc.Y+750);
+		PawnLoc.Y = (out_CamLoc.Y+650);
 		SetLocation(PawnLoc);
 	}
 	
