@@ -24,13 +24,14 @@ var float CheckDist;
 var Vector BeamOffset;
 var bool BeamOffStep;
 //Weapon Equip Information (BECAUSE THE DAMN STRUCTS DONT WORK)
-	var byte Rank;
-	var byte DroneRank;
+	var int Rank;
+	var int DroneRank;
 	var bool DroneEquip;
-	var byte GunShipRank;
+	var int GunShipRank;
 	var bool GunShipEquip;
-	var byte SuicideFighterRank;
+	var int SuicideFighterRank;
 	var bool SuicideFighterEquip;		
+	var bool PlayerDead;
 //Weapon Equip Information (BECAUSE THE DAMN STRUCTS DONT WORK)
 
 
@@ -56,6 +57,7 @@ function UpdateHUD()
 	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GunShipRank = GunShipRank;
 	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).SuicideFighterRank = SuicideFighterRank;
 	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Rank = Rank;
+	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead = PlayerDead;
 }
 
 function EnemyTimeReference() //Set The Absorbtion Time Per Enemy
@@ -222,6 +224,7 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 		SuicideFighterEquip = false;
 	}else{
 		Health=0;
+		PlayerDead = true;
 		self.Destroy();
 	}
 }
@@ -339,6 +342,7 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 function bool Died(Controller Killer, class<DamageType> damageType, vector HitLocation)
 {
 	//owner.Destroy();
+	PlayerDead = true;
 	Self.Destroy();
 	return True;
 }

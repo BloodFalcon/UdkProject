@@ -8,14 +8,14 @@
 
 class BFGameInfo extends UDKGame;
 
-var bool playerdead;
+var bool PlayerDead;
 	var bool DroneEquip;
 	var bool GunShipEquip;
 	var bool SuicideFighterEquip;
-	var byte DroneRank;
-	var byte GunShipRank;
-	var byte SuicideFighterRank;
-	var byte Rank;
+	var int DroneRank;
+	var int GunShipRank;
+	var int SuicideFighterRank;
+	var int Rank;
 
 
 static event class<GameInfo> SetGameType(string MapName, string Options, string Portal)
