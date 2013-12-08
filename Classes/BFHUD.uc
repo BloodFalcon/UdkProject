@@ -24,10 +24,10 @@ function drawHUD()
 
 function LoadUI()
 {
-	Canvas.SetPos(0, 0);
+	Canvas.SetPos(-6, 0);
 	Canvas.DrawTile(BFUI, 1024, 1024, 0, 0, 1024, 1024);
-	Canvas.SetPos(13, 13);
-	Canvas.DrawTile(BFMissile, 43, 40, 0, 0, 128, 128);
+	Canvas.SetPos(9, 8);
+	Canvas.DrawTile(BFMissile, 64, 64, 0, 0, 64, 64);
 }
 
 /*function activeWeapons()
