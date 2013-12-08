@@ -16,6 +16,7 @@ var Texture2D BFFlamethrowerEmpty;
 var Texture2D BFTemplate;
 var MultiFont BF_Font;
 var bool PlayerDead;
+var int RankHolder; //Used in Rank Position
 	var int Rank;
 	var int DroneRank;
 	var bool DroneEquip;
@@ -42,35 +43,73 @@ function drawHUD()
 	super.drawHUD();
 }
 
+function RankPosition()
+{
+	if(RankHolder==1){
+		Canvas.SetPos(9, 944);
+	}else if(RankHolder==2){
+		Canvas.SetPos(85, 944);	
+	}else if(RankHolder==3){
+		Canvas.SetPos(161, 944);	
+	}else if(RankHolder==4){
+		Canvas.SetPos(237, 944);	
+	}else if(RankHolder==5){
+		Canvas.SetPos(313, 944);	
+	}else{
+	
+	}
+}
+
+function CleanHUD()
+{
+	if((Rank+5)<=5){
+		RankHolder = Rank + 5;
+		RankPosition();
+		Canvas.DrawTile(BFTemplate, 64, 64, 0, 0, 64, 64);
+	}
+	if((Rank+4)<=5){
+		RankHolder = Rank + 4;
+		RankPosition();
+		Canvas.DrawTile(BFTemplate, 64, 64, 0, 0, 64, 64);
+	}
+	if((Rank+3)<=5){
+		RankHolder = Rank + 3;
+		RankPosition();
+		Canvas.DrawTile(BFTemplate, 64, 64, 0, 0, 64, 64);
+	}
+	if((Rank+2)<=5){
+		RankHolder = Rank + 2;
+		RankPosition();
+		Canvas.DrawTile(BFTemplate, 64, 64, 0, 0, 64, 64);
+	}
+	if((Rank+1)<=5){
+		RankHolder = Rank + 1;
+		RankPosition();
+		Canvas.DrawTile(BFTemplate, 64, 64, 0, 0, 64, 64);
+	}
+}
+
 function LoadUI()
 {
 	Canvas.SetPos(-6, 936);
 	Canvas.DrawTile(BFUI, 1024, 1024, 0, 0, 1024, 1024);
 	if(GunShipEquip){ //GUNSHIP MISSILES
-		Canvas.SetPos(9, 944);
+		RankHolder = GunShipRank;
+		RankPosition();
 		Canvas.DrawTile(BFMissile, 64, 64, 0, 0, 64, 64);
-	}else{
-		Canvas.SetPos(9, 944);
-		Canvas.DrawTile(BFMissileEmpty, 64, 64, 0, 0, 64, 64);
 	}
-	if(DroneEquip){ //DRONE FLAMETHROWER
-		Canvas.SetPos(85, 944);
+	if(DroneEquip){
+		RankHolder = DroneRank;
+		RankPosition();
 		Canvas.DrawTile(BFFlamethrower, 64, 64, 0, 0, 64, 64);
-	}else{
-		Canvas.SetPos(85, 944);
-		Canvas.DrawTile(BFFlamethrowerEmpty, 64, 64, 0, 0, 64, 64);
 	}
 	if(SuicideFighterEquip){ //SUICIDEFIGHTER MACHINEGUN?
-		Canvas.SetPos(161, 944);
+		RankHolder = SuicideFighterRank;
+		RankPosition();
 		Canvas.DrawTile(BFFlameThrower, 64, 64, 0, 0, 64, 64);
-	}else{
-		Canvas.SetPos(161, 944);
-		Canvas.DrawTile(BFFlamethrowerEmpty, 64, 64, 0, 0, 64, 64);
 	}
-		Canvas.SetPos(237, 944);
-		Canvas.DrawTile(BFTemplate, 64, 64, 0, 0, 64, 64);
-		Canvas.SetPos(313, 944);
-		Canvas.DrawTile(BFTemplate, 64, 64, 0, 0, 64, 64);
+
+	CleanHUD();
 	Canvas.SetPos(706,936);
 	Canvas.SetDrawColor(0,0,0);
 	Canvas.DrawText("1",,2.5,3);
