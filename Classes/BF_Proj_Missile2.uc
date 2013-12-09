@@ -1,10 +1,10 @@
-//////////////////////////
-// Author(s): Tyler
-// Date: 12/4/2013
-// Status: Alpha
-// Being Used: Yes
-// Description: Missile using distance instead of velocity
-//////////////////////////
+/***************************************
+// Author(s): Tyler Keller
+// Date: 12/8/2013
+// Status: Beta
+// Being Used: No
+// Description: Missile for Blood Falcon
+***************************************/
 
 class BF_Proj_Missile2 extends UDKProjectile;
 
@@ -12,13 +12,10 @@ var ParticleSystemComponent ProjEffects;
 var ParticleSystem ProjFlightTemplate;
 var ParticleSystem ProjExplosionTemplate;
 var SoundCue ProjSound1;
-var vector VelocityCur;
-var vector AccelerationCur;
 var Vector StartingLoc;
-var bool Neg;
-var int CurDistance;
-var int HDistance;
-var int VDistance;
+var Vector CurVelocity;
+var bool FirstRun;
+
 
 simulated function PostBeginPlay()
 {
@@ -27,17 +24,21 @@ simulated function PostBeginPlay()
 	SpawnFlightEffects();
 	SpawnFireEffect();
 	StartingLoc = self.Location;
-	while(HDistance<50 && HDistance>(-50)){
-	HDistance = RandRange(-75, 75);
-	}
-	if(HDistance>0){
-		VelocityCur.X = 250;
-		Neg=false;
+	CurVelocity = vect(200,100,0);
+}
+
+
+function tick(float DeltTime)
+{
+	if(Self.Location.X>=(StartingLoc.X+50)){
+		if(FirstRun){
+		
+		}
+		Velocity = vect(0,-5,0);
 	}else{
-		VelocityCur.X = (-250);
-		Neg=true;
+		CurVelocity-=vect(2,1,0);
+		Velocity = CurVelocity;
 	}
-	VelocityCur.Y = 1.0;
 }
 
 
@@ -54,7 +55,6 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNorma
 	}
 }
 
-
 simulated function SpawnFlightEffects()
 {
 	if (WorldInfo.NetMode != NM_DedicatedServer && ProjFlightTemplate != None)
@@ -67,7 +67,6 @@ simulated function SpawnFlightEffects()
 		AttachComponent(ProjEffects);
 	}
 }
-
 
 function SpawnFireEffect()
 {
@@ -86,7 +85,6 @@ simulated function Destroyed()
 	super.Destroyed();
 }
 
-
 simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
 {
 	if (PSC == ProjEffects)
@@ -97,49 +95,13 @@ simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
 	}
 }
 
-
-function tick(float DeltTime)
-{
-	CurDistance = VSize(StartingLoc - self.Location);
-`log(CurDistance);
-	if(Neg){
-		if(CurDistance>=HDistance && VelocityCur.Y>0.0){
-			VelocityCur.X+=5;
-			VelocityCur.Y+=2;
-		}else{
-			VelocityCur.X=(100);
-			VelocityCur.Y-=100;
-		}
-	}else{
-		if(CurDistance>=(-HDistance) && VelocityCur.Y>0.0){
-			VelocityCur.X-=5;
-			VelocityCur.Y+=2;
-		}else{
-			VelocityCur.X=(-100);
-			VelocityCur.Y-=100;
-		}
-	}
-	Velocity = VelocityCur;
-	if(CurDistance >= 5000){
-		Destroyed();
-		self.Destroy();
-	}
-//Velocity = vect(0,10000,0);
-//Acceleration =vect(0.0,1000.0,0.0);
-
-}
-
-
 defaultproperties
 {
-	HDistance=0
-	VDistance=0
-	Neg=0
 	//VelocityCur =(x=0.0,y=100.0,z=0.0)
 	//AccelerationCur =(x=0.0,y=100.0,z=0.0)
 	//AccelRate = 10
 	//Speed = 1200
-	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Red'
+	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Basic'
 	ProjExplosionTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
 	LifeSpan=250
 	DrawScale=2
@@ -165,4 +127,4 @@ defaultproperties
     Components.Add(MyMesh)
 	bBlockedByInstigator=false
 	ProjSound1=SoundCue'A_Weapon_Link.Cue.A_Weapon_Link_FireCue'
-})
+}

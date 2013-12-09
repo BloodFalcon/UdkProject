@@ -97,7 +97,7 @@ defaultproperties
 	WeaponFireTypes(1)=EWFT_Projectile
 	WeaponProjectiles(0)=class'UdkProject.BF_Proj_Basic'
 	WeaponProjectiles(1)=class'UdkProject.BF_Proj_Absorb'
-	FireInterval(0)=.1
+	FireInterval(0)=.3
 	FireInterval(1)=.1
 	Spread(0)=0
 	Spread(1)=0
@@ -110,6 +110,5 @@ defaultproperties
     End object
     Mesh=MyMesh
     Components.Add(MyMesh)
-
 }
 

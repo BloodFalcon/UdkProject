@@ -137,8 +137,8 @@ function GameOver()
 {
 	Canvas.SetPos(0,0);
 	Canvas.SetDrawColor(0,0,0);
-	Canvas.DrawRect(768,1024);//DoesntWork
-	Canvas.SetPos(((Canvas.ClipX / 2) - 145), Canvas.ClipY / 2);
+	Canvas.DrawRect(768,1024);
+	Canvas.SetPos(((Canvas.ClipX / 2) - 90), Canvas.ClipY / 2);
 	Canvas.SetDrawColor(255, 0, 0);
 	Canvas.Font = BF_Font;
 	Canvas.DrawText("GAME OVER");

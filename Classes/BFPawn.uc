@@ -48,6 +48,7 @@ event PostBeginPlay()
 	//BeamHitSound = SoundCue'A_Pickups_Powerups.PowerUps.A_Powerup_Berzerk_PowerLoopCue';
 }
 
+
 function UpdateHUD()
 {
 	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).DroneEquip = DroneEquip;
@@ -59,6 +60,7 @@ function UpdateHUD()
 	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Rank = Rank;
 	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead = PlayerDead;
 }
+
 
 function EnemyTimeReference() //Set The Absorbtion Time Per Enemy
 {
@@ -225,6 +227,7 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 	}else{
 		Health=0;
 		PlayerDead = true;
+		UpdateHUD();
 		self.Destroy();
 	}
 }
@@ -352,12 +355,10 @@ event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vect
 {
 	local UDKPawn HitPawn;
 	HitPawn = UDKPawn(Other);
-
-			if(HitPawn != none)
-			{
-				//`Log("BUMP!");
-				//WeaponDamage();
-			}
+		if(HitPawn != none)
+		{
+			TakeDamage(0, none,self.Location,vect(0,0,0),none,,);
+		}
 }
 
 
