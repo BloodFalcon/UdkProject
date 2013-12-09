@@ -136,6 +136,7 @@ defaultproperties
 	LifeSpan=250
 	DrawScale=2
 	Damage=10
+	DamageRadius = +10.0
     MomentumTransfer=0
 	CustomGravityScaling=0
 

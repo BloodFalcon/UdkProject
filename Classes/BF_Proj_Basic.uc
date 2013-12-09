@@ -25,7 +25,7 @@ simulated function PostBeginPlay()
 
 simulated singular event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vector HitNormal )
 {
-	`log("Touch");
+	//`log("Touch");
 	if ( (Other == None) || Other.bDeleteMe ) // Other just got destroyed in its touch?
 		return;
 
@@ -45,7 +45,7 @@ simulated singular event Touch( Actor Other, PrimitiveComponent OtherComp, vecto
 
 simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNormal)
 {
-	`log("Process Touch");
+	//`log("Process Touch");
 	if (Other != Instigator)
 	{
 		Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);
@@ -54,9 +54,9 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNorma
 
 simulated function Explode(vector HitLocation, vector HitNormal)
 {
-	if (Damage > 0 && DamageRadius > 0 && DoNotExplodeEver == true)
+	if (Damage > 0 && DamageRadius > 0)
 	{
-		`log("Explode");
+		`log(HurtRadius);
 		if ( Role == ROLE_Authority )
 		{
 			MakeNoise(1.0);
@@ -115,8 +115,9 @@ defaultproperties
 	LifeSpan=.3
 	DrawScale=3
 	Damage=10
+	DamageRadius = +10.0
     MomentumTransfer=0
-	DoNotExplodeEver = false
+	
 
     Begin Object Name=CollisionCylinder
             CollisionRadius=+16.000000
