@@ -115,7 +115,6 @@ function tick(float DeltTime)
 	}
 	Velocity = VelocityCur;
 	Distance = VSize(StartingLoc - self.Location);
-	`log(Distance);
 	if(Distance >= 5000){
 	self.Destroy();
 	}

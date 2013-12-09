@@ -65,11 +65,11 @@ function UpdateHUD()
 function EnemyTimeReference() //Set The Absorbtion Time Per Enemy
 {
 	if(TargetEnemy.IsA('BF_Enemy_Drone')){
-		EnemyAbsorbTime=200;
+		EnemyAbsorbTime=150;
 	}else if(TargetEnemy.IsA('BF_Enemy_GunShip')){
-		EnemyAbsorbTime=200;
+		EnemyAbsorbTime=150;
 	}else if(TargetEnemy.IsA('BF_Enemy_SuicideFighter')){
-		EnemyAbsorbTime=200;
+		EnemyAbsorbTime=150;
 	}else{
 
 	}
