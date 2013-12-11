@@ -326,38 +326,38 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 	SetLocation(PawnLoc);
 	Health=1000;
 
-	if((Location.Z+650)!=out_CamLoc.Z)
+	if((Location.Z+1800)!=out_CamLoc.Z)
 	{
 		PawnLoc = Location;
 		PawnLoc.Z = (out_CamLoc.Z-1800);
 		SetLocation(PawnLoc);
 	}
 
-	if((Location.Y-650)>=out_CamLoc.Y)
+	if((Location.Y-950)>=out_CamLoc.Y)
 	{
 		PawnLoc = Location;
-		PawnLoc.Y = (out_CamLoc.Y+650);
+		PawnLoc.Y = (out_CamLoc.Y+950);
 		SetLocation(PawnLoc);
 	}
 	
-	if((Location.Y+750)<=out_CamLoc.Y)
+	if((Location.Y+950)<=out_CamLoc.Y)
 	{
 		PawnLoc = Location;
-		PawnLoc.Y = (out_CamLoc.Y-750);
+		PawnLoc.Y = (out_CamLoc.Y-950);
 		SetLocation(PawnLoc);
 	}
 
-	if((Location.X+600)<=out_CamLoc.X)
+	if((Location.X+800)<=out_CamLoc.X)
 	{
 		PawnLoc = Location;
-		PawnLoc.X = (out_CamLoc.X-600);
+		PawnLoc.X = (out_CamLoc.X-800);
 		SetLocation(PawnLoc);
 	}
 	
-	if((Location.X-600)>=out_CamLoc.X)
+	if((Location.X-800)>=out_CamLoc.X)
 	{
 		PawnLoc = Location;
-		PawnLoc.X = (out_CamLoc.X+600);
+		PawnLoc.X = (out_CamLoc.X+800);
 		SetLocation(PawnLoc);
 	}
 
@@ -445,4 +445,6 @@ defaultproperties
 		SuicideFighterEquip = false
 		FlickerCount = 0
 		Lives = 3
+		//AspectRatio_MaintainXFOV = false
+		//AspectRatio_MaintainYFOV = false
 }
