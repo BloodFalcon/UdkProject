@@ -24,6 +24,7 @@ var int RankHolder; //Used in Rank Position
 	var bool GunShipEquip;
 	var int SuicideFighterRank;
 	var bool SuicideFighterEquip;	
+	var byte Lives;
 
 function drawHUD()
 {
@@ -35,11 +36,16 @@ function drawHUD()
 	SuicideFighterRank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).SuicideFighterRank;
 	Rank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Rank;
 	PlayerDead = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead;
+	Lives = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Lives;
+
+
 	Canvas.Font = BF_Font;
-	LoadUI();
-	if(PlayerDead){
+	if(Lives==0){
 		GameOver();
+	}else{
+		LoadUI();
 	}
+
 	super.drawHUD();
 }
 
@@ -91,6 +97,8 @@ function CleanHUD()
 
 function LoadUI()
 {
+	local float X,Y;
+
 	Canvas.SetPos(-6, 936);
 	Canvas.DrawTile(BFUI, 1024, 1024, 0, 0, 1024, 1024);
 	if(GunShipEquip){ //GUNSHIP MISSILES
@@ -110,28 +118,12 @@ function LoadUI()
 	}
 
 	CleanHUD();
-	Canvas.SetPos(706,936);
+	Canvas.StrLen(Lives,X,Y);
+	Canvas.SetPos((706-(X/2)),936);
 	Canvas.SetDrawColor(0,0,0);
-	Canvas.DrawText("1",,2.5,3);
+	Canvas.DrawText(Lives,,2.5,3);
 }
 
-/*function activeWeapons()
-{
-	if(W1){     //weapon bay 1
-	Canvas.SetDrawColor(0,255,0);
-	Canvas.SetPos(75, 950);
-	Canvas.DrawBox(7,11);
-	}
-	//Canvas.SetDrawColor(255,0,0); if damaged turn this color 
-}
-
-function drawLvlComplete()
-{
-	Canvas.SetPos(((Canvas.ClipX / 2) - 225), Canvas.ClipY / 2);
-	Canvas.SetDrawColor(0, 204, 0);
-	Canvas.Font = StatusFont;
-	Canvas.DrawText("LEVEL COMPLETE");
-}*/
 
 function GameOver()
 {
@@ -155,5 +147,6 @@ DefaultProperties
 	BFTemplate = Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
 	BF_Font = MultiFont'UI_Fonts_Final.menus.Fonts_AmbexHeavy'
 	playerdead=false
+	Lives = 3
 }
 

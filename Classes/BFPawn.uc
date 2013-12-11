@@ -23,6 +23,7 @@ var Vector NewEnemyLoc;
 var float CheckDist;
 var Vector BeamOffset;
 var bool BeamOffStep;
+var byte FlickerCount;
 //Weapon Equip Information (BECAUSE THE DAMN STRUCTS DONT WORK)
 	var int Rank;
 	var int DroneRank;
@@ -32,6 +33,7 @@ var bool BeamOffStep;
 	var int SuicideFighterRank;
 	var bool SuicideFighterEquip;		
 	var bool PlayerDead;
+	var byte Lives;
 //Weapon Equip Information (BECAUSE THE DAMN STRUCTS DONT WORK)
 
 
@@ -59,6 +61,7 @@ function UpdateHUD()
 	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).SuicideFighterRank = SuicideFighterRank;
 	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Rank = Rank;
 	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead = PlayerDead;
+	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Lives = Lives;
 }
 
 
@@ -209,26 +212,47 @@ function killbeam() //Resets The Absorb Beam
 }
 
 
+
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
-	BeamFire = false;
-	if(DroneRank == Rank){
-		Rank--;
-		DroneRank = -1;
-		DroneEquip = false;
-	}else if(GunShipRank == Rank){
-		Rank--;
-		GunShipRank = -1;
-		GunShipEquip = false;
-	}else if(SuicideFighterRank == Rank){
-		Rank--;
-		SuicideFighterRank = -1;
-		SuicideFighterEquip = false;
+	if(FlickerCount==0){
+		BeamFire = false;
+		if(DroneRank == Rank){
+			Rank--;
+			DroneRank = -1;
+			DroneEquip = false;
+		}else if(GunShipRank == Rank){
+			Rank--;
+			GunShipRank = -1;
+			GunShipEquip = false;
+		}else if(SuicideFighterRank == Rank){
+			Rank--;
+			SuicideFighterRank = -1;
+			SuicideFighterEquip = false;
+		}else{
+			UpdateHUD();
+			RespawnPlayer();
+			Lives--;
+		}
+	}
+}
+
+
+function RespawnPlayer()
+{
+	if(FlickerCount<20){
+		if(FlickerCount==0){
+			Self.SetLocation(vect(-7040,-892,46130));
+		}
+		if(self.bHidden){
+			self.SetHidden(false);
+		}else{
+			self.SetHidden(true);
+		}
+		FlickerCount++;
+		SetTimer(0.3,false,'RespawnPlayer',);
 	}else{
-		Health=0;
-		PlayerDead = true;
-		UpdateHUD();
-		self.Destroy();
+		FlickerCount = 0;
 	}
 }
 
@@ -345,9 +369,9 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 function bool Died(Controller Killer, class<DamageType> damageType, vector HitLocation)
 {
 	//owner.Destroy();
-	PlayerDead = true;
-	Self.Destroy();
-	return True;
+	//PlayerDead = true;
+	//Self.Destroy();
+	//return True;
 }
 
 
@@ -419,4 +443,6 @@ defaultproperties
 		DroneEquip = false
 		SuicideFighterRank = -1
 		SuicideFighterEquip = false
+		FlickerCount = 0
+		Lives = 3
 }
