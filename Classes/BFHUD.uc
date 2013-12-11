@@ -16,7 +16,7 @@ var Texture2D BFFlamethrowerEmpty;
 var Texture2D BFTemplate;
 var MultiFont BF_Font;
 var bool PlayerDead;
-var int RankHolder; //Used in Rank Position
+var int RankHolder; //Weapon and Life variables
 	var int Rank;
 	var int DroneRank;
 	var bool DroneEquip;
@@ -25,6 +25,14 @@ var int RankHolder; //Used in Rank Position
 	var int SuicideFighterRank;
 	var bool SuicideFighterEquip;	
 	var byte Lives;
+		var float OldHUDX; //HUD Scaling variables
+		var float OldHUDY;
+		var float CurHUDX;
+		var float CurHUDY;
+		var float RatioX;
+		var float RatioY;
+
+
 
 function drawHUD()
 {
@@ -37,30 +45,53 @@ function drawHUD()
 	Rank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Rank;
 	PlayerDead = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead;
 	Lives = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Lives;
-
-
 	Canvas.Font = BF_Font;
+	CurHUDX = Canvas.SizeX;
+	CurHUDY = Canvas.SizeY;
+	CalcScale(CurHUDX,CurHUDY);
+
 	if(Lives==0){
 		GameOver();
 	}else{
 		LoadUI();
 	}
-
 	super.drawHUD();
+}
+
+function CalcScale(float ScreenX,float ScreenY)
+{
+`log(ScreenX);
+`log(ScreenY);
+	if(ScreenX>OldHUDX){
+		RatioX = ScreenX/OldHUDX;
+	}else if(ScreenX<OldHUDX){
+		RatioX = OldHUDX/ScreenX;
+	}else{
+
+	}
+
+	if(ScreenY>OldHUDY){
+		RatioY = ScreenY/OldHUDY;
+	}else if(ScreenY<OldHUDY){
+		RatioY = OldHUDY/ScreenY;
+	}else{
+
+	}
+
 }
 
 function RankPosition()
 {
 	if(RankHolder==1){
-		Canvas.SetPos(9, 944);
+		Canvas.SetPos(9*RatioX, 944*RatioY);
 	}else if(RankHolder==2){
-		Canvas.SetPos(85, 944);	
+		Canvas.SetPos(85*RatioX, 944*RatioY);	
 	}else if(RankHolder==3){
-		Canvas.SetPos(161, 944);	
+		Canvas.SetPos(161*RatioX, 944*RatioY);	
 	}else if(RankHolder==4){
-		Canvas.SetPos(237, 944);	
+		Canvas.SetPos(237*RatioX, 944*RatioY);	
 	}else if(RankHolder==5){
-		Canvas.SetPos(313, 944);	
+		Canvas.SetPos(313*RatioX, 944*RatioY);	
 	}else{
 	
 	}
@@ -71,27 +102,27 @@ function CleanHUD()
 	if((Rank+5)<=5){
 		RankHolder = Rank + 5;
 		RankPosition();
-		Canvas.DrawTile(BFTemplate, 64, 64, 0, 0, 64, 64);
+		Canvas.DrawTile(BFTemplate, 64*RatioX, 64*RatioY, 0, 0, 64, 64);
 	}
 	if((Rank+4)<=5){
 		RankHolder = Rank + 4;
 		RankPosition();
-		Canvas.DrawTile(BFTemplate, 64, 64, 0, 0, 64, 64);
+		Canvas.DrawTile(BFTemplate, 64*RatioX, 64*RatioY, 0, 0, 64, 64);
 	}
 	if((Rank+3)<=5){
 		RankHolder = Rank + 3;
 		RankPosition();
-		Canvas.DrawTile(BFTemplate, 64, 64, 0, 0, 64, 64);
+		Canvas.DrawTile(BFTemplate, 64*RatioX, 64*RatioY, 0, 0, 64, 64);
 	}
 	if((Rank+2)<=5){
 		RankHolder = Rank + 2;
 		RankPosition();
-		Canvas.DrawTile(BFTemplate, 64, 64, 0, 0, 64, 64);
+		Canvas.DrawTile(BFTemplate, 64*RatioX, 64*RatioY, 0, 0, 64, 64);
 	}
 	if((Rank+1)<=5){
 		RankHolder = Rank + 1;
 		RankPosition();
-		Canvas.DrawTile(BFTemplate, 64, 64, 0, 0, 64, 64);
+		Canvas.DrawTile(BFTemplate, 64*RatioX, 64*RatioY, 0, 0, 64, 64);
 	}
 }
 
@@ -99,27 +130,27 @@ function LoadUI()
 {
 	local float X,Y;
 
-	Canvas.SetPos(-6, 936);
-	Canvas.DrawTile(BFUI, 1024, 1024, 0, 0, 1024, 1024);
+	Canvas.SetPos(-6*RatioX, 936*RatioY);
+	Canvas.DrawTile(BFUI, 1024*RatioX, 1024*RatioY, 0, 0, 1024, 1024);
 	if(GunShipEquip){ //GUNSHIP MISSILES
 		RankHolder = GunShipRank;
 		RankPosition();
-		Canvas.DrawTile(BFMissile, 64, 64, 0, 0, 64, 64);
+		Canvas.DrawTile(BFMissile, 64*RatioX, 64*RatioY, 0, 0, 64, 64);
 	}
 	if(DroneEquip){
 		RankHolder = DroneRank;
 		RankPosition();
-		Canvas.DrawTile(BFFlamethrower, 64, 64, 0, 0, 64, 64);
+		Canvas.DrawTile(BFFlamethrower, 64*RatioX, 64*RatioY, 0, 0, 64, 64);
 	}
 	if(SuicideFighterEquip){ //SUICIDEFIGHTER MACHINEGUN?
 		RankHolder = SuicideFighterRank;
 		RankPosition();
-		Canvas.DrawTile(BFFlameThrower, 64, 64, 0, 0, 64, 64);
+		Canvas.DrawTile(BFFlameThrower, 64*RatioX, 64*RatioY, 0, 0, 64, 64);
 	}
 
 	CleanHUD();
 	Canvas.StrLen(Lives,X,Y);
-	Canvas.SetPos((706-(X/2)),936);
+	Canvas.SetPos((706-(X/2)),936*RatioY);
 	Canvas.SetDrawColor(0,0,0);
 	Canvas.DrawText(Lives,,2.5,3);
 }
@@ -129,7 +160,7 @@ function GameOver()
 {
 	Canvas.SetPos(0,0);
 	Canvas.SetDrawColor(0,0,0);
-	Canvas.DrawRect(768,1024);
+	Canvas.DrawRect(768*RatioX,1024*RatioY);
 	Canvas.SetPos(((Canvas.ClipX / 2) - 90), Canvas.ClipY / 2);
 	Canvas.SetDrawColor(255, 0, 0);
 	Canvas.Font = BF_Font;
@@ -148,5 +179,9 @@ DefaultProperties
 	BF_Font = MultiFont'UI_Fonts_Final.menus.Fonts_AmbexHeavy'
 	playerdead=false
 	Lives = 3
+	OldHUDX=758
+	OldHUDY=1011
+	RatioX = 1
+	RatioY = 1
 }
 
