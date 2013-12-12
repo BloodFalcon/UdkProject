@@ -14,6 +14,9 @@ var Texture2D BFMissileEmpty;
 var Texture2D BFFlamethrower;
 var Texture2D BFFlamethrowerEmpty;
 var Texture2D BFTemplate;
+var Texture2D BFBeamOverlay;
+var Texture2D LightOn;
+var Texture2D LightOff;
 var MultiFont BF_Font;
 var bool PlayerDead;
 var int RankHolder; //Weapon and Life variables
@@ -31,7 +34,7 @@ var int RankHolder; //Weapon and Life variables
 		var float CurHUDY;
 		var float RatX;
 		var float RatY;
-
+		var int TURBOOFF;
 
 
 function drawHUD()
@@ -49,87 +52,96 @@ function drawHUD()
 	CurHUDX = Canvas.SizeX;
 	CurHUDY = Canvas.SizeY;
 	CalcScale(CurHUDX,CurHUDY);
+	//FOR CURRENT SELECTED WEAPON
+	Canvas.SetPos(271*RatX, 106*RatY);
+	Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
+	//
+
+
 
 	if(Lives==0){
 		GameOver();
 	}else{
 		LoadUI();
 	}
+	TURBOOFF--;
+	
+	Canvas.SetPos(221*RatX, ((35+TURBOOFF)*RatY));
+
+	Canvas.DrawTile(BFBeamOverlay, 164*RatX, 2048*RatY, 0, (1007+TURBOOFF), 164, 2048);
 	super.drawHUD();
 }
+
 
 function CalcScale(float ScreenX,float ScreenY)
 {
 `log(ScreenX);
 `log(ScreenY);
-	if(ScreenX>OldHUDX){
-		RatX = ScreenX/OldHUDX;
-	}else if(ScreenX<OldHUDX){
+	if(ScreenX!=OldHUDX){
 		RatX = ScreenX/OldHUDX;
 	}else{
 
 	}
 
-	if(ScreenY>OldHUDY){
-		RatY = ScreenY/OldHUDY;
-	}else if(ScreenY<OldHUDY){
+	if(ScreenY!=OldHUDY){
 		RatY = ScreenY/OldHUDY;
 	}else{
 
 	}
 
 }
+
 
 function RankPosition()
 {
-	//if(RankHolder==1){
-	//	Canvas.SetPos(9*RatX, 944*RatY);
-	//}else if(RankHolder==2){
-	//	Canvas.SetPos(85*RatX, 944*RatY);	
-	//}else if(RankHolder==3){
-	//	Canvas.SetPos(161*RatX, 944*RatY);	
-	//}else if(RankHolder==4){
-	//	Canvas.SetPos(237*RatX, 944*RatY);	
-	//}else if(RankHolder==5){
-	//	Canvas.SetPos(313*RatX, 944*RatY);	
-	//}else{
+	if(RankHolder==1){
+		Canvas.SetPos(271*RatX, 787*RatY);
+	}else if(RankHolder==2){
+		Canvas.SetPos(271*RatX, 657*RatY);	
+	}else if(RankHolder==3){
+		Canvas.SetPos(271*RatX, 527*RatY);	
+	}else if(RankHolder==4){
+		Canvas.SetPos(271*RatX, 397*RatY);	
+	}else if(RankHolder==5){
+		Canvas.SetPos(271*RatX, 267*RatY);	
+	}else{
 	
-	//}
+	}
 }
+
 
 function CleanHUD()
 {
-	//if((Rank+5)<=5){
-	//	RankHolder = Rank + 5;
-	//	RankPosition();
-	//	Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	//}
-	//if((Rank+4)<=5){
-	//	RankHolder = Rank + 4;
-	//	RankPosition();
-	//	Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	//}
-	//if((Rank+3)<=5){
-	//	RankHolder = Rank + 3;
-	//	RankPosition();
-	//	Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	//}
-	//if((Rank+2)<=5){
-	//	RankHolder = Rank + 2;
-	//	RankPosition();
-	//	Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	//}
-	//if((Rank+1)<=5){
-	//	RankHolder = Rank + 1;
-	//	RankPosition();
-	//	Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	//}
+	if((Rank+5)<=5){
+		RankHolder = Rank + 5;
+		RankPosition();
+		Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
+	}
+	if((Rank+4)<=5){
+		RankHolder = Rank + 4;
+		RankPosition();
+		Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
+	}
+	if((Rank+3)<=5){
+		RankHolder = Rank + 3;
+		RankPosition();
+		Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
+	}
+	if((Rank+2)<=5){
+		RankHolder = Rank + 2;
+		RankPosition();
+		Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
+	}
+	if((Rank+1)<=5){
+		RankHolder = Rank + 1;
+		RankPosition();
+		Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
+	}
 }
+
 
 function LoadUI()
 {
-	local float X,Y;
-
 	Canvas.SetPos(0, 0);
 	Canvas.DrawTile(BFUI, 1920*RatX, 1080*RatY, 0, 0, 1920, 1080);
 	if(GunShipEquip){ //GUNSHIP MISSILES
@@ -137,7 +149,7 @@ function LoadUI()
 		RankPosition();
 		Canvas.DrawTile(BFMissile, 64*RatX, 64*RatY, 0, 0, 64, 64);
 	}
-	if(DroneEquip){
+	if(DroneEquip){ //Laser or Flamethrower
 		RankHolder = DroneRank;
 		RankPosition();
 		Canvas.DrawTile(BFFlamethrower, 64*RatX, 64*RatY, 0, 0, 64, 64);
@@ -147,12 +159,7 @@ function LoadUI()
 		RankPosition();
 		Canvas.DrawTile(BFFlameThrower, 64*RatX, 64*RatY, 0, 0, 64, 64);
 	}
-
 	CleanHUD();
-	Canvas.StrLen(Lives,X,Y);
-	Canvas.SetPos((706-(X/2)),936*RatY);
-	Canvas.SetDrawColor(0,0,0);
-	Canvas.DrawText(Lives,,2.5,3);
 }
 
 
@@ -170,12 +177,14 @@ function GameOver()
 
 DefaultProperties
 {
-	BFUI = Texture2D'BloodFalcon.Texture.frame'
+	BFUI = Texture2D'BloodFalcon.Texture.FrameV5'
 	BFMissile = Texture2D'BloodFalcon.Texture.BF_HUD_Missile'
-	BFMissileEmpty = Texture2D'BloodFalcon.Texture.BF_HUD_MissileEmpty'
 	BFFlamethrower = Texture2D'BloodFalcon.Texture.BF_HUD_FlameThrower'
-	BFFlamethrowerEmpty = Texture2D'BloodFalcon.Texture.BF_HUD_FlameThrowerEmpty'
 	BFTemplate = Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
+	BFBeamOverlay = Texture2D'BloodFalcon.Texture.BF_BeamOverlay'
+	LightOn = Texture2D'BloodFalcon.Texture.LightOn'
+	LightOff = Texture2D'BloodFalcon.Texture.LightOff'
+	PlayerIcon = Texture2D'BloodFalcon.Texture.PlayerShipIcon'
 	BF_Font = MultiFont'UI_Fonts_Final.menus.Fonts_AmbexHeavy'
 	playerdead=false
 	Lives = 3
@@ -183,5 +192,6 @@ DefaultProperties
 	OldHUDY=1080
 	RatX = 1
 	RatY = 1
+	TURBOOFF=900
 }
 
