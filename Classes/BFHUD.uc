@@ -184,7 +184,7 @@ DefaultProperties
 	BFBeamOverlay = Texture2D'BloodFalcon.Texture.BF_BeamOverlay'
 	LightOn = Texture2D'BloodFalcon.Texture.LightOn'
 	LightOff = Texture2D'BloodFalcon.Texture.LightOff'
-	PlayerIcon = Texture2D'BloodFalcon.Texture.PlayerShipIcon'
+	//PlayerIcon = Texture2D'BloodFalcon.Texture.PlayerShipIcon'  //Says it is unreferenced????????????????
 	BF_Font = MultiFont'UI_Fonts_Final.menus.Fonts_AmbexHeavy'
 	playerdead=false
 	Lives = 3

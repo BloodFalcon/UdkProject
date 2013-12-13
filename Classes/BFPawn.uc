@@ -132,6 +132,8 @@ event Tick(float DeltaTime)
 	{
 		if(BeamFire) //Altfire = true
 		{
+			CurFire = false;
+			Player_Weap_Basic(Weapon).ClearPendingFire(0);
 			if(BeamOffStep){
 				BeamOffset.X-=45.0;
 				if(BeamOffset.X<-300){
