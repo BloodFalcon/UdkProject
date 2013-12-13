@@ -16,7 +16,7 @@ var ParticleSystemComponent AbsorbBeam;
 var ParticleSystemComponent EnemyDeath;
 var SoundCue EnemyDeathSound;
 var AudioComponent BeamFireSound, BeamAbsorbSound;
-var Actor TargetEnemy; //Enemyhit and Trace
+var UDKPawn TargetEnemy; //Enemyhit and Trace
 var int AbsorbTimer;
 var int EnemyAbsorbTime;
 var Vector NewEnemyLoc;
@@ -25,6 +25,7 @@ var Vector BeamOffset;
 var bool BeamOffStep;
 var byte FlickerCount;
 //Weapon Equip Information (BECAUSE THE DAMN STRUCTS DONT WORK)
+	var float BeamLength;
 	var int Rank;
 	var int DroneRank;
 	var bool DroneEquip;
@@ -62,6 +63,7 @@ function UpdateHUD()
 	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Rank = Rank;
 	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead = PlayerDead;
 	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Lives = Lives;
+	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BeamLength = BeamLength;
 }
 
 
@@ -123,7 +125,8 @@ function ShootUpgrades(byte FireModeNum) //Place All the upgrades to be fired he
 event Tick(float DeltaTime)
 {
 	local Vector HitLocation, HitNormal;
-	local Actor TracedEnemy;
+	local Actor TracedEnemyAct;
+	local UDKPawn TracedEnemy;
 	BeamStartLoc = Location;
 	BeamEndLoc = Location + BeamOffset;
 	UpdateHUD();
@@ -146,7 +149,8 @@ event Tick(float DeltaTime)
 				}
 			}
 
-			TracedEnemy = Trace(HitLocation, HitNormal, BeamEndLoc, BeamStartLoc, true);
+			TracedEnemyAct = Trace(HitLocation, HitNormal, BeamEndLoc, BeamStartLoc, true);
+			TracedEnemy = UDKPawn(TracedEnemyAct);
 			//DrawDebugLine( BeamStartLoc, BeamEndLoc, 255, 0, 0, false);
 			if(TargetEnemy == none) //If you havent tried to trace an enemy yet
 			{
@@ -172,6 +176,7 @@ event Tick(float DeltaTime)
 				if(CheckDist<750)
 				{
 					AbsorbTimer++;
+					BeamLength = EnemyAbsorbTime/AbsorbTimer;
 					AbsorbBeam.SetVectorParameter('LinkBeamEnd', TargetEnemy.Location);
 				}else{
 					BeamFireSound.Play();
@@ -187,7 +192,9 @@ event Tick(float DeltaTime)
 		EnemyDeath.SetVectorParameter('LinkBeamEnd', (TargetEnemy.Location+vect(0,20,50)));
 		PlaySound(EnemyDeathSound);
 		BeamAbsorbSound.Stop();
+		TargetEnemy.DetachFromController(true);
 		TargetEnemy.Destroy();
+		TargetEnemy = none;
 		killbeam();
 	}
 	super.Tick(DeltaTime);

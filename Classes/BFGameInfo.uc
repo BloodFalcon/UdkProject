@@ -17,6 +17,7 @@ var bool PlayerDead;
 	var int SuicideFighterRank;
 	var int Rank;
 	var byte Lives;
+	var float BeamLength;
 
 
 static event class<GameInfo> SetGameType(string MapName, string Options, string Portal)

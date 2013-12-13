@@ -17,6 +17,7 @@ var Texture2D BFTemplate;
 var Texture2D BFBeamOverlay;
 var Texture2D LightOn;
 var Texture2D LightOff;
+//var Texture2D PlayerShipIcon;
 var MultiFont BF_Font;
 var bool PlayerDead;
 var int RankHolder; //Weapon and Life variables
@@ -34,7 +35,8 @@ var int RankHolder; //Weapon and Life variables
 		var float CurHUDY;
 		var float RatX;
 		var float RatY;
-		var int TURBOOFF;
+		var float BeamLength;
+		var int BeamOverlayLength;
 
 
 function drawHUD()
@@ -48,6 +50,7 @@ function drawHUD()
 	Rank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Rank;
 	PlayerDead = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead;
 	Lives = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Lives;
+	BeamLength = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BeamLength;	
 	Canvas.Font = BF_Font;
 	CurHUDX = Canvas.SizeX;
 	CurHUDY = Canvas.SizeY;
@@ -64,11 +67,11 @@ function drawHUD()
 	}else{
 		LoadUI();
 	}
-	TURBOOFF--;
+	BeamOverlayLength=(900-(900*BeamLength));
 	
-	Canvas.SetPos(221*RatX, ((35+TURBOOFF)*RatY));
+	Canvas.SetPos(221*RatX, ((35+BeamOverlayLength)*RatY));
 
-	Canvas.DrawTile(BFBeamOverlay, 164*RatX, 2048*RatY, 0, (1007+TURBOOFF), 164, 2048);
+	Canvas.DrawTile(BFBeamOverlay, 164*RatX, 2048*RatY, 0, (1007+BeamOverlayLength), 164, 2048);
 	super.drawHUD();
 }
 
@@ -184,7 +187,7 @@ DefaultProperties
 	BFBeamOverlay = Texture2D'BloodFalcon.Texture.BF_BeamOverlay'
 	LightOn = Texture2D'BloodFalcon.Texture.LightOn'
 	LightOff = Texture2D'BloodFalcon.Texture.LightOff'
-	//PlayerIcon = Texture2D'BloodFalcon.Texture.PlayerShipIcon'  //Says it is unreferenced????????????????
+	//PlayerIcon = Texture2D'BloodFalcon.Texture.PlayerShipIcon'
 	BF_Font = MultiFont'UI_Fonts_Final.menus.Fonts_AmbexHeavy'
 	playerdead=false
 	Lives = 3
@@ -192,6 +195,5 @@ DefaultProperties
 	OldHUDY=1080
 	RatX = 1
 	RatY = 1
-	TURBOOFF=900
 }
 
