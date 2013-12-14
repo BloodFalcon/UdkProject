@@ -6,65 +6,35 @@
 // Description: Base Weapon
 //////////////////////////
 
-class BF_Proj_Basic extends Projectile;
+class BF_Proj_Basic extends UDKProjectile;
 
 var ParticleSystemComponent ProjEffects;
 var ParticleSystem ProjFlightTemplate;
 var ParticleSystem ProjExplosionTemplate;
 var SoundCue ProjSound1;
-var bool DoNotExplodeEver;
-var Weapon OurPartner;
-
 
 simulated function PostBeginPlay()
 {
 	Super.PostBeginPlay();
+	SetPhysics(PHYS_Projectile); 
 	SpawnFlightEffects();
 	SpawnFireEffect();
 }
 
-simulated singular event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vector HitNormal )
-{
-	//`log("Touch");
-	if ( (Other == None) || Other.bDeleteMe ) // Other just got destroyed in its touch?
-		return;
-
-	if (bIgnoreFoliageTouch && InteractiveFoliageActor(Other) != None ) // Ignore foliage if desired
-		return;
-
-	// don't allow projectiles to explode while spawning on clients
-	// because if that were accurate, the projectile would've been destroyed immediately on the server
-	// and therefore it wouldn't have been replicated to the client
-	if ( Other.StopsProjectile(self) && (Role == ROLE_Authority || bBegunPlay) && (bBlockedByInstigator || (Other != Instigator)) )
-	{
-		ImpactedActor = Other;
-		ProcessTouch(Other, HitLocation, HitNormal);
-		ImpactedActor = None;
-	}
-}
 
 simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNormal)
 {
-	//`log("Process Touch");
+
 	if (Other != Instigator)
 	{
-		Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);
+		if (!Other.bStatic && DamageRadius == 0.0)
+		{
+			Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);
+		}
+		Explode(HitLocation, HitNormal);
 	}
 }
 
-simulated function Explode(vector HitLocation, vector HitNormal)
-{
-	if (Damage > 0 && DamageRadius > 0)
-	{
-		`log(HurtRadius);
-		if ( Role == ROLE_Authority )
-		{
-			MakeNoise(1.0);
-		}
-		ProjectileHurtRadius(HitLocation, HitNormal);
-	}
-	Destroy();
-}
 
 simulated function SpawnFlightEffects()
 {
@@ -78,6 +48,7 @@ simulated function SpawnFlightEffects()
 		AttachComponent(ProjEffects);
 	}
 }
+
 
 function SpawnFireEffect()
 {
@@ -96,6 +67,7 @@ simulated function Destroyed()
 	super.Destroyed();
 }
 
+
 simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
 {
 	if (PSC == ProjEffects)
@@ -106,26 +78,28 @@ simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
 	}
 }
 
+
+function tick(float DeltaTime)
+{
+	Velocity = vect(0,-1500,0);
+}
+
+
 defaultproperties
 {
-
-	//Speed = 1200
 	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.P_Test_Bullet'
-	//ProjExplosionTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
-	LifeSpan=1
+	ProjExplosionTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
+	LifeSpan=125
 	DrawScale=1
 	Damage=10
 	DamageRadius = +10.0
     MomentumTransfer=0
-	
+	CustomGravityScaling=0
 
     Begin Object Name=CollisionCylinder
-            CollisionRadius=+16.000000
-            CollisionHeight=+32.000000
+            CollisionRadius=8
+            CollisionHeight=16
     End Object
-	CollisionComponent=CollisionCylinder
-	CylinderComponent=CollisionCylinder
-	Components.Add(CollisionCylinder)
 
     Begin Object class=DynamicLightEnvironmentComponent name=MyLightEnvironment
             bEnabled=true
@@ -133,16 +107,11 @@ defaultproperties
     Components.Add(MyLightEnvironment)
 
     Begin Object class=StaticMeshComponent name=MyMesh
-            StaticMesh=StaticMesh'WP_ShockRifle.Mesh.S_Sphere_Good'
+            StaticMesh=StaticMesh'WP_RocketLauncher.Mesh.S_WP_Rocketlauncher_Rocket_old_lit'
             LightEnvironment=MyLightEnvironment
 			HiddenGame=true
     End Object
     Components.Add(MyMesh)
 	bBlockedByInstigator=false
 	ProjSound1=SoundCue'A_Weapon_Link.Cue.A_Weapon_Link_FireCue'
-	bCollideActors = true
-	bCollideWorld = true
-	Physics=PHYS_Projectile
-	CollisionType=COLLIDE_TouchAll
-	
 }
