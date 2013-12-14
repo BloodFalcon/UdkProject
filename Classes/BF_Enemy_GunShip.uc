@@ -12,30 +12,46 @@ placeable;
 var bool AbsorbSuccess;
 var BFPawn OurPlayer;
 var int EnemyAbsorbTime;
+var ParticleSystem EngineFire;
+var bool TurnEnginesOn;
 
 function AddDefaultInventory()
 {
     InvManager.CreateInventory(class'UdkProject.BF_Weap_Gunship');
 }
+
+event Tick(float DeltaTime)
+{
+	//if(TurnEnginesOn)
+	//{
+	//	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true);
+	//	TurnEnginesOn = false;
+	//}
+	//else
+	//{
+	//	//EngineFire.SetVectorParameter('ExhaustStartLocation', (Location + vect(0,0,0)));
+	//}
+}
  
 event PostBeginPlay()
 {
-    super.PostBeginPlay();
     AddDefaultInventory(); //GameInfo calls it only for players, so we have to do it ourselves for AI.
 	SetPhysics(PHYS_Flying); // wake the physics up
 	
 	// set up collision detection based on mesh's PhysicsAsset
-	//CylinderComponent.SetActorCollision(false, false); // disable cylinder collision
+	CylinderComponent.SetActorCollision(false, false); // disable cylinder collision
 	Mesh.SetActorCollision(true, true); // enable PhysicsAsset collision
 	Mesh.SetTraceBlocking(true, true); // block traces (i.e. anything touching mesh)
+	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0));
+	super.PostBeginPlay();
 }
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
 	if(Damage == 2)
 	{
-	SetDrawScale((DrawScale-0.5));
-	AbsorbSuccess = true;
+		SetDrawScale((DrawScale-0.5));
+		AbsorbSuccess = true;
 	}
 
 	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);  //Must Have To Process Standard Damage
@@ -71,6 +87,7 @@ DefaultProperties
 	
 	Health = 10
 	LandMovementState=PlayerFlying
+	EngineFire = ParticleSystem'BloodFalcon.ParticleSystem.Gunship_Exhaust'
 
     Begin Object Name=CollisionCylinder
 		CollisionRadius=+100.000000
@@ -86,10 +103,8 @@ DefaultProperties
 		BlockZeroExtent=true
 		BlockActors=false
 		CollideActors=true
-    End Object
- 
-    Mesh=EP1Mesh
- 
+    End Object 
+    Mesh=EP1Mesh 
     Components.Add(EP1Mesh)
     ControllerClass=class'UdkProject.BF_AI_GunShip'
     InventoryManagerClass=class'UdkProject.BF_Enemy_Inventory'
@@ -106,4 +121,5 @@ DefaultProperties
  
 	AirSpeed=300
 	DrawScale=1.5
+	TurnEnginesOn = true
 }
