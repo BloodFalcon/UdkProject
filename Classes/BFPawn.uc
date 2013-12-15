@@ -24,6 +24,7 @@ var float CheckDist;
 var Vector BeamOffset;
 var bool BeamOffStep;
 var byte FlickerCount;
+var Vector 	local_cam_loc;
 //Weapon Equip Information (BECAUSE THE DAMN STRUCTS DONT WORK)
 	var float BeamLength;
 	var int Rank;
@@ -169,6 +170,11 @@ event Tick(float DeltaTime)
 					{
 						TargetEnemy = none;
 					}
+					if(((TargetEnemy.Location.Y-875)>=local_cam_loc.Y) || ((TargetEnemy.Location.Y+875)<=local_cam_loc.Y) || ((TargetEnemy.Location.X+900)<=local_cam_loc.X) || ((TargetEnemy.Location.X-900)>=local_cam_loc.X)){
+						TargetEnemy.DetachFromController(true);
+						TargetEnemy.Destroy();
+						killbeam();
+					}
 					EnemyTimeReference();
 				}
 			}else{ //If you have a target enemy already, currently beaming
@@ -191,10 +197,8 @@ event Tick(float DeltaTime)
 		EnemyDeath = WorldInfo.MyEmitterPool.SpawnEmitter(ParticleSystem'FX_VehicleExplosions.Effects.P_FX_VehicleDeathExplosion', TargetEnemy.Location, TargetEnemy.Rotation, self );
 		EnemyDeath.SetVectorParameter('LinkBeamEnd', (TargetEnemy.Location+vect(0,20,50)));
 		PlaySound(EnemyDeathSound);
-		BeamAbsorbSound.Stop();
 		TargetEnemy.DetachFromController(true);
 		TargetEnemy.Destroy();
-		TargetEnemy = none;
 		killbeam();
 	}
 	super.Tick(DeltaTime);
@@ -214,6 +218,7 @@ function killbeam() //Resets The Absorb Beam
 	TargetEnemy = none;
 	AbsorbTimer = 0;
 	BeamAbsorbSound.Stop();
+	AbsorbBeam.SetVectorParameter('LinkBeamEnd', (Location + vect(0,-750,0)));
 	if(BeamFire)
 	{
 		BeamFireSound.Play();
@@ -322,6 +327,8 @@ simulated function StopFire(byte FireModeNum)
 
 simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out rotator out_CamRot, out float out_FOV )
 {
+	local_cam_loc = out_CamLoc;
+
 	if(FirstRun)
 	{
 		out_CamLoc.X = (Location.X);
