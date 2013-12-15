@@ -158,6 +158,7 @@ event Tick(float DeltaTime)
 				if(AbsorbBeam == none)
 				{
 					AbsorbBeam = WorldInfo.MyEmitterPool.SpawnEmitter(ParticleSystem'BloodFalcon.ParticleSystem.AbsorbBeam_Particle', Location, Rotation, self );
+					AbsorbBeam.SetVectorParameter('LinkBeamEnd', (Location + vect(0,-750,0)));
 				}else{
 					AbsorbBeam.SetVectorParameter('LinkBeamEnd', (Location + vect(0,-750,0)));
 				}
@@ -170,11 +171,6 @@ event Tick(float DeltaTime)
 					{
 						TargetEnemy = none;
 					}
-					if(((TargetEnemy.Location.Y-875)>=local_cam_loc.Y) || ((TargetEnemy.Location.Y+875)<=local_cam_loc.Y) || ((TargetEnemy.Location.X+900)<=local_cam_loc.X) || ((TargetEnemy.Location.X-900)>=local_cam_loc.X)){
-						TargetEnemy.DetachFromController(true);
-						TargetEnemy.Destroy();
-						killbeam();
-					}
 					EnemyTimeReference();
 				}
 			}else{ //If you have a target enemy already, currently beaming
@@ -186,6 +182,11 @@ event Tick(float DeltaTime)
 					AbsorbBeam.SetVectorParameter('LinkBeamEnd', TargetEnemy.Location);
 				}else{
 					BeamFireSound.Play();
+					killbeam();
+				}
+				if(((TargetEnemy.Location.Y-950)>=local_cam_loc.Y) || ((TargetEnemy.Location.Y+950)<=local_cam_loc.Y) || ((TargetEnemy.Location.X+975)<=local_cam_loc.X) || ((TargetEnemy.Location.X-975)>=local_cam_loc.X)){ //Fixed Beam Shit
+					TargetEnemy.DetachFromController(true);
+					TargetEnemy.Destroy();
 					killbeam();
 				}
 			}
