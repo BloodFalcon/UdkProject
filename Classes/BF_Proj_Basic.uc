@@ -32,6 +32,7 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNorma
 			Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);
 		}
 		Explode(HitLocation, HitNormal);
+		WorldInfo.MyEmitterPool.SpawnEmitter(ProjExplosionTemplate, HitLocation);
 	}
 }
 
@@ -88,7 +89,7 @@ function tick(float DeltaTime)
 defaultproperties
 {
 	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.P_Test_Bullet'
-	ProjExplosionTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
+	ProjExplosionTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Kill_Bullet'
 	LifeSpan=125
 	DrawScale=1
 	Damage=10
