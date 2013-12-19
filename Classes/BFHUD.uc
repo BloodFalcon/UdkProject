@@ -52,8 +52,8 @@ function drawHUD()
 	Lives = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Lives;
 	BeamLength = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BeamLength;	
 	Canvas.Font = BF_Font;
-	CurHUDX = Canvas.SizeX;
-	CurHUDY = Canvas.SizeY;
+	CurHUDX = SizeX;
+	CurHUDY = SizeY;
 	CalcScale(CurHUDX,CurHUDY);
 	//FOR CURRENT SELECTED WEAPON
 	Canvas.SetPos(271*RatX, 106*RatY);
@@ -78,20 +78,8 @@ function drawHUD()
 
 function CalcScale(float ScreenX,float ScreenY)
 {
-//`log(ScreenX);
-//`log(ScreenY);
-	if(ScreenX!=OldHUDX){
 		RatX = ScreenX/OldHUDX;
-	}else{
-
-	}
-
-	if(ScreenY!=OldHUDY){
 		RatY = ScreenY/OldHUDY;
-	}else{
-
-	}
-
 }
 
 
