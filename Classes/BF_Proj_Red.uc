@@ -134,7 +134,7 @@ defaultproperties
 	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.LaserShot3'
 	ProjExplosionTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Kill_Missile'
 	LifeSpan=250
-	DrawScale=0.1
+	//DrawScale=0.1
 	Damage=10
 	DamageRadius = +10.0
     MomentumTransfer=0
@@ -150,12 +150,6 @@ defaultproperties
     End Object
     Components.Add(MyLightEnvironment)
 
-    Begin Object class=StaticMeshComponent name=MyMesh
-            StaticMesh=StaticMesh'WP_RocketLauncher.Mesh.S_WP_Rocketlauncher_Rocket_old_lit'
-            LightEnvironment=MyLightEnvironment
-			HiddenGame=true
-    End Object
-    Components.Add(MyMesh)
 	bBlockedByInstigator=false
 	ProjSound1=SoundCue'A_Weapon_Link.Cue.A_Weapon_Link_FireCue'
 }
