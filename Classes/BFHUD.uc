@@ -78,8 +78,8 @@ function drawHUD()
 
 function CalcScale(float ScreenX,float ScreenY)
 {
-`log(ScreenX);
-`log(ScreenY);
+//`log(ScreenX);
+//`log(ScreenY);
 	if(ScreenX!=OldHUDX){
 		RatX = ScreenX/OldHUDX;
 	}else{

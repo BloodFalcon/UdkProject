@@ -212,6 +212,7 @@ function killbeam() //Resets The Absorb Beam
 {
 	if(AbsorbBeam != none)
 	{
+		//AbsorbBeam.SetVectorParameter('LinkBeamEnd', (Location + vect(0,-750,0)));
 		AbsorbBeam.SetKillOnDeactivate(0, true);
 		AbsorbBeam.DeactivateSystem();
 		AbsorbBeam = none;
@@ -221,7 +222,6 @@ function killbeam() //Resets The Absorb Beam
 	TargetEnemy = none;
 	AbsorbTimer = 0;
 	BeamAbsorbSound.Stop();
-	AbsorbBeam.SetVectorParameter('LinkBeamEnd', (Location + vect(0,-750,0)));
 	if(BeamFire)
 	{
 		BeamFireSound.Play();

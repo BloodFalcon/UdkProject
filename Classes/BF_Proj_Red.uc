@@ -132,7 +132,7 @@ defaultproperties
 	//AccelRate = 10
 	//Speed = 1200
 	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.LaserShot3'
-	ProjExplosionTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
+	ProjExplosionTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Kill_Missile'
 	LifeSpan=250
 	DrawScale=0.1
 	Damage=10
