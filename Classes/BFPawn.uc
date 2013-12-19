@@ -14,7 +14,9 @@ var Vector PawnLoc, BFcamLoc; //Used for player bounding on the screen
 var Vector BeamStartLoc, BeamEndLoc; //Trace
 var ParticleSystemComponent AbsorbBeam;
 var ParticleSystemComponent EnemyDeath;
+var ParticleSystem DeathExplosion;
 var SoundCue EnemyDeathSound;
+var SoundCue DeathSound;
 var AudioComponent BeamFireSound, BeamAbsorbSound;
 var UDKPawn TargetEnemy; //Enemyhit and Trace
 var int AbsorbTimer;
@@ -398,6 +400,9 @@ event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vect
 	HitPawn = UDKPawn(Other);
 		if(HitPawn != none)
 		{
+			Other.Destroy();
+			WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);
+			PlaySound(DeathSound);
 			TakeDamage(0, none,self.Location,vect(0,0,0),none,,);
 		}
 }
@@ -408,6 +413,8 @@ defaultproperties
 		bCanJump=false
 		bCanFly=false
 		//LandMovementState=PlayerFlying
+		DeathExplosion = ParticleSystem'FX_VehicleExplosions.Effects.P_FX_VehicleDeathExplosion'
+		DeathSound = SoundCue'A_Vehicle_Scorpion.SoundCues.A_Vehicle_Scorpion_Eject_Cue'
         Begin Object Class=DynamicLightEnvironmentComponent Name=MyLightEnvironment
                 bEnabled=TRUE
         End Object

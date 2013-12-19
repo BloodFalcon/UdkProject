@@ -12,8 +12,9 @@ placeable;
 var bool AbsorbSuccess;
 var BFPawn OurPlayer;
 var int EnemyAbsorbTime;
-var ParticleSystem EngineFire;
+var ParticleSystem EngineFire, DeathExplosion;
 var bool TurnEnginesOn;
+var SoundCue DeathSound;
 
 function AddDefaultInventory()
 {
@@ -74,6 +75,8 @@ event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vect
 			if(HitPawn != none)
 			{
 				//`Log("Touch Player");
+				WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);
+				PlaySound(DeathSound);
 				self.Destroy();
 			}
 			else
@@ -88,6 +91,9 @@ DefaultProperties
 	Health = 10
 	LandMovementState=PlayerFlying
 	EngineFire = ParticleSystem'BloodFalcon.ParticleSystem.Gunship_Exhaust'
+	DeathExplosion = ParticleSystem'FX_VehicleExplosions.Effects.P_FX_VehicleDeathExplosion'
+	DeathSound = SoundCue'A_Vehicle_Scorpion.SoundCues.A_Vehicle_Scorpion_Eject_Cue'
+
 
     Begin Object Name=CollisionCylinder
 		CollisionRadius=+100.000000
