@@ -32,7 +32,7 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNorma
 			Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);
 		}
 		Explode(HitLocation, HitNormal);
-		WorldInfo.MyEmitterPool.SpawnEmitter(ProjExplosionTemplate, HitLocation);
+		WorldInfo.MyEmitterPool.SpawnEmitter(ProjExplosionTemplate, HitLocation);		
 	}
 }
 
@@ -96,6 +96,7 @@ defaultproperties
 	DamageRadius = +10.0
     MomentumTransfer=0
 	CustomGravityScaling=0
+	Physics = PHYS_Projectile
 
     Begin Object Name=CollisionCylinder
             CollisionRadius=8

@@ -49,6 +49,7 @@ function bool Died(Controller Killer, class<DamageType> damageType, vector HitLo
 {
 	owner.Destroy();
 	Self.Destroy();
+	PlaySound(DeathSound);
 	return True;
 }
 

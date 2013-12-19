@@ -36,6 +36,7 @@ event Tick(float DeltaTime)
  
 event PostBeginPlay()
 {
+    super.PostBeginPlay();
     AddDefaultInventory(); //GameInfo calls it only for players, so we have to do it ourselves for AI.
 	SetPhysics(PHYS_Flying); // wake the physics up
 	
@@ -44,7 +45,7 @@ event PostBeginPlay()
 	Mesh.SetActorCollision(true, true); // enable PhysicsAsset collision
 	Mesh.SetTraceBlocking(true, true); // block traces (i.e. anything touching mesh)
 	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0));
-	super.PostBeginPlay();
+	
 }
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
@@ -64,6 +65,7 @@ function bool Died(Controller Killer, class<DamageType> damageType, vector HitLo
 {
 	owner.Destroy();
 	Self.Destroy();
+	PlaySound(DeathSound);
 	return True;
 }
 
