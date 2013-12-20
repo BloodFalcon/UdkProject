@@ -15,23 +15,66 @@ var int EnemyAbsorbTime;
 var ParticleSystem EngineFire, DeathExplosion;
 var bool TurnEnginesOn;
 var SoundCue DeathSound;
+var Rotator FaceSouth;
+var float ShotTimer;
 
 function AddDefaultInventory()
 {
     InvManager.CreateInventory(class'UdkProject.BF_Weap_Gunship');
 }
 
+function SpreadShot()
+{
+    local rotator MyRot;
+    local BF_Proj_Green MyProj;
+	MyRot = self.Rotation;
+ 
+    
+    MyProj = spawn(class'BF_Proj_Green', self,, self.Location, self.Rotation);
+	MyProj.Init( vector(MyRot) );
+
+    MyRot.Yaw += 3276;
+    MyProj = spawn(class'BF_Proj_Green', self,, self.Location, self.Rotation);
+	MyProj.Init( vector(MyRot) );
+
+    MyRot.Yaw -= 6552;
+    MyProj = spawn(class'BF_Proj_Green', self,, self.Location, self.Rotation);
+	MyProj.Init( vector(MyRot) );
+
+}
+
+function StraightShot()
+{
+    local rotator MyRot;
+    local BF_Proj_Green MyProj;
+	MyRot = self.Rotation;
+ 
+    
+    MyProj = spawn(class'BF_Proj_Green', self,, self.Location, self.Rotation);
+	MyProj.Init( vector(MyRot) );
+
+}
+
+function ShotType()
+{
+	if(SType == 0)
+	{
+		ShotTimer = 0.33;
+		StraightShot();
+	}
+	else if(SType == 1)
+	{
+		ShotTimer = 1.0;
+		SpreadShot();
+	}
+	else{
+	}
+}
+
+
 event Tick(float DeltaTime)
 {
-	//if(TurnEnginesOn)
-	//{
-	//	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true);
-	//	TurnEnginesOn = false;
-	//}
-	//else
-	//{
-	//	//EngineFire.SetVectorParameter('ExhaustStartLocation', (Location + vect(0,0,0)));
-	//}
+
 }
  
 event PostBeginPlay()
@@ -45,6 +88,8 @@ event PostBeginPlay()
 	Mesh.SetActorCollision(true, true); // enable PhysicsAsset collision
 	Mesh.SetTraceBlocking(true, true); // block traces (i.e. anything touching mesh)
 	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0));
+	SetTimer(ShotTimer, true, 'SpreadShot');
+	//SetRotation(FaceSouth);
 	
 }
 
@@ -95,7 +140,8 @@ DefaultProperties
 	EngineFire = ParticleSystem'BloodFalcon.ParticleSystem.Gunship_Exhaust'
 	DeathExplosion = ParticleSystem'FX_VehicleExplosions.Effects.P_FX_VehicleDeathExplosion'
 	DeathSound = SoundCue'A_Vehicle_Scorpion.SoundCues.A_Vehicle_Scorpion_Eject_Cue'
-
+	FaceSouth = (Pitch=0,Yaw=16384,Roll=0);
+	ShotTimer = 0;
 
     Begin Object Name=CollisionCylinder
 		CollisionRadius=+100.000000

@@ -14,7 +14,11 @@ var ParticleSystem ProjExplosionTemplate;
 var SoundCue ProjSound1;
 var bool DoNotExplodeEver;
 var Weapon OurPartner;
-
+/** 
+ * If TRUE, initializes the projectile immediately when spawned using it rotation.
+ * This is required if you use an Actor Factory in Kismet to spawn the projectile.
+ */
+var(Projectile) bool bInitOnSpawnWithRotation;
 
 simulated function PostBeginPlay()
 {
@@ -42,6 +46,14 @@ simulated singular event Touch( Actor Other, PrimitiveComponent OtherComp, vecto
 		ProcessTouch(Other, HitLocation, HitNormal);
 		ImpactedActor = None;
 	}
+}
+
+function Init(vector Direction)
+{
+	SetRotation(Rotator(Direction));
+
+	Velocity = Speed * Direction;
+	Acceleration = AccelRate * Normal(Velocity);
 }
 
 simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNormal)
@@ -112,7 +124,7 @@ simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
 defaultproperties
 {
 
-	Speed = 200
+	Speed = 1000
 	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Green'
 	//ProjExplosionTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
 	LifeSpan=2
@@ -120,6 +132,7 @@ defaultproperties
 	Damage=10
     MomentumTransfer=0
 	CustomGravityScaling=0
+	bInitOnSpawnWithRotation=true
 
     Begin Object Name=CollisionCylinder
             CollisionRadius=8
