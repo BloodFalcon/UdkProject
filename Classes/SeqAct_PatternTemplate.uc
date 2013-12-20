@@ -62,7 +62,9 @@ var bool Fire;
 event Activated()
 {
 
+if(NextNode.IsA('BF_Enemy_GunShip')){
 
+	}
 	if(Node0 != none && step == 0){
 		Delay = Delay0;
 		NextNode = Node0;
