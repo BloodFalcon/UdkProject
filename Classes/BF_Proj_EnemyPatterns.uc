@@ -18,8 +18,8 @@ function Scatter(Vector EnLOC, Rotator EnROT, optional int AngularWidth, optiona
 DefaultProperties
 {
 
-AngularWidth=90
-Bullets=3
+//AngularWidth=90
+//Bullets=3
 
 
 }
