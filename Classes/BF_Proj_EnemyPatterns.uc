@@ -1,49 +1,61 @@
 class BF_Proj_EnemyPatterns extends SequenceAction;
 
-var BF_Enemy_Base CurEn;
-var() int AngularWidth; /** 360deg = 65536rot **/
-var() int Bullets;
-var() float Rate;
-var() class<BF_Proj_Base> ProjType;
-var bool run; //extra
-var BF_Proj_Base MyProj;
-
 enum EFireType
 {
 	Straight,
 	Scatter,
 	Arc,
 };
-
+var Object CurEn;
+var BF_Enemy_Base CastEn;
 var() EFireType FireType;
+var() int AngularWidth; /** 360deg = 65536rot **/
+var() int Bullets;
+var() float Rate;
+var() class<BF_Proj_Base> ProjType;
+var BF_Proj_Base MyProj;
+var Rotator SpreadIncrement;
+var Rotator SpreadOffset;
+var int BulletsLeft;
+
 
 event Activated()
 {
-	if(FireType==Straight){
-		Straight();
-	}else if(FireType==Scatter){
-		Scatter();
-	}else if(FireType==Arc){
-		Arc();
-	}
-}
-
-function tick(float DeltaTime)
-{
-	if(run){
-		MyProj = CurEn.spawn(ProjType, CurEn,, CurEn.Location, CurEn.Rotation);
-		MyProj.Init(vector(CurEn.Rotation));
+	CastEn=BF_Enemy_Base(CurEn);
+	if(InputLinks[2].bHasImpulse || CurEn==none){
+		OutputLinks[1].bHasImpulse=true;
+	}else{
+		if(FireType==Straight){
+			Straight();
+		}else if(FireType==Scatter){
+			Scatter();
+		}else if(FireType==Arc){
+			Arc();
+		}
 	}
 }
 
 function Straight()
 {
-	run=true;
+	MyProj = CastEn.spawn(ProjType, CastEn,, CastEn.Location, CastEn.Rotation);
+	MyProj.Init(vector(CastEn.Rotation));
+	OutputLinks[0].bHasImpulse=true;
 }
 
 function Scatter()
 {
+	SpreadIncrement.Yaw = (AngularWidth*DegToUnrRot)/Bullets;
+	BulletsLeft=Bullets;
+	SpreadOffset.Yaw = (AngularWidth*DegToUnrRot)/2;
+	
+	while(BulletsLeft>0){
+		BulletsLeft--;
+		MyProj = CastEn.spawn(ProjType, CastEn,, CastEn.Location, CastEn.Rotation);
+		MyProj.Init(vector(CastEn.Rotation+SpreadOffset));
+		SpreadOffset-=SpreadIncrement;
+	}
 
+	OutputLinks[0].bHasImpulse=true;
 }
 
 function Arc()
@@ -70,11 +82,12 @@ DefaultProperties
 
 	VariableLinks.Empty
 	VariableLinks[0]=(ExpectedType=class'SeqVar_Object',LinkDesc="Enemy",PropertyName=CurEn)
-	VariableLinks[1]=(ExpectedType=class'SeqVar_Float',LinkDesc="Rate",bHidden=true,PropertyName=Rate)
-	VariableLinks[2]=(ExpectedType=class'SeqVar_Int',LinkDesc="Width",bHidden=true,PropertyName=AngularWidth)
-	VariableLinks[3]=(ExpectedType=class'SeqVar_Int',LinkDesc="Bullets",bHidden=true,PropertyName=Bullets)
+	VariableLinks[1]=(ExpectedType=class'SeqVar_Float',LinkDesc="Rate",bHidden=true,PropertyName=Rate,MaxVars=1,MinVars=0)
+	VariableLinks[2]=(ExpectedType=class'SeqVar_Int',LinkDesc="Width",bHidden=true,PropertyName=AngularWidth,MaxVars=1,MinVars=0)
+	VariableLinks[3]=(ExpectedType=class'SeqVar_Int',LinkDesc="Bullets",bHidden=true,PropertyName=Bullets,MaxVars=1,MinVars=0)
 
 	//Variable Defaults
-	//ProjType=class'BF_Proj_Missile'
-	run=false
+	Rate=1.0
+	AngularWidth=90
+	Bullets=3
 }
