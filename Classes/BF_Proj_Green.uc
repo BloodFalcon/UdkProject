@@ -53,6 +53,7 @@ function Init(vector Direction)
 	SetRotation(Rotator(Direction));
 
 	Velocity = Speed * Direction;
+	Velocity+=Owner.Velocity;
 	Acceleration = AccelRate * Normal(Velocity);
 }
 
@@ -124,7 +125,7 @@ simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
 defaultproperties
 {
 
-	Speed = 1000
+	Speed = 3000
 	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Green'
 	//ProjExplosionTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
 	LifeSpan=2

@@ -50,7 +50,7 @@ function Scatter()
 	
 	while(BulletsLeft>0){
 		BulletsLeft--;
-		MyProj = CastEn.spawn(ProjType, CastEn,, CastEn.Location, CastEn.Rotation);
+		MyProj = CastEn.spawn(ProjType, CastEn,, CastEn.Location, CastEn.Rotation); //MUST RENAME SOCKETS FOR PRECISE SPAWN LOCATION
 		MyProj.Init(vector(CastEn.Rotation+SpreadOffset));
 		SpreadOffset-=SpreadIncrement;
 	}
