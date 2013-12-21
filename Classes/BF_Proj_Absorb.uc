@@ -6,7 +6,7 @@
 // Description: Absorbtion Projectile
 //////////////////////////
 
-class BF_Proj_Absorb extends UDKProjectile;
+class BF_Proj_Absorb extends BF_Proj_Base;
 
 var ParticleSystemComponent ProjEffects;
 var ParticleSystem ProjFlightTemplate;

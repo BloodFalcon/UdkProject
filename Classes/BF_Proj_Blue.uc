@@ -6,7 +6,7 @@
 // Description: Upgrade Weapon 1
 //////////////////////////
 
-class BF_Proj_Blue extends UDKProjectile;
+class BF_Proj_Blue extends BF_Proj_Base;
 
 var ParticleSystemComponent ProjEffects;
 var ParticleSystem ProjFlightTemplate;

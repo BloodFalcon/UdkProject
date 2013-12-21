@@ -6,7 +6,7 @@
 // Description: Missile
 //////////////////////////
 
-class BF_Proj_Missile extends UDKProjectile;
+class BF_Proj_Missile extends BF_Proj_Base;
 
 var ParticleSystemComponent ProjEffects;
 var ParticleSystem ProjFlightTemplate;
