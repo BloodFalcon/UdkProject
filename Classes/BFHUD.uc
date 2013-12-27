@@ -168,7 +168,7 @@ function GameOver()
 
 DefaultProperties
 {
-	BFUI = Texture2D'BloodFalcon.Texture.BF_HUD_Interface'
+	BFUI = Texture2D'BloodFalcon.Texture.BF_HUD_UI'
 	BFMissile = Texture2D'BloodFalcon.Texture.BF_HUD_Missile'
 	BFFlamethrower = Texture2D'BloodFalcon.Texture.BF_HUD_FlameThrower'
 	BFTemplate = Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
