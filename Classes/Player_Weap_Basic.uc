@@ -37,7 +37,7 @@ var(Weapon) const array<SoundCue> WeaponFireSounds;
 //Set weapon position on equipping
 simulated function TimeWeaponEquipping()
 {
-        AttachWeaponTo(Instigator.Mesh,'Nose_WP');
+        AttachWeaponTo(Instigator.Mesh,'Nose_Gun');
         super.TimeWeaponEquipping();
 }
 
@@ -45,7 +45,7 @@ simulated function TimeWeaponEquipping()
 //set which socket the weapon should be attached to
 simulated function AttachWeaponTo(SkeletalMeshComponent MeshCpnt, optional Name SocketName)
 {
-        MeshCpnt.AttachComponentToSocket(Mesh,'Nose_WP');
+        MeshCpnt.AttachComponentToSocket(Mesh,'Nose_Gun');
 }
 
 //set weapons position
@@ -59,7 +59,7 @@ simulated event SetPosition(UDKPawn Holder)
 
         if (compo != none)
         {
-                socket = compo.GetSocketByName('Nose_WP');
+                socket = compo.GetSocketByName('Nose_Gun');
 
                 if (socket != none)
                 {
@@ -80,7 +80,7 @@ simulated event vector GetPhysicalFireStartLoc(optional vector AimDir)
 
         if (compo != none)
         {
-                socket = compo.GetSocketByName('Nose_WP');
+                socket = compo.GetSocketByName('Nose_Gun');
 
                 if (socket != none)
                 {
