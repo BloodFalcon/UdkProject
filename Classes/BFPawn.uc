@@ -33,7 +33,7 @@ var Vector 	local_cam_loc;
 	var byte Lives;
 ////////////////////////////////////////////////////////////////
 /**************************************************************/
-	//var SkeletalMesh EnemyMesh;
+	var SkeletalMesh EnemyMesh;
 /**************************************************************/
 
 
@@ -166,7 +166,7 @@ event Tick(float DeltaTime)
 				{
 					BeamFireSound.Stop();
 					BeamAbsorbSound.Play();
-					//if((TargetEnemy.IsA('BF_Enemy_Drone') && DroneEquip) || (TargetEnemy.IsA('BF_Enemy_GunShip') && GunShipEquip) || (TargetEnemy.IsA('BF_Enemy_SuicideFighter') && SuicideFighterEquip))
+					//if((EnemyMesh.IsA('BF_Enemy_Drone') && DroneEquip) || (TargetEnemy.IsA('BF_Enemy_GunShip') && GunShipEquip) || (TargetEnemy.IsA('BF_Enemy_SuicideFighter') && SuicideFighterEquip))
 					//{
 					//	TargetEnemy = none;
 					//}
@@ -201,9 +201,9 @@ event Tick(float DeltaTime)
 		//TargetEnemy.Destroy();
 		//swapControllers();
 		/**NEEEDS TO DETERMINE ENEMY MESH**/
-		//EnemyMesh = TargetEnemy.Controller.Pawn.Mesh.SkeletalMesh;
+		EnemyMesh = TargetEnemy.Controller.Pawn.Mesh.SkeletalMesh;
 		self.Mesh.SetSkeletalMesh(TargetEnemy.Mesh.SkeletalMesh);
-		self.Mesh.SetMaterial(0,Material'enginedebugmaterials.VertexColorViewMode_RedOnly');
+		self.Mesh.SetMaterial(0,Material'enginedebugmaterials.BoneWeightMaterial');
 		killbeam();
 	}
 	super.Tick(DeltaTime);
