@@ -168,13 +168,13 @@ function GameOver()
 
 DefaultProperties
 {
-	BFUI = Texture2D'BloodFalcon.Texture.BF_HUD_UI'
-	BFMissile = Texture2D'BloodFalcon.Texture.BF_HUD_Missile'
-	BFFlamethrower = Texture2D'BloodFalcon.Texture.BF_HUD_FlameThrower'
-	BFTemplate = Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
-	BFBeamOverlay = Texture2D'BloodFalcon.Texture.BF_BeamOverlay'
-	LightOn = Texture2D'BloodFalcon.Texture.LightOn'
-	LightOff = Texture2D'BloodFalcon.Texture.LightOff'
+	BFUI = Texture2D'BF_HUD_Assets.Textures.BF_HUD_Interface'
+	//BFMissile = Texture2D'BloodFalcon.Texture.BF_HUD_Missile'
+	//BFFlamethrower = Texture2D'BloodFalcon.Texture.BF_HUD_FlameThrower'
+	//BFTemplate = Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
+	//BFBeamOverlay = Texture2D'BloodFalcon.Texture.BF_BeamOverlay'
+	//LightOn = Texture2D'BloodFalcon.Texture.LightOn'
+	//LightOff = Texture2D'BloodFalcon.Texture.LightOff'
 	//PlayerIcon = Texture2D'BloodFalcon.Texture.PlayerShipIcon'
 	BF_Font = MultiFont'UI_Fonts_Final.menus.Fonts_AmbexHeavy'
 	playerdead=false
