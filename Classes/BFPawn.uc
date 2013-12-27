@@ -18,7 +18,7 @@ var ParticleSystem DeathExplosion;
 var SoundCue EnemyDeathSound;
 var SoundCue DeathSound;
 var AudioComponent BeamFireSound, BeamAbsorbSound;
-var UDKPawn TargetEnemy; //Enemyhit and Trace
+var Pawn TargetEnemy; //Enemyhit and Trace
 var int AbsorbTimer;
 var int EnemyAbsorbTime;
 var Vector NewEnemyLoc;
@@ -129,7 +129,7 @@ event Tick(float DeltaTime)
 {
 	local Vector HitLocation, HitNormal;
 	local Actor TracedEnemyAct;
-	local UDKPawn TracedEnemy;
+	local Pawn TracedEnemy;
 	BeamStartLoc = Location;
 	BeamEndLoc = Location + BeamOffset;
 	UpdateHUD();
@@ -196,17 +196,47 @@ event Tick(float DeltaTime)
 			killbeam();
 		}
 	}else{
-		UpgradeUpdate();	
-		EnemyDeath = WorldInfo.MyEmitterPool.SpawnEmitter(ParticleSystem'FX_VehicleExplosions.Effects.P_FX_VehicleDeathExplosion', TargetEnemy.Location, TargetEnemy.Rotation, self );
+		//UpgradeUpdate();	
+		//EnemyDeath = WorldInfo.MyEmitterPool.SpawnEmitter(ParticleSystem'FX_VehicleExplosions.Effects.P_FX_VehicleDeathExplosion', TargetEnemy.Location, TargetEnemy.Rotation, self );
 		EnemyDeath.SetVectorParameter('LinkBeamEnd', (TargetEnemy.Location+vect(0,20,50)));
 		PlaySound(EnemyDeathSound);
-		TargetEnemy.DetachFromController(true);
-		TargetEnemy.Destroy();
+		
+		//TargetEnemy.Destroy();
+		swapControllers();
+
 		killbeam();
 	}
 	super.Tick(DeltaTime);
 }
 
+
+function swapControllers()
+{
+local Controller PC;
+PC = self.Controller;
+
+PC.unpossess();
+TargetEnemy.Controller.unpossess();
+PC.possess(TargetEnemy,false);
+
+} 
+
+//function bool swapControllers (Controller myPlayer, Pawn newPawn)
+//{
+//local Controller aiController;
+//local Pawn oldPawn;
+
+//aiController = newPawn.Controller;
+//oldPawn = myPlayer.Pawn;
+
+//myPlayer.unpossess ();
+//aiController.unpossess ();
+
+//myPlayer.possess (newPawn);
+//aiController.possess (oldPawn);
+
+//return true;
+//} 
 
 function killbeam() //Resets The Absorb Beam
 {

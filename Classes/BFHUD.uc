@@ -56,22 +56,22 @@ function drawHUD()
 	CurHUDY = SizeY;
 	CalcScale(CurHUDX,CurHUDY);
 	//FOR CURRENT SELECTED WEAPON
-	Canvas.SetPos(271*RatX, 106*RatY);
-	Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
+	//Canvas.SetPos(271*RatX, 106*RatY);
+	//Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
 	//
 
 
 
-	if(Lives==0){
-		GameOver();
-	}else{
+	//if(Lives==0){
+	//	GameOver();
+	//}else{
 		LoadUI();
-	}
-	BeamOverlayLength=(900-(900*BeamLength));
+	//}
+	//BeamOverlayLength=(900-(900*BeamLength));
 	
-	Canvas.SetPos(221*RatX, ((35+BeamOverlayLength)*RatY));
+	//Canvas.SetPos(221*RatX, ((35+BeamOverlayLength)*RatY));
 
-	Canvas.DrawTile(BFBeamOverlay, 164*RatX, 2048*RatY, 0, (1007+BeamOverlayLength), 164, 2048);
+	//Canvas.DrawTile(BFBeamOverlay, 164*RatX, 2048*RatY, 0, (1007+BeamOverlayLength), 164, 2048);
 	super.drawHUD();
 }
 
@@ -103,31 +103,31 @@ function RankPosition()
 
 function CleanHUD()
 {
-	if((Rank+5)<=5){
-		RankHolder = Rank + 5;
-		RankPosition();
-		Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	}
-	if((Rank+4)<=5){
-		RankHolder = Rank + 4;
-		RankPosition();
-		Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	}
-	if((Rank+3)<=5){
-		RankHolder = Rank + 3;
-		RankPosition();
-		Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	}
-	if((Rank+2)<=5){
-		RankHolder = Rank + 2;
-		RankPosition();
-		Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	}
-	if((Rank+1)<=5){
-		RankHolder = Rank + 1;
-		RankPosition();
-		Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	}
+	//if((Rank+5)<=5){
+	//	RankHolder = Rank + 5;
+	//	RankPosition();
+	//	Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
+	//}
+	//if((Rank+4)<=5){
+	//	RankHolder = Rank + 4;
+	//	RankPosition();
+	//	Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
+	//}
+	//if((Rank+3)<=5){
+	//	RankHolder = Rank + 3;
+	//	RankPosition();
+	//	Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
+	//}
+	//if((Rank+2)<=5){
+	//	RankHolder = Rank + 2;
+	//	RankPosition();
+	//	Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
+	//}
+	//if((Rank+1)<=5){
+	//	RankHolder = Rank + 1;
+	//	RankPosition();
+	//	Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
+	//}
 }
 
 
@@ -135,21 +135,21 @@ function LoadUI()
 {
 	Canvas.SetPos(0, 0);
 	Canvas.DrawTile(BFUI, 1920*RatX, 1080*RatY, 0, 0, 1920, 1080);
-	if(GunShipEquip){ //GUNSHIP MISSILES
-		RankHolder = GunShipRank;
-		RankPosition();
-		Canvas.DrawTile(BFMissile, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	}
-	if(DroneEquip){ //Laser or Flamethrower
-		RankHolder = DroneRank;
-		RankPosition();
-		Canvas.DrawTile(BFFlamethrower, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	}
-	if(SuicideFighterEquip){ //SUICIDEFIGHTER MACHINEGUN?
-		RankHolder = SuicideFighterRank;
-		RankPosition();
-		Canvas.DrawTile(BFFlameThrower, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	}
+	//if(GunShipEquip){ //GUNSHIP MISSILES
+	//	RankHolder = GunShipRank;
+	//	RankPosition();
+	//	Canvas.DrawTile(BFMissile, 64*RatX, 64*RatY, 0, 0, 64, 64);
+	//}
+	//if(DroneEquip){ //Laser or Flamethrower
+	//	RankHolder = DroneRank;
+	//	RankPosition();
+	//	Canvas.DrawTile(BFFlamethrower, 64*RatX, 64*RatY, 0, 0, 64, 64);
+	//}
+	//if(SuicideFighterEquip){ //SUICIDEFIGHTER MACHINEGUN?
+	//	RankHolder = SuicideFighterRank;
+	//	RankPosition();
+	//	Canvas.DrawTile(BFFlameThrower, 64*RatX, 64*RatY, 0, 0, 64, 64);
+	//}
 	CleanHUD();
 }
 
@@ -168,7 +168,7 @@ function GameOver()
 
 DefaultProperties
 {
-	BFUI = Texture2D'BloodFalcon.Texture.FrameV5'
+	BFUI = Texture2D'BloodFalcon.Texture.BF_HUD_Interface'
 	BFMissile = Texture2D'BloodFalcon.Texture.BF_HUD_Missile'
 	BFFlamethrower = Texture2D'BloodFalcon.Texture.BF_HUD_FlameThrower'
 	BFTemplate = Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
