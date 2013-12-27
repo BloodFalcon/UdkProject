@@ -38,7 +38,11 @@ var Vector 	local_cam_loc;
 	var bool SuicideFighterEquip;		
 	var bool PlayerDead;
 	var byte Lives;
-//Weapon Equip Information (BECAUSE THE DAMN STRUCTS DONT WORK)
+////////////////////////////////////////////////////////////////
+/**************************************************************/
+	//var SkeletalMesh EnemyMesh;
+/**************************************************************/
+
 
 
 event PostBeginPlay()
@@ -202,24 +206,26 @@ event Tick(float DeltaTime)
 		PlaySound(EnemyDeathSound);
 		
 		//TargetEnemy.Destroy();
-		swapControllers();
-
+		//swapControllers();
+		/**NEEEDS TO DETERMIN ENEMIE MESH**/
+		//EnemyMesh = TargetEnemy.Controller.Pawn.Mesh.SkeletalMesh;
+		self.Controller.Pawn.Mesh.SetSkeletalMesh(TargetEnemy.Controller.Pawn.Mesh.SkeletalMesh);
 		killbeam();
 	}
 	super.Tick(DeltaTime);
 }
 
 
-function swapControllers()
-{
-local Controller PC;
-PC = self.Controller;
+//function swapControllers()
+//{
+//local Controller PC;
+//PC = self.Controller;
 
-PC.unpossess();
-TargetEnemy.Controller.unpossess();
-PC.possess(TargetEnemy,false);
+//PC.unpossess();
+//TargetEnemy.Controller.unpossess();
+//PC.possess(TargetEnemy,false);
 
-} 
+//} 
 
 //function bool swapControllers (Controller myPlayer, Pawn newPawn)
 //{
@@ -262,45 +268,14 @@ function killbeam() //Resets The Absorb Beam
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
-	if(FlickerCount==0){
-		BeamFire = false;
-		if(DroneRank == Rank){
-			Rank--;
-			DroneRank = -1;
-			DroneEquip = false;
-		}else if(GunShipRank == Rank){
-			Rank--;
-			GunShipRank = -1;
-			GunShipEquip = false;
-		}else if(SuicideFighterRank == Rank){
-			Rank--;
-			SuicideFighterRank = -1;
-			SuicideFighterEquip = false;
-		}else{
 			UpdateHUD();
-			RespawnPlayer();
-			Lives--;
-		}
-	}
 }
 
 
 function RespawnPlayer()
 {
-	if(FlickerCount<20){
-		if(FlickerCount==0){
-			Self.SetLocation(vect(-7040,-892,46130));
-		}
-		if(self.bHidden){
-			self.SetHidden(false);
-		}else{
-			self.SetHidden(true);
-		}
-		FlickerCount++;
+		Self.SetLocation(vect(-7040,-892,46130));
 		SetTimer(0.3,false,'RespawnPlayer',);
-	}else{
-		FlickerCount = 0;
-	}
 }
 
 
@@ -415,14 +390,6 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 }
 
 
-function bool Died(Controller Killer, class<DamageType> damageType, vector HitLocation)
-{
-	//owner.Destroy();
-	//PlayerDead = true;
-	//Self.Destroy();
-	//return True;
-}
-
 
 event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vector HitNormal )
 {
@@ -499,6 +466,11 @@ defaultproperties
 		SuicideFighterEquip = false
 		FlickerCount = 0
 		Lives = 3
+
+		//BFGunship = SkeletalMesh'BloodFalcon.SkeletalMesh.GunShip'
+		//BFDrone = SkeletalMesh'BloodFalcon.SkeletalMesh.Drone'
+		//BFSuicideFighter = SkeletalMesh'BloodFalcon.SkeletalMesh.SuicideFighter'
+		//BFPlayer = SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
 		//AspectRatio_MaintainXFOV = false
 		//AspectRatio_MaintainYFOV = false
 }
