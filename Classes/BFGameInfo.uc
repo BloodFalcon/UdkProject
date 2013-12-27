@@ -8,16 +8,18 @@
 
 class BFGameInfo extends UDKGame;
 
-var bool PlayerDead;
-	var bool DroneEquip;
-	var bool GunShipEquip;
-	var bool SuicideFighterEquip;
-	var int DroneRank;
-	var int GunShipRank;
-	var int SuicideFighterRank;
-	var int Rank;
-	var byte Lives;
-	var float BeamLength;
+//var bool PlayerDead;
+//	var bool DroneEquip;
+//	var bool GunShipEquip;
+//	var bool SuicideFighterEquip;
+//	var int DroneRank;
+//	var int GunShipRank;
+//	var int SuicideFighterRank;
+//	var int Rank;
+//	var byte Lives;
+//	var float BeamLength;
+
+var array<SkeletalMesh> Souls; 
 
 
 static event class<GameInfo> SetGameType(string MapName, string Options, string Portal)
@@ -32,5 +34,5 @@ defaultproperties
     PlayerControllerClass=class'UdkProject.BFPlayerController'
 	HUDType=class'UdkProject.BFHUD'
 
-	playerdead = false
+	//playerdead = false
 }

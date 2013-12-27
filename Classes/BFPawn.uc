@@ -28,14 +28,7 @@ var bool BeamOffStep;
 var byte FlickerCount;
 var Vector 	local_cam_loc;
 //Weapon Equip Information (BECAUSE THE DAMN STRUCTS DONT WORK)
-	var float BeamLength;
-	var int Rank;
-	var int DroneRank;
-	var bool DroneEquip;
-	var int GunShipRank;
-	var bool GunShipEquip;
-	var int SuicideFighterRank;
-	var bool SuicideFighterEquip;		
+	var float BeamLength;	
 	var bool PlayerDead;
 	var byte Lives;
 ////////////////////////////////////////////////////////////////
@@ -61,16 +54,16 @@ event PostBeginPlay()
 
 function UpdateHUD()
 {
-	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).DroneEquip = DroneEquip;
-	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GunShipEquip = GunShipEquip;
-	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).SuicideFighterEquip = SuicideFighterEquip;
-	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).DroneRank = DroneRank;
-	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GunShipRank = GunShipRank;
-	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).SuicideFighterRank = SuicideFighterRank;
-	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Rank = Rank;
-	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead = PlayerDead;
-	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Lives = Lives;
-	 BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BeamLength = BeamLength;
+	 //BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).DroneEquip = DroneEquip;
+	 //BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GunShipEquip = GunShipEquip;
+	 //BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).SuicideFighterEquip = SuicideFighterEquip;
+	 //BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).DroneRank = DroneRank;
+	 //BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GunShipRank = GunShipRank;
+	 //BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).SuicideFighterRank = SuicideFighterRank;
+	 //BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Rank = Rank;
+	 //BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead = PlayerDead;
+	 //BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Lives = Lives;
+	 //BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BeamLength = BeamLength;
 }
 
 
@@ -90,42 +83,42 @@ function EnemyTimeReference() //Set The Absorbtion Time Per Enemy
 
 function UpgradeUpdate()
 {
-	if(TargetEnemy.IsA('BF_Enemy_Drone')){
-		Rank++;
-		DroneRank = Rank;
-		DroneEquip = true;
-	}else if(TargetEnemy.IsA('BF_Enemy_GunShip')){
-		Rank++;
-		GunShipRank = Rank;
-		GunShipEquip = true;
-	}else if(TargetEnemy.IsA('BF_Enemy_SuicideFighter')){
-		Rank++;
-		SuicideFighterRank = Rank;
-		SuicideFighterEquip = true;
-	}else{
+	//if(TargetEnemy.IsA('BF_Enemy_Drone')){
+	//	Rank++;
+	//	DroneRank = Rank;
+	//	DroneEquip = true;
+	//}else if(TargetEnemy.IsA('BF_Enemy_GunShip')){
+	//	Rank++;
+	//	GunShipRank = Rank;
+	//	GunShipEquip = true;
+	//}else if(TargetEnemy.IsA('BF_Enemy_SuicideFighter')){
+	//	Rank++;
+	//	SuicideFighterRank = Rank;
+	//	SuicideFighterEquip = true;
+	//}else{
 
-	}
+	//}
 }
 
 
 function ShootUpgrades(byte FireModeNum) //Place All the upgrades to be fired here
 {
-	if(DroneEquip && CurFire == true)
-	{
-		Spawn(class'BF_Proj_Red');
-	}
+	//if(DroneEquip && CurFire == true)
+	//{
+	//	Spawn(class'BF_Proj_Red');
+	//}
 	
-	if(GunShipEquip && CurFire == true)
-	{
-		Spawn(class'BF_Proj_Missile');
-		//Spawn(class'BF_Proj_Player_Missile_L');
-		//Spawn(class'BF_Proj_Player_Missile_R');
-	}
+	//if(GunShipEquip && CurFire == true)
+	//{
+	//	Spawn(class'BF_Proj_Missile');
+	//	//Spawn(class'BF_Proj_Player_Missile_L');
+	//	//Spawn(class'BF_Proj_Player_Missile_R');
+	//}
 	
-	if(SuicideFighterEquip && CurFire == true)
-	{
-		Spawn(class'BF_Proj_Blue');
-	}
+	//if(SuicideFighterEquip && CurFire == true)
+	//{
+	//	Spawn(class'BF_Proj_Blue');
+	//}
 }
 
 
@@ -173,10 +166,10 @@ event Tick(float DeltaTime)
 				{
 					BeamFireSound.Stop();
 					BeamAbsorbSound.Play();
-					if((TargetEnemy.IsA('BF_Enemy_Drone') && DroneEquip) || (TargetEnemy.IsA('BF_Enemy_GunShip') && GunShipEquip) || (TargetEnemy.IsA('BF_Enemy_SuicideFighter') && SuicideFighterEquip))
-					{
-						TargetEnemy = none;
-					}
+					//if((TargetEnemy.IsA('BF_Enemy_Drone') && DroneEquip) || (TargetEnemy.IsA('BF_Enemy_GunShip') && GunShipEquip) || (TargetEnemy.IsA('BF_Enemy_SuicideFighter') && SuicideFighterEquip))
+					//{
+					//	TargetEnemy = none;
+					//}
 					EnemyTimeReference();
 				}
 			}else{ //If you have a target enemy already, currently beaming
@@ -191,7 +184,7 @@ event Tick(float DeltaTime)
 					killbeam();
 				}
 				if(((TargetEnemy.Location.Y-950)>=local_cam_loc.Y) || ((TargetEnemy.Location.Y+950)<=local_cam_loc.Y) || ((TargetEnemy.Location.X+975)<=local_cam_loc.X) || ((TargetEnemy.Location.X-975)>=local_cam_loc.X)){ //Fixed Beam Shit
-					TargetEnemy.DetachFromController(true);
+					//TargetEnemy.DetachFromController(true);
 					TargetEnemy.Destroy();
 					killbeam();
 				}
@@ -207,9 +200,10 @@ event Tick(float DeltaTime)
 		
 		//TargetEnemy.Destroy();
 		//swapControllers();
-		/**NEEEDS TO DETERMIN ENEMIE MESH**/
+		/**NEEEDS TO DETERMINE ENEMY MESH**/
 		//EnemyMesh = TargetEnemy.Controller.Pawn.Mesh.SkeletalMesh;
-		self.Controller.Pawn.Mesh.SetSkeletalMesh(TargetEnemy.Controller.Pawn.Mesh.SkeletalMesh);
+		self.Mesh.SetSkeletalMesh(TargetEnemy.Mesh.SkeletalMesh);
+		self.Mesh.SetMaterial(0,Material'enginedebugmaterials.VertexColorViewMode_RedOnly');
 		killbeam();
 	}
 	super.Tick(DeltaTime);
@@ -274,8 +268,8 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 
 function RespawnPlayer()
 {
-		Self.SetLocation(vect(-7040,-892,46130));
-		SetTimer(0.3,false,'RespawnPlayer',);
+		//Self.SetLocation(vect(-7040,-892,46130));
+		//SetTimer(0.3,false,'RespawnPlayer',);
 }
 
 
@@ -458,14 +452,14 @@ defaultproperties
 		TargetEnemy = none	
 		AbsorbTimer=0
 		EnemyAbsorbTime=200
-		GunShipRank = -1
-		GunShipEquip = false
-		DroneRank = -1
-		DroneEquip = false
-		SuicideFighterRank = -1
-		SuicideFighterEquip = false
-		FlickerCount = 0
-		Lives = 3
+		//GunShipRank = -1
+		//GunShipEquip = false
+		//DroneRank = -1
+		//DroneEquip = false
+		//SuicideFighterRank = -1
+		//SuicideFighterEquip = false
+		//FlickerCount = 0
+		//Lives = 3
 
 		//BFGunship = SkeletalMesh'BloodFalcon.SkeletalMesh.GunShip'
 		//BFDrone = SkeletalMesh'BloodFalcon.SkeletalMesh.Drone'

@@ -19,38 +19,38 @@ var Texture2D LightOn;
 var Texture2D LightOff;
 //var Texture2D PlayerShipIcon;
 var MultiFont BF_Font;
-var bool PlayerDead;
-var int RankHolder; //Weapon and Life variables
-	var int Rank;
-	var int DroneRank;
-	var bool DroneEquip;
-	var int GunShipRank;
-	var bool GunShipEquip;
-	var int SuicideFighterRank;
-	var bool SuicideFighterEquip;	
-	var byte Lives;
+//var bool PlayerDead;
+//var int RankHolder; //Weapon and Life variables
+	//var int Rank;
+	//var int DroneRank;
+	//var bool DroneEquip;
+	//var int GunShipRank;
+	//var bool GunShipEquip;
+	//var int SuicideFighterRank;
+	//var bool SuicideFighterEquip;	
+	//var byte Lives;
 		var float OldHUDX; //HUD Scaling variables
 		var float OldHUDY;
 		var float CurHUDX;
 		var float CurHUDY;
 		var float RatX;
 		var float RatY;
-		var float BeamLength;
-		var int BeamOverlayLength;
+		//var float BeamLength;
+		//var int BeamOverlayLength;
 
 
 function drawHUD()
 {
-	DroneEquip = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).DroneEquip;
-	GunShipEquip = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GunShipEquip;
-	SuicideFighterEquip = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).SuicideFighterEquip;
-	DroneRank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).DroneRank;
-	GunShipRank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GunShipRank;
-	SuicideFighterRank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).SuicideFighterRank;
-	Rank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Rank;
-	PlayerDead = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead;
-	Lives = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Lives;
-	BeamLength = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BeamLength;	
+	//DroneEquip = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).DroneEquip;
+	//GunShipEquip = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GunShipEquip;
+	//SuicideFighterEquip = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).SuicideFighterEquip;
+	//DroneRank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).DroneRank;
+	//GunShipRank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GunShipRank;
+	//SuicideFighterRank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).SuicideFighterRank;
+	//Rank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Rank;
+	//PlayerDead = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead;
+	//Lives = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Lives;
+	//BeamLength = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BeamLength;	
 	Canvas.Font = BF_Font;
 	CurHUDX = SizeX;
 	CurHUDY = SizeY;
@@ -85,19 +85,19 @@ function CalcScale(float ScreenX,float ScreenY)
 
 function RankPosition()
 {
-	if(RankHolder==1){
-		Canvas.SetPos(271*RatX, 787*RatY);
-	}else if(RankHolder==2){
-		Canvas.SetPos(271*RatX, 657*RatY);	
-	}else if(RankHolder==3){
-		Canvas.SetPos(271*RatX, 527*RatY);	
-	}else if(RankHolder==4){
-		Canvas.SetPos(271*RatX, 397*RatY);	
-	}else if(RankHolder==5){
-		Canvas.SetPos(271*RatX, 267*RatY);	
-	}else{
+	//if(RankHolder==1){
+	//	Canvas.SetPos(271*RatX, 787*RatY);
+	//}else if(RankHolder==2){
+	//	Canvas.SetPos(271*RatX, 657*RatY);	
+	//}else if(RankHolder==3){
+	//	Canvas.SetPos(271*RatX, 527*RatY);	
+	//}else if(RankHolder==4){
+	//	Canvas.SetPos(271*RatX, 397*RatY);	
+	//}else if(RankHolder==5){
+	//	Canvas.SetPos(271*RatX, 267*RatY);	
+	//}else{
 	
-	}
+	//}
 }
 
 
@@ -177,8 +177,8 @@ DefaultProperties
 	//LightOff = Texture2D'BloodFalcon.Texture.LightOff'
 	//PlayerIcon = Texture2D'BloodFalcon.Texture.PlayerShipIcon'
 	BF_Font = MultiFont'UI_Fonts_Final.menus.Fonts_AmbexHeavy'
-	playerdead=false
-	Lives = 3
+	//playerdead=false
+	//Lives = 3
 	OldHUDX=1920
 	OldHUDY=1080
 	RatX = 1
