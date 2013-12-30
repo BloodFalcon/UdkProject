@@ -19,6 +19,8 @@ class BFGameInfo extends UDKGame;
 //	var byte Lives;
 //	var float BeamLength;
 
+
+
 var array<SkeletalMesh> Souls; 
 
 
@@ -33,6 +35,4 @@ defaultproperties
     DefaultPawnClass=class'UdkProject.BFPawn'
     PlayerControllerClass=class'UdkProject.BFPlayerController'
 	HUDType=class'UdkProject.BFHUD'
-
-	//playerdead = false
 }

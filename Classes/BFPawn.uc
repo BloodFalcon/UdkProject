@@ -32,9 +32,10 @@ var Vector 	local_cam_loc;
 	var bool PlayerDead;
 	var byte Lives;
 ////////////////////////////////////////////////////////////////
-/**************************************************************/
+
+
 	var SkeletalMesh EnemyMesh;
-/**************************************************************/
+
 
 
 
@@ -81,52 +82,52 @@ function EnemyTimeReference() //Set The Absorbtion Time Per Enemy
 }
 
 
-function UpgradeUpdate()
-{
-	//if(TargetEnemy.IsA('BF_Enemy_Drone')){
-	//	Rank++;
-	//	DroneRank = Rank;
-	//	DroneEquip = true;
-	//}else if(TargetEnemy.IsA('BF_Enemy_GunShip')){
-	//	Rank++;
-	//	GunShipRank = Rank;
-	//	GunShipEquip = true;
-	//}else if(TargetEnemy.IsA('BF_Enemy_SuicideFighter')){
-	//	Rank++;
-	//	SuicideFighterRank = Rank;
-	//	SuicideFighterEquip = true;
-	//}else{
+//function UpgradeUpdate()
+//{
+//	//if(TargetEnemy.IsA('BF_Enemy_Drone')){
+//	//	Rank++;
+//	//	DroneRank = Rank;
+//	//	DroneEquip = true;
+//	//}else if(TargetEnemy.IsA('BF_Enemy_GunShip')){
+//	//	Rank++;
+//	//	GunShipRank = Rank;
+//	//	GunShipEquip = true;
+//	//}else if(TargetEnemy.IsA('BF_Enemy_SuicideFighter')){
+//	//	Rank++;
+//	//	SuicideFighterRank = Rank;
+//	//	SuicideFighterEquip = true;
+//	//}else{
 
-	//}
-}
+//	//}
+//}
 
 
-function ShootUpgrades(byte FireModeNum) //Place All the upgrades to be fired here
-{
-	//if(DroneEquip && CurFire == true)
-	//{
-	//	Spawn(class'BF_Proj_Red');
-	//}
+//function ShootUpgrades(byte FireModeNum) //Place All the upgrades to be fired here
+//{
+//	//if(DroneEquip && CurFire == true)
+//	//{
+//	//	Spawn(class'BF_Proj_Red');
+//	//}
 	
-	//if(GunShipEquip && CurFire == true)
-	//{
-	//	Spawn(class'BF_Proj_Missile');
-	//	//Spawn(class'BF_Proj_Player_Missile_L');
-	//	//Spawn(class'BF_Proj_Player_Missile_R');
-	//}
+//	//if(GunShipEquip && CurFire == true)
+//	//{
+//	//	Spawn(class'BF_Proj_Missile');
+//	//	//Spawn(class'BF_Proj_Player_Missile_L');
+//	//	//Spawn(class'BF_Proj_Player_Missile_R');
+//	//}
 	
-	//if(SuicideFighterEquip && CurFire == true)
-	//{
-	//	Spawn(class'BF_Proj_Blue');
-	//}
-}
+//	//if(SuicideFighterEquip && CurFire == true)
+//	//{
+//	//	Spawn(class'BF_Proj_Blue');
+//	//}
+//}
 
 
 event Tick(float DeltaTime)
 {
 	local Vector HitLocation, HitNormal;
 	local Actor TracedEnemyAct;
-	local Pawn TracedEnemy;
+	local UDKPawn TracedEnemy;
 	BeamStartLoc = Location;
 	BeamEndLoc = Location + BeamOffset;
 	UpdateHUD();
@@ -202,6 +203,7 @@ event Tick(float DeltaTime)
 		//swapControllers();
 		/**NEEEDS TO DETERMINE ENEMY MESH**/
 		EnemyMesh = TargetEnemy.Controller.Pawn.Mesh.SkeletalMesh;
+		ShipSwap(EnemyMesh);
 		self.Mesh.SetSkeletalMesh(TargetEnemy.Mesh.SkeletalMesh);
 		self.Mesh.SetMaterial(0,Material'enginedebugmaterials.BoneWeightMaterial');
 		killbeam();
@@ -209,7 +211,24 @@ event Tick(float DeltaTime)
 	super.Tick(DeltaTime);
 }
 
+/**Stores new soul data in BF_SoulInventory and swaps mesh*/
+function ShipSwap(SkeletalMesh EnemyMesh)
+{
+	///Need to cacst current enemy with transferable stats
+	if(BF_SoulInventory.CS.Current.EType==TargetEnemy){
+		if(BF_SoulInventory.CS.Current.L<3){
+			BF_SoulInventory.CS.Current.L++;
+		}
+	}else if(BF_SoulInventory.CS.B1.EType.IsA('BF_Enemy_Base')){
+		BF_SoulInventory.CS.B1=BF_SoulInventory.CS.Current;
+	}else if(BF_SoulInventory.CS.B2.EType.IsA('BF_Enemy_Base')){
 
+	}else if(BF_SoulInventory.CS.B2.EType.IsA('BF_Enemy_Base')){
+
+	}else{
+
+	}
+}
 //function swapControllers()
 //{
 //local Controller PC;
@@ -262,7 +281,7 @@ function killbeam() //Resets The Absorb Beam
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
-			UpdateHUD();
+			//UpdateHUD();
 }
 
 
