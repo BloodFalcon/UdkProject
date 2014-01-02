@@ -20,24 +20,15 @@ var SoundCue DeathSound;
 var AudioComponent BeamFireSound, BeamAbsorbSound;
 var Pawn TargetEnemy; //Enemyhit and Trace
 var int AbsorbTimer;
-var int EnemyAbsorbTime;
-var Vector NewEnemyLoc;
+var int RequiredTime;
 var float CheckDist;
+/**Distance from center of trace*/
 var Vector BeamOffset;
-var bool BeamOffStep;
+/**BeamOffStep Waggles Trace, Changes Direction*/
+var bool BeamOffStep; 
 var byte FlickerCount;
 var Vector 	local_cam_loc;
-//Weapon Equip Information (BECAUSE THE DAMN STRUCTS DONT WORK)
-	var float BeamLength;	
-	var bool PlayerDead;
-	var byte Lives;
-////////////////////////////////////////////////////////////////
-
-
-	var SkeletalMesh EnemyMesh;
-
-
-
+var SkeletalMesh EnemyMesh;
 
 event PostBeginPlay()
 {
@@ -48,79 +39,7 @@ event PostBeginPlay()
 	Mesh.SetTraceBlocking(true, true); // block traces (i.e. anything touching mesh)
 	AddDefaultInventory();
 	EnemyDeathSound = SoundCue'A_Weapon_BioRifle.Weapon.A_BioRifle_FireImpactExplode_Cue';
-	//BeamFireSound = SoundCue'A_Pickups_Powerups.PowerUps.A_Powerup_Berzerk_GroundLoopCue';
-	//BeamHitSound = SoundCue'A_Pickups_Powerups.PowerUps.A_Powerup_Berzerk_PowerLoopCue';
 }
-
-
-function UpdateHUD()
-{
-	 //BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).DroneEquip = DroneEquip;
-	 //BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GunShipEquip = GunShipEquip;
-	 //BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).SuicideFighterEquip = SuicideFighterEquip;
-	 //BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).DroneRank = DroneRank;
-	 //BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GunShipRank = GunShipRank;
-	 //BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).SuicideFighterRank = SuicideFighterRank;
-	 //BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Rank = Rank;
-	 //BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead = PlayerDead;
-	 //BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Lives = Lives;
-	 //BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BeamLength = BeamLength;
-}
-
-
-function EnemyTimeReference() //Set The Absorbtion Time Per Enemy
-{
-	if(TargetEnemy.IsA('BF_Enemy_Drone')){
-		EnemyAbsorbTime=100;
-	}else if(TargetEnemy.IsA('BF_Enemy_GunShip')){
-		EnemyAbsorbTime=100;
-	}else if(TargetEnemy.IsA('BF_Enemy_SuicideFighter')){
-		EnemyAbsorbTime=100;
-	}else{
-
-	}
-}
-
-
-//function UpgradeUpdate()
-//{
-//	//if(TargetEnemy.IsA('BF_Enemy_Drone')){
-//	//	Rank++;
-//	//	DroneRank = Rank;
-//	//	DroneEquip = true;
-//	//}else if(TargetEnemy.IsA('BF_Enemy_GunShip')){
-//	//	Rank++;
-//	//	GunShipRank = Rank;
-//	//	GunShipEquip = true;
-//	//}else if(TargetEnemy.IsA('BF_Enemy_SuicideFighter')){
-//	//	Rank++;
-//	//	SuicideFighterRank = Rank;
-//	//	SuicideFighterEquip = true;
-//	//}else{
-
-//	//}
-//}
-
-
-//function ShootUpgrades(byte FireModeNum) //Place All the upgrades to be fired here
-//{
-//	//if(DroneEquip && CurFire == true)
-//	//{
-//	//	Spawn(class'BF_Proj_Red');
-//	//}
-	
-//	//if(GunShipEquip && CurFire == true)
-//	//{
-//	//	Spawn(class'BF_Proj_Missile');
-//	//	//Spawn(class'BF_Proj_Player_Missile_L');
-//	//	//Spawn(class'BF_Proj_Player_Missile_R');
-//	//}
-	
-//	//if(SuicideFighterEquip && CurFire == true)
-//	//{
-//	//	Spawn(class'BF_Proj_Blue');
-//	//}
-//}
 
 
 event Tick(float DeltaTime)
@@ -130,15 +49,12 @@ event Tick(float DeltaTime)
 	local UDKPawn TracedEnemy;
 	BeamStartLoc = Location;
 	BeamEndLoc = Location + BeamOffset;
-	UpdateHUD();
 
-	if(AbsorbTimer<EnemyAbsorbTime) //If you havent held the Absorb for the required time yet
+	if(AbsorbTimer<RequiredTime) //If you havent held the Absorb for the required time yet
 	{
-		if(BeamFire) //Altfire = true
-		{
-			CurFire = false;
-			Player_Weap_Basic(Weapon).ClearPendingFire(0);
-			if(BeamOffStep){
+		if(BeamFire){ //Checks if firing	
+			CurFire=false;
+			if(BeamOffStep){ 
 				BeamOffset.X-=45.0;
 				if(BeamOffset.X<-300){
 					BeamOffStep = false;
@@ -149,146 +65,136 @@ event Tick(float DeltaTime)
 					BeamOffStep = true;
 				}
 			}
-
 			TracedEnemyAct = Trace(HitLocation, HitNormal, BeamEndLoc, BeamStartLoc, true);
 			TracedEnemy = UDKPawn(TracedEnemyAct);
-			//DrawDebugLine( BeamStartLoc, BeamEndLoc, 255, 0, 0, false);
-			if(TargetEnemy == none) //If you havent tried to trace an enemy yet
-			{
-				if(AbsorbBeam == none)
-				{
-					AbsorbBeam = WorldInfo.MyEmitterPool.SpawnEmitter(ParticleSystem'BloodFalcon.ParticleSystem.AbsorbBeam_Particle', Location, Rotation, self );
-					AbsorbBeam.SetVectorParameter('LinkBeamEnd', (Location + vect(0,-750,0)));
-				}else{
-					AbsorbBeam.SetVectorParameter('LinkBeamEnd', (Location + vect(0,-750,0)));
-				}
-				TargetEnemy = TracedEnemy;  //(BELOW) Checks to see if you are absorbing a weapon you already have
-				if(TargetEnemy != none)
-				{
+			DrawBeam();
+			if(TargetEnemy == none){
+				TargetEnemy = TracedEnemy; //Locks in your first traced enemy until you try to trace again
+				if(TargetEnemy != none){
 					BeamFireSound.Stop();
 					BeamAbsorbSound.Play();
-					//if((EnemyMesh.IsA('BF_Enemy_Drone') && DroneEquip) || (TargetEnemy.IsA('BF_Enemy_GunShip') && GunShipEquip) || (TargetEnemy.IsA('BF_Enemy_SuicideFighter') && SuicideFighterEquip))
-					//{
-					//	TargetEnemy = none;
-					//}
-					EnemyTimeReference();
-				}
-			}else{ //If you have a target enemy already, currently beaming
-				CheckDist = VSize2D(Location - TargetEnemy.Location);
-				if(CheckDist<750)
-				{
-					AbsorbTimer++;
-					BeamLength = EnemyAbsorbTime/AbsorbTimer;
-					AbsorbBeam.SetVectorParameter('LinkBeamEnd', TargetEnemy.Location);
 				}else{
 					BeamFireSound.Play();
-					killbeam();
+					BeamAbsorbSound.Stop();
 				}
-				if(((TargetEnemy.Location.Y-950)>=local_cam_loc.Y) || ((TargetEnemy.Location.Y+950)<=local_cam_loc.Y) || ((TargetEnemy.Location.X+975)<=local_cam_loc.X) || ((TargetEnemy.Location.X-975)>=local_cam_loc.X)){ //Fixed Beam Shit
-					//TargetEnemy.DetachFromController(true);
-					TargetEnemy.Destroy();
-					killbeam();
+			}else{
+				if(TargetEnemy==none){
+					KillBeam();
+				}else{
+					CheckDist = VSize2D(Location - TargetEnemy.Location);
+					if(CheckDist<750)
+					{
+						AbsorbTimer++;
+						AbsorbBeam.SetVectorParameter('LinkBeamEnd', TargetEnemy.Location);
+					}else{
+						KillBeam();
+					}
+					BeamScreenBounds();
 				}
 			}
 		}else{
-			killbeam();
+			KillBeam();
 		}
 	}else{
-		//UpgradeUpdate();	
-		//EnemyDeath = WorldInfo.MyEmitterPool.SpawnEmitter(ParticleSystem'FX_VehicleExplosions.Effects.P_FX_VehicleDeathExplosion', TargetEnemy.Location, TargetEnemy.Rotation, self );
-		EnemyDeath.SetVectorParameter('LinkBeamEnd', (TargetEnemy.Location+vect(0,20,50)));
-		PlaySound(EnemyDeathSound);
-		
-		//TargetEnemy.Destroy();
-		//swapControllers();
-		/**NEEEDS TO DETERMINE ENEMY MESH**/
-		EnemyMesh = TargetEnemy.Controller.Pawn.Mesh.SkeletalMesh;
-		ShipSwap(EnemyMesh);
-		self.Mesh.SetSkeletalMesh(TargetEnemy.Mesh.SkeletalMesh);
-		self.Mesh.SetMaterial(0,Material'enginedebugmaterials.BoneWeightMaterial');
-		killbeam();
+		AbsorbSuccess();
 	}
 	super.Tick(DeltaTime);
 }
 
-/**Stores new soul data in BF_SoulInventory and swaps mesh*/
-function ShipSwap(SkeletalMesh EnemyMesh)
+
+function DrawBeam()
 {
-	///Need to cacst current enemy with transferable stats
-	if(BF_SoulInventory.CS.Current.EType==TargetEnemy){
-		if(BF_SoulInventory.CS.Current.L<3){
-			BF_SoulInventory.CS.Current.L++;
+	if(TargetEnemy==none){
+		if(AbsorbBeam == none){
+			AbsorbBeam = WorldInfo.MyEmitterPool.SpawnEmitter(ParticleSystem'BloodFalcon.ParticleSystem.AbsorbBeam_Particle', Location, Rotation, self );
+			AbsorbBeam.SetVectorParameter('LinkBeamEnd', (Location + vect(0,-750,0)));
+		}else{
+			AbsorbBeam.SetVectorParameter('LinkBeamEnd', (Location + vect(0,-750,0)));
 		}
-	}else if(BF_SoulInventory.CS.B1.EType.IsA('BF_Enemy_Base')){
-		BF_SoulInventory.CS.B1=BF_SoulInventory.CS.Current;
-	}else if(BF_SoulInventory.CS.B2.EType.IsA('BF_Enemy_Base')){
-
-	}else if(BF_SoulInventory.CS.B2.EType.IsA('BF_Enemy_Base')){
-
-	}else{
-
 	}
 }
-//function swapControllers()
-//{
-//local Controller PC;
-//PC = self.Controller;
 
-//PC.unpossess();
-//TargetEnemy.Controller.unpossess();
-//PC.possess(TargetEnemy,false);
 
-//} 
-
-//function bool swapControllers (Controller myPlayer, Pawn newPawn)
-//{
-//local Controller aiController;
-//local Pawn oldPawn;
-
-//aiController = newPawn.Controller;
-//oldPawn = myPlayer.Pawn;
-
-//myPlayer.unpossess ();
-//aiController.unpossess ();
-
-//myPlayer.possess (newPawn);
-//aiController.possess (oldPawn);
-
-//return true;
-//} 
-
-function killbeam() //Resets The Absorb Beam
+function KillBeam()
 {
-	if(AbsorbBeam != none)
-	{
-		//AbsorbBeam.SetVectorParameter('LinkBeamEnd', (Location + vect(0,-750,0)));
+	if(AbsorbBeam != none){
 		AbsorbBeam.SetKillOnDeactivate(0, true);
 		AbsorbBeam.DeactivateSystem();
 		AbsorbBeam = none;
 	}
-	BeamOffset = vect(0,-750,0);
-	BeamOffStep = true;
 	TargetEnemy = none;
 	AbsorbTimer = 0;
+	BeamOffset = vect(0,-750,0);
+	BeamOffStep = true;
+	BeamFireSound.Stop();
 	BeamAbsorbSound.Stop();
-	if(BeamFire)
-	{
-		BeamFireSound.Play();
+}
+
+
+function BeamScreenBounds()
+{
+	if(((TargetEnemy.Location.Y-950)>=local_cam_loc.Y) || ((TargetEnemy.Location.Y+950)<=local_cam_loc.Y) || ((TargetEnemy.Location.X+975)<=local_cam_loc.X) || ((TargetEnemy.Location.X-975)>=local_cam_loc.X)){ //Deals with killing an enemy that falls off the screen
+		TargetEnemy.Destroy();
+		KillBeam();
 	}
 }
 
 
+function AbsorbSuccess()
+{
+	//Spawn Finished Absorb Emitter HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//Call Finished Absorb sound HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	TargetEnemy.Destroy();
+	EnemyMesh = TargetEnemy.Controller.Pawn.Mesh.SkeletalMesh;
+	self.Mesh.SetSkeletalMesh(TargetEnemy.Mesh.SkeletalMesh);
+	self.Mesh.SetMaterial(0,Material'enginedebugmaterials.BoneWeightMaterial');
+	KillBeam();
+}
+
+
+///**Stores new soul data in BF_SoulInventory and swaps mesh*/
+//function ShipSwap(SkeletalMesh EnemyMesh)
+//{
+//	///Need to cacst current enemy with transferable stats
+//	if(BF_SoulInventory.CS.Current.EType==TargetEnemy){
+//		if(BF_SoulInventory.CS.Current.L<3){
+//			BF_SoulInventory.CS.Current.L++;
+//		}
+//	}else if(BF_SoulInventory.CS.B1.EType.IsA('BF_Enemy_Base')){
+//		BF_SoulInventory.CS.B1=BF_SoulInventory.CS.Current;
+//	}else if(BF_SoulInventory.CS.B2.EType.IsA('BF_Enemy_Base')){
+
+//	}else if(BF_SoulInventory.CS.B2.EType.IsA('BF_Enemy_Base')){
+
+//	}else{
+
+//	}
+//}
+
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
-			//UpdateHUD();
+			RespawnPlayer();
 }
 
 
 function RespawnPlayer()
 {
-		//Self.SetLocation(vect(-7040,-892,46130));
-		//SetTimer(0.3,false,'RespawnPlayer',);
+	if(FlickerCount<20){
+		if(FlickerCount==0){
+			Self.SetLocation(vect(-7040,-892,46130));
+			KillBeam();
+		}
+		if(self.bHidden){
+			self.SetHidden(false);
+		}else{
+			self.SetHidden(true);
+		}
+		FlickerCount++;
+		SetTimer(0.3,false,'RespawnPlayer',);
+	}else{
+		FlickerCount = 0;
+	}
 }
 
 
@@ -325,12 +231,11 @@ simulated function StartFire(byte FireModeNum)
 	CurFire = true;
 	if(CurFire == true && BeamFire == false && FireModeNum == 0)
 	{
-		Player_Weap_Basic(Weapon).StartFire(FireModeNum);
-		SetTimer(0.1f, true, 'ShootUpgrades');
+		//Player_Weap_Basic(Weapon).StartFire(FireModeNum);
+		/**SetTimer(0.1f, true, 'ShootUpgrades');*/
 	}
 	else if(FireModeNum == 1){
 		BeamFire = true;
-		BeamFireSound.Play();
 		//Player_Weap_Basic(Weapon).StartFire(FireModeNum);		
 	}
 }
@@ -410,6 +315,7 @@ event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vect
 	HitPawn = UDKPawn(Other);
 		if(HitPawn != none)
 		{
+			KillBeam();
 			Other.Destroy();
 			WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);
 			PlaySound(DeathSound);
@@ -422,7 +328,6 @@ defaultproperties
 {
 		bCanJump=false
 		bCanFly=false
-		//LandMovementState=PlayerFlying
 		DeathExplosion = ParticleSystem'FX_VehicleExplosions.Effects.P_FX_VehicleDeathExplosion'
 		DeathSound = SoundCue'A_Vehicle_Scorpion.SoundCues.A_Vehicle_Scorpion_Eject_Cue'
         Begin Object Class=DynamicLightEnvironmentComponent Name=MyLightEnvironment
@@ -470,20 +375,5 @@ defaultproperties
 		BeamFire = false
 		TargetEnemy = none	
 		AbsorbTimer=0
-		EnemyAbsorbTime=200
-		//GunShipRank = -1
-		//GunShipEquip = false
-		//DroneRank = -1
-		//DroneEquip = false
-		//SuicideFighterRank = -1
-		//SuicideFighterEquip = false
-		//FlickerCount = 0
-		//Lives = 3
-
-		//BFGunship = SkeletalMesh'BloodFalcon.SkeletalMesh.GunShip'
-		//BFDrone = SkeletalMesh'BloodFalcon.SkeletalMesh.Drone'
-		//BFSuicideFighter = SkeletalMesh'BloodFalcon.SkeletalMesh.SuicideFighter'
-		//BFPlayer = SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
-		//AspectRatio_MaintainXFOV = false
-		//AspectRatio_MaintainYFOV = false
+		RequiredTime=200
 }

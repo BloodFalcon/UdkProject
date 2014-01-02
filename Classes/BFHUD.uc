@@ -17,6 +17,7 @@ var Texture2D BFTemplate;
 var Texture2D BFBeamOverlay;
 var Texture2D LightOn;
 var Texture2D LightOff;
+var CollectedSouls CS;
 //var Texture2D PlayerShipIcon;
 var MultiFont BF_Font;
 //var bool PlayerDead;
@@ -41,7 +42,7 @@ var MultiFont BF_Font;
 
 function drawHUD()
 {
-	//DroneEquip = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).DroneEquip;
+	CS = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS;
 	//GunShipEquip = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GunShipEquip;
 	//SuicideFighterEquip = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).SuicideFighterEquip;
 	//DroneRank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).DroneRank;
