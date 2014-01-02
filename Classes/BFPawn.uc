@@ -133,9 +133,11 @@ function KillBeam()
 
 function BeamScreenBounds()
 {
-	if(((TargetEnemy.Location.Y-950)>=local_cam_loc.Y) || ((TargetEnemy.Location.Y+950)<=local_cam_loc.Y) || ((TargetEnemy.Location.X+975)<=local_cam_loc.X) || ((TargetEnemy.Location.X-975)>=local_cam_loc.X)){ //Deals with killing an enemy that falls off the screen
-		TargetEnemy.Destroy();
-		KillBeam();
+	if(TargetEnemy!=none){
+		if(((TargetEnemy.Location.Y-950)>=local_cam_loc.Y) || ((TargetEnemy.Location.Y+950)<=local_cam_loc.Y) || ((TargetEnemy.Location.X+975)<=local_cam_loc.X) || ((TargetEnemy.Location.X-975)>=local_cam_loc.X)){ //Deals with killing an enemy that falls off the screen
+			TargetEnemy.Destroy();
+			KillBeam();
+		}
 	}
 }
 
@@ -144,10 +146,11 @@ function AbsorbSuccess()
 {
 	//Spawn Finished Absorb Emitter HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//Call Finished Absorb sound HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	TargetEnemy.Destroy();
+
 	EnemyMesh = TargetEnemy.Controller.Pawn.Mesh.SkeletalMesh;
 	self.Mesh.SetSkeletalMesh(TargetEnemy.Mesh.SkeletalMesh);
 	self.Mesh.SetMaterial(0,Material'enginedebugmaterials.BoneWeightMaterial');
+	TargetEnemy.Destroy();
 	KillBeam();
 }
 
@@ -180,6 +183,7 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 
 function RespawnPlayer()
 {
+	BeamFire = false;
 	if(FlickerCount<20){
 		if(FlickerCount==0){
 			Self.SetLocation(vect(-7040,-892,46130));
@@ -235,7 +239,9 @@ simulated function StartFire(byte FireModeNum)
 		/**SetTimer(0.1f, true, 'ShootUpgrades');*/
 	}
 	else if(FireModeNum == 1){
-		BeamFire = true;
+		if(FlickerCount==0){
+			BeamFire = true;
+		}
 		//Player_Weap_Basic(Weapon).StartFire(FireModeNum);		
 	}
 }
