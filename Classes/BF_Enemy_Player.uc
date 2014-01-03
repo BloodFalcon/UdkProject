@@ -1,14 +1,4 @@
-class BF_Enemy_GunShip extends BF_Enemy_Base;
-
-function LevelUp()
-{
-	Level++;
-	if(Level==1){
-		FireRate=0.5;
-	}else if(Level==2){
-		FireRate=0.1;
-	}
-}
+class BF_Enemy_Player extends BF_Enemy_Base;
 
 DefaultProperties
 {
@@ -20,8 +10,8 @@ DefaultProperties
     End Object
 
     Begin Object Class=SkeletalMeshComponent Name=EP1Mesh
-        SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.GunShip'
-		PhysicsAsset=PhysicsAsset'BloodFalcon.SkeletalMesh.GunShip_Physics'
+        SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
+		PhysicsAsset=PhysicsAsset'BloodFalcon.SkeletalMesh.Player_Physics'
         HiddenGame=FALSE
         HiddenEditor=FALSE
 		BlockNonZeroExtent=true
@@ -32,6 +22,6 @@ DefaultProperties
     End Object 
     Mesh=EP1Mesh 
     Components.Add(EP1Mesh)
-	ProjClass = class'Bf_Proj_Missile'
+	ProjClass = class'Bf_Proj_Basic'
 	FireRate = 1
 }

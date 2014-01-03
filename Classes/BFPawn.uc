@@ -8,6 +8,22 @@
 
 class BFPawn extends UDKPawn;
 
+//struct CollectedSouls
+//{
+//	var() class<BF_Enemy_Base> Current;
+//	var() class<BF_Enemy_Base> B1;
+//	var() class<BF_Enemy_Base> B2;
+//	var() class<BF_Enemy_Base> B3;
+//	var() class<BF_Enemy_Base> Holder;
+//	structdefaultproperties
+//	{
+//		Current='BF_Enemy_Player'
+//		B1='BF_Enemy_Player'
+//		B2='BF_Enemy_Player'
+//		B3='BF_Enemy_Player'
+//	}
+//};	
+
 var bool FirstRun, CurFire, BeamFire; //Checks Firing and if Beam, FirstRun Sets Camera
 var Vector PawnLoc, BFcamLoc; //Used for player bounding on the screen
 //var Vector StartLine, EndLine; //Debug Line
@@ -18,7 +34,7 @@ var ParticleSystem DeathExplosion;
 var SoundCue EnemyDeathSound;
 var SoundCue DeathSound;
 var AudioComponent BeamFireSound, BeamAbsorbSound;
-var Pawn TargetEnemy; //Enemyhit and Trace
+var BF_Enemy_Base TargetEnemy; //Enemyhit and Trace
 var int AbsorbTimer;
 var int RequiredTime;
 var float CheckDist;
@@ -29,9 +45,16 @@ var bool BeamOffStep;
 var byte FlickerCount;
 var Vector 	local_cam_loc;
 var SkeletalMesh EnemyMesh;
+var float FireRate;
+var class<BF_Proj_Base> ProjClass;
+//var CollectedSouls CS;
+
 
 event PostBeginPlay()
 {
+	//Spawn(CS.B1,self,,vect(-6500,-800,46130),self.Rotation);
+	//Spawn(CS.B2,self,,vect(-6250,-800,46130),self.Rotation);
+	//Spawn(CS.B3,self,,vect(-6000,-800,46130),self.Rotation);
 	super.PostBeginPlay();
 	SetPhysics(PHYS_Walking); // wake the physics up
 	CylinderComponent.SetActorCollision(false, false); // disable cylinder collision
@@ -69,7 +92,7 @@ event Tick(float DeltaTime)
 			TracedEnemy = UDKPawn(TracedEnemyAct);
 			DrawBeam();
 			if(TargetEnemy == none){
-				TargetEnemy = TracedEnemy; //Locks in your first traced enemy until you try to trace again
+				TargetEnemy = BF_Enemy_Base(TracedEnemy); //Locks in your first traced enemy until you try to trace again
 				if(TargetEnemy != none){
 					BeamFireSound.Stop();
 					BeamAbsorbSound.Play();
@@ -115,6 +138,12 @@ function DrawBeam()
 }
 
 
+function FireWeaps()
+{
+	Spawn(ProjClass,self,,self.Location,self.Rotation);
+}
+
+
 function KillBeam()
 {
 	if(AbsorbBeam != none){
@@ -131,7 +160,7 @@ function KillBeam()
 }
 
 
-function BeamScreenBounds()
+function BeamScreenBounds() //Need to add AspectRation offset
 {
 	if(TargetEnemy!=none){
 		if(((TargetEnemy.Location.Y-950)>=local_cam_loc.Y) || ((TargetEnemy.Location.Y+950)<=local_cam_loc.Y) || ((TargetEnemy.Location.X+975)<=local_cam_loc.X) || ((TargetEnemy.Location.X-975)>=local_cam_loc.X)){ //Deals with killing an enemy that falls off the screen
@@ -144,9 +173,31 @@ function BeamScreenBounds()
 
 function AbsorbSuccess()
 {
+	//local class<BF_Enemy_Base> TE;
+	//TE = TargetEnemy;
 	//Spawn Finished Absorb Emitter HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//Call Finished Absorb sound HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//if(TargetEnemy.Class!=CS.Current){
+	//	if(CS.B1.IsA('BF_Enemy_Player')){
+	//		CS.B1 = CS.Current;
+	//		CS.Current = TargetEnemy.Class;
+	//	}else if(CS.B2.IsA('BF_Enemy_Player')){
+	//		CS.B2 = CS.Current;
+	//		CS.Current = TargetEnemy.Class;
+	//	}else if(CS.B3.IsA('BF_Enemy_Player')){
+	//		CS.B3 = CS.Current;
+	//		CS.Current = TargetEnemy.Class;
+	//	}else if(CS.B1.IsA('BF_Enemy_Player')){
+	//		CS.B1 = CS.Current;
+	//		CS.Current = TargetEnemy.Class;
+	//	}else{
+	//		//Dunno Just in case
+	//	}
+	//}
 
+
+	FireRate = TargetEnemy.FireRate;
+	ProjClass = TargetEnemy.ProjClass;
 	EnemyMesh = TargetEnemy.Controller.Pawn.Mesh.SkeletalMesh;
 	self.Mesh.SetSkeletalMesh(TargetEnemy.Mesh.SkeletalMesh);
 	self.Mesh.SetMaterial(0,Material'enginedebugmaterials.BoneWeightMaterial');
@@ -233,27 +284,25 @@ function AddDefaultInventory()
 simulated function StartFire(byte FireModeNum)
 {	
 	CurFire = true;
-	if(CurFire == true && BeamFire == false && FireModeNum == 0)
-	{
-		//Player_Weap_Basic(Weapon).StartFire(FireModeNum);
-		/**SetTimer(0.1f, true, 'ShootUpgrades');*/
+	if(BeamFire == false && FireModeNum == 0){
+		SetTimer(FireRate, true, 'FireWeaps');
 	}
 	else if(FireModeNum == 1){
 		if(FlickerCount==0){
 			BeamFire = true;
-		}
-		//Player_Weap_Basic(Weapon).StartFire(FireModeNum);		
+		}	
 	}
 }
 
 
 simulated function StopFire(byte FireModeNum)
 {
-	CurFire = false;
-	BeamFire = false;
-	BeamFireSound.Stop();
-	Player_Weap_Basic(Weapon).StopFire(FireModeNum);
-	ClearTimer('ShootUpgrades');
+	if(FireModeNum==0){
+		CurFire = false;
+		ClearTimer('FireWeaps');
+	}else{
+		BeamFire = false;
+	}
 }
 
 
@@ -312,7 +361,6 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 	BFcamLoc = out_CamLoc;
 	return true;
 }
-
 
 
 event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vector HitNormal )
@@ -382,4 +430,6 @@ defaultproperties
 		TargetEnemy = none	
 		AbsorbTimer=0
 		RequiredTime=200
+		FireRate=1
+		ProjClass=class'BF_Proj_Basic'
 }

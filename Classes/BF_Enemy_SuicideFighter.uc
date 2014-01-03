@@ -1,5 +1,16 @@
 class BF_Enemy_SuicideFighter extends BF_Enemy_Base;
 
+function LevelUp()
+{
+	`log(Level);
+	Level++;
+	if(Level==1){
+		FireRate=0.05;
+	}else if(Level==2){
+		FireRate=0.01;
+	}
+}
+
 DefaultProperties
 {
 	Health = 10
@@ -16,4 +27,6 @@ DefaultProperties
     End Object
 	Mesh=EP3Mesh
 	Components.Add(EP3Mesh)
+	ProjClass = class'BF_Proj_Blue'
+	FireRate = 0.1
 }

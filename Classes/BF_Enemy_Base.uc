@@ -5,6 +5,9 @@ var BFPawn OurPlayer;
 var int EnemyAbsorbTime;
 var ParticleSystem EngineFire, DeathExplosion;
 var SoundCue DeathSound;
+var class<BF_Proj_Base> ProjClass;
+var float FireRate;
+var byte Level;
 
 event PostBeginPlay()
 {
@@ -16,6 +19,11 @@ event PostBeginPlay()
 	Mesh.SetActorCollision(true, true); // enable PhysicsAsset collision
 	Mesh.SetTraceBlocking(true, true); // block traces (i.e. anything touching mesh)
 	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0));	
+}
+
+function LevelUp()
+{
+
 }
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
@@ -87,6 +95,6 @@ DefaultProperties
 	bCollideWorld = true
 	CollisionType=COLLIDE_TouchAll
 	CylinderComponent=CollisionCylinder
- 
+	Level=0
 	AirSpeed=300
 }

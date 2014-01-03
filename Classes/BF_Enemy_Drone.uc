@@ -1,5 +1,15 @@
 class BF_Enemy_Drone extends BF_Enemy_Base;
 
+function LevelUp()
+{
+	Level++;
+	if(Level==1){
+		FireRate=0.15;
+	}else if(Level==2){
+		FireRate=0.075;
+	}
+}
+
 DefaultProperties
 {
 	Health = 10
@@ -16,4 +26,6 @@ DefaultProperties
     End Object
 	Mesh=EP2Mesh
 	Components.Add(EP2Mesh)
+	ProjClass = class'BF_Proj_Green'
+	FireRate = 0.3
 }
