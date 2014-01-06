@@ -7,7 +7,6 @@
 //////////////////////////
 
 class BFPlayerController extends UDKPlayerController;
-var BFPawn OurPlayer;
 
 function UpdateRotation( float DeltaTime )
 {
@@ -17,7 +16,6 @@ function UpdateRotation( float DeltaTime )
 	DeltaRot.Pitch	= 0;
 	ProcessViewRotation( DeltaTime, ViewRotation, DeltaRot );
 }
-
 
 defaultproperties
 {

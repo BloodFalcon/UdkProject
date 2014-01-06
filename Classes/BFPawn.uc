@@ -59,6 +59,7 @@ var SkeletalMesh EnemyMesh;
 var float FireRate;
 var class<BF_Proj_Base> ProjClass;
 var CollectedSouls CS;
+var bool bSpace;
 
 
 event PostBeginPlay()
@@ -75,6 +76,12 @@ event PostBeginPlay()
 	EnemyDeathSound = SoundCue'A_Weapon_BioRifle.Weapon.A_BioRifle_FireImpactExplode_Cue';
 }
 
+exec function SwitchShips()
+{
+	bSpace=true;
+	`log("Space Pressed");
+	CycleShips();
+}
 
 event Tick(float DeltaTime)
 {
@@ -182,7 +189,6 @@ function BeamScreenBounds() //Need to add AspectRation offset
 	}
 }
 
-
 function AbsorbSuccess()
 {
 
@@ -279,6 +285,11 @@ function RespawnPlayer()
 	}else{
 		FlickerCount = 0;
 	}
+}
+
+function CycleShips()
+{
+	`log("DUCKDUDICKCDHAKHDFKHK");
 }
 
 

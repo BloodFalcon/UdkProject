@@ -6,7 +6,7 @@
 // Description: Player Input for Blood Falcon
 //////////////////////////
 
-class BFPlayerInput extends PlayerInput;
+class BFPlayerInput extends Input;
 
 DefaultProperties
 {
