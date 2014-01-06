@@ -59,7 +59,6 @@ var SkeletalMesh EnemyMesh;
 var float FireRate;
 var class<BF_Proj_Base> ProjClass;
 var CollectedSouls CS;
-var bool bSpace;
 
 
 event PostBeginPlay()
@@ -72,16 +71,10 @@ event PostBeginPlay()
 	CylinderComponent.SetActorCollision(false, false); // disable cylinder collision
 	Mesh.SetActorCollision(true, true); // enable PhysicsAsset collision
 	Mesh.SetTraceBlocking(true, true); // block traces (i.e. anything touching mesh)
-	AddDefaultInventory();
 	EnemyDeathSound = SoundCue'A_Weapon_BioRifle.Weapon.A_BioRifle_FireImpactExplode_Cue';
 }
 
-exec function SwitchShips()
-{
-	bSpace=true;
-	`log("Space Pressed");
-	CycleShips();
-}
+
 
 event Tick(float DeltaTime)
 {
@@ -192,18 +185,10 @@ function BeamScreenBounds() //Need to add AspectRation offset
 function AbsorbSuccess()
 {
 
-	//local Name CSC;
-	//CSC = TargetEnemy.Name;
-	//Spawn Finished Absorb Emitter HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//Call Finished Absorb sound HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//`Log(TargetEnemy.Class);
-	//`Log(TargetEnemy.Name);
-	//`Log(CS.Current.Class);
 	AbsorbTimer = 0;
 	if(TargetEnemy.Class==CS.Current.SoulClass){
 		TargetEnemy.LevelUp(CS.Current.Level);
 		CS.Current = TargetEnemy.NPCInfo;
-		//`log("SHOULD HAVE FUCKING DOUBLED FIRERATE");
 	}else{
 		if(TargetEnemy!=none){
 			if(CS.B1.SoulClass==class'BF_Enemy_Player'){
@@ -218,46 +203,28 @@ function AbsorbSuccess()
 			}else{ 
 
 			}
-			`log("BAYSSSSBITCCHESSSSSSSS");
-			`log(CS.B1.SoulClass);
-			`log(CS.B2.SoulClass);
-			`log(CS.B3.SoulClass);
-			`log(CS.Current.SoulClass);
-			`log("BAYSSSSBITCCHESSSSSSSS");
-				//if(CS.B1.IsA('BF_Enemy_Player')){
-				//CS.B1 = CS.Current;
-				//CS.Current = TargetEnemy;
-		//	}else if(CS.B2.IsA('BF_Enemy_Player')){
-		//		CS.B2 = CS.Current;
-		//		CS.Current = TargetEnemy.Class;
-		//	}else if(CS.B3.IsA('BF_Enemy_Player')){
-		//		CS.B3 = CS.Current;
-		//		CS.Current = TargetEnemy.Class;
-		//	}else if(CS.B1.IsA('BF_Enemy_Player')){
-		//		CS.B1 = CS.Current;
-		//		CS.Current = TargetEnemy.Class;
-		//	}else{
-		//		//Dunno Just in case
-			//}
-		
-		}}
+			//`log("BAYSSSSBITCCHESSSSSSSS");
+			//`log(CS.B1.SoulClass);
+			//`log(CS.B2.SoulClass);
+			//`log(CS.B3.SoulClass);
+			//`log(CS.Current.SoulClass);
+			//`log("BAYSSSSBITCCHESSSSSSSS");
+		}
+	}
 
-				
-	//`log("SEVEN: "@CS.Current);
-	FireRate = CS.Current.FireRate;
-	//`log("EIGHT: "@CS.Current);
-	ProjClass = CS.Current.ProjClass;
-	//`log("NINE: "@CS.Current);
-	EnemyMesh = CS.Current.SoulMesh;
-	//`log("TEN: "@CS.Current);
-	self.Mesh.SetSkeletalMesh(CS.Current.SoulMesh);
-	//`log("ELEVEN: "@CS.Current);
-	self.Mesh.SetMaterial(0,Material'enginedebugmaterials.BoneWeightMaterial');
-	//`log("TWELVE: "@CS.Current);
+	UpdatePlayer();
 	TargetEnemy.Destroy();
-	//`log("THIRTEEN: "@CS.Current);
 	KillBeam();
-	//`log("FOURTEEN: "@CS.Current);
+}
+
+
+function UpdatePlayer()
+{
+	FireRate = CS.Current.FireRate;
+	ProjClass = CS.Current.ProjClass;
+	EnemyMesh = CS.Current.SoulMesh;
+	self.Mesh.SetSkeletalMesh(CS.Current.SoulMesh);
+	self.Mesh.SetMaterial(0,Material'enginedebugmaterials.BoneWeightMaterial');
 }
 
 
@@ -287,10 +254,38 @@ function RespawnPlayer()
 	}
 }
 
-function CycleShips()
+
+exec function NextShip()
 {
-	`log("DUCKDUDICKCDHAKHDFKHK");
+		CS.Holder=CS.Current;
+		CS.Current=CS.B1;
+		CS.B1=CS.Holder;
+		UpdatePlayer();
 }
+
+exec function SwitchBay1()
+{
+		CS.Holder=CS.Current;
+		CS.Current=CS.B1;
+		CS.B1=CS.Holder;
+		UpdatePlayer();
+}
+
+exec function SwitchBay2()
+{
+		CS.Holder=CS.Current;
+		CS.Current=CS.B2;
+		CS.B2=CS.Holder;
+		UpdatePlayer();
+}
+
+exec function SwitchBay3()
+{
+		CS.Holder=CS.Current;
+		CS.Current=CS.B3;
+		CS.B3=CS.Holder;
+		UpdatePlayer();
+}//KeyBinds
 
 
 simulated function Rotator GetAdjustedAimFor(Weapon W, vector StartFireLoc)
@@ -312,12 +307,6 @@ simulated function Rotator GetAdjustedAimFor(Weapon W, vector StartFireLoc)
 	}
 
 	return Rotation;
-}
-
-
-function AddDefaultInventory()
-{
-	InvManager.CreateInventory(class'Player_Weap_Basic');
 }
 
 

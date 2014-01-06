@@ -8,6 +8,8 @@
 
 class BFPlayerInput extends Input;
 
+
+
 DefaultProperties
 {
 }

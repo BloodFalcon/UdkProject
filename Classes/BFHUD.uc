@@ -43,14 +43,6 @@ function drawHUD()
 {
 
 	//GunShipEquip = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GunShipEquip;
-	//SuicideFighterEquip = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).SuicideFighterEquip;
-	//DroneRank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).DroneRank;
-	//GunShipRank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GunShipRank;
-	//SuicideFighterRank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).SuicideFighterRank;
-	//Rank = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Rank;
-	//PlayerDead = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead;
-	//Lives = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Lives;
-	//BeamLength = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BeamLength;	
 	Canvas.Font = BF_Font;
 	CurHUDX = SizeX;
 	CurHUDY = SizeY;
@@ -83,51 +75,12 @@ function CalcScale(float ScreenX,float ScreenY)
 }
 
 
-function RankPosition()
-{
-	//if(RankHolder==1){
-	//	Canvas.SetPos(271*RatX, 787*RatY);
-	//}else if(RankHolder==2){
-	//	Canvas.SetPos(271*RatX, 657*RatY);	
-	//}else if(RankHolder==3){
-	//	Canvas.SetPos(271*RatX, 527*RatY);	
-	//}else if(RankHolder==4){
-	//	Canvas.SetPos(271*RatX, 397*RatY);	
-	//}else if(RankHolder==5){
-	//	Canvas.SetPos(271*RatX, 267*RatY);	
-	//}else{
-	
-	//}
-}
+
 
 
 function CleanHUD()
 {
-	//if((Rank+5)<=5){
-	//	RankHolder = Rank + 5;
-	//	RankPosition();
-	//	Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	//}
-	//if((Rank+4)<=5){
-	//	RankHolder = Rank + 4;
-	//	RankPosition();
-	//	Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	//}
-	//if((Rank+3)<=5){
-	//	RankHolder = Rank + 3;
-	//	RankPosition();
-	//	Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	//}
-	//if((Rank+2)<=5){
-	//	RankHolder = Rank + 2;
-	//	RankPosition();
-	//	Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	//}
-	//if((Rank+1)<=5){
-	//	RankHolder = Rank + 1;
-	//	RankPosition();
-	//	Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	//}
+		//Function used to refresh default data in hud after reloading the backdrop
 }
 
 
@@ -135,21 +88,6 @@ function LoadUI()
 {
 	Canvas.SetPos(0, 0);
 	Canvas.DrawTile(BFUI, 1920*RatX, 1080*RatY, 0, 0, 1920, 1080);
-	//if(GunShipEquip){ //GUNSHIP MISSILES
-	//	RankHolder = GunShipRank;
-	//	RankPosition();
-	//	Canvas.DrawTile(BFMissile, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	//}
-	//if(DroneEquip){ //Laser or Flamethrower
-	//	RankHolder = DroneRank;
-	//	RankPosition();
-	//	Canvas.DrawTile(BFFlamethrower, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	//}
-	//if(SuicideFighterEquip){ //SUICIDEFIGHTER MACHINEGUN?
-	//	RankHolder = SuicideFighterRank;
-	//	RankPosition();
-	//	Canvas.DrawTile(BFFlameThrower, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	//}
 	CleanHUD();
 }
 
@@ -158,7 +96,7 @@ function GameOver()
 {
 	Canvas.SetPos(((Canvas.ClipX / 2) - 540), 0);
 	Canvas.SetDrawColor(0,0,0);
-	Canvas.DrawRect(1080,1080);
+	Canvas.DrawRect(1980,1080);
 	Canvas.SetPos(((Canvas.ClipX / 2) - 90), Canvas.ClipY / 2);
 	Canvas.SetDrawColor(255, 0, 0);
 	Canvas.Font = BF_Font;
