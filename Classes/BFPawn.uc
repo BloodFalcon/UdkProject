@@ -59,6 +59,7 @@ var SkeletalMesh EnemyMesh;
 var float FireRate;
 var class<BF_Proj_Base> ProjClass;
 var CollectedSouls CS;
+var BF_Enemy_Base Bay1,Bay2,Bay3;
 
 
 event PostBeginPlay()
@@ -133,7 +134,36 @@ event Tick(float DeltaTime)
 	}else{
 		AbsorbSuccess();
 	}
+	UpdateHUDBay();
 	super.Tick(DeltaTime);
+}
+
+
+function UpdateHUDBay()
+{
+	if(Bay1.Class!=CS.B1.SoulClass){
+		if(Bay1.Class!=none){
+			Bay1.Destroy();
+		}
+		Bay1 = Spawn(CS.B1.SoulClass,self,,vect(-5900,-775,46130),self.Rotation);
+		ClearTimer('FireWeaps');
+	}
+	
+	if(Bay2.Class!=CS.B2.SoulClass){
+		if(Bay2.Class!=none){
+			Bay2.Destroy();
+		}
+		Bay2 = Spawn(CS.B2.SoulClass,self,,vect(-5650,-775,46130),self.Rotation);
+		ClearTimer('FireWeaps');
+	}
+	
+	if(Bay3.Class!=CS.B3.SoulClass){
+		if(Bay3.Class!=none){
+			Bay3.Destroy();
+		}
+		Bay3 = Spawn(CS.B3.SoulClass,self,,vect(-5400,-775,46130),self.Rotation);
+		ClearTimer('FireWeaps');
+	}
 }
 
 
@@ -191,24 +221,26 @@ function AbsorbSuccess()
 		CS.Current = TargetEnemy.NPCInfo;
 	}else{
 		if(TargetEnemy!=none){
-			if(CS.B1.SoulClass==class'BF_Enemy_Player'){
-				CS.B1 = CS.Current;
-				CS.Current = TargetEnemy.NPCInfo;
-			}else if(CS.B2.SoulClass==class'BF_Enemy_Player'){
-				CS.B2 = CS.Current;
-				CS.Current = TargetEnemy.NPCInfo;
-			}else if(CS.B3.SoulClass==class'BF_Enemy_Player'){
-				CS.B3 = CS.Current;
-				CS.Current = TargetEnemy.NPCInfo;
-			}else{ 
+			if(TargetEnemy.Class!=CS.B1.SoulClass && TargetEnemy.Class!=CS.B2.SoulClass && TargetEnemy.Class!=CS.B3.SoulClass){ 
+				if(CS.B1.SoulClass==class'BF_Enemy_Player'){
+					CS.B1 = CS.Current;
+					CS.Current = TargetEnemy.NPCInfo;
+				}else if(CS.B2.SoulClass==class'BF_Enemy_Player'){
+					CS.B2 = CS.Current;
+					CS.Current = TargetEnemy.NPCInfo;
+				}else if(CS.B3.SoulClass==class'BF_Enemy_Player'){
+					CS.B3 = CS.Current;
+					CS.Current = TargetEnemy.NPCInfo;
+				}else{ 
 
-			}
+				}
 			//`log("BAYSSSSBITCCHESSSSSSSS");
 			//`log(CS.B1.SoulClass);
 			//`log(CS.B2.SoulClass);
 			//`log(CS.B3.SoulClass);
 			//`log(CS.Current.SoulClass);
 			//`log("BAYSSSSBITCCHESSSSSSSS");
+			}
 		}
 	}
 
@@ -259,7 +291,9 @@ exec function NextShip()
 {
 		CS.Holder=CS.Current;
 		CS.Current=CS.B1;
-		CS.B1=CS.Holder;
+		CS.B1=CS.B2;
+		CS.B2=CS.B3;
+		CS.B3=CS.Holder;
 		UpdatePlayer();
 }
 
@@ -314,6 +348,7 @@ simulated function StartFire(byte FireModeNum)
 {	
 	CurFire = true;
 	if(BeamFire == false && FireModeNum == 0){
+		Spawn(ProjClass,self,,self.Location,self.Rotation);
 		SetTimer(FireRate, true, 'FireWeaps');
 	}
 	else if(FireModeNum == 1){
