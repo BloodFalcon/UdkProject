@@ -6,7 +6,8 @@
 // Description: HUD for Blood Falcon
 ***************************************/
 
-class BFHUD extends HUD;
+class BFHUD extends HUD
+	dependson(BFPawn);
 
 var Texture2D BFUI;
 var Texture2D BFMissile;
@@ -14,7 +15,6 @@ var Texture2D BFMissileEmpty;
 var Texture2D BFFlamethrower;
 var Texture2D BFFlamethrowerEmpty;
 var Texture2D BFTemplate;
-var Texture2D BFBeamOverlay;
 var Texture2D LightOn;
 var Texture2D LightOff;
 //var Texture2D PlayerShipIcon;
@@ -169,16 +169,13 @@ function GameOver()
 DefaultProperties
 {
 	BFUI = Texture2D'BF_HUD_Assets.Textures.BF_HUD_Interface'
-	//BFMissile = Texture2D'BloodFalcon.Texture.BF_HUD_Missile'
-	//BFFlamethrower = Texture2D'BloodFalcon.Texture.BF_HUD_FlameThrower'
-	//BFTemplate = Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
-	//BFBeamOverlay = Texture2D'BloodFalcon.Texture.BF_BeamOverlay'
-	//LightOn = Texture2D'BloodFalcon.Texture.LightOn'
-	//LightOff = Texture2D'BloodFalcon.Texture.LightOff'
-	//PlayerIcon = Texture2D'BloodFalcon.Texture.PlayerShipIcon'
+	BFMissile = Texture2D'BloodFalcon.Texture.BF_HUD_Missile'
+	BFFlamethrower = Texture2D'BloodFalcon.Texture.BF_HUD_FlameThrower'
+	BFTemplate = Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
+	BFBeamOverlay = Texture2D'BloodFalcon.Texture.BF_BeamOverlay'
+	LightOn = Texture2D'BloodFalcon.Texture.LightOn'
+	LightOff = Texture2D'BloodFalcon.Texture.LightOff'
 	BF_Font = MultiFont'UI_Fonts_Final.menus.Fonts_AmbexHeavy'
-	//playerdead=false
-	//Lives = 3
 	OldHUDX=1920
 	OldHUDY=1080
 	RatX = 1
