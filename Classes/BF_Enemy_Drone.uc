@@ -9,14 +9,15 @@ NPCInfo.SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Drone';
 NPCInfo.Level=0;
 }
 
-function LevelUp()
+function LevelUp(byte CurLevel)
 {
+	NPCInfo.Level=CurLevel;
 	`log("Drone Level");
 	`log(NPCInfo.Level);
 	NPCInfo.Level++;
 	if(NPCInfo.Level==1){
 		NPCInfo.FireRate=0.15;
-	}else if(NPCInfo.Level==2){
+	}else if(NPCInfo.Level>=2){
 		NPCInfo.FireRate=0.075;
 	}
 }

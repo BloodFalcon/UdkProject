@@ -195,31 +195,29 @@ function AbsorbSuccess()
 	//`Log(CS.Current.Class);
 	AbsorbTimer = 0;
 	if(TargetEnemy.Class==CS.Current.SoulClass){
-		TargetEnemy.LevelUp();
+		TargetEnemy.LevelUp(CS.Current.Level);
 		CS.Current = TargetEnemy.NPCInfo;
 		//`log("SHOULD HAVE FUCKING DOUBLED FIRERATE");
 	}else{
 		if(TargetEnemy!=none){
-			////if(CS.B1.Class==class'BF_Enemy_Player'){
-
+			if(CS.B1.SoulClass==class'BF_Enemy_Player'){
 				CS.B1 = CS.Current;
 				CS.Current = TargetEnemy.NPCInfo;
+			}else if(CS.B2.SoulClass==class'BF_Enemy_Player'){
+				CS.B2 = CS.Current;
+				CS.Current = TargetEnemy.NPCInfo;
+			}else if(CS.B3.SoulClass==class'BF_Enemy_Player'){
+				CS.B3 = CS.Current;
+				CS.Current = TargetEnemy.NPCInfo;
+			}else{ 
 
-			////}else if(CS.B2.Class==class'BF_Enemy_Player'){
-			////	CS.B2 = CS.Current;
-			////	CS.Current = TargetEnemy;
-			////}else if(CS.B3.Class==class'BF_Enemy_Player'){
-			////	CS.B3 = CS.Current;
-			////	CS.Current = TargetEnemy;
-			////}else{ 
-
-			////}
-			//`log("BAYSSSSBITCCHESSSSSSSS");
-			//`log(CS.B1);
-			//`log(CS.B2);
-			//`log(CS.B3);
-			//`log(CS.Current);
-			//`log("BAYSSSSBITCCHESSSSSSSS");
+			}
+			`log("BAYSSSSBITCCHESSSSSSSS");
+			`log(CS.B1.SoulClass);
+			`log(CS.B2.SoulClass);
+			`log(CS.B3.SoulClass);
+			`log(CS.Current.SoulClass);
+			`log("BAYSSSSBITCCHESSSSSSSS");
 				//if(CS.B1.IsA('BF_Enemy_Player')){
 				//CS.B1 = CS.Current;
 				//CS.Current = TargetEnemy;

@@ -22,7 +22,7 @@ event PostBeginPlay()
 	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0));	
 }
 
-function LevelUp()
+function LevelUp(byte CurLevel)
 {
 
 }

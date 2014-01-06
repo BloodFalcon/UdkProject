@@ -4,19 +4,20 @@ event PostBeginPlay()
 {
 NPCInfo.FireRate=1.0;
 NPCInfo.ProjClass=class'BF_Proj_Missile';
-NPCInfo.SoulClass=class'BF_Enemy_Player';
+NPCInfo.SoulClass=class'BF_Enemy_Vulcan';
 NPCInfo.SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player';
 NPCInfo.Level=0;
 }
 
-function LevelUp()
+function LevelUp(byte CurLevel)
 {
+	NPCInfo.Level=CurLevel;
 	`log("Vulcan Level");
 	`log(NPCInfo.Level);
 	NPCInfo.Level++;
 	if(NPCInfo.Level==1){
 		NPCInfo.FireRate=0.5;
-	}else if(NPCInfo.Level==2){
+	}else if(NPCInfo.Level>=2){
 		NPCInfo.FireRate=0.1;
 	}
 }
