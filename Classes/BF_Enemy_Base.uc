@@ -96,6 +96,5 @@ DefaultProperties
 	bCollideWorld = true
 	CollisionType=COLLIDE_TouchAll
 	CylinderComponent=CollisionCylinder
-	Level=0
 	AirSpeed=300
 }

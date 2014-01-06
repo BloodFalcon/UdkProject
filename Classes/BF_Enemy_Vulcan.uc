@@ -1,17 +1,17 @@
-class BF_Enemy_GunShip extends BF_Enemy_Base;
+class BF_Enemy_Vulcan extends BF_Enemy_Base;
 
 event PostBeginPlay()
 {
-NPCInfo.FireRate=0.7;
+NPCInfo.FireRate=1.0;
 NPCInfo.ProjClass=class'BF_Proj_Missile';
-NPCInfo.SoulClass=class'BF_Enemy_GunShip';
+NPCInfo.SoulClass=class'BF_Enemy_Player';
 NPCInfo.SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player';
 NPCInfo.Level=0;
 }
 
 function LevelUp()
 {
-	`log("GS Level");
+	`log("Vulcan Level");
 	`log(NPCInfo.Level);
 	NPCInfo.Level++;
 	if(NPCInfo.Level==1){
@@ -22,9 +22,8 @@ function LevelUp()
 }
 
 DefaultProperties
-{	
+{
 	Health = 10
-
     Begin Object Class=SkeletalMeshComponent Name=EP1Mesh
         SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
 		PhysicsAsset=PhysicsAsset'BloodFalcon.SkeletalMesh.Player_Physics'
