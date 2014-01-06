@@ -8,22 +8,33 @@
 
 class BFPawn extends UDKPawn;
 
-//struct CollectedSouls
-//{
-//	var() class<BF_Enemy_Base> Current;
-//	var() class<BF_Enemy_Base> B1;
-//	var() class<BF_Enemy_Base> B2;
-//	var() class<BF_Enemy_Base> B3;
-//	var() class<BF_Enemy_Base> Holder;
-//	structdefaultproperties
-//	{
-//		Current='BF_Enemy_Player'
-//		B1='BF_Enemy_Player'
-//		B2='BF_Enemy_Player'
-//		B3='BF_Enemy_Player'
-//	}
-//};	
+struct SoulVars
+{
+	var float FireRate;
+	var SkeletalMesh SoulMesh;
+	var class<BF_Proj_Base> ProjClass;
+	var class<BF_Enemy_Base> SoulClass;
+	var byte Level;
 
+	structdefaultproperties
+	{
+		FireRate=0.5
+		SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
+		ProjClass=class'BF_Proj_Missile'
+		SoulClass=class'BF_Enemy_Player'
+	}
+};
+
+struct CollectedSouls
+{
+	var SoulVars Current;
+	var SoulVars B1;
+	var SoulVars B2;
+	var SoulVars B3;
+	var SoulVars Holder;
+};	
+
+var int TimesRun;
 var bool FirstRun, CurFire, BeamFire; //Checks Firing and if Beam, FirstRun Sets Camera
 var Vector PawnLoc, BFcamLoc; //Used for player bounding on the screen
 //var Vector StartLine, EndLine; //Debug Line
@@ -47,7 +58,7 @@ var Vector 	local_cam_loc;
 var SkeletalMesh EnemyMesh;
 var float FireRate;
 var class<BF_Proj_Base> ProjClass;
-//var CollectedSouls CS;
+var CollectedSouls CS;
 
 
 event PostBeginPlay()
@@ -72,6 +83,7 @@ event Tick(float DeltaTime)
 	local UDKPawn TracedEnemy;
 	BeamStartLoc = Location;
 	BeamEndLoc = Location + BeamOffset;
+	//`log("INTERRUPTING COW: "@CS.Current);
 
 	if(AbsorbTimer<RequiredTime) //If you havent held the Absorb for the required time yet
 	{
@@ -173,57 +185,76 @@ function BeamScreenBounds() //Need to add AspectRation offset
 
 function AbsorbSuccess()
 {
-	//local class<BF_Enemy_Base> TE;
-	//TE = TargetEnemy;
+
+	//local Name CSC;
+	//CSC = TargetEnemy.Name;
 	//Spawn Finished Absorb Emitter HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//Call Finished Absorb sound HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//if(TargetEnemy.Class!=CS.Current){
-	//	if(CS.B1.IsA('BF_Enemy_Player')){
-	//		CS.B1 = CS.Current;
-	//		CS.Current = TargetEnemy.Class;
-	//	}else if(CS.B2.IsA('BF_Enemy_Player')){
-	//		CS.B2 = CS.Current;
-	//		CS.Current = TargetEnemy.Class;
-	//	}else if(CS.B3.IsA('BF_Enemy_Player')){
-	//		CS.B3 = CS.Current;
-	//		CS.Current = TargetEnemy.Class;
-	//	}else if(CS.B1.IsA('BF_Enemy_Player')){
-	//		CS.B1 = CS.Current;
-	//		CS.Current = TargetEnemy.Class;
-	//	}else{
-	//		//Dunno Just in case
-	//	}
-	//}
+	//`Log(TargetEnemy.Class);
+	//`Log(TargetEnemy.Name);
+	//`Log(CS.Current.Class);
+	AbsorbTimer = 0;
+	if(TargetEnemy.Class==CS.Current.SoulClass){
+		TargetEnemy.LevelUp();
+		CS.Current = TargetEnemy.NPCInfo;
+		//`log("SHOULD HAVE FUCKING DOUBLED FIRERATE");
+	}else{
+		if(TargetEnemy!=none){
+			////if(CS.B1.Class==class'BF_Enemy_Player'){
 
+				CS.B1 = CS.Current;
+				CS.Current = TargetEnemy.NPCInfo;
 
-	FireRate = TargetEnemy.FireRate;
-	ProjClass = TargetEnemy.ProjClass;
-	EnemyMesh = TargetEnemy.Controller.Pawn.Mesh.SkeletalMesh;
-	self.Mesh.SetSkeletalMesh(TargetEnemy.Mesh.SkeletalMesh);
+			////}else if(CS.B2.Class==class'BF_Enemy_Player'){
+			////	CS.B2 = CS.Current;
+			////	CS.Current = TargetEnemy;
+			////}else if(CS.B3.Class==class'BF_Enemy_Player'){
+			////	CS.B3 = CS.Current;
+			////	CS.Current = TargetEnemy;
+			////}else{ 
+
+			////}
+			//`log("BAYSSSSBITCCHESSSSSSSS");
+			//`log(CS.B1);
+			//`log(CS.B2);
+			//`log(CS.B3);
+			//`log(CS.Current);
+			//`log("BAYSSSSBITCCHESSSSSSSS");
+				//if(CS.B1.IsA('BF_Enemy_Player')){
+				//CS.B1 = CS.Current;
+				//CS.Current = TargetEnemy;
+		//	}else if(CS.B2.IsA('BF_Enemy_Player')){
+		//		CS.B2 = CS.Current;
+		//		CS.Current = TargetEnemy.Class;
+		//	}else if(CS.B3.IsA('BF_Enemy_Player')){
+		//		CS.B3 = CS.Current;
+		//		CS.Current = TargetEnemy.Class;
+		//	}else if(CS.B1.IsA('BF_Enemy_Player')){
+		//		CS.B1 = CS.Current;
+		//		CS.Current = TargetEnemy.Class;
+		//	}else{
+		//		//Dunno Just in case
+			//}
+		
+		}}
+
+				
+	//`log("SEVEN: "@CS.Current);
+	FireRate = CS.Current.FireRate;
+	//`log("EIGHT: "@CS.Current);
+	ProjClass = CS.Current.ProjClass;
+	//`log("NINE: "@CS.Current);
+	EnemyMesh = CS.Current.SoulMesh;
+	//`log("TEN: "@CS.Current);
+	self.Mesh.SetSkeletalMesh(CS.Current.SoulMesh);
+	//`log("ELEVEN: "@CS.Current);
 	self.Mesh.SetMaterial(0,Material'enginedebugmaterials.BoneWeightMaterial');
+	//`log("TWELVE: "@CS.Current);
 	TargetEnemy.Destroy();
+	//`log("THIRTEEN: "@CS.Current);
 	KillBeam();
+	//`log("FOURTEEN: "@CS.Current);
 }
-
-
-///**Stores new soul data in BF_SoulInventory and swaps mesh*/
-//function ShipSwap(SkeletalMesh EnemyMesh)
-//{
-//	///Need to cacst current enemy with transferable stats
-//	if(BF_SoulInventory.CS.Current.EType==TargetEnemy){
-//		if(BF_SoulInventory.CS.Current.L<3){
-//			BF_SoulInventory.CS.Current.L++;
-//		}
-//	}else if(BF_SoulInventory.CS.B1.EType.IsA('BF_Enemy_Base')){
-//		BF_SoulInventory.CS.B1=BF_SoulInventory.CS.Current;
-//	}else if(BF_SoulInventory.CS.B2.EType.IsA('BF_Enemy_Base')){
-
-//	}else if(BF_SoulInventory.CS.B2.EType.IsA('BF_Enemy_Base')){
-
-//	}else{
-
-//	}
-//}
 
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
@@ -430,6 +461,6 @@ defaultproperties
 		TargetEnemy = none	
 		AbsorbTimer=0
 		RequiredTime=200
-		FireRate=1
-		ProjClass=class'BF_Proj_Basic'
+		FireRate=0.5
+		ProjClass=class'BF_Proj_Missile'
 }

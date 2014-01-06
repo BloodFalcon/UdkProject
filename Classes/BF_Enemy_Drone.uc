@@ -1,12 +1,23 @@
 class BF_Enemy_Drone extends BF_Enemy_Base;
 
+event PostBeginPlay()
+{
+NPCInfo.FireRate=0.4;
+NPCInfo.ProjClass=class'BF_Proj_Red';
+NPCInfo.SoulClass=class'BF_Enemy_Drone';
+NPCInfo.SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Drone';
+NPCInfo.Level=0;
+}
+
 function LevelUp()
 {
-	Level++;
-	if(Level==1){
-		FireRate=0.15;
-	}else if(Level==2){
-		FireRate=0.075;
+	`log("Drone Level");
+	`log(NPCInfo.Level);
+	NPCInfo.Level++;
+	if(NPCInfo.Level==1){
+		NPCInfo.FireRate=0.15;
+	}else if(NPCInfo.Level==2){
+		NPCInfo.FireRate=0.075;
 	}
 }
 
@@ -26,6 +37,4 @@ DefaultProperties
     End Object
 	Mesh=EP2Mesh
 	Components.Add(EP2Mesh)
-	ProjClass = class'BF_Proj_Green'
-	FireRate = 0.3
 }

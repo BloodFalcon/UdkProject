@@ -1,13 +1,23 @@
 class BF_Enemy_SuicideFighter extends BF_Enemy_Base;
 
+event PostBeginPlay()
+{
+NPCInfo.FireRate=0.1;
+NPCInfo.ProjClass=class'BF_Proj_Blue';
+NPCInfo.SoulClass=class'BF_Enemy_SuicideFighter';
+NPCInfo.SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.SuicideFighter';
+NPCInfo.Level=0;
+}
+
 function LevelUp()
 {
-	`log(Level);
-	Level++;
-	if(Level==1){
-		FireRate=0.05;
-	}else if(Level==2){
-		FireRate=0.01;
+	`log("SF Level");
+	`log(NPCInfo.Level);
+	NPCInfo.Level++;
+	if(NPCInfo.Level==1){
+		NPCInfo.FireRate=0.05;
+	}else if(NPCInfo.Level==2){
+		NPCInfo.FireRate=0.01;
 	}
 }
 
@@ -27,6 +37,6 @@ DefaultProperties
     End Object
 	Mesh=EP3Mesh
 	Components.Add(EP3Mesh)
-	ProjClass = class'BF_Proj_Blue'
-	FireRate = 0.1
+	//ProjClass = class'BF_Proj_Blue'
+	//FireRate = 0.1
 }

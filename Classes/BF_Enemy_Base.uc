@@ -1,19 +1,20 @@
 class BF_Enemy_Base extends UDKPawn
+	dependson(BFPawn)
 	placeable;
 
 var BFPawn OurPlayer;
 var int EnemyAbsorbTime;
 var ParticleSystem EngineFire, DeathExplosion;
 var SoundCue DeathSound;
-var class<BF_Proj_Base> ProjClass;
-var float FireRate;
-var byte Level;
+//var class<BF_Proj_Base> ProjClass;
+//var float FireRate;
+//var byte Level;
+var SoulVars NPCInfo;
 
 event PostBeginPlay()
 {
     super.PostBeginPlay();
 	SetPhysics(PHYS_Flying); // wake the physics up
-	
 	// set up collision detection based on mesh's PhysicsAsset
 	CylinderComponent.SetActorCollision(false, false); // disable cylinder collision
 	Mesh.SetActorCollision(true, true); // enable PhysicsAsset collision
