@@ -76,7 +76,6 @@ event PostBeginPlay()
 }
 
 
-
 event Tick(float DeltaTime)
 {
 	local Vector HitLocation, HitNormal;
@@ -84,6 +83,7 @@ event Tick(float DeltaTime)
 	local UDKPawn TracedEnemy;
 	BeamStartLoc = Location;
 	BeamEndLoc = Location + BeamOffset;
+	
 	//`log("INTERRUPTING COW: "@CS.Current);
 
 	if(AbsorbTimer<RequiredTime) //If you havent held the Absorb for the required time yet
@@ -120,7 +120,18 @@ event Tick(float DeltaTime)
 					CheckDist = VSize2D(Location - TargetEnemy.Location);
 					if(CheckDist<750)
 					{
-						AbsorbTimer++;
+						AbsorbTimer++; //=GetSystemTime(,,,,,,CustomTimeDilation,); ///TIMED THINGS HERE
+						`log(AbsorbTimer);
+						`log(AbsorbTimer);
+						`log(AbsorbTimer);
+						`log(AbsorbTimer);
+						`log(AbsorbTimer);
+						`log(AbsorbTimer);
+						`log(AbsorbTimer);
+						`log(AbsorbTimer);
+						`log(AbsorbTimer);
+						`log(AbsorbTimer);
+						`log(AbsorbTimer);
 						AbsorbBeam.SetVectorParameter('LinkBeamEnd', TargetEnemy.Location);
 					}else{
 						KillBeam();
@@ -211,6 +222,7 @@ function BeamScreenBounds() //Need to add AspectRation offset
 		}
 	}
 }
+
 
 function AbsorbSuccess()
 {
@@ -493,7 +505,7 @@ defaultproperties
 		BeamFire = false
 		TargetEnemy = none	
 		AbsorbTimer=0
-		RequiredTime=200
+		RequiredTime=100
 		FireRate=0.5
 		ProjClass=class'BF_Proj_Missile'
 }

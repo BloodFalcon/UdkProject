@@ -5,7 +5,7 @@ event PostBeginPlay()
 NPCInfo.FireRate=1.0;
 NPCInfo.ProjClass=class'BF_Proj_Missile';
 NPCInfo.SoulClass=class'BF_Enemy_Vulcan';
-NPCInfo.SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player';
+NPCInfo.SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Cannon';
 NPCInfo.Level=0;
 }
 
@@ -26,7 +26,7 @@ DefaultProperties
 {
 	Health = 10
     Begin Object Class=SkeletalMeshComponent Name=EP1Mesh
-        SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
+        SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Cannon'
 		PhysicsAsset=PhysicsAsset'BloodFalcon.SkeletalMesh.Player_Physics'
         HiddenGame=FALSE
         HiddenEditor=FALSE

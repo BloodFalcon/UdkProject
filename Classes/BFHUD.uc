@@ -17,6 +17,7 @@ var Texture2D BFFlamethrowerEmpty;
 var Texture2D BFTemplate;
 var Texture2D LightOn;
 var Texture2D LightOff;
+var Texture2D BloodMeterBlack;
 //var Texture2D PlayerShipIcon;
 var MultiFont BF_Font;
 //var bool PlayerDead;
@@ -35,60 +36,37 @@ var MultiFont BF_Font;
 		var float CurHUDY;
 		var float RatX;
 		var float RatY;
+		var float MeterFull;
+		var bool FR;
 		//var float BeamLength;
 		//var int BeamOverlayLength;
 
 
 function drawHUD()
 {
-
 	//GunShipEquip = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GunShipEquip;
-	Canvas.Font = BF_Font;
-	CurHUDX = SizeX;
-	CurHUDY = SizeY;
-	CalcScale(CurHUDX,CurHUDY);
-	//FOR CURRENT SELECTED WEAPON
-	//Canvas.SetPos(271*RatX, 106*RatY);
-	//Canvas.DrawTile(BFTemplate, 64*RatX, 64*RatY, 0, 0, 64, 64);
-	//
-
-
-
-	//if(Lives==0){
-	//	GameOver();
-	//}else{
-		LoadUI();
-	//}
-	//BeamOverlayLength=(900-(900*BeamLength));
 	
-	//Canvas.SetPos(221*RatX, ((35+BeamOverlayLength)*RatY));
-
-	//Canvas.DrawTile(BFBeamOverlay, 164*RatX, 2048*RatY, 0, (1007+BeamOverlayLength), 164, 2048);
+	CalcScale();
+	Canvas.SetPos(0,0);
+	Canvas.DrawTile(BFUI, 1920*RatX, 1080*RatY, 0, 0, 1920, 1080);
+	
+	Canvas.SetPos(0,0);
+	Canvas.DrawTile(BloodMeterBlack, 1024*RatX, 1024*RatY*MeterFull, 0, 0, 1024, 1024*MeterFull,,true);
 	super.drawHUD();
 }
 
 
-function CalcScale(float ScreenX,float ScreenY)
+function CalcScale()
 {
-		RatX = ScreenX/OldHUDX;
-		RatY = ScreenY/OldHUDY;
+	RatX = SizeX/OldHUDX;
+	RatY = SizeY/OldHUDY;
+	MeterFull = (10-BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter)/10;
 }
-
-
-
 
 
 function CleanHUD()
 {
-		//Function used to refresh default data in hud after reloading the backdrop
-}
 
-
-function LoadUI()
-{
-	Canvas.SetPos(0, 0);
-	Canvas.DrawTile(BFUI, 1920*RatX, 1080*RatY, 0, 0, 1920, 1080);
-	CleanHUD();
 }
 
 
@@ -114,9 +92,13 @@ DefaultProperties
 	LightOn = Texture2D'BloodFalcon.Texture.LightOn'
 	LightOff = Texture2D'BloodFalcon.Texture.LightOff'
 	BF_Font = MultiFont'UI_Fonts_Final.menus.Fonts_AmbexHeavy'
+	BloodMeterRed = Texture2D'BF_HUD_Assets.Textures.BloodMeterRed'
+	BloodMeterBlack = Texture2D'BF_HUD_Assets.Textures.BloodMeterBlack'
 	OldHUDX=1920
 	OldHUDY=1080
 	RatX = 1
 	RatY = 1
+	FR=true
+	Font=BF_Font
 }
 

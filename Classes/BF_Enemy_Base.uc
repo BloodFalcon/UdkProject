@@ -22,13 +22,15 @@ event PostBeginPlay()
 	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0));	
 }
 
-function LevelUp(byte CurLevel)
-{
 
-}
+function LevelUp(byte CurLevel){}
+
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter<10){
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter++;
+	}
 	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);  //Must Have To Process Standard Damage
 }
 
