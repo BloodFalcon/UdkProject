@@ -37,7 +37,6 @@ var MultiFont BF_Font;
 		var float RatX;
 		var float RatY;
 		var float MeterFull;
-		var bool FR;
 		//var float BeamLength;
 		//var int BeamOverlayLength;
 
@@ -88,17 +87,14 @@ DefaultProperties
 	BFMissile = Texture2D'BloodFalcon.Texture.BF_HUD_Missile'
 	BFFlamethrower = Texture2D'BloodFalcon.Texture.BF_HUD_FlameThrower'
 	BFTemplate = Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
-	BFBeamOverlay = Texture2D'BloodFalcon.Texture.BF_BeamOverlay'
 	LightOn = Texture2D'BloodFalcon.Texture.LightOn'
 	LightOff = Texture2D'BloodFalcon.Texture.LightOff'
-	BF_Font = MultiFont'UI_Fonts_Final.menus.Fonts_AmbexHeavy'
-	BloodMeterRed = Texture2D'BF_HUD_Assets.Textures.BloodMeterRed'
+	//BF_Font = MultiFont'UI_Fonts_Final.menus.Fonts_AmbexHeavy'
+	//BloodMeterRed = Texture2D'BF_HUD_Assets.Textures.BloodMeterRed'
 	BloodMeterBlack = Texture2D'BF_HUD_Assets.Textures.BloodMeterBlack'
 	OldHUDX=1920
 	OldHUDY=1080
 	RatX = 1
 	RatY = 1
-	FR=true
-	Font=BF_Font
 }
 

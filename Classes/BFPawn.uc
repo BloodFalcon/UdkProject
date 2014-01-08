@@ -121,17 +121,6 @@ event Tick(float DeltaTime)
 					if(CheckDist<750)
 					{
 						AbsorbTimer++; //=GetSystemTime(,,,,,,CustomTimeDilation,); ///TIMED THINGS HERE
-						`log(AbsorbTimer);
-						`log(AbsorbTimer);
-						`log(AbsorbTimer);
-						`log(AbsorbTimer);
-						`log(AbsorbTimer);
-						`log(AbsorbTimer);
-						`log(AbsorbTimer);
-						`log(AbsorbTimer);
-						`log(AbsorbTimer);
-						`log(AbsorbTimer);
-						`log(AbsorbTimer);
 						AbsorbBeam.SetVectorParameter('LinkBeamEnd', TargetEnemy.Location);
 					}else{
 						KillBeam();
@@ -363,7 +352,7 @@ simulated function StartFire(byte FireModeNum)
 		Spawn(ProjClass,self,,self.Location,self.Rotation);
 		SetTimer(FireRate, true, 'FireWeaps');
 	}
-	else if(FireModeNum == 1){
+	else if(FireModeNum == 1 && false==IsTimerActive('FireWeaps')){
 		if(FlickerCount==0){
 			BeamFire = true;
 		}	
