@@ -22,15 +22,12 @@ simulated function PostBeginPlay()
 
 simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNormal)
 {
-
-	if (Other != Instigator)
+	local UDKPawn HitPlayer;
+	HitPlayer = BFPawn(Other);
+	`log("Process Touch");
+	if (Other != Instigator && Other == HitPlayer)
 	{
-		if (!Other.bStatic && DamageRadius == 0.0)
-		{
-			Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);
-			`log("Proj 2");
-		}
-		Explode(HitLocation, HitNormal);
+		Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);
 	}
 }
 
