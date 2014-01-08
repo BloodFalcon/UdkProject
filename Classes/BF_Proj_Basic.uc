@@ -6,7 +6,7 @@
 // Description: Base Weapon
 //////////////////////////
 
-class BF_Proj_Basic extends BF_Proj_Base;
+class BF_Proj_Basic extends BF_Proj_PlayerBase;
 
 var ParticleSystemComponent ProjEffects;
 var ParticleSystem ProjFlightTemplate;

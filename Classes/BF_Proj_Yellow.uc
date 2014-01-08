@@ -6,70 +6,7 @@
 // Description: Upgrade Weapon 1
 //////////////////////////
 
-class BF_Proj_Yellow extends BF_Proj_Base;
-
-var ParticleSystemComponent ProjEffects;
-var ParticleSystem ProjFlightTemplate;
-var ParticleSystem ProjExplosionTemplate;
-var SoundCue ProjSound1;
-
-simulated function PostBeginPlay()
-{
-	Super.PostBeginPlay();
-	SpawnFlightEffects();
-	SpawnFireEffect();
-}
-
-simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNormal)
-{
-	local UDKPawn HitPlayer;
-	HitPlayer = BFPawn(Other);
-	`log("Process Touch");
-	if (Other != Instigator && Other == HitPlayer)
-	{
-		Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);
-	}
-}
-
-simulated function SpawnFlightEffects()
-{
-	if (WorldInfo.NetMode != NM_DedicatedServer && ProjFlightTemplate != None)
-	{
-		ProjEffects = WorldInfo.MyEmitterPool.SpawnEmitterCustomLifetime(ProjFlightTemplate);
-		ProjEffects.SetAbsolute(false, false, false);
-		ProjEffects.SetLODLevel(WorldInfo.bDropDetail ? 1 : 0);
-		ProjEffects.OnSystemFinished = MyOnParticleSystemFinished;
-		ProjEffects.bUpdateComponentInTick = true;
-		AttachComponent(ProjEffects);
-	}
-}
-
-function SpawnFireEffect()
-{
-	PlaySound(ProjSound1);
-}
-
-simulated function Destroyed()
-{
-
-	if (ProjEffects != None)
-	{
-		DetachComponent(ProjEffects);
-		WorldInfo.MyEmitterPool.OnParticleSystemFinished(ProjEffects);
-		ProjEffects = None;
-	}
-	super.Destroyed();
-}
-
-simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
-{
-	if (PSC == ProjEffects)
-	{
-		DetachComponent(ProjEffects);
-		WorldInfo.MyEmitterPool.OnParticleSystemFinished(ProjEffects);
-		ProjEffects = None;
-	}
-}
+class BF_Proj_Yellow extends BF_Proj_EnemyBase;
 
 defaultproperties
 {

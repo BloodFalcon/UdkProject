@@ -6,7 +6,7 @@
 // Description: Missile
 //////////////////////////
 
-class BF_Proj_Missile extends BF_Proj_Base;
+class BF_Proj_Missile extends BF_Proj_PlayerBase;
 
 var ParticleSystemComponent ProjEffects;
 var ParticleSystem ProjFlightTemplate;

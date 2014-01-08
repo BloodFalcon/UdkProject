@@ -6,7 +6,7 @@
 // Description: laser
 //////////////////////////
 
-class BF_Proj_Red extends BF_Proj_Base;
+class BF_Proj_Red extends BF_Proj_PlayerBase;
 
 var ParticleSystemComponent ProjEffects;
 var ParticleSystem ProjFlightTemplate;

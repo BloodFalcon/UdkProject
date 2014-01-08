@@ -64,12 +64,7 @@ var BF_Enemy_Base Bay1,Bay2,Bay3;
 
 event PostBeginPlay()
 {
-	//Spawn(CS.B1,self,,vect(-6500,-800,46130),self.Rotation);
-	//Spawn(CS.B2,self,,vect(-6250,-800,46130),self.Rotation);
-	//Spawn(CS.B3,self,,vect(-6000,-800,46130),self.Rotation);
 	super.PostBeginPlay();
-	SetPhysics(PHYS_Walking); // wake the physics up
-	CylinderComponent.SetActorCollision(false, false); // disable cylinder collision
 	Mesh.SetActorCollision(true, true); // enable PhysicsAsset collision
 	Mesh.SetTraceBlocking(true, true); // block traces (i.e. anything touching mesh)
 	EnemyDeathSound = SoundCue'A_Weapon_BioRifle.Weapon.A_BioRifle_FireImpactExplode_Cue';
@@ -263,7 +258,7 @@ function UpdatePlayer()
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
-			RespawnPlayer();
+		RespawnPlayer();
 }
 
 
@@ -272,6 +267,8 @@ function RespawnPlayer()
 	BeamFire = false;
 	if(FlickerCount<20){
 		if(FlickerCount==0){
+			WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);
+			PlaySound(DeathSound);
 			Self.SetLocation(vect(-7040,-892,46130));
 			KillBeam();
 		}
@@ -486,6 +483,8 @@ defaultproperties
 		bBlockActors = true
 		bCollideActors = true
 		bCollideWorld = true
+		CollisionType=COLLIDE_TouchAll
+		CylinderComponent=CollisionCylinder
 		GroundSpeed = 700
 		AccelRate = 5600
 		InventoryManagerClass=class'UdkProject.Player_Inventory'
@@ -496,5 +495,5 @@ defaultproperties
 		AbsorbTimer=0
 		RequiredTime=100
 		FireRate=0.5
-		ProjClass=class'BF_Proj_Missile'
+		ProjClass=class'BF_Proj_Basic'
 }
