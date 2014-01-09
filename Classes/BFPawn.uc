@@ -351,7 +351,7 @@ simulated function StartFire(byte FireModeNum)
 	}
 	else if(FireModeNum == 1 && false==IsTimerActive('FireWeaps')){
 		if(FlickerCount==0){
-			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BulletTime(true);
+			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BulletTime(1);
 			BeamFire = true;
 		}	
 	}
@@ -360,7 +360,7 @@ simulated function StartFire(byte FireModeNum)
 
 simulated function StopFire(byte FireModeNum)
 {
-	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BulletTime(false);
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BulletTime(2);
 	if(FireModeNum==0){
 		CurFire = false;
 		ClearTimer('FireWeaps');

@@ -9,28 +9,54 @@
 class BFGameInfo extends GameInfo;
 
 var int BloodMeter;
-var bool bBulletTime;
+var byte modeBulletTime;
 var float TimeIncrement;
+var float Time;
+var bool bDrain;
 
-function BulletTime(bool BTToggle)
+function BulletTime(byte ModeNum)
 {
-bBulletTime=BTToggle;
+	modeBulletTime=ModeNum;
 }
 
 function tick(float DeltaTime)
 {
-	if(bBulletTime && GameSpeed>0.3){
-		GameSpeed=GameSpeed-(TimeIncrement*TimeIncrement);
-		SetGameSpeed(GameSpeed);
-		TimeIncrement-=0.005;
-	}else if(bBulletTime==false && GameSpeed<1.0){
-		GameSpeed=GameSpeed+(TimeIncrement*TimeIncrement);
-		SetGameSpeed(GameSpeed);
-		TimeIncrement-=0.005;
+	super.Tick(DeltaTime);
+	`log(Time);
+	if(bDrain){
+		Time+=DeltaTime;
+		if(BloodMeter>0 && Time>=1.0){
+			BloodMeter-=2;
+			Time=0;
+		}else if(BloodMeter<=0){
+			BloodMeter=0;
+		}
 	}else{
-		GameSpeed=1.0;
-		SetGameSpeed(GameSpeed);
+		Time=0;
 	}
+
+
+	if(modeBulletTime==0){
+		TimeIncrement=3;
+	}else if(modeBulletTime==1 && GameSpeed>0.3 && BloodMeter>0){
+		GameSpeed=GameSpeed-((TimeIncrement*TimeIncrement)*0.002);
+		SetGameSpeed(GameSpeed);
+		TimeIncrement-=0.0005;
+		bDrain=true;
+	}else if(GameSpeed<1.0 && (modeBulletTime==2 || BloodMeter<=0)){
+		GameSpeed=GameSpeed+((TimeIncrement*TimeIncrement)*0.002);
+		SetGameSpeed(GameSpeed);
+		TimeIncrement-=0.0005;	
+		bDrain=false;
+	}else{
+		if(modeBulletTime==1){
+			GameSpeed=0.3;
+		}else if(modeBulletTime==2){
+			GameSpeed=1.0;
+		}
+		modeBulletTime=0;
+	}
+	
 }
 
 static event class<GameInfo> SetGameType(string MapName, string Options, string Portal)
@@ -44,5 +70,7 @@ defaultproperties
     DefaultPawnClass=class'UdkProject.BFPawn'
     PlayerControllerClass=class'UdkProject.BFPlayerController'
 	HUDType=class'UdkProject.BFHUD'
-	TimeIncrement=0.005
+	TimeIncrement=2
+	Time=0
+	bDrain=false
 }
