@@ -38,20 +38,22 @@ function tick(float DeltaTime)
 
 	if(modeBulletTime==0){
 		TimeIncrement=3;
-	}else if(modeBulletTime==1 && GameSpeed>0.3 && BloodMeter>0){
+	}
+	
+	if(modeBulletTime==1 && GameSpeed>0.3 && BloodMeter>0){
 		GameSpeed=GameSpeed-((TimeIncrement*TimeIncrement)*0.002);
 		SetGameSpeed(GameSpeed);
 		TimeIncrement-=0.0005;
 		bDrain=true;
-	}else if(GameSpeed<1.0 && (modeBulletTime==2 || BloodMeter<=0)){
+	}else if((GameSpeed<1.0 && modeBulletTime==2)||(BloodMeter<=0 && GameSpeed<1.0)){
 		GameSpeed=GameSpeed+((TimeIncrement*TimeIncrement)*0.002);
 		SetGameSpeed(GameSpeed);
 		TimeIncrement-=0.0005;	
 		bDrain=false;
 	}else{
-		if(modeBulletTime==1){
+		if(modeBulletTime==1 && BloodMeter>0){
 			GameSpeed=0.3;
-		}else if(modeBulletTime==2){
+		}else if(modeBulletTime==2 || BloodMeter<=0){
 			GameSpeed=1.0;
 		}
 		modeBulletTime=0;

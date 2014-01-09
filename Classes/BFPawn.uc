@@ -265,22 +265,26 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 function RespawnPlayer()
 {
 	BeamFire = false;
-	if(FlickerCount<20){
-		if(FlickerCount==0){
-			WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);
-			PlaySound(DeathSound);
-			Self.SetLocation(vect(-7040,-892,46130));
-			KillBeam();
-		}
-		if(self.bHidden){
-			self.SetHidden(false);
-		}else{
-			self.SetHidden(true);
-		}
-		FlickerCount++;
-		SetTimer(0.3,false,'RespawnPlayer',);
+	if(	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>0){
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter = 0;
 	}else{
-		FlickerCount = 0;
+		if(FlickerCount<20){
+			if(FlickerCount==0){
+				WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);
+				PlaySound(DeathSound);
+				Self.SetLocation(vect(-7040,-892,46130));
+				KillBeam();
+			}
+			if(self.bHidden){
+				self.SetHidden(false);
+			}else{
+				self.SetHidden(true);
+			}
+			FlickerCount++;
+			SetTimer(0.3,false,'RespawnPlayer',);
+		}else{
+			FlickerCount = 0;
+		}
 	}
 }
 
@@ -352,7 +356,10 @@ simulated function StartFire(byte FireModeNum)
 	else if(FireModeNum == 1 && false==IsTimerActive('FireWeaps')){
 		if(FlickerCount==0){
 			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BulletTime(1);
-			BeamFire = true;
+			if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>=10)//Comment out if statement if you want to absorb without full bloodmeter
+			{//Comment out if statement if you want to absorb without full bloodmeter
+				BeamFire = true;
+			}//Comment out if statement if you want to absorb without full bloodmeter
 		}	
 	}
 }
@@ -360,12 +367,13 @@ simulated function StartFire(byte FireModeNum)
 
 simulated function StopFire(byte FireModeNum)
 {
-	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BulletTime(2);
+
 	if(FireModeNum==0){
 		CurFire = false;
 		ClearTimer('FireWeaps');
 	}else{
 		BeamFire = false;
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BulletTime(2);
 	}
 }
 
