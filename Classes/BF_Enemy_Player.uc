@@ -27,7 +27,7 @@ DefaultProperties
 		BlockZeroExtent=true
 		BlockActors=false
 		CollideActors=true
-		Scale = 1.5
+		//Scale = 1.5
     End Object 
     Mesh=EP1Mesh 
     Components.Add(EP1Mesh)

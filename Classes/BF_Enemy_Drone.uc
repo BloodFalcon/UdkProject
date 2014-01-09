@@ -5,7 +5,7 @@ event PostBeginPlay()
 NPCInfo.FireRate=0.4;
 NPCInfo.ProjClass=class'BF_Proj_Red';
 NPCInfo.SoulClass=class'BF_Enemy_Drone';
-NPCInfo.SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Drone';
+NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_W2';
 NPCInfo.Level=0;
 }
 
@@ -26,15 +26,15 @@ DefaultProperties
 {
 	Health = 10
     Begin Object Class=SkeletalMeshComponent Name=EP2Mesh
-        SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Drone'
-		PhysicsAsset=PhysicsAsset'BloodFalcon.SkeletalMesh.Drone_Physics'
+        SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_W2'
+		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Drone_W2_Physics'
         HiddenGame=FALSE
         HiddenEditor=FALSE
 		BlockNonZeroExtent=true
 		BlockZeroExtent=true
 		BlockActors=false
 		CollideActors=true
-		Scale = 1.5
+		//Scale = 1.5
     End Object
 	Mesh=EP2Mesh
 	Components.Add(EP2Mesh)

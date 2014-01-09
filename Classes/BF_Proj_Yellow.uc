@@ -26,17 +26,5 @@ defaultproperties
             CollisionHeight=16
     End Object
 
-    Begin Object class=DynamicLightEnvironmentComponent name=MyLightEnvironment
-            bEnabled=true
-    End Object
-    Components.Add(MyLightEnvironment)
-
-    Begin Object class=StaticMeshComponent name=MyMesh
-            StaticMesh=StaticMesh'WP_ShockRifle.Mesh.S_Sphere_Good'
-            LightEnvironment=MyLightEnvironment
-			HiddenGame=true
-    End Object
-    Components.Add(MyMesh)
 	bBlockedByInstigator=false
-	ProjSound1=SoundCue'A_Weapon_Link.Cue.A_Weapon_Link_FireCue'
 }

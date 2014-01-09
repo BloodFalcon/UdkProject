@@ -3,13 +3,11 @@ class BF_Proj_EnemyBase extends BF_Proj_Base;
 var ParticleSystemComponent ProjEffects;
 var ParticleSystem ProjFlightTemplate;
 var ParticleSystem ProjExplosionTemplate;
-var SoundCue ProjSound1;
 
 simulated function PostBeginPlay()
 {
 	Super.PostBeginPlay();
 	SpawnFlightEffects();
-	SpawnFireEffect();
 }
 
 //function Tick(float DeltaTime)
@@ -67,11 +65,6 @@ simulated function SpawnFlightEffects()
 	}
 }
 
-function SpawnFireEffect()
-{
-	PlaySound(ProjSound1);
-}
-
 simulated function Destroyed()
 {
 
@@ -96,6 +89,26 @@ simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
 
 DefaultProperties
 {
+	Speed = 1000
+	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Yellow_Circle'
+	//ProjFlightTemplate = none;
+    Begin Object Name=CollisionCylinder
+            CollisionRadius=8
+            CollisionHeight=16
+    End Object
+
+    Begin Object class=DynamicLightEnvironmentComponent name=MyLightEnvironment
+            bEnabled=true
+    End Object
+    Components.Add(MyLightEnvironment)
+
+    Begin Object class=StaticMeshComponent name=MyMesh
+            StaticMesh=StaticMesh'BloodFalcon.SM.Round_Bullet'
+            LightEnvironment=MyLightEnvironment
+			HiddenGame=false
+			Scale = 0.025
+    End Object
+    Components.Add(MyMesh)
 
 
 	
