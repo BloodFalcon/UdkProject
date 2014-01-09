@@ -1,10 +1,12 @@
-//////////////////////////
+/***************************************
 // Author(s): Tyler Keller, Sean Mackey
-// Date: 11/20/2013
+// Date: 1/8/2014
 // Status: Alpha
 // Being Used: Yes
-// Description: Base Weapon
-//////////////////////////
+// Description: Projectile.
+// Behavior: Straight-shot basic projectile.
+***************************************/
+
 
 class BF_Proj_Basic extends BF_Proj_PlayerBase;
 

@@ -1,10 +1,11 @@
-//////////////////////////
+/***************************************
 // Author(s): Tyler Keller, Sean Mackey
-// Date: 11/20/2013
+// Date: 1/8/2014
 // Status: Alpha
 // Being Used: Yes
-// Description: Upgrade Weapon 1
-//////////////////////////
+// Description: Projectile.
+// Behavior:
+***************************************/
 
 class BF_Proj_Yellow extends BF_Proj_EnemyBase;
 

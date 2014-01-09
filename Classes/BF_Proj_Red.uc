@@ -1,10 +1,12 @@
-//////////////////////////
-// Author(s): Tyler
-// Date: 12/4/2013
+/***************************************
+// Author(s): Tyler Keller, Sean Mackey
+// Date: 1/8/2014
 // Status: Alpha
 // Being Used: Yes
-// Description: laser
-//////////////////////////
+// Description: Projectile.
+// Behavior: Behaves like a missile being unloaded from a wing gun. Can only be fired by player.
+***************************************/
+
 
 class BF_Proj_Red extends BF_Proj_PlayerBase;
 

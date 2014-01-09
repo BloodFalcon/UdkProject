@@ -1,9 +1,9 @@
 /***************************************
 // Author(s): Tyler Keller, Sean Mackey
-// Date: 12/6/2013
-// Status: Beta
+// Date: 1/8/2014
+// Status: Alpha
 // Being Used: Yes
-// Description: Pawn for Blood Falcon
+// Description: Pawn for Blood Falcon. Controls the absorbtion mechanic, life/death of the player, and firing projectiles from the player.
 ***************************************/
 
 class BFPawn extends UDKPawn;
@@ -351,6 +351,7 @@ simulated function StartFire(byte FireModeNum)
 	}
 	else if(FireModeNum == 1 && false==IsTimerActive('FireWeaps')){
 		if(FlickerCount==0){
+			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BulletTime(true);
 			BeamFire = true;
 		}	
 	}
@@ -359,6 +360,7 @@ simulated function StartFire(byte FireModeNum)
 
 simulated function StopFire(byte FireModeNum)
 {
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BulletTime(false);
 	if(FireModeNum==0){
 		CurFire = false;
 		ClearTimer('FireWeaps');

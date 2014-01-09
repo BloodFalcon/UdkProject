@@ -1,10 +1,11 @@
-//////////////////////////
-// Author(s): Tyler
-// Date: 12/4/2013
+/***************************************
+// Author(s): Tyler Keller
+// Date: 1/8/2014
 // Status: Alpha
 // Being Used: Yes
-// Description: Missile
-//////////////////////////
+// Description: Projectile.
+// Behavior: Behaves like a missile being unloaded from a wing gun. Can only be fired by player.
+***************************************/
 
 class BF_Proj_Missile extends BF_Proj_PlayerBase;
 

@@ -96,4 +96,7 @@ simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
 
 DefaultProperties
 {
+
+
+	
 }
