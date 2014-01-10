@@ -2,11 +2,12 @@ class BF_Enemy_SuicideFighter extends BF_Enemy_Base;
 
 event PostBeginPlay()
 {
-NPCInfo.FireRate=0.1;
-NPCInfo.ProjClass=class'BF_Proj_Blue';
-NPCInfo.SoulClass=class'BF_Enemy_SuicideFighter';
-NPCInfo.SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.SuicideFighter';
-NPCInfo.Level=0;
+	NPCInfo.FireRate=0.1;
+	NPCInfo.ProjClass=class'BF_Proj_Blue';
+	NPCInfo.SoulClass=class'BF_Enemy_SuicideFighter';
+	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.SuicideFighter_W4';
+	NPCInfo.Level=0;
+	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(-1,0,0));
 }
 
 function LevelUp(byte CurLevel)
@@ -26,8 +27,8 @@ DefaultProperties
 {
 	Health = 10
     Begin Object Class=SkeletalMeshComponent Name=EP3Mesh
-        SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.SuicideFighter'
-		PhysicsAsset=PhysicsAsset'BloodFalcon.SkeletalMesh.SuicideFighter_Physics'
+        SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.SuicideFighter_W4'
+		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.SuicideFighter_W4_Physics'
         HiddenGame=FALSE
         HiddenEditor=FALSE
 		BlockNonZeroExtent=true

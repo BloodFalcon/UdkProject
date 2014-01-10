@@ -2,11 +2,12 @@ class BF_Enemy_Drone extends BF_Enemy_Base;
 
 event PostBeginPlay()
 {
-NPCInfo.FireRate=0.4;
-NPCInfo.ProjClass=class'BF_Proj_Red';
-NPCInfo.SoulClass=class'BF_Enemy_Drone';
-NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_W2';
-NPCInfo.Level=0;
+	NPCInfo.FireRate=0.4;
+	NPCInfo.ProjClass=class'BF_Proj_Red';
+	NPCInfo.SoulClass=class'BF_Enemy_Drone';
+	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_W2';
+	NPCInfo.Level=0;
+	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0), );
 }
 
 function LevelUp(byte CurLevel)

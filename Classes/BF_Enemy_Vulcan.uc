@@ -2,11 +2,12 @@ class BF_Enemy_Vulcan extends BF_Enemy_Base;
 
 event PostBeginPlay()
 {
-NPCInfo.FireRate=1.0;
-NPCInfo.ProjClass=class'BF_Proj_Missile';
-NPCInfo.SoulClass=class'BF_Enemy_Vulcan';
-NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.GunShip_W4';
-NPCInfo.Level=0;
+	NPCInfo.FireRate=1.0;
+	NPCInfo.ProjClass=class'BF_Proj_Missile';
+	NPCInfo.SoulClass=class'BF_Enemy_Vulcan';
+	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.GunShip_W4';
+	NPCInfo.Level=0;
+	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(-1,0,0));
 }
 
 function LevelUp(byte CurLevel)
