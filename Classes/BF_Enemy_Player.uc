@@ -7,6 +7,8 @@ NPCInfo.ProjClass=class'BF_Proj_Basic';
 NPCInfo.SoulClass=class'BF_Enemy_Player';
 NPCInfo.SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Cannon';
 NPCInfo.Level=0;
+NPCInfo.Size=1.5;
+NPCInfo.Speed=1400;
 }
 
 DefaultProperties
@@ -27,8 +29,9 @@ DefaultProperties
 		BlockZeroExtent=true
 		BlockActors=false
 		CollideActors=true
-		//Scale = 1.5
+		Scale = 1.5
     End Object 
     Mesh=EP1Mesh 
     Components.Add(EP1Mesh)
+	GroundSpeed=1400
 }

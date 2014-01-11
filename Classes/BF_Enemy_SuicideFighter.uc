@@ -7,6 +7,8 @@ event PostBeginPlay()
 	NPCInfo.SoulClass=class'BF_Enemy_SuicideFighter';
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.SuicideFighter_W4';
 	NPCInfo.Level=0;
+	NPCInfo.Size=1.5;
+	NPCInfo.Speed=800;
 	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(-1,0,0));
 }
 
@@ -35,10 +37,9 @@ DefaultProperties
 		BlockZeroExtent=true
 		BlockActors=false
 		CollideActors=true
-		Scale = 1.25
+		Scale = 1.5
     End Object
 	Mesh=EP3Mesh
 	Components.Add(EP3Mesh)
-	//ProjClass = class'BF_Proj_Blue'
-	//FireRate = 0.1
+	GroundSpeed=800
 }

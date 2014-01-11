@@ -39,20 +39,6 @@ simulated function PostBeginPlay()
 }
 
 
-simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNormal)
-{
-
-	if (Other != Instigator)
-	{
-		if (!Other.bStatic && DamageRadius == 0.0)
-		{
-			Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);
-		}
-		Explode(HitLocation, HitNormal);
-	}
-}
-
-
 simulated function SpawnFlightEffects()
 {
 	if (WorldInfo.NetMode != NM_DedicatedServer && ProjFlightTemplate != None)

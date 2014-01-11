@@ -15,6 +15,9 @@ struct SoulVars
 	var class<BF_Proj_Base> ProjClass;
 	var class<BF_Enemy_Base> SoulClass;
 	var byte Level;
+	var float Size;
+	var float Speed;
+	var bool bFXEnabled;
 
 	structdefaultproperties
 	{
@@ -22,6 +25,9 @@ struct SoulVars
 		SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
 		ProjClass=class'BF_Proj_Missile'
 		SoulClass=class'BF_Enemy_Player'
+		Size=1.5
+		Speed=700
+		bFXEnabled=true
 	}
 };
 
@@ -76,7 +82,9 @@ event Tick(float DeltaTime)
 	local Vector HitLocation, HitNormal;
 	local Actor TracedEnemyAct;
 	local UDKPawn TracedEnemy;
-	CustomTimeDilation = 2.0;
+	//CustomTimeDilation = 2/BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameSpeed; //Remove if you'd like the pawn to follow world speed.
+	Mesh.SetScale(CS.Current.Size);
+	GroundSpeed=(CS.Current.Speed*2);
 	BeamStartLoc = Location;
 	BeamEndLoc = Location + BeamOffset;
 	
@@ -253,7 +261,7 @@ function UpdatePlayer()
 	ProjClass = CS.Current.ProjClass;
 	EnemyMesh = CS.Current.SoulMesh;
 	self.Mesh.SetSkeletalMesh(CS.Current.SoulMesh);
-	self.Mesh.SetMaterial(0,Material'enginedebugmaterials.BoneWeightMaterial');
+	self.Mesh.SetMaterial(0,Material'EngineDebugMaterials.MaterialError_Mat');
 }
 
 
@@ -496,8 +504,8 @@ defaultproperties
 		bCollideWorld = true
 		CollisionType=COLLIDE_TouchAll
 		CylinderComponent=CollisionCylinder
-		GroundSpeed = 700
-		AccelRate = 5600
+		GroundSpeed = 1400
+		AccelRate = 10000
 		InventoryManagerClass=class'UdkProject.Player_Inventory'
 		
 		CurFire = false

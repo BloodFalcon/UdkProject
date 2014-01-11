@@ -37,6 +37,7 @@ var MultiFont BF_Font;
 		var float RatX;
 		var float RatY;
 		var float MeterFull;
+		var float MeterIncrement;
 		//var float BeamLength;
 		//var int BeamOverlayLength;
 
@@ -44,13 +45,17 @@ var MultiFont BF_Font;
 function drawHUD()
 {
 	//GunShipEquip = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GunShipEquip;
-	
 	CalcScale();
 	Canvas.SetPos(0,0);
 	Canvas.DrawTile(BFUI, 1920*RatX, 1080*RatY, 0, 0, 1920, 1080);
 	
+if(MeterFull<MeterIncrement){
+MeterIncrement-=0.005;
+}else{
+MeterIncrement=MeterFull;
+}
 	Canvas.SetPos(0,0);
-	Canvas.DrawTile(BloodMeterBlack, 1024*RatX, 1024*RatY*MeterFull, 0, 0, 1024, 1024*MeterFull,,true);
+	Canvas.DrawTile(BloodMeterBlack, 1024*RatX, 1024*RatY*MeterIncrement, 0, 0, 1024, 1024*MeterIncrement,,true);
 	super.drawHUD();
 }
 

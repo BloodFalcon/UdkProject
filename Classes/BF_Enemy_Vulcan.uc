@@ -7,6 +7,8 @@ event PostBeginPlay()
 	NPCInfo.SoulClass=class'BF_Enemy_Vulcan';
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.GunShip_W4';
 	NPCInfo.Level=0;
+	NPCInfo.Size=1.4;
+	NPCInfo.Speed=300;
 	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(-1,0,0));
 }
 
@@ -25,7 +27,7 @@ function LevelUp(byte CurLevel)
 
 DefaultProperties
 {
-	Health = 10
+	Health=10
     Begin Object Class=SkeletalMeshComponent Name=EP1Mesh
         SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.GunShip_W4'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.GunShip_W4_Physics'
@@ -35,8 +37,9 @@ DefaultProperties
 		BlockZeroExtent=true
 		BlockActors=false
 		CollideActors=true
-		Scale = 1.5
+		Scale=1.4
     End Object 
     Mesh=EP1Mesh 
     Components.Add(EP1Mesh)
+	GroundSpeed=300
 }

@@ -8,7 +8,7 @@
 
 class BFGameInfo extends GameInfo;
 
-var int BloodMeter;
+var float BloodMeter;
 var byte modeBulletTime;
 var float TimeIncrement;
 var float Time;
@@ -22,24 +22,25 @@ function BulletTime(byte ModeNum)
 function tick(float DeltaTime)
 {
 	super.Tick(DeltaTime);
-	`log(Time);
-	if(bDrain){
-		Time+=DeltaTime;
-		if(BloodMeter>0 && Time>=1.0){
-			BloodMeter-=2;
+	if(modeBulletTime==0){
+		if(bDrain){
+			Time=DeltaTime;
+			if(BloodMeter>0){
+				BloodMeter-=(Time*2);
+				//Time=0;
+			}else if(BloodMeter<=0){
+				BloodMeter=0;
+			}
+		}else{
 			Time=0;
-		}else if(BloodMeter<=0){
-			BloodMeter=0;
 		}
-	}else{
-		Time=0;
 	}
-
 
 	if(modeBulletTime==0){
 		TimeIncrement=3;
 	}
 	
+
 	if(modeBulletTime==1 && GameSpeed>0.3 && BloodMeter>0){
 		GameSpeed=GameSpeed-((TimeIncrement*TimeIncrement)*0.002);
 		SetGameSpeed(GameSpeed);
@@ -50,6 +51,10 @@ function tick(float DeltaTime)
 		SetGameSpeed(GameSpeed);
 		TimeIncrement-=0.0005;	
 		bDrain=false;
+		/////////AbsorbBeam.DeactivateSystem();
+		if(BloodMeter>=9.5){
+			BloodMeter=10;
+		}
 	}else{
 		if(modeBulletTime==1 && BloodMeter>0){
 			GameSpeed=0.3;
@@ -58,7 +63,6 @@ function tick(float DeltaTime)
 		}
 		modeBulletTime=0;
 	}
-	
 }
 
 static event class<GameInfo> SetGameType(string MapName, string Options, string Portal)
@@ -75,4 +79,5 @@ defaultproperties
 	TimeIncrement=2
 	Time=0
 	bDrain=false
+	BloodMeter=0
 }
