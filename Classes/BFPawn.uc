@@ -76,6 +76,7 @@ event Tick(float DeltaTime)
 	local Vector HitLocation, HitNormal;
 	local Actor TracedEnemyAct;
 	local UDKPawn TracedEnemy;
+	CustomTimeDilation = 2.0;
 	BeamStartLoc = Location;
 	BeamEndLoc = Location + BeamOffset;
 	
