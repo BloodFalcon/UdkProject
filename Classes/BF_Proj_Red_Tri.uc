@@ -1,4 +1,14 @@
-class BF_Proj_BlueCircleTri extends BF_Proj_PlayerBase;
+/***************************************
+// Author(s): Tyler Keller, Sean Mackey
+// Date: 1/8/2014
+// Status: Alpha
+// Being Used: Yes
+// Description: Default player projectile.
+// Behavior: Straight-shot basic projectile.
+***************************************/
+
+
+class BF_Proj_Red_Tri extends BF_Proj_PlayerBase;
 
 var ParticleSystemComponent ProjEffects;
 var ParticleSystem ProjFlightTemplate;
@@ -33,7 +43,6 @@ function SpawnFireEffect()
 	PlaySound(ProjSound1);
 }
 
-
 simulated function Destroyed()
 {
 
@@ -60,40 +69,40 @@ simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
 
 function tick(float DeltaTime)
 {
+	SetRotation(RotRand());
 	Velocity = vect(0,-1500,0);
 }
 
 
 defaultproperties
 {
-	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Blue_CircleTri'
-	ProjExplosionTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Kill_Bullet'
+	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Red_TriCircle'
+	//ProjExplosionTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Kill_Bullet'
 	LifeSpan=125
-	DrawScale=1
+	DrawScale=3
 	Damage=10
-	DamageRadius=+10.0
+	DamageRadius = +10.0
     MomentumTransfer=0
 	CustomGravityScaling=0
-	Physics=PHYS_Projectile
+	Physics = PHYS_Projectile
 
     Begin Object Name=CollisionCylinder
-        CollisionRadius=8
-        CollisionHeight=16
+            CollisionRadius=8
+            CollisionHeight=16
     End Object
 
     Begin Object class=DynamicLightEnvironmentComponent name=MyLightEnvironment
-        bEnabled=true
+            bEnabled=true
     End Object
     Components.Add(MyLightEnvironment)
 
-	Begin Object class=StaticMeshComponent name=MyMesh
-        StaticMesh=StaticMesh'BloodFalcon.SM.Round_Bullet'
-        LightEnvironment=MyLightEnvironment
-		HiddenGame=false
-		Scale = 0.025
+  Begin Object class=StaticMeshComponent name=MyMesh
+            StaticMesh=StaticMesh'BloodFalcon.SM.Round_Bullet'
+            LightEnvironment=MyLightEnvironment
+			HiddenGame=true
+			Scale = 0.025
     End Object
     Components.Add(MyMesh)
-
 	bBlockedByInstigator=false
 	ProjSound1=SoundCue'A_Weapon_Link.Cue.A_Weapon_Link_FireCue'
 }

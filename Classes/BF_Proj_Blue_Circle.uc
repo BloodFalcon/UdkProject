@@ -8,7 +8,7 @@
 ***************************************/
 
 
-class BF_Proj_BlueCircle extends BF_Proj_PlayerBase;
+class BF_Proj_Blue_Circle extends BF_Proj_PlayerBase;
 
 var ParticleSystemComponent ProjEffects;
 var ParticleSystem ProjFlightTemplate;
@@ -43,9 +43,9 @@ function SpawnFireEffect()
 	PlaySound(ProjSound1);
 }
 
-
 simulated function Destroyed()
 {
+
 	if (ProjEffects != None)
 	{
 		DetachComponent(ProjEffects);
@@ -69,10 +69,6 @@ simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
 
 function tick(float DeltaTime)
 {
-	if(Location-900<Camera.Location){
-		`log("Logged by eddge of poo nuggetess fasoudaosunjjdkjnfsdfsd");
-		self.Destroy();
-	}
 	Velocity = vect(0,-1500,0);
 }
 
@@ -80,7 +76,7 @@ function tick(float DeltaTime)
 defaultproperties
 {
 	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Blue_Circle'
-	ProjExplosionTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Kill_Bullet'
+	//ProjExplosionTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Kill_Bullet'
 	LifeSpan=125
 	DrawScale=1
 	Damage=10
@@ -99,11 +95,11 @@ defaultproperties
     End Object
     Components.Add(MyLightEnvironment)
 
-    Begin Object class=StaticMeshComponent name=MyMesh
-        StaticMesh=StaticMesh'BloodFalcon.SM.Round_Bullet'
-        LightEnvironment=MyLightEnvironment
-		HiddenGame=false
-		Scale = 0.025
+  Begin Object class=StaticMeshComponent name=MyMesh
+            StaticMesh=StaticMesh'BloodFalcon.SM.Round_Bullet'
+            LightEnvironment=MyLightEnvironment
+			HiddenGame=true
+			Scale = 0.025
     End Object
     Components.Add(MyMesh)
 	bBlockedByInstigator=false

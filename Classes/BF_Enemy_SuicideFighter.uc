@@ -12,7 +12,7 @@ class BF_Enemy_SuicideFighter extends BF_Enemy_Base;
 event PostBeginPlay()
 {
 	NPCInfo.FireRate=0.1;
-	NPCInfo.ProjClass=class'BF_Proj_Blue';
+	NPCInfo.ProjClass=class'BF_Proj_Red_Circle';
 	NPCInfo.SoulClass=class'BF_Enemy_SuicideFighter';
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.SuicideFighter_W4';
 	NPCInfo.Level=0;

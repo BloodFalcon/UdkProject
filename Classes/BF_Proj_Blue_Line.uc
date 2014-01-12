@@ -8,7 +8,7 @@
 ***************************************/
 
 
-class BF_Proj_Basic extends BF_Proj_PlayerBase;
+class BF_Proj_Blue_Line extends BF_Proj_PlayerBase;
 
 var ParticleSystemComponent ProjEffects;
 var ParticleSystem ProjFlightTemplate;
@@ -75,10 +75,10 @@ function tick(float DeltaTime)
 
 defaultproperties
 {
-	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Red_Circle'
-	ProjExplosionTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Kill_Bullet'
+	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Blue_LineCircle'
+	//ProjExplosionTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Kill_Bullet'
 	LifeSpan=125
-	DrawScale=5
+	DrawScale=3
 	Damage=10
 	DamageRadius = +10.0
     MomentumTransfer=0
