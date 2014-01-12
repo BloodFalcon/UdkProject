@@ -514,5 +514,5 @@ defaultproperties
 		AbsorbTimer=0
 		RequiredTime=100
 		FireRate=0.5
-		ProjClass=class'BF_Proj_Blue_Circle'
+		ProjClass=class'BF_Proj_Red_Circle'
 }
