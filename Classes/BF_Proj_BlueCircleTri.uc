@@ -75,7 +75,7 @@ function tick(float DeltaTime)
 
 defaultproperties
 {
-	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Blue'
+	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Blue_CircleTri'
 	ProjExplosionTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Kill_Bullet'
 	LifeSpan=125
 	DrawScale=1

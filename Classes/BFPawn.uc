@@ -514,5 +514,5 @@ defaultproperties
 		AbsorbTimer=0
 		RequiredTime=100
 		FireRate=0.5
-		ProjClass=class'BF_Proj_Basic'
+		ProjClass=class'UDKProject.BF_Proj_Basic'
 }

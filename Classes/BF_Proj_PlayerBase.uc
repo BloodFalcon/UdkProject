@@ -21,6 +21,7 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNorma
 	}
 }
 
+
 DefaultProperties
 {
 

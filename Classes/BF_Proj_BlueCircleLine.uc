@@ -8,7 +8,7 @@
 ***************************************/
 
 
-class BF_Proj_Basic extends BF_Proj_PlayerBase;
+class BF_Proj_BlueCircleLine extends BF_Proj_PlayerBase;
 
 var ParticleSystemComponent ProjEffects;
 var ParticleSystem ProjFlightTemplate;
@@ -43,9 +43,9 @@ function SpawnFireEffect()
 	PlaySound(ProjSound1);
 }
 
+
 simulated function Destroyed()
 {
-
 	if (ProjEffects != None)
 	{
 		DetachComponent(ProjEffects);
@@ -69,13 +69,18 @@ simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
 
 function tick(float DeltaTime)
 {
+
 	Velocity = vect(0,-1500,0);
+	//if(Location-900<Camera.Location){
+	//	`log("Logged by eddge of poo nuggetess fasoudaosunjjdkjnfsdfsd");
+	//	self.Destroy();
+	//}
 }
 
 
 defaultproperties
 {
-	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Blue'
+	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Blue_LineCircle'
 	ProjExplosionTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Kill_Bullet'
 	LifeSpan=125
 	DrawScale=1
@@ -96,10 +101,12 @@ defaultproperties
     Components.Add(MyLightEnvironment)
 
     Begin Object class=StaticMeshComponent name=MyMesh
-            StaticMesh=StaticMesh'WP_RocketLauncher.Mesh.S_WP_Rocketlauncher_Rocket_old_lit'
-            LightEnvironment=MyLightEnvironment
-			HiddenGame=true
+        StaticMesh=StaticMesh'BloodFalcon.SM.Round_Bullet'
+        LightEnvironment=MyLightEnvironment
+		HiddenGame=false
+		Scale = 0.025
     End Object
+
     Components.Add(MyMesh)
 	bBlockedByInstigator=false
 	ProjSound1=SoundCue'A_Weapon_Link.Cue.A_Weapon_Link_FireCue'
