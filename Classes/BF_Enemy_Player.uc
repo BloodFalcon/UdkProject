@@ -1,3 +1,11 @@
+/***************************************
+// Author(s): Tyler Keller, Sean Mackey
+// Date: 1/11/2014
+// Status: Alpha
+// Being Used: Yes
+// Description: Holder class for default player pawn and default stats.
+***************************************/
+
 class BF_Enemy_Player extends BF_Enemy_Base;
 
 event PostBeginPlay()

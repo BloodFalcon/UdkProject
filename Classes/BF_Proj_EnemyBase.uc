@@ -1,3 +1,12 @@
+/***************************************
+// Author(s): Tyler Keller, Sean Mackey
+// Date: 1/11/2014
+// Status: Alpha
+// Being Used: Yes
+// Description: Reference extension to reference all enemy projectiles. 
+// Behavior: Depends on projectile for behavior.
+***************************************/
+
 class BF_Proj_EnemyBase extends BF_Proj_Base;
 
 var ParticleSystemComponent ProjEffects;

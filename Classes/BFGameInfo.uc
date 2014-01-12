@@ -1,10 +1,10 @@
-//////////////////////////
-// Author(s): Tyler Keller, Sean Mackey
-// Date: 11/20/2013
+/***************************************
+// Author(s): Tyler Keller
+// Date: 1/11/2014
 // Status: Alpha
 // Being Used: Yes
-// Description: GameInfo for Blood Falcon
-//////////////////////////
+// Description: BloodFalcon world info class.
+***************************************/
 
 class BFGameInfo extends GameInfo;
 

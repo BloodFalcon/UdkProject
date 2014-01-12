@@ -1,7 +1,7 @@
 /***************************************
-// Author(s): Tyler Keller, Dewayne Cameron
+// Author(s): Tyler Keller
 // Date: 12/6/2013
-// Status: Beta
+// Status: Alpha
 // Being Used: Yes
 // Description: HUD for Blood Falcon
 ***************************************/

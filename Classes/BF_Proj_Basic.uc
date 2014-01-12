@@ -3,7 +3,7 @@
 // Date: 1/8/2014
 // Status: Alpha
 // Being Used: Yes
-// Description: Projectile.
+// Description: Default player projectile.
 // Behavior: Straight-shot basic projectile.
 ***************************************/
 

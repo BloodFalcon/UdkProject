@@ -1,3 +1,12 @@
+/***************************************
+// Author(s): Tyler Keller, Sean Mackey
+// Date: 1/11/2014
+// Status: Alpha
+// Being Used: Yes
+// Description: A tough, slower moving, and high fire power enemy. 
+// Behavior: Uses dummy AI.
+***************************************/
+
 class BF_Enemy_Vulcan extends BF_Enemy_Base;
 
 event PostBeginPlay()
