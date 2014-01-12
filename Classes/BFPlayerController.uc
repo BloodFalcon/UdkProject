@@ -17,6 +17,13 @@ function UpdateRotation( float DeltaTime )
 	ProcessViewRotation( DeltaTime, ViewRotation, DeltaRot );
 }
 
+exec function DoSomethingWithEscape()
+{
+	local GFxMoviePlayer PauseMenu;
+	PauseMenu = new class'BF_PauseMenu';
+	PauseMenu.Start();
+}
+
 defaultproperties
 {
 	bIsPlayer=true
