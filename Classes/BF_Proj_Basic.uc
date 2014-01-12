@@ -75,7 +75,7 @@ function tick(float DeltaTime)
 
 defaultproperties
 {
-	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Blue'
+	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Blue_LineCircle'
 	ProjExplosionTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Kill_Bullet'
 	LifeSpan=125
 	DrawScale=1
@@ -95,10 +95,11 @@ defaultproperties
     End Object
     Components.Add(MyLightEnvironment)
 
-    Begin Object class=StaticMeshComponent name=MyMesh
-            StaticMesh=StaticMesh'WP_RocketLauncher.Mesh.S_WP_Rocketlauncher_Rocket_old_lit'
+  Begin Object class=StaticMeshComponent name=MyMesh
+            StaticMesh=StaticMesh'BloodFalcon.SM.Round_Bullet'
             LightEnvironment=MyLightEnvironment
-			HiddenGame=true
+			HiddenGame=false
+			Scale = 0.025
     End Object
     Components.Add(MyMesh)
 	bBlockedByInstigator=false
