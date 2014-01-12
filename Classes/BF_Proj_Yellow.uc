@@ -13,10 +13,10 @@ defaultproperties
 {
 
 	Speed = 550
-	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Yellow_Circle'
+	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Blue_LineCircle'
 	//ProjExplosionTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
 	LifeSpan=5
-	DrawScale=1.5
+	DrawScale=3
 	Damage=10
     MomentumTransfer=0
 	CustomGravityScaling=0

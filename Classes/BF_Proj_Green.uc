@@ -12,10 +12,10 @@ class BF_Proj_Green extends BF_Proj_EnemyBase;
 defaultproperties
 {
 	Speed = 1000
-	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Green'
+	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Blue_TriCircle'
 	//ProjExplosionTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
 	LifeSpan=4
-	DrawScale=1.5
+	DrawScale=3
 	Damage=10
     MomentumTransfer=0
 	CustomGravityScaling=0
