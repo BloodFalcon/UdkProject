@@ -15,6 +15,7 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNorma
 	if (Other != Instigator)
 	{
 		Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);
+		self.Destroy();
 		//if(BossMode){
 			//Explode(HitLocation, HitNormal);
 		//}		
