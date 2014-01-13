@@ -8,6 +8,8 @@
 
 class BFPlayerController extends UDKPlayerController;
 
+//var bool PauseActive;
+
 function UpdateRotation( float DeltaTime )
 {
 	local Rotator	DeltaRot, ViewRotation;
@@ -19,12 +21,19 @@ function UpdateRotation( float DeltaTime )
 
 exec function DoSomethingWithEscape()
 {
-	local GFxMoviePlayer PauseMenu;
-	PauseMenu = new class'BF_PauseMenu';
-	PauseMenu.Start();
+	local BF_PauseMenu PauseMenu;
+
+	if(WorldInfo.Title != "BF_TitleScreen_Map")
+	{
+		//PauseActive = true;
+		PauseMenu = new class'BF_PauseMenu';
+		PauseMenu.Start();
+	}
 }
 
 defaultproperties
 {
 	bIsPlayer=true
+	//PauseActive=false
+
 }
