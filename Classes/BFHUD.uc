@@ -49,11 +49,11 @@ function drawHUD()
 	Canvas.SetPos(0,0);
 	Canvas.DrawTile(BFUI, 1920*RatX, 1080*RatY, 0, 0, 1920, 1080);
 	
-if(MeterFull<MeterIncrement){
-MeterIncrement-=0.005;
-}else{
-MeterIncrement=MeterFull;
-}
+	if(MeterFull<MeterIncrement){
+	MeterIncrement-=0.005;
+	}else{
+	MeterIncrement=MeterFull;
+	}
 	Canvas.SetPos(0,0);
 	Canvas.DrawTile(BloodMeterBlack, 1024*RatX, 1024*RatY*MeterIncrement, 0, 0, 1024, 1024*MeterIncrement,,true);
 	super.drawHUD();
@@ -64,6 +64,8 @@ function CalcScale()
 {
 	RatX = SizeX/OldHUDX;
 	RatY = SizeY/OldHUDY;
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RatX=RatX;
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RatY=RatY;
 	MeterFull = (10-BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter)/10;
 }
 

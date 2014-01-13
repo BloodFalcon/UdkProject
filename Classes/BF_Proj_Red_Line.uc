@@ -79,7 +79,7 @@ defaultproperties
 	//ProjExplosionTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Kill_Bullet'
 	LifeSpan=125
 	DrawScale=3
-	Damage=10
+	Damage=3
 	DamageRadius = +10.0
     MomentumTransfer=0
 	CustomGravityScaling=0
