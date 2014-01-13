@@ -14,8 +14,6 @@ var float TimeIncrement;
 var float Time;
 var bool bDrain;
 var bool R;
-var float RatX;
-var float RatY;
 
 
 function BulletTime(byte ModeNum)

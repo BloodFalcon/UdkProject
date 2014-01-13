@@ -64,8 +64,6 @@ function CalcScale()
 {
 	RatX = SizeX/OldHUDX;
 	RatY = SizeY/OldHUDY;
-	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RatX=RatX;
-	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RatY=RatY;
 	MeterFull = (10-BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter)/10;
 }
 
