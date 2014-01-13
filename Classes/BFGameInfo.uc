@@ -13,6 +13,7 @@ var byte modeBulletTime;
 var float TimeIncrement;
 var float Time;
 var bool bDrain;
+var bool R;
 
 function BulletTime(byte ModeNum)
 {
@@ -36,6 +37,7 @@ function tick(float DeltaTime)
 		}
 	}
 
+
 	if(modeBulletTime==0){
 		TimeIncrement=3;
 	}
@@ -51,7 +53,6 @@ function tick(float DeltaTime)
 		SetGameSpeed(GameSpeed);
 		TimeIncrement-=0.0005;	
 		bDrain=false;
-		/////////AbsorbBeam.DeactivateSystem();
 		if(BloodMeter>=9.5){
 			BloodMeter=10;
 		}
@@ -80,4 +81,5 @@ defaultproperties
 	Time=0
 	bDrain=false
 	BloodMeter=0
+	R=false
 }

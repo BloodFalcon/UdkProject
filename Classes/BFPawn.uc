@@ -219,38 +219,35 @@ function BeamScreenBounds() //Need to add AspectRation offset
 
 function AbsorbSuccess()
 {
-
 	AbsorbTimer = 0;
 	if(TargetEnemy.Class==CS.Current.SoulClass){
 		TargetEnemy.LevelUp(CS.Current.Level);
 		CS.Current = TargetEnemy.NPCInfo;
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
 	}else{
 		if(TargetEnemy!=none){
 			if(TargetEnemy.Class!=CS.B1.SoulClass && TargetEnemy.Class!=CS.B2.SoulClass && TargetEnemy.Class!=CS.B3.SoulClass){ 
 				if(CS.B1.SoulClass==class'BF_Enemy_Player'){
 					CS.B1 = CS.Current;
 					CS.Current = TargetEnemy.NPCInfo;
+					BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
 				}else if(CS.B2.SoulClass==class'BF_Enemy_Player'){
 					CS.B2 = CS.Current;
 					CS.Current = TargetEnemy.NPCInfo;
+					BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
 				}else if(CS.B3.SoulClass==class'BF_Enemy_Player'){
 					CS.B3 = CS.Current;
 					CS.Current = TargetEnemy.NPCInfo;
+					BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
 				}else{ 
 
 				}
-			//`log("BAYSSSSBITCCHESSSSSSSS");
-			//`log(CS.B1.SoulClass);
-			//`log(CS.B2.SoulClass);
-			//`log(CS.B3.SoulClass);
-			//`log(CS.Current.SoulClass);
-			//`log("BAYSSSSBITCCHESSSSSSSS");
 			}
 		}
 	}
-
 	UpdatePlayer();
 	TargetEnemy.Destroy();
+	BeamFire=false;
 	KillBeam();
 }
 
@@ -267,7 +264,9 @@ function UpdatePlayer()
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R==false){
 		RespawnPlayer();
+	}
 }
 
 
@@ -276,24 +275,25 @@ function RespawnPlayer()
 	BeamFire = false;
 	if(	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>0){
 		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter = 0;
-	}else{
-		if(FlickerCount<20){
-			if(FlickerCount==0){
-				WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);
-				PlaySound(DeathSound);
-				Self.SetLocation(vect(-7040,-892,46130));
-				KillBeam();
-			}
-			if(self.bHidden){
-				self.SetHidden(false);
-			}else{
-				self.SetHidden(true);
-			}
-			FlickerCount++;
-			SetTimer(0.3,false,'RespawnPlayer',);
-		}else{
-			FlickerCount = 0;
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R=true;
+	}
+	if(FlickerCount<20){
+		if(FlickerCount==0){
+			WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);
+			PlaySound(DeathSound);
+			Self.SetLocation(vect(-7040,-892,46130));
+			KillBeam();
 		}
+		if(self.bHidden){
+			self.SetHidden(false);
+		}else{
+			self.SetHidden(true);
+		}
+		FlickerCount++;
+		SetTimer(0.3,false,'RespawnPlayer',);
+	}else{
+		FlickerCount=0;
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R=false;
 	}
 }
 
@@ -333,26 +333,26 @@ exec function SwitchBay3()
 }//KeyBinds
 
 
-simulated function Rotator GetAdjustedAimFor(Weapon W, vector StartFireLoc)
-{
-	local Vector SocketLocation;
-	local Rotator SocketRotation;
-	local Player_Weap_Basic PlayerWeap;
-	local SkeletalMeshComponent WeaponSkeletalMeshComponent;
+//simulated function Rotator GetAdjustedAimFor(Weapon W, vector StartFireLoc)
+//{
+//	local Vector SocketLocation;
+//	local Rotator SocketRotation;
+//	local Player_Weap_Basic PlayerWeap;
+//	local SkeletalMeshComponent WeaponSkeletalMeshComponent;
 
-	PlayerWeap = Player_Weap_Basic(Weapon);
-	if (PlayerWeap != None)
-	{
-		WeaponSkeletalMeshComponent = SkeletalMeshComponent(PlayerWeap.Mesh);
-		if (WeaponSkeletalMeshComponent != None && WeaponSkeletalMeshComponent.GetSocketByName(PlayerWeap.MuzzleSocketName) != None)
-		{			
-			WeaponSkeletalMeshComponent.GetSocketWorldLocationAndRotation(PlayerWeap.MuzzleSocketName, SocketLocation, SocketRotation);
-			return SocketRotation;
-		}
-	}
+//	PlayerWeap = Player_Weap_Basic(Weapon);
+//	if (PlayerWeap != None)
+//	{
+//		WeaponSkeletalMeshComponent = SkeletalMeshComponent(PlayerWeap.Mesh);
+//		if (WeaponSkeletalMeshComponent != None && WeaponSkeletalMeshComponent.GetSocketByName(PlayerWeap.MuzzleSocketName) != None)
+//		{			
+//			WeaponSkeletalMeshComponent.GetSocketWorldLocationAndRotation(PlayerWeap.MuzzleSocketName, SocketLocation, SocketRotation);
+//			return SocketRotation;
+//		}
+//	}
 
-	return Rotation;
-}
+//	return Rotation;
+//}
 
 
 simulated function StartFire(byte FireModeNum)
