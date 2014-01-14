@@ -40,14 +40,17 @@ DefaultProperties
 	bBlockActors = false
 	bCollideActors = true
 	bCollideWorld = true
+	bCanBeBaseForPawns=true
 	Begin Object Class=SkeletalMeshComponent Name=BMMesh
+		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.testboss'
+		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.testboss_Physics'
 		HiddenGame=false
 		HiddenEditor=false
 		BlockNonZeroExtent=true
 		BlockZeroExtent=true
 		BlockActors=true
 		CollideActors=true
-		Scale=1
+		Scale=10
     End Object 
 	Mesh=BMMesh
 	Components.Add(BMMesh)
