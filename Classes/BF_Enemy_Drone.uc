@@ -1,5 +1,6 @@
 class BF_Enemy_Drone extends BF_Enemy_Base;
 
+
 event PostBeginPlay()
 {
 	NPCInfo.FireRate=0.4;
@@ -11,6 +12,7 @@ event PostBeginPlay()
 	NPCInfo.Speed=500;
 	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0), );
 }
+
 
 function LevelUp(byte CurLevel)
 {
@@ -24,6 +26,7 @@ function LevelUp(byte CurLevel)
 		NPCInfo.FireRate=0.075;
 	}
 }
+
 
 DefaultProperties
 {

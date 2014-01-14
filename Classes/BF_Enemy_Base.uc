@@ -2,7 +2,6 @@ class BF_Enemy_Base extends UDKPawn
 	dependson(BFPawn)
 	placeable;
 
-var BFPawn OurPlayer;
 var int EnemyAbsorbTime;
 var ParticleSystem EngineFire, DeathExplosion, ProjHitEffect;
 var SoundCue DeathSound;
@@ -15,11 +14,7 @@ var byte EnemyHitFlash;
 event PostBeginPlay()
 {
     super.PostBeginPlay();
-	SetPhysics(PHYS_Flying); // wake the physics up
-	// set up collision detection based on mesh's PhysicsAsset
-	CylinderComponent.SetActorCollision(false, false); // disable cylinder collision
-	Mesh.SetActorCollision(true, true); // enable PhysicsAsset collision
-	Mesh.SetTraceBlocking(true, true); // block traces (i.e. anything touching mesh)
+	CylinderComponent.SetActorCollision(false, false); 
 	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0));	
 }
 
@@ -88,7 +83,6 @@ event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vect
 
 DefaultProperties
 {
-	LandMovementState=PlayerFlying
 	EngineFire = ParticleSystem'BloodFalcon.ParticleSystem.Gunship_Exhaust'
 	DeathExplosion = ParticleSystem'FX_VehicleExplosions.Effects.P_FX_VehicleDeathExplosion'
 	ProjHitEffect = ParticleSystem'BloodFalcon.ParticleSystem.EnemyHitSmokeFire'
@@ -112,16 +106,13 @@ DefaultProperties
   //  Mesh=EP1Mesh 
   //  Components.Add(EP1Mesh)
     ControllerClass=class'UdkProject.BF_AI_Gunship'
- 
     bJumpCapable=false
     bCanJump=false
-
 	BlockRigidBody=false
 	bBlockActors = false
 	bCollideActors = true
 	bCollideWorld = true
 	CollisionType=COLLIDE_TouchAll
 	CylinderComponent=CollisionCylinder
-	AirSpeed=300
 	EnemyHitFlash=0;
 }
