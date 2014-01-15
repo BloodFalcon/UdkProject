@@ -1,10 +1,15 @@
 class BF_Boss_A1_1 extends BF_Boss_Aux;
 
-
 event PostBeginPlay()
 {
 }
 
+event tick(float DeltaTime)
+{
+
+self.SetRotation(RotRand());
+
+}
 
 DefaultProperties
 {
@@ -21,4 +26,5 @@ DefaultProperties
     End Object 
 	Mesh=A11Mesh
 	Components.Add(A11Mesh)
+	bIgnoreForces=true
 }
