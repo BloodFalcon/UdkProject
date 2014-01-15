@@ -19,8 +19,6 @@ event Activated()
 		if(Boss.Mesh.GetSocketByName('W1')!=none){
 			Boss.Mesh.GetSocketWorldLocationAndRotation('W1',SockLoc,SockRot);
 			A = Boss.Spawn(AuxType1,Boss,,SockLoc,SockRot,,);
-			AuxAtt=A;
-			BossBody=Boss;
 			OutputLinks[0].bHasImpulse=true;
 
 		//}

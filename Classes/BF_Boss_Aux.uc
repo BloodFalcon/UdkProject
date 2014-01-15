@@ -1,4 +1,4 @@
-class BF_Boss_Aux extends UDKPawn
+class BF_Boss_Aux extends BF_Enemy_Base
 	dependson(BF_Boss_Main)
 	placeable;
 
