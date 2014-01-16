@@ -15,7 +15,7 @@ defaultproperties
 	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Blue_Circle'
 	//ProjExplosionTemplate=ParticleSystem'Envy_Effects.Particles.P_JumpBoot_Effect'
 	LifeSpan=4
-	DrawScale=1
+	DrawScale=2.5
 	Damage=10
     MomentumTransfer=0
 	CustomGravityScaling=0
