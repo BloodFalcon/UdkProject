@@ -1,4 +1,4 @@
-class BF_Boss_A1_1 extends BF_Boss_Aux;
+class BF_Boss_Gun_1 extends BF_Boss_Aux;
 
 event PostBeginPlay()
 {

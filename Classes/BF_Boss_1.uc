@@ -1,4 +1,4 @@
-class BF_Boss_M1 extends BF_Boss_Main;
+class BF_Boss_1 extends BF_Boss_Main;
 
 event PostBeginPlay()
 {
