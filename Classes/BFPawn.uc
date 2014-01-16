@@ -21,7 +21,7 @@ struct SoulVars
 
 	structdefaultproperties
 	{
-		FireRate=0.5
+		FireRate=0.4
 		SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
 		ProjClass=class'BF_Proj_Red_Circle'
 		SoulClass=class'BF_Enemy_Player'
@@ -513,6 +513,6 @@ defaultproperties
 		TargetEnemy = none	
 		AbsorbTimer=0
 		RequiredTime=100
-		FireRate=0.5
+		FireRate=0.4
 		ProjClass=class'BF_Proj_Red_Circle'
 }
