@@ -2,12 +2,13 @@ class BF_Boss_A1_1 extends BF_Boss_Aux;
 
 event PostBeginPlay()
 {
+	super.PostBeginPlay();
 }
 
 event tick(float DeltaTime)
 {
-
-self.SetRotation(RotRand());
+super.tick(DeltaTime);
+//self.SetRotation(RotRand());
 
 }
 
