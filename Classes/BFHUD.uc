@@ -18,6 +18,7 @@ var Texture2D BFTemplate;
 var Texture2D LightOn;
 var Texture2D LightOff;
 var Texture2D BloodMeterBlack;
+var Texture2D BayDoor1, BayDoor2, BayDoor3;
 //var Texture2D PlayerShipIcon;
 var MultiFont BF_Font;
 //var bool PlayerDead;
@@ -56,6 +57,13 @@ function drawHUD()
 	}
 	Canvas.SetPos(0,0);
 	Canvas.DrawTile(BloodMeterBlack, 1024*RatX, 1024*RatY*MeterIncrement, 0, 0, 1024, 1024*MeterIncrement,,true);
+
+	Canvas.SetPos(1490*RatX,921*RatY);
+	Canvas.DrawTile(BayDoor1, 140*RatX, 140*RatY/*MeterIncrement*/, 0, 0, 140, 140/*MeterIncrement*/,,true);
+	Canvas.SetPos(1630*RatX,921*RatY);
+		Canvas.DrawTile(BayDoor2, 140*RatX, 140*RatY/*MeterIncrement*/, 0, 0, 140, 140/*MeterIncrement*/,,true);
+	Canvas.SetPos(1770*RatX,921*RatY);
+			Canvas.DrawTile(BayDoor3, 140*RatX, 140*RatY/*MeterIncrement*/, 0, 0, 140, 140/*MeterIncrement*/,,true);
 	super.drawHUD();
 }
 
@@ -94,6 +102,9 @@ DefaultProperties
 	BFTemplate = Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
 	LightOn = Texture2D'BloodFalcon.Texture.LightOn'
 	LightOff = Texture2D'BloodFalcon.Texture.LightOff'
+	BayDoor1 = Texture2D'BF_HUD_Assets.Textures.BayDoor1'
+	BayDoor2 = Texture2D'BF_HUD_Assets.Textures.BayDoor2'
+	BayDoor3 = Texture2D'BF_HUD_Assets.Textures.BayDoor3'
 	//BF_Font = MultiFont'UI_Fonts_Final.menus.Fonts_AmbexHeavy'
 	//BloodMeterRed = Texture2D'BF_HUD_Assets.Textures.BloodMeterRed'
 	BloodMeterBlack = Texture2D'BF_HUD_Assets.Textures.BloodMeterBlack'
