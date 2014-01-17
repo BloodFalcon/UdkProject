@@ -82,13 +82,17 @@ event Tick(float DeltaTime)
 	local Vector HitLocation, HitNormal;
 	local Actor TracedEnemyAct;
 	local UDKPawn TracedEnemy;
-	//CustomTimeDilation = 2/BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameSpeed; //Remove if you'd like the pawn to follow world speed.
+	Health=100000;
 	Mesh.SetScale(CS.Current.Size);
 	GroundSpeed=(CS.Current.Speed*2);
 	BeamStartLoc = Location;
 	BeamEndLoc = Location + BeamOffset;
 	
-	//`log("INTERRUPTING COW: "@CS.Current);
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameSpeed<1){
+		CustomTimeDilation=((1/(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameSpeed)*0.75)); //Edit the decimal to change absorb flight speed
+	}else{
+		CustomTimeDilation=1;
+	}
 
 	if(AbsorbTimer<RequiredTime) //If you havent held the Absorb for the required time yet
 	{
@@ -334,28 +338,6 @@ exec function SwitchBay3()
 }//KeyBinds
 
 
-//simulated function Rotator GetAdjustedAimFor(Weapon W, vector StartFireLoc)
-//{
-//	local Vector SocketLocation;
-//	local Rotator SocketRotation;
-//	local Player_Weap_Basic PlayerWeap;
-//	local SkeletalMeshComponent WeaponSkeletalMeshComponent;
-
-//	PlayerWeap = Player_Weap_Basic(Weapon);
-//	if (PlayerWeap != None)
-//	{
-//		WeaponSkeletalMeshComponent = SkeletalMeshComponent(PlayerWeap.Mesh);
-//		if (WeaponSkeletalMeshComponent != None && WeaponSkeletalMeshComponent.GetSocketByName(PlayerWeap.MuzzleSocketName) != None)
-//		{			
-//			WeaponSkeletalMeshComponent.GetSocketWorldLocationAndRotation(PlayerWeap.MuzzleSocketName, SocketLocation, SocketRotation);
-//			return SocketRotation;
-//		}
-//	}
-
-//	return Rotation;
-//}
-
-
 simulated function StartFire(byte FireModeNum)
 {	
 	CurFire = true;
@@ -498,7 +480,7 @@ defaultproperties
         Components.Add(MyMesh)
         Mesh=MyMesh
 		FirstRun=True
-		Health=1000
+		Health=100000
 		BlockRigidBody=true
 		bBlockActors = true
 		bCollideActors = true

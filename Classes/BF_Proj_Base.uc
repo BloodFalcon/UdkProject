@@ -10,6 +10,7 @@ class BF_Proj_Base extends UDKProjectile;
 
 var ParticleSystemComponent ProjEffects;
 var ParticleSystem ProjFlightTemplate;
+var float Time;
 
 simulated function PostBeginPlay()
 {
@@ -31,6 +32,19 @@ simulated event SpawnFlightEffects()
   AttachComponent(ProjEffects);
   }
 }
+
+
+//function tick(float DeltaTime) //Never runs for some reason...
+//{
+//	local bool bDeath;
+//	Time+=DeltaTime;
+//	`log(Time);
+//	if(Time>=5){
+//		bDeath=self.Destroy();
+//		WorldInfo.MyEmitterPool.ClearPoolComponents(false);
+//		`log(bDeath);
+//	}
+//}
 
 
 simulated function Destroyed()
@@ -59,7 +73,7 @@ simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
 
 DefaultProperties
 {
-	LifeSpan=60
+	LifeSpan=2
 	DamageRadius=10.0
     MomentumTransfer=0
 	CustomGravityScaling=0

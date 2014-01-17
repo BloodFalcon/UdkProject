@@ -10,7 +10,7 @@ event PostBeginPlay()
 	NPCInfo.Level=0;
 	NPCInfo.Size=1;
 	NPCInfo.Speed=500;
-	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0), );
+	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0), );
 }
 
 

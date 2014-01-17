@@ -18,7 +18,7 @@ event PostBeginPlay()
 	NPCInfo.Level=0;
 	NPCInfo.Size=1.5;
 	NPCInfo.Speed=800;
-	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(-1,0,0));
+	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(-1,0,0));
 }
 
 function LevelUp(byte CurLevel)

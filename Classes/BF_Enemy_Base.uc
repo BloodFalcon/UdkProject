@@ -3,7 +3,8 @@ class BF_Enemy_Base extends UDKPawn
 	placeable;
 
 var int EnemyAbsorbTime;
-var ParticleSystem EngineFire, DeathExplosion, ProjHitEffect;
+var ParticleSystem EngineFire, DeathExplosion, ProjHitEffect, AbsorbRed, AbsorbYellow, AbsorbGreen;
+var ParticleSystemComponent AbsorbRing;
 var SoundCue DeathSound;
 //var class<BF_Proj_Base> ProjClass;
 //var float FireRate;
@@ -15,24 +16,31 @@ event PostBeginPlay()
 {
     super.PostBeginPlay();
 	CylinderComponent.SetActorCollision(false, false); 
-	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0));	
+	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0));	
 }
 
 
 event tick(float DeltaTime)
 {
-	//if(AbsorbRing!=none){
-	//	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameSpeed<1){
-	//		if(ARH==none){
-	//			ARH=WorldInfo.MyEmitterPool.SpawnEmitter(AbsorbRing, self.Location,,self,,,);
-	//		}
-	//	}else{
-	//		if(ARH!=none){
-	//			ARH.SetKillOnDeactivate(1,true);
-	//			ARH.DeactivateSystem();
-	//		}
-	//	}
-	//}
+	//`log(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameSpeed);
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameSpeed<1){
+		if(AbsorbRing==none){
+			if(WorldInfo.NetMode != NM_DedicatedServer){
+				AbsorbRing = new class'ParticleSystemComponent';
+				AbsorbRing.SetTemplate(AbsorbRed);
+				AbsorbRing.SetScale(0.6);
+				AbsorbRing.SetAbsolute(false, True, True);
+				AbsorbRing.SetLODLevel(WorldInfo.bDropDetail ? 1 : 0);
+				AbsorbRing.bUpdateComponentInTick = true;
+				AttachComponent(AbsorbRing);
+			}
+		}
+	}else if(AbsorbRing!=none){
+		//`log(name@": Murdered");
+		AbsorbRing.SetKillOnDeactivate(0,true);
+		AbsorbRing.DeactivateSystem();
+		AbsorbRing=none;
+	}
 }
 
 
@@ -104,7 +112,9 @@ DefaultProperties
 	DeathExplosion = ParticleSystem'FX_VehicleExplosions.Effects.P_FX_VehicleDeathExplosion'
 	ProjHitEffect = ParticleSystem'BloodFalcon.ParticleSystem.EnemyHitSmokeFire'
 	DeathSound = SoundCue'A_Vehicle_Scorpion.SoundCues.A_Vehicle_Scorpion_Eject_Cue'
-
+	AbsorbRed = ParticleSystem'BF_Robert.ParticleSystem.AbsorbRed'
+	AbsorbYellow = ParticleSystem'BF_Robert.ParticleSystem.AbsorbYellow'
+	AbsorbGreen = ParticleSystem'BF_Robert.ParticleSystem.AbsorbGreen'
   //  Begin Object Name=CollisionCylinder
 		//CollisionRadius=+100.000000
 		//CollisionHeight=+44.000000
