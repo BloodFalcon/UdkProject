@@ -1,19 +1,29 @@
 class BF_AI_Boss_1 extends UDKBot;
 
+var Actor Target;
+
 event Possess(Pawn inPawn, bool bVehicleTransition)
 {
     super.Possess(inPawn, bVehicleTransition);
+    Pawn.SetMovementPhysics();
 }
 
-event tick(float DeltaTime)
+auto state Idle
 {
-	local float Time;
-	super.Tick(DeltaTime);
-	Time+=DeltaTime;
-	if(Time>=1){
-	Move(vect(50,50,0));
-	Time=0;
-	}
+ event SeePlayer(Pawn Seen)
+ {
+ super.SeePlayer(Seen);
+ Target = Seen;
+ GotoState('Following');
+ }
+ Begin:
+}
+
+state Following
+{
+ Begin:
+ MoveToward(Target, Target, 1000);
+ goto 'Begin';
 }
 
 DefaultProperties

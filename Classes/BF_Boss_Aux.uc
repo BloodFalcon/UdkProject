@@ -19,6 +19,7 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 {
 	Health-=Damage;
 	if(Health<=0){
+		BossBase.Health=(BossBase.Health/2);
 		Destroy();
 	}
 }

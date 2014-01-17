@@ -5,6 +5,14 @@ event PostBeginPlay()
 	CylinderComponent.SetActorCollision(false, false); 
 }
 
+event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
+{
+	`log(Health);
+	Health-=Damage;
+	if(Health<=0){
+		Destroy();
+	}
+}
 
 function tick(float DeltaTime)
 {
