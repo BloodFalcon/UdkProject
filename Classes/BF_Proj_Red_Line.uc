@@ -10,62 +10,6 @@
 
 class BF_Proj_Red_Line extends BF_Proj_PlayerBase;
 
-var ParticleSystemComponent ProjEffects;
-var ParticleSystem ProjFlightTemplate;
-var ParticleSystem ProjExplosionTemplate;
-var SoundCue ProjSound1;
-
-simulated function PostBeginPlay()
-{
-	Super.PostBeginPlay();
-	SetPhysics(PHYS_Projectile); 
-	SpawnFlightEffects();
-	SpawnFireEffect();
-}
-
-
-simulated function SpawnFlightEffects()
-{
-	if (WorldInfo.NetMode != NM_DedicatedServer && ProjFlightTemplate != None)
-	{
-		ProjEffects = WorldInfo.MyEmitterPool.SpawnEmitterCustomLifetime(ProjFlightTemplate);
-		ProjEffects.SetAbsolute(false, false, false);
-		ProjEffects.SetLODLevel(WorldInfo.bDropDetail ? 1 : 0);
-		ProjEffects.OnSystemFinished = MyOnParticleSystemFinished;
-		ProjEffects.bUpdateComponentInTick = true;
-		AttachComponent(ProjEffects);
-	}
-}
-
-
-function SpawnFireEffect()
-{
-	PlaySound(ProjSound1);
-}
-
-simulated function Destroyed()
-{
-
-	if (ProjEffects != None)
-	{
-		DetachComponent(ProjEffects);
-		WorldInfo.MyEmitterPool.OnParticleSystemFinished(ProjEffects);
-		ProjEffects = None;
-	}
-	super.Destroyed();
-}
-
-
-simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
-{
-	if (PSC == ProjEffects)
-	{
-		DetachComponent(ProjEffects);
-		WorldInfo.MyEmitterPool.OnParticleSystemFinished(ProjEffects);
-		ProjEffects = None;
-	}
-}
-
 
 function tick(float DeltaTime)
 {
@@ -76,32 +20,6 @@ function tick(float DeltaTime)
 defaultproperties
 {
 	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Red_LineCircle'
-	//ProjExplosionTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Kill_Bullet'
-	LifeSpan=125
 	DrawScale=3
-	Damage=3
-	DamageRadius = +10.0
-    MomentumTransfer=0
-	CustomGravityScaling=0
-	Physics = PHYS_Projectile
-
-    Begin Object Name=CollisionCylinder
-            CollisionRadius=8
-            CollisionHeight=16
-    End Object
-
-    Begin Object class=DynamicLightEnvironmentComponent name=MyLightEnvironment
-            bEnabled=true
-    End Object
-    Components.Add(MyLightEnvironment)
-
-  Begin Object class=StaticMeshComponent name=MyMesh
-            StaticMesh=StaticMesh'BloodFalcon.SM.Round_Bullet'
-            LightEnvironment=MyLightEnvironment
-			HiddenGame=true
-			Scale = 0.025
-    End Object
-    Components.Add(MyMesh)
-	bBlockedByInstigator=false
-	ProjSound1=SoundCue'A_Weapon_Link.Cue.A_Weapon_Link_FireCue'
+	Damage=5
 }

@@ -187,6 +187,7 @@ function DrawBeam()
 function FireWeaps()
 {
 	Spawn(ProjClass,self,,self.Location,self.Rotation);
+	WorldInfo.MyEmitterPool.ClearPoolComponents(false);
 }
 
 
@@ -513,6 +514,6 @@ defaultproperties
 		TargetEnemy = none	
 		AbsorbTimer=0
 		RequiredTime=100
-		FireRate=0.4
+		FireRate=0.01
 		ProjClass=class'BF_Proj_Red_Circle'
 }

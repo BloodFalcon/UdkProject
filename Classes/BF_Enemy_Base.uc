@@ -19,6 +19,23 @@ event PostBeginPlay()
 }
 
 
+event tick(float DeltaTime)
+{
+	//if(AbsorbRing!=none){
+	//	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameSpeed<1){
+	//		if(ARH==none){
+	//			ARH=WorldInfo.MyEmitterPool.SpawnEmitter(AbsorbRing, self.Location,,self,,,);
+	//		}
+	//	}else{
+	//		if(ARH!=none){
+	//			ARH.SetKillOnDeactivate(1,true);
+	//			ARH.DeactivateSystem();
+	//		}
+	//	}
+	//}
+}
+
+
 function LevelUp(byte CurLevel){}
 
 

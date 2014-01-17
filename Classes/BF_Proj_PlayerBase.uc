@@ -9,21 +9,19 @@
 
 class BF_Proj_PlayerBase extends BF_Proj_Base;
 
+
 simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNormal)
 {
-
 	if (Other != Instigator)
 	{
 		Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);
-		self.Destroy();
-		//if(BossMode){
-			//Explode(HitLocation, HitNormal);
-		//}		
+		self.Destroy();	
 	}
 }
 
 
 DefaultProperties
 {
-
+	Speed = 750
+	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Red_Circle'
 }
