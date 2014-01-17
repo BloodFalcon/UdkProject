@@ -69,7 +69,7 @@ simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
 
 function tick(float DeltaTime)
 {
-	Velocity = vect(0,-1500,0);
+	//Velocity = vect(0,-1500,0);
 }
 
 
@@ -78,7 +78,7 @@ defaultproperties
 	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Blue_Circle'
 	//ProjExplosionTemplate=ParticleSystem'BloodFalcon.ParticleSystem.Kill_Bullet'
 	LifeSpan=125
-	DrawScale=1
+	DrawScale=1.5
 	Damage=10
 	DamageRadius = +10.0
     MomentumTransfer=0

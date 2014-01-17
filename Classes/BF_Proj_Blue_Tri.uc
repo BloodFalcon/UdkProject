@@ -70,7 +70,7 @@ simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
 function tick(float DeltaTime)
 {
 	SetRotation(RotRand());
-	Velocity = vect(0,-1500,0);
+	//Velocity = vect(0,-1500,0);
 }
 
 

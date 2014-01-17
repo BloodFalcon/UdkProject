@@ -69,7 +69,7 @@ simulated function MyOnParticleSystemFinished(ParticleSystemComponent PSC)
 
 function tick(float DeltaTime)
 {
-	Velocity = vect(0,-1500,0);
+	//Velocity = vect(0,-1500,0);
 }
 
 
