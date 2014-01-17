@@ -33,7 +33,7 @@ event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vect
 DefaultProperties
 {
 	Health=20000
-	GroundSpeed=200
+	GroundSpeed=50
 	CollisionType=COLLIDE_TouchAll
     bJumpCapable=false
     bCanJump=false
@@ -42,17 +42,17 @@ DefaultProperties
 	bCollideActors = true
 	bCollideWorld = true
 	bCanBeBaseForPawns=true
-	Begin Object Class=SkeletalMeshComponent Name=BMMesh
-		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.testboss'
-		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.testboss_Physics'
-		HiddenGame=false
-		HiddenEditor=false
-		BlockNonZeroExtent=true
-		BlockZeroExtent=true
-		BlockActors=true
-		CollideActors=true
-		Scale=10
-    End Object 
-	Mesh=BMMesh
-	Components.Add(BMMesh)
+	//Begin Object Class=SkeletalMeshComponent Name=BMMesh
+	//	SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.testboss'
+	//	PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.testboss_Physics'
+	//	HiddenGame=false
+	//	HiddenEditor=false
+	//	BlockNonZeroExtent=true
+	//	BlockZeroExtent=true
+	//	BlockActors=true
+	//	CollideActors=true
+	//	Scale=10
+ //   End Object 
+	//Mesh=BMMesh
+	//Components.Add(BMMesh)
 }

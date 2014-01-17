@@ -27,15 +27,15 @@ DefaultProperties
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.testboss_Physics'
 		HiddenGame=false
 		HiddenEditor=false
-		BlockNonZeroExtent=true
-		BlockZeroExtent=true
-		BlockActors=true
-		CollideActors=true
+		BlockNonZeroExtent=false
+		BlockZeroExtent=False
+		BlockActors=false
+		CollideActors=false
 		Scale=10
     End Object 
 	Mesh=M1Mesh
 	Components.Add(M1Mesh)
-    ControllerClass=class'UdkProject.BF_AI_Gunship'
+    ControllerClass=class'UdkProject.BF_AI_Boss_1'
     bJumpCapable=false
     bCanJump=false
 	BlockRigidBody=false
@@ -44,4 +44,6 @@ DefaultProperties
 	bCollideWorld = true
 	CollisionType=COLLIDE_TouchAll
 	GroundSpeed=1000
+	AccelRate=10000
+	Acceleration=10000
 }

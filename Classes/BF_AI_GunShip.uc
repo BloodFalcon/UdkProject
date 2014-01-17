@@ -24,5 +24,5 @@ function OnAIStartFireAt(UTSeqAct_AIStartFireAt FireAction){
 
 defaultproperties
 {
-FM = 1
+	FM=1
 }
