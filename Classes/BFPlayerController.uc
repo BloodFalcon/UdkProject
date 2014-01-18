@@ -8,9 +8,9 @@
 
 class BFPlayerController extends UDKPlayerController;
 
-<<<<<<< HEAD
+
 //var bool PauseMenu;
-=======
+
 //var bool PauseActive;
 var PostProcessSettings blurSettings;
 
@@ -31,7 +31,7 @@ var PostProcessSettings blurSettings;
 //    LocalPlayer(Player).OverridePostProcessSettings(blurSettings,10.f);
 //}
 
->>>>>>> ea73641d3610a26c40b52d04c5d57f488ab4d03a
+
 
 function UpdateRotation( float DeltaTime )
 {
