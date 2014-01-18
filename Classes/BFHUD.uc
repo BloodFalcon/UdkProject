@@ -59,11 +59,11 @@ function drawHUD()
 	Canvas.DrawTile(BloodMeterBlack, 1024*RatX, 1024*RatY*MeterIncrement, 0, 0, 1024, 1024*MeterIncrement,,true);
 
 	Canvas.SetPos(1490*RatX,921*RatY);
-	Canvas.DrawTile(BayDoor1, 140*RatX, 140*RatY/*MeterIncrement*/, 0, 0, 140, 140/*MeterIncrement*/,,true);
+	Canvas.DrawTile(BayDoor1, 140*RatX, 140*RatY*MeterIncrement, 0, 0, 140, 140*MeterIncrement,,true);
 	Canvas.SetPos(1630*RatX,921*RatY);
-		Canvas.DrawTile(BayDoor2, 140*RatX, 140*RatY/*MeterIncrement*/, 0, 0, 140, 140/*MeterIncrement*/,,true);
+	Canvas.DrawTile(BayDoor2, 140*RatX, 140*RatY*MeterIncrement, 0, 0, 140, 140*MeterIncrement,,true);
 	Canvas.SetPos(1770*RatX,921*RatY);
-			Canvas.DrawTile(BayDoor3, 140*RatX, 140*RatY/*MeterIncrement*/, 0, 0, 140, 140/*MeterIncrement*/,,true);
+	Canvas.DrawTile(BayDoor3, 140*RatX, 140*RatY*MeterIncrement, 0, 0, 140, 140*MeterIncrement,,true);
 	super.drawHUD();
 }
 

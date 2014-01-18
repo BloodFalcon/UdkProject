@@ -27,7 +27,7 @@ function LevelUp(byte CurLevel)
 
 DefaultProperties
 {
-	Health = 30
+	Health=30
     Begin Object Class=SkeletalMeshComponent Name=EP2Mesh
         SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_W3'
 		//PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Drone_W3_Physics'
@@ -37,7 +37,7 @@ DefaultProperties
 		BlockZeroExtent=true
 		BlockActors=false
 		CollideActors=true
-		Scale = 1
+		Scale=1
     End Object
 	Mesh=EP2Mesh
 	Components.Add(EP2Mesh)

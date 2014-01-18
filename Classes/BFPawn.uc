@@ -18,6 +18,7 @@ struct SoulVars
 	var float Size;
 	var float Speed;
 	var bool bFXEnabled;
+	var bool Closed;
 
 	structdefaultproperties
 	{
@@ -28,6 +29,7 @@ struct SoulVars
 		Size=1.5
 		Speed=700
 		bFXEnabled=true
+		Closed=false
 	}
 };
 
@@ -114,7 +116,7 @@ event Tick(float DeltaTime)
 			DrawBeam();
 			if(TargetEnemy == none){
 				TargetEnemy = BF_Enemy_Base(TracedEnemy); //Locks in your first traced enemy until you try to trace again
-				if(TargetEnemy != none){
+				if(TargetEnemy != none && TargetEnemy.Class.Name!='BF_Enemy_Asteroid'){
 					BeamFireSound.Stop();
 					BeamAbsorbSound.Play();
 				}else{
@@ -278,9 +280,11 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 function RespawnPlayer()
 {
 	BeamFire = false;
-	if(	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>0){
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>0){
 		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter = 0;
 		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R=true;
+	}else{
+		
 	}
 	if(FlickerCount<20){
 		if(FlickerCount==0){

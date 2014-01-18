@@ -45,5 +45,4 @@ DefaultProperties
 	CollisionType=COLLIDE_TouchAll
 	GroundSpeed=1000
 	AccelRate=10000
-	Acceleration=10000
 }
