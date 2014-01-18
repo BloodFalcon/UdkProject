@@ -9,6 +9,25 @@
 class BFPlayerController extends UDKPlayerController;
 
 //var bool PauseActive;
+var PostProcessSettings blurSettings;
+
+
+//simulated event PostBeginPlay()
+//{
+//    blurSettings.bEnableMotionBlur = true;
+//    blurSettings.bOverride_EnableMotionBlur = true;
+//    blurSettings.bOverride_MotionBlur_Amount = true;
+//    blurSettings.MotionBlur_Amount = 100.f;
+//    TestBlur();
+//    Super.PostBeginPlay();
+//}
+
+
+//function TestBlur()
+//{
+//    LocalPlayer(Player).OverridePostProcessSettings(blurSettings,10.f);
+//}
+
 
 function UpdateRotation( float DeltaTime )
 {
