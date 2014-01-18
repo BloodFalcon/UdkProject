@@ -8,6 +8,9 @@
 
 class BFPlayerController extends UDKPlayerController;
 
+
+//var bool PauseMenu;
+
 //var bool PauseActive;
 //var PostProcessSettings blurSettings;
 
@@ -29,6 +32,7 @@ class BFPlayerController extends UDKPlayerController;
 //}
 
 
+
 function UpdateRotation( float DeltaTime )
 {
 	local Rotator	DeltaRot, ViewRotation;
@@ -42,9 +46,9 @@ exec function DoSomethingWithEscape()
 {
 	local BF_PauseMenu PauseMenu;
 
-	if(WorldInfo.Title != "BF_TitleScreen_Map")
+	if(WorldInfo.Title != "BF_TitleScreen_Map" && (BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive==false))
 	{
-		//PauseActive = true;
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive = true;
 		PauseMenu = new class'BF_PauseMenu';
 		PauseMenu.Start();
 	}
@@ -54,5 +58,4 @@ defaultproperties
 {
 	bIsPlayer=true
 	//PauseActive=false
-
 }
