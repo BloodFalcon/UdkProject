@@ -13,7 +13,7 @@ event PostBeginPlay()
 NPCInfo.FireRate=0.4;
 NPCInfo.ProjClass=class'BF_Proj_Red_Circle';
 NPCInfo.SoulClass=class'BF_Enemy_Player';
-NPCInfo.SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Cannon';
+NPCInfo.SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player';
 NPCInfo.Level=0;
 NPCInfo.Size=1.5;
 NPCInfo.Speed=1400;

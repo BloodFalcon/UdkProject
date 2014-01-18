@@ -14,6 +14,7 @@ var float TimeIncrement;
 var float Time;
 var bool bDrain;
 var bool R;
+var bool PauseActive;
 
 
 function BulletTime(byte ModeNum)
@@ -65,6 +66,7 @@ function tick(float DeltaTime)
 		}
 		modeBulletTime=0;
 	}
+	BloodMeter=10;
 }
 
 static event class<GameInfo> SetGameType(string MapName, string Options, string Portal)
@@ -83,4 +85,5 @@ defaultproperties
 	bDrain=false
 	BloodMeter=0
 	R=false
+	PauseActive=false
 }

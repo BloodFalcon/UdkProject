@@ -9,7 +9,7 @@
 class BFPlayerController extends UDKPlayerController;
 
 //var bool PauseActive;
-var PostProcessSettings blurSettings;
+//var PostProcessSettings blurSettings;
 
 
 //simulated event PostBeginPlay()

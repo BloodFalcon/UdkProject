@@ -114,29 +114,31 @@ event Tick(float DeltaTime)
 			TracedEnemyAct = Trace(HitLocation, HitNormal, BeamEndLoc, BeamStartLoc, true);
 			TracedEnemy = UDKPawn(TracedEnemyAct);
 			DrawBeam();
-			if(TargetEnemy == none){
-				TargetEnemy = BF_Enemy_Base(TracedEnemy); //Locks in your first traced enemy until you try to trace again
-				if(TargetEnemy != none && TargetEnemy.Class.Name!='BF_Enemy_Asteroid'){
-					BeamFireSound.Stop();
-					BeamAbsorbSound.Play();
+			if(TargetEnemy==none){
+				TargetEnemy = BF_Enemy_Base(TracedEnemy); //Locks in your first traced enemy until you try to trace again //TargetEnemy.Class.Name!='BF_Enemy_Asteroid'	
+				if(TargetEnemy!=none){
+					if(TargetEnemy.Class==class'BF_Enemy_Asteroid' || (CS.Current.Level>=3 && CS.Current.SoulClass==TargetEnemy.Class)){ //Ignores Asteroids and Maxed out enemies
+						TargetEnemy=none;	
+					}else if(CS.B1.SoulClass!=class'BF_Enemy_Player' && CS.B2.SoulClass!=class'BF_Enemy_Player' && CS.B3.SoulClass!=class'BF_Enemy_Player' && CS.Current.SoulClass!=TargetEnemy.Class){
+						TargetEnemy=none;
+					}else{
+						BeamFireSound.Stop();
+						BeamAbsorbSound.Play();
+					}
 				}else{
 					BeamFireSound.Play();
 					BeamAbsorbSound.Stop();
 				}
 			}else{
-				if(TargetEnemy==none){
-					KillBeam();
+				CheckDist = VSize2D(Location - TargetEnemy.Location);
+				if(CheckDist<750)
+				{
+					AbsorbTimer++; //=GetSystemTime(,,,,,,CustomTimeDilation,); ///TIMED THINGS HERE
+					AbsorbBeam.SetVectorParameter('LinkBeamEnd', TargetEnemy.Location);
 				}else{
-					CheckDist = VSize2D(Location - TargetEnemy.Location);
-					if(CheckDist<750)
-					{
-						AbsorbTimer++; //=GetSystemTime(,,,,,,CustomTimeDilation,); ///TIMED THINGS HERE
-						AbsorbBeam.SetVectorParameter('LinkBeamEnd', TargetEnemy.Location);
-					}else{
-						KillBeam();
-					}
-					BeamScreenBounds();
+					KillBeam();
 				}
+				BeamScreenBounds();
 			}
 		}else{
 			KillBeam();
@@ -146,34 +148,6 @@ event Tick(float DeltaTime)
 	}
 	UpdateHUDBay();
 	super.Tick(DeltaTime);
-}
-
-
-function UpdateHUDBay()
-{
-	if(Bay1.Class!=CS.B1.SoulClass){
-		if(Bay1.Class!=none){
-			Bay1.Destroy();
-		}
-		Bay1 = Spawn(CS.B1.SoulClass,self,,vect(-5900,-775,46130),self.Rotation);
-		ClearTimer('FireWeaps');
-	}
-	
-	if(Bay2.Class!=CS.B2.SoulClass){
-		if(Bay2.Class!=none){
-			Bay2.Destroy();
-		}
-		Bay2 = Spawn(CS.B2.SoulClass,self,,vect(-5650,-775,46130),self.Rotation);
-		ClearTimer('FireWeaps');
-	}
-	
-	if(Bay3.Class!=CS.B3.SoulClass){
-		if(Bay3.Class!=none){
-			Bay3.Destroy();
-		}
-		Bay3 = Spawn(CS.B3.SoulClass,self,,vect(-5400,-775,46130),self.Rotation);
-		ClearTimer('FireWeaps');
-	}
 }
 
 
@@ -224,51 +198,6 @@ function BeamScreenBounds() //Need to add AspectRation offset
 }
 
 
-function AbsorbSuccess()
-{
-	AbsorbTimer = 0;
-	if(TargetEnemy.Class==CS.Current.SoulClass){
-		TargetEnemy.LevelUp(CS.Current.Level);
-		CS.Current = TargetEnemy.NPCInfo;
-		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
-	}else{
-		if(TargetEnemy!=none){
-			if(TargetEnemy.Class!=CS.B1.SoulClass && TargetEnemy.Class!=CS.B2.SoulClass && TargetEnemy.Class!=CS.B3.SoulClass){ 
-				if(CS.B1.SoulClass==class'BF_Enemy_Player'){
-					CS.B1 = CS.Current;
-					CS.Current = TargetEnemy.NPCInfo;
-					BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
-				}else if(CS.B2.SoulClass==class'BF_Enemy_Player'){
-					CS.B2 = CS.Current;
-					CS.Current = TargetEnemy.NPCInfo;
-					BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
-				}else if(CS.B3.SoulClass==class'BF_Enemy_Player'){
-					CS.B3 = CS.Current;
-					CS.Current = TargetEnemy.NPCInfo;
-					BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
-				}else{ 
-
-				}
-			}
-		}
-	}
-	UpdatePlayer();
-	TargetEnemy.Destroy();
-	BeamFire=false;
-	KillBeam();
-}
-
-
-function UpdatePlayer()
-{
-	FireRate = CS.Current.FireRate;
-	ProjClass = CS.Current.ProjClass;
-	EnemyMesh = CS.Current.SoulMesh;
-	self.Mesh.SetSkeletalMesh(CS.Current.SoulMesh);
-	self.Mesh.SetMaterial(0,Material'EngineDebugMaterials.MaterialError_Mat');
-}
-
-
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R==false){
@@ -303,6 +232,116 @@ function RespawnPlayer()
 	}else{
 		FlickerCount=0;
 		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R=false;
+	}
+}
+
+
+function AbsorbSuccess()
+{
+	AbsorbTimer = 0;
+	ClearTimer('FireWeaps');
+
+	`log("ABSORB SUCCESSSSSS");
+
+	if(TargetEnemy.Class==CS.Current.SoulClass){
+	`log("LEVEL UP");
+		TargetEnemy.LevelUp(CS.Current.Level);
+		CS.Current = TargetEnemy.NPCInfo;
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
+	}else{
+		`log("NON LEVEL UP");
+		if(CS.B1.Closed==false && CS.B1.SoulClass==class'BF_Enemy_Player'){
+			`log("BAY1 UPDATED");
+			CS.Current=TargetEnemy.NPCInfo;
+			CS.B1=TargetEnemy.NPCInfo;
+			CS.B1.SoulClass=class'BF_Enemy_EmptyBay';
+		}else if(CS.B2.Closed==false && CS.B2.SoulClass==class'BF_Enemy_Player'){
+			`log("BAY2 UPDATED");
+			CS.B1=CS.Current;
+			CS.Current=TargetEnemy.NPCInfo;
+			CS.B2=TargetEnemy.NPCInfo;
+			CS.B2.SoulClass=class'BF_Enemy_EmptyBay';
+		}else if(CS.B3.Closed==false && CS.B3.SoulClass==class'BF_Enemy_Player'){
+			`log("BAY3 UPDATED");
+			if(CS.B1.SoulClass==none){
+				CS.B1=CS.Current;
+			}else{
+				CS.B2=CS.Current;
+			}
+			CS.Current=TargetEnemy.NPCInfo;
+			CS.B3=TargetEnemy.NPCInfo;
+			CS.B3.SoulClass=class'BF_Enemy_EmptyBay';
+		}else{
+			`log("BAYS ARE FULL MOTHER FUCKER");
+		}
+	}
+
+	//if(TargetEnemy.Class==CS.Current.SoulClass){
+	//	TargetEnemy.LevelUp(CS.Current.Level);
+	//	CS.Current = TargetEnemy.NPCInfo;
+	//	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
+	//}else{
+	//	if(TargetEnemy!=none){
+	//		if(TargetEnemy.Class!=CS.B1.SoulClass && TargetEnemy.Class!=CS.B2.SoulClass && TargetEnemy.Class!=CS.B3.SoulClass){ 
+	//			if(CS.B1.SoulClass==class'BF_Enemy_Player'){
+	//				CS.B1 = CS.Current;
+	//				CS.Current = TargetEnemy.NPCInfo;
+	//				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
+	//			}else if(CS.B2.SoulClass==class'BF_Enemy_Player'){
+	//				CS.B2 = CS.Current;
+	//				CS.Current = TargetEnemy.NPCInfo;
+	//				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
+	//			}else if(CS.B3.SoulClass==class'BF_Enemy_Player'){
+	//				CS.B3 = CS.Current;
+	//				CS.Current = TargetEnemy.NPCInfo;
+	//				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
+	//			}else{ 
+
+	//			}
+	//		}
+	//	}
+	//}
+	UpdatePlayer();
+	TargetEnemy.Destroy();
+	BeamFire=false;
+	KillBeam();
+}
+
+
+function UpdatePlayer()
+{
+	FireRate = CS.Current.FireRate;
+	ProjClass = CS.Current.ProjClass;
+	EnemyMesh = CS.Current.SoulMesh;
+	self.Mesh.SetSkeletalMesh(CS.Current.SoulMesh);
+	self.Mesh.SetMaterial(0,Material'EngineDebugMaterials.MaterialError_Mat');
+}
+
+
+function UpdateHUDBay()
+{
+	if(Bay1.Class!=CS.B1.SoulClass){
+		//if(Bay1.Class!=none){
+			Bay1.Destroy();
+		//}
+		Bay1 = Spawn(CS.B1.SoulClass,self,,vect(-5900,-775,46130),self.Rotation);
+		`log("BAY1 SHOULD HAVE CHANGED NOW");
+	}
+	
+	if(Bay2.Class!=CS.B2.SoulClass){
+		//if(Bay2.Class!=none){
+			Bay2.Destroy();
+		//}
+		Bay2 = Spawn(CS.B2.SoulClass,self,,vect(-5650,-775,46130),self.Rotation);
+		`log("BAY2 SHOULD HAVE CHANGED NOW");
+	}
+	
+	if(Bay3.Class!=CS.B3.SoulClass){
+		//if(Bay3.Class!=none){
+			Bay3.Destroy();
+		//}
+		Bay3 = Spawn(CS.B3.SoulClass,self,,vect(-5400,-775,46130),self.Rotation);
+		`log("BAY3 SHOULD HAVE CHANGED NOW");
 	}
 }
 

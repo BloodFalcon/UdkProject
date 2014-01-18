@@ -16,13 +16,11 @@ event PostBeginPlay()
 {
     super.PostBeginPlay();
 	CylinderComponent.SetActorCollision(false, false); 
-	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0));	
 }
 
 
 event tick(float DeltaTime)
 {
-	//`log(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameSpeed);
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameSpeed<1){
 		if(AbsorbRing==none){
 			if(WorldInfo.NetMode != NM_DedicatedServer){
@@ -36,7 +34,6 @@ event tick(float DeltaTime)
 			}
 		}
 	}else if(AbsorbRing!=none){
-		//`log(name@": Murdered");
 		AbsorbRing.SetKillOnDeactivate(0,true);
 		AbsorbRing.DeactivateSystem();
 		AbsorbRing=none;
@@ -57,9 +54,6 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 	}
 	SetTimer(0.10, true, 'ProjHitFlash');
 	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);  //Must Have To Process Standard Damage
-//	if( Health <= (Health / 2)){
-//		WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(ProjHitEffect, Mesh, 'Nose_Gun', true, vect(0,0,0));
-//	}
 }
 
 function ProjHitFlash()
