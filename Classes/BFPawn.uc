@@ -25,7 +25,7 @@ struct SoulVars
 		FireRate=0.4
 		SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
 		ProjClass=class'BF_Proj_Red_Circle'
-		SoulClass=class'BF_Enemy_Player'
+		SoulClass=class'BF_Enemy_EmptyBay'
 		Size=1.5
 		Speed=700
 		bFXEnabled=true
@@ -40,6 +40,7 @@ struct CollectedSouls
 	var SoulVars B2;
 	var SoulVars B3;
 	var SoulVars Holder;
+	var byte BayNumber;
 };	
 
 var int TimesRun;
@@ -119,7 +120,7 @@ event Tick(float DeltaTime)
 				if(TargetEnemy!=none){
 					if(TargetEnemy.Class==class'BF_Enemy_Asteroid' || (CS.Current.Level>=3 && CS.Current.SoulClass==TargetEnemy.Class)){ //Ignores Asteroids and Maxed out enemies
 						TargetEnemy=none;	
-					}else if(CS.B1.SoulClass!=class'BF_Enemy_Player' && CS.B2.SoulClass!=class'BF_Enemy_Player' && CS.B3.SoulClass!=class'BF_Enemy_Player' && CS.Current.SoulClass!=TargetEnemy.Class){
+					}else if(CS.B1.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B2.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B3.SoulClass!=class'BF_Enemy_EmptyBay' && CS.Current.SoulClass!=TargetEnemy.Class){
 						TargetEnemy=none;
 					}else{
 						BeamFireSound.Stop();
@@ -144,9 +145,13 @@ event Tick(float DeltaTime)
 			KillBeam();
 		}
 	}else{
+		BeamFire=false;
+		AbsorbTimer=0;
+		ClearTimer('FireWeaps');
 		AbsorbSuccess();
 	}
-	UpdateHUDBay();
+	HideBays();
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS=CS;
 	super.Tick(DeltaTime);
 }
 
@@ -206,15 +211,8 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 }
 
 
-function RespawnPlayer()
+function RespawnFlicker()
 {
-	BeamFire = false;
-	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>0){
-		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter = 0;
-		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R=true;
-	}else{
-		
-	}
 	if(FlickerCount<20){
 		if(FlickerCount==0){
 			WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);
@@ -228,7 +226,7 @@ function RespawnPlayer()
 			self.SetHidden(true);
 		}
 		FlickerCount++;
-		SetTimer(0.3,false,'RespawnPlayer',);
+		SetTimer(0.3,false,'RespawnFlicker',);
 	}else{
 		FlickerCount=0;
 		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R=false;
@@ -236,83 +234,128 @@ function RespawnPlayer()
 }
 
 
+function RespawnPlayer()
+{
+	BeamFire = false;
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>0){
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter = 0;
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R=true;
+	}else{
+		if(CS.BayNumber==1){
+			CS.B1.SoulClass=class'BF_Enemy_ClosedBay';
+			CS.B1.Closed=true;
+		}else if(CS.BayNumber==2){
+			CS.B2.SoulClass=class'BF_Enemy_ClosedBay';
+			CS.B2.Closed=true;
+		}else if(CS.BayNumber==3){
+			CS.B3.SoulClass=class'BF_Enemy_ClosedBay';
+			CS.B3.Closed=true;
+		}else {
+
+		}
+		NewShipChooser();
+	}
+	RespawnFlicker();
+}
+
+function NewShipChooser()
+{
+	if(CS.B1.SoulClass==class'BF_Enemy_ClosedBay' && CS.B2.SoulClass==class'BF_Enemy_ClosedBay' && CS.B3.SoulClass==class'BF_Enemy_ClosedBay'){
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead=true;
+	}else{
+		if(CS.B1.SoulClass!=class'BF_Enemy_ClosedBay' && CS.B1.SoulClass!=class'BF_Enemy_EmptyBay'){
+			CS.Current=CS.B1;
+			CS.BayNumber = 1;
+		}else if(CS.B2.SoulClass!=class'BF_Enemy_ClosedBay' && CS.B2.SoulClass!=class'BF_Enemy_EmptyBay'){
+			CS.Current=CS.B2;
+			CS.BayNumber = 2;
+		}else if(CS.B3.SoulClass!=class'BF_Enemy_ClosedBay' && CS.B3.SoulClass!=class'BF_Enemy_EmptyBay'){
+			CS.Current=CS.B3;
+			CS.BayNumber = 3;
+		}else{
+			CS.Current.FireRate=0.4;
+			CS.Current.ProjClass=class'BF_Proj_Red_Circle';
+			CS.Current.SoulClass=class'BF_Enemy_Player';
+			CS.Current.SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player';
+			CS.Current.Level=0;
+			CS.Current.Size=1.5;
+			CS.Current.Speed=700;
+			if(CS.B1.SoulClass==class'BF_Enemy_EmptyBay'){
+				CS.BayNumber = 1;
+			}else if(CS.B2.SoulClass==class'BF_Enemy_EmptyBay'){
+				CS.BayNumber = 2;
+			}else if(CS.B3.SoulClass==class'BF_Enemy_EmptyBay'){
+				CS.BayNumber = 3;
+			}else{
+
+			}
+		}
+	}
+}
+
+function HideBays()
+{
+	if(Bay1!=none){
+		if(CS.B1.Closed || CS.B1.SoulClass==class'BF_Enemy_EmptyBay' || CS.B1.SoulClass==class'BF_Enemy_ClosedBay' || CS.BayNumber==1){
+			Bay1.SetHidden(true);
+		}else{
+			Bay1.SetHidden(false);
+		}
+	}
+	if(Bay2!=none){
+		if(CS.B2.Closed || CS.B2.SoulClass==class'BF_Enemy_EmptyBay' || CS.B2.SoulClass==class'BF_Enemy_ClosedBay' || CS.BayNumber==2){
+			Bay2.SetHidden(true);
+		}else{
+			Bay2.SetHidden(false);
+		}
+	}
+	if(Bay3!=none){
+		if(CS.B3.Closed || CS.B3.SoulClass==class'BF_Enemy_EmptyBay' || CS.B3.SoulClass==class'BF_Enemy_ClosedBay' || CS.BayNumber==3){
+			Bay3.SetHidden(true);
+		}else{
+			Bay3.SetHidden(false);
+		}
+	}
+}
+
 function AbsorbSuccess()
 {
-	AbsorbTimer = 0;
-	ClearTimer('FireWeaps');
-
-	`log("ABSORB SUCCESSSSSS");
-
 	if(TargetEnemy.Class==CS.Current.SoulClass){
-	`log("LEVEL UP");
 		TargetEnemy.LevelUp(CS.Current.Level);
 		CS.Current = TargetEnemy.NPCInfo;
 		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
 	}else{
-		`log("NON LEVEL UP");
-		if(CS.B1.Closed==false && CS.B1.SoulClass==class'BF_Enemy_Player'){
-			`log("BAY1 UPDATED");
+		if(CS.B1.SoulClass==class'BF_Enemy_EmptyBay'){
 			CS.Current=TargetEnemy.NPCInfo;
 			CS.B1=TargetEnemy.NPCInfo;
-			CS.B1.SoulClass=class'BF_Enemy_EmptyBay';
-		}else if(CS.B2.Closed==false && CS.B2.SoulClass==class'BF_Enemy_Player'){
-			`log("BAY2 UPDATED");
-			CS.B1=CS.Current;
+			CS.BayNumber=1;
+			UpdateHUDBay();
+		}else if(CS.B2.SoulClass==class'BF_Enemy_EmptyBay'){
 			CS.Current=TargetEnemy.NPCInfo;
 			CS.B2=TargetEnemy.NPCInfo;
-			CS.B2.SoulClass=class'BF_Enemy_EmptyBay';
-		}else if(CS.B3.Closed==false && CS.B3.SoulClass==class'BF_Enemy_Player'){
-			`log("BAY3 UPDATED");
-			if(CS.B1.SoulClass==none){
-				CS.B1=CS.Current;
-			}else{
-				CS.B2=CS.Current;
-			}
+			CS.BayNumber=2;
+			UpdateHUDBay();
+		}else if(CS.B3.SoulClass==class'BF_Enemy_EmptyBay'){
 			CS.Current=TargetEnemy.NPCInfo;
 			CS.B3=TargetEnemy.NPCInfo;
-			CS.B3.SoulClass=class'BF_Enemy_EmptyBay';
+			CS.BayNumber=3;
+			UpdateHUDBay();
 		}else{
-			`log("BAYS ARE FULL MOTHER FUCKER");
+
 		}
 	}
-
-	//if(TargetEnemy.Class==CS.Current.SoulClass){
-	//	TargetEnemy.LevelUp(CS.Current.Level);
-	//	CS.Current = TargetEnemy.NPCInfo;
-	//	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
-	//}else{
-	//	if(TargetEnemy!=none){
-	//		if(TargetEnemy.Class!=CS.B1.SoulClass && TargetEnemy.Class!=CS.B2.SoulClass && TargetEnemy.Class!=CS.B3.SoulClass){ 
-	//			if(CS.B1.SoulClass==class'BF_Enemy_Player'){
-	//				CS.B1 = CS.Current;
-	//				CS.Current = TargetEnemy.NPCInfo;
-	//				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
-	//			}else if(CS.B2.SoulClass==class'BF_Enemy_Player'){
-	//				CS.B2 = CS.Current;
-	//				CS.Current = TargetEnemy.NPCInfo;
-	//				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
-	//			}else if(CS.B3.SoulClass==class'BF_Enemy_Player'){
-	//				CS.B3 = CS.Current;
-	//				CS.Current = TargetEnemy.NPCInfo;
-	//				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
-	//			}else{ 
-
-	//			}
-	//		}
-	//	}
-	//}
 	UpdatePlayer();
 	TargetEnemy.Destroy();
-	BeamFire=false;
 	KillBeam();
 }
+
 
 
 function UpdatePlayer()
 {
 	FireRate = CS.Current.FireRate;
 	ProjClass = CS.Current.ProjClass;
-	EnemyMesh = CS.Current.SoulMesh;
+	self.GroundSpeed = CS.Current.Speed;
 	self.Mesh.SetSkeletalMesh(CS.Current.SoulMesh);
 	self.Mesh.SetMaterial(0,Material'EngineDebugMaterials.MaterialError_Mat');
 }
@@ -320,28 +363,14 @@ function UpdatePlayer()
 
 function UpdateHUDBay()
 {
-	if(Bay1.Class!=CS.B1.SoulClass){
-		//if(Bay1.Class!=none){
-			Bay1.Destroy();
-		//}
+	if(CS.BayNumber==1){
 		Bay1 = Spawn(CS.B1.SoulClass,self,,vect(-5900,-775,46130),self.Rotation);
-		`log("BAY1 SHOULD HAVE CHANGED NOW");
 	}
-	
-	if(Bay2.Class!=CS.B2.SoulClass){
-		//if(Bay2.Class!=none){
-			Bay2.Destroy();
-		//}
+	if(CS.BayNumber==2){
 		Bay2 = Spawn(CS.B2.SoulClass,self,,vect(-5650,-775,46130),self.Rotation);
-		`log("BAY2 SHOULD HAVE CHANGED NOW");
 	}
-	
-	if(Bay3.Class!=CS.B3.SoulClass){
-		//if(Bay3.Class!=none){
-			Bay3.Destroy();
-		//}
+	if(CS.BayNumber==3){
 		Bay3 = Spawn(CS.B3.SoulClass,self,,vect(-5400,-775,46130),self.Rotation);
-		`log("BAY3 SHOULD HAVE CHANGED NOW");
 	}
 }
 

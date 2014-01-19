@@ -1,10 +1,12 @@
-class BF_Enemy_EmptyBay extends BF_Enemy_Base;
+class BF_Enemy_ClosedBay extends BF_Enemy_Base;
+
+
 
 event PostBeginPlay()
 {
 	NPCInfo.FireRate=0;
 	NPCInfo.ProjClass=none;
-	NPCInfo.SoulClass=class'BF_Enemy_EmptyBay';
+	NPCInfo.SoulClass=class'BF_Enemy_ClosedBay';
 	NPCInfo.SoulMesh=none;
 	NPCInfo.Level=0;
 	NPCInfo.Size=1;
@@ -12,7 +14,6 @@ event PostBeginPlay()
 	NPCInfo.bFXEnabled=false;
 	NPCInfo.Closed=true;
 }
-
 
 DefaultProperties
 {

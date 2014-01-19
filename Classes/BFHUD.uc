@@ -19,18 +19,7 @@ var Texture2D LightOn;
 var Texture2D LightOff;
 var Texture2D BloodMeterBlack;
 var Texture2D BayDoor1, BayDoor2, BayDoor3;
-//var Texture2D PlayerShipIcon;
 var MultiFont BF_Font;
-//var bool PlayerDead;
-//var int RankHolder; //Weapon and Life variables
-	//var int Rank;
-	//var int DroneRank;
-	//var bool DroneEquip;
-	//var int GunShipRank;
-	//var bool GunShipEquip;
-	//var int SuicideFighterRank;
-	//var bool SuicideFighterEquip;	
-	//var byte Lives;
 		var float OldHUDX; //HUD Scaling variables
 		var float OldHUDY;
 		var float CurHUDX;
@@ -38,9 +27,7 @@ var MultiFont BF_Font;
 		var float RatX;
 		var float RatY;
 		var float MeterFull;
-		var float MeterIncrement;
-		//var float BeamLength;
-		//var int BeamOverlayLength;
+		var float MeterIncrement, B1I, B2I, B3I;
 
 
 function drawHUD()
@@ -51,19 +38,44 @@ function drawHUD()
 	Canvas.DrawTile(BFUI, 1920*RatX, 1080*RatY, 0, 0, 1920, 1080);
 	
 	if(MeterFull<MeterIncrement){
-	MeterIncrement-=0.005;
+		MeterIncrement-=0.005;
 	}else{
-	MeterIncrement=MeterFull;
+		MeterIncrement=MeterFull;
 	}
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.B1.Closed){
+		if(1>B1I){
+			B1I+=0.005;
+		}else{
+			B1I=1;
+		}
+	}
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.B2.Closed){
+		if(1>B2I){
+			B2I+=0.005;
+		}else{
+			B2I=1;
+		}
+	}
+	if(	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.B3.Closed){
+		if(1>B3I){
+			B3I+=0.005;
+		}else{
+			B3I=1;
+		}
+	}
+
 	Canvas.SetPos(0,0);
 	Canvas.DrawTile(BloodMeterBlack, 1024*RatX, 1024*RatY*MeterIncrement, 0, 0, 1024, 1024*MeterIncrement,,true);
-
 	Canvas.SetPos(1490*RatX,921*RatY);
-	Canvas.DrawTile(BayDoor1, 140*RatX, 140*RatY*MeterIncrement, 0, 0, 140, 140*MeterIncrement,,true);
+	Canvas.DrawTile(BayDoor1, 140*RatX, 140*RatY*B1I, 0, 0, 140, 140*B1I,,true);
 	Canvas.SetPos(1630*RatX,921*RatY);
-	Canvas.DrawTile(BayDoor2, 140*RatX, 140*RatY*MeterIncrement, 0, 0, 140, 140*MeterIncrement,,true);
+	Canvas.DrawTile(BayDoor2, 140*RatX, 140*RatY*B2I, 0, 0, 140, 140*B2I,,true);
 	Canvas.SetPos(1770*RatX,921*RatY);
-	Canvas.DrawTile(BayDoor3, 140*RatX, 140*RatY*MeterIncrement, 0, 0, 140, 140*MeterIncrement,,true);
+	Canvas.DrawTile(BayDoor3, 140*RatX, 140*RatY*B3I, 0, 0, 140, 140*B3I,,true);
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead==true){
+		GameOver();
+	}
+
 	super.drawHUD();
 }
 
@@ -84,12 +96,11 @@ function CleanHUD()
 
 function GameOver()
 {
-	Canvas.SetPos(((Canvas.ClipX / 2) - 540), 0);
+	Canvas.SetPos(0, 0);
 	Canvas.SetDrawColor(0,0,0);
 	Canvas.DrawRect(1980,1080);
 	Canvas.SetPos(((Canvas.ClipX / 2) - 90), Canvas.ClipY / 2);
 	Canvas.SetDrawColor(255, 0, 0);
-	Canvas.Font = BF_Font;
 	Canvas.DrawText("GAME OVER");
 }
 

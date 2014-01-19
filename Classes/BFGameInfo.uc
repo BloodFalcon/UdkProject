@@ -9,18 +9,21 @@
 class BFGameInfo extends GameInfo;
 
 var float BloodMeter;
+var bool PlayerDead;
 var byte modeBulletTime;
 var float TimeIncrement;
 var float Time;
 var bool bDrain;
 var bool R;
 var bool PauseActive;
+var CollectedSouls CS;
 
 
 function BulletTime(byte ModeNum)
 {
 	modeBulletTime=ModeNum;
 }
+
 
 function tick(float DeltaTime)
 {
@@ -66,7 +69,7 @@ function tick(float DeltaTime)
 		}
 		modeBulletTime=0;
 	}
-	BloodMeter=10;
+	//BloodMeter=10;
 }
 
 static event class<GameInfo> SetGameType(string MapName, string Options, string Portal)
