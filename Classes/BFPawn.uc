@@ -390,6 +390,7 @@ exec function NextShip()
 	//Do whatever you want with this bitch
 }
 
+
 exec function SwitchBay1()
 {
 	if(CS.B1.SoulClass!=class'BF_Enemy_EmptyBay' || CS.B1.SoulClass!=class'BF_Enemy_ClosedBay' || CS.B1.Closed){
@@ -401,6 +402,7 @@ exec function SwitchBay1()
 	}
 }
 
+
 exec function SwitchBay2()
 {
 	if(CS.B2.SoulClass!=class'BF_Enemy_EmptyBay' || CS.B2.SoulClass!=class'BF_Enemy_ClosedBay' || CS.B2.Closed){
@@ -411,6 +413,7 @@ exec function SwitchBay2()
 		//Flash BloodMeter
 	}
 }
+
 
 exec function SwitchBay3()
 {
