@@ -41,6 +41,11 @@ struct CollectedSouls
 	var SoulVars B3;
 	var SoulVars Holder;
 	var byte BayNumber;
+
+	structdefaultproperties
+	{
+		BayNumber=1
+	}
 };	
 
 var int TimesRun;
@@ -239,7 +244,6 @@ function RespawnPlayer()
 	BeamFire = false;
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>0){
 		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter = 0;
-		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R=true;
 	}else{
 		if(CS.BayNumber==1){
 			CS.B1.SoulClass=class'BF_Enemy_ClosedBay';
@@ -255,6 +259,7 @@ function RespawnPlayer()
 		}
 		NewShipChooser();
 	}
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R=true;
 	RespawnFlicker();
 }
 
@@ -262,6 +267,7 @@ function NewShipChooser()
 {
 	if(CS.B1.SoulClass==class'BF_Enemy_ClosedBay' && CS.B2.SoulClass==class'BF_Enemy_ClosedBay' && CS.B3.SoulClass==class'BF_Enemy_ClosedBay'){
 		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead=true;
+		Mesh.SetHidden(true);
 	}else{
 		if(CS.B1.SoulClass!=class'BF_Enemy_ClosedBay' && CS.B1.SoulClass!=class'BF_Enemy_EmptyBay'){
 			CS.Current=CS.B1;
@@ -273,13 +279,13 @@ function NewShipChooser()
 			CS.Current=CS.B3;
 			CS.BayNumber = 3;
 		}else{
-			CS.Current.FireRate=0.4;
+			CS.Current.FireRate=0.01;
 			CS.Current.ProjClass=class'BF_Proj_Red_Circle';
 			CS.Current.SoulClass=class'BF_Enemy_Player';
 			CS.Current.SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player';
 			CS.Current.Level=0;
 			CS.Current.Size=1.5;
-			CS.Current.Speed=700;
+			CS.Current.Speed=1400;
 			if(CS.B1.SoulClass==class'BF_Enemy_EmptyBay'){
 				CS.BayNumber = 1;
 			}else if(CS.B2.SoulClass==class'BF_Enemy_EmptyBay'){
@@ -290,27 +296,28 @@ function NewShipChooser()
 
 			}
 		}
+		UpdatePlayer();
 	}
 }
 
 function HideBays()
 {
 	if(Bay1!=none){
-		if(CS.B1.Closed || CS.B1.SoulClass==class'BF_Enemy_EmptyBay' || CS.B1.SoulClass==class'BF_Enemy_ClosedBay' || CS.BayNumber==1){
+		if(CS.B1.Closed || CS.B1.SoulClass==class'BF_Enemy_EmptyBay' || CS.B1.SoulClass==class'BF_Enemy_ClosedBay'){// || CS.BayNumber==1){
 			Bay1.SetHidden(true);
 		}else{
 			Bay1.SetHidden(false);
 		}
 	}
 	if(Bay2!=none){
-		if(CS.B2.Closed || CS.B2.SoulClass==class'BF_Enemy_EmptyBay' || CS.B2.SoulClass==class'BF_Enemy_ClosedBay' || CS.BayNumber==2){
+		if(CS.B2.Closed || CS.B2.SoulClass==class'BF_Enemy_EmptyBay' || CS.B2.SoulClass==class'BF_Enemy_ClosedBay'){// || CS.BayNumber==2){
 			Bay2.SetHidden(true);
 		}else{
 			Bay2.SetHidden(false);
 		}
 	}
 	if(Bay3!=none){
-		if(CS.B3.Closed || CS.B3.SoulClass==class'BF_Enemy_EmptyBay' || CS.B3.SoulClass==class'BF_Enemy_ClosedBay' || CS.BayNumber==3){
+		if(CS.B3.Closed || CS.B3.SoulClass==class'BF_Enemy_EmptyBay' || CS.B3.SoulClass==class'BF_Enemy_ClosedBay'){// || CS.BayNumber==3){
 			Bay3.SetHidden(true);
 		}else{
 			Bay3.SetHidden(false);
@@ -357,6 +364,7 @@ function UpdatePlayer()
 	ProjClass = CS.Current.ProjClass;
 	self.GroundSpeed = CS.Current.Speed;
 	self.Mesh.SetSkeletalMesh(CS.Current.SoulMesh);
+	self.Mesh.SetScale(CS.Current.Size);
 	self.Mesh.SetMaterial(0,Material'EngineDebugMaterials.MaterialError_Mat');
 }
 

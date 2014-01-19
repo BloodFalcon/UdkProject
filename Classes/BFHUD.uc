@@ -72,7 +72,7 @@ function drawHUD()
 	Canvas.DrawTile(BayDoor2, 140*RatX, 140*RatY*B2I, 0, 0, 140, 140*B2I,,true);
 	Canvas.SetPos(1770*RatX,921*RatY);
 	Canvas.DrawTile(BayDoor3, 140*RatX, 140*RatY*B3I, 0, 0, 140, 140*B3I,,true);
-	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead==true){
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead==true && B1I==1 && B2I==1 && B3I==1){
 		GameOver();
 	}
 
