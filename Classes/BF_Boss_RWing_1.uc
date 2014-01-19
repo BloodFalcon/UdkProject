@@ -7,6 +7,23 @@ event PostBeginPlay()
 {
 	super.PostBeginPlay();
 	WingRot.Yaw = 90*DegToUnrRot;
+	SetTimer(1.0, true, 'FireWeaps');
+}
+
+function FireWeaps()
+{
+	local Vector SockLoc;
+	self.Mesh.GetSocketWorldLocationAndRotation('Nose_Gun', SockLoc);
+	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
+	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
+	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
+	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
+	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
+	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
+	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
+	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
+	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
+	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
 }
 
 event tick(float DeltaTime)
