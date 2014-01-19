@@ -263,6 +263,7 @@ function RespawnPlayer()
 	RespawnFlicker();
 }
 
+
 function NewShipChooser()
 {
 	if(CS.B1.SoulClass==class'BF_Enemy_ClosedBay' && CS.B2.SoulClass==class'BF_Enemy_ClosedBay' && CS.B3.SoulClass==class'BF_Enemy_ClosedBay'){
@@ -300,6 +301,7 @@ function NewShipChooser()
 	}
 }
 
+
 function HideBays()
 {
 	if(Bay1!=none){
@@ -324,6 +326,7 @@ function HideBays()
 		}
 	}
 }
+
 
 function AbsorbSuccess()
 {
@@ -357,7 +360,6 @@ function AbsorbSuccess()
 }
 
 
-
 function UpdatePlayer()
 {
 	FireRate = CS.Current.FireRate;
@@ -385,36 +387,40 @@ function UpdateHUDBay()
 
 exec function NextShip()
 {
-		CS.Holder=CS.Current;
-		CS.Current=CS.B1;
-		CS.B1=CS.B2;
-		CS.B2=CS.B3;
-		CS.B3=CS.Holder;
-		UpdatePlayer();
+	//Do whatever you want with this bitch
 }
 
 exec function SwitchBay1()
 {
-		CS.Holder=CS.Current;
+	if(CS.B1.SoulClass!=class'BF_Enemy_EmptyBay' || CS.B1.SoulClass!=class'BF_Enemy_ClosedBay' || CS.B1.Closed){
 		CS.Current=CS.B1;
-		CS.B1=CS.Holder;
+		CS.BayNumber=1;
 		UpdatePlayer();
+	}else{
+		//Flash BloodMeter
+	}
 }
 
 exec function SwitchBay2()
 {
-		CS.Holder=CS.Current;
+	if(CS.B2.SoulClass!=class'BF_Enemy_EmptyBay' || CS.B2.SoulClass!=class'BF_Enemy_ClosedBay' || CS.B2.Closed){
 		CS.Current=CS.B2;
-		CS.B2=CS.Holder;
+		CS.BayNumber=2;
 		UpdatePlayer();
+	}else{
+		//Flash BloodMeter
+	}
 }
 
 exec function SwitchBay3()
 {
-		CS.Holder=CS.Current;
+	if(CS.B3.SoulClass!=class'BF_Enemy_EmptyBay' || CS.B3.SoulClass!=class'BF_Enemy_ClosedBay' || CS.B3.Closed){
 		CS.Current=CS.B3;
-		CS.B3=CS.Holder;
+		CS.BayNumber=3;
 		UpdatePlayer();
+	}else{
+		//Flash BloodMeter
+	}
 }//KeyBinds
 
 
@@ -439,7 +445,6 @@ simulated function StartFire(byte FireModeNum)
 
 simulated function StopFire(byte FireModeNum)
 {
-
 	if(FireModeNum==0){
 		CurFire = false;
 		ClearTimer('FireWeaps');
@@ -517,7 +522,10 @@ event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vect
 			Other.Destroy();
 			WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);
 			PlaySound(DeathSound);
-			TakeDamage(0, none,self.Location,vect(0,0,0),none,,);
+			if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R==false){
+				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
+				RespawnPlayer();
+			}
 		}
 }
 
