@@ -61,8 +61,6 @@ DefaultProperties
 	bCollideActors = true
 	bCollideWorld = true
 	Begin Object Class=SkeletalMeshComponent Name=BAMesh
-		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.testbossweapon'
-		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.testbossweapon_Physics'
 		HiddenGame=false
 		HiddenEditor=false
 		BlockNonZeroExtent=true

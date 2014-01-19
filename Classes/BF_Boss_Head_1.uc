@@ -15,7 +15,7 @@ super.tick(DeltaTime);
 
 DefaultProperties
 {
-	Begin Object Class=SkeletalMeshComponent Name=A11Mesh
+	Begin Object Name=BAMesh
 		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.LVL1_Boss_Head1'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL1_Boss_Head1_Physics'
 		HiddenGame=false
@@ -26,7 +26,7 @@ DefaultProperties
 		CollideActors=true
 		Scale=5
     End Object 
-	Mesh=A11Mesh
-	Components.Add(A11Mesh)
+	Mesh=BAMesh
+	Components.Add(BAMesh)
 	bIgnoreForces=true
 }

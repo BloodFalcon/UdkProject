@@ -37,7 +37,7 @@ self.SetRotation(WingRot);
 
 DefaultProperties
 {
-	Begin Object Class=SkeletalMeshComponent Name=A11Mesh
+	Begin Object Name=BAMesh
 		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.LVL1_Boss_LWing'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL1_Boss_LWing_Physics'
 		HiddenGame=false
@@ -48,7 +48,7 @@ DefaultProperties
 		CollideActors=true
 		Scale=5
     End Object 
-	Mesh=A11Mesh
-	Components.Add(A11Mesh)
+	Mesh=BAMesh
+	Components.Add(BAMesh)
 	bIgnoreForces=true
 }
