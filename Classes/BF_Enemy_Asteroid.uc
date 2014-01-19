@@ -23,7 +23,7 @@ DefaultProperties
 		BlockZeroExtent=true
 		BlockActors=false
 		CollideActors=true
-		Scale = 1.5
+		Scale = 2.5
     End Object
 	Mesh=EP3Mesh
 	Components.Add(EP3Mesh)
