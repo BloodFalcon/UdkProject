@@ -23,15 +23,15 @@ function tick(float DeltaTime)
 DefaultProperties
 {
 	Begin Object Class=SkeletalMeshComponent Name=M1Mesh
-		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.testboss'
-		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.testboss_Physics'
+		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.LVL1_Boss_Body'
+		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL1_Boss_Body_Physics'
 		HiddenGame=false
 		HiddenEditor=false
 		BlockNonZeroExtent=false
 		BlockZeroExtent=False
 		BlockActors=false
 		CollideActors=false
-		Scale=10
+		Scale=5
     End Object 
 	Mesh=M1Mesh
 	Components.Add(M1Mesh)
