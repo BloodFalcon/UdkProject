@@ -94,9 +94,9 @@ event Tick(float DeltaTime)
 	local Vector HitLocation, HitNormal;
 	local Actor TracedEnemyAct;
 	local UDKPawn TracedEnemy;
+	`log(GroundSpeed);
 	Health=100000;
 	Mesh.SetScale(CS.Current.Size);
-	GroundSpeed=(CS.Current.Speed*2);
 	BeamStartLoc = Location;
 	BeamEndLoc = Location + BeamOffset;
 	
