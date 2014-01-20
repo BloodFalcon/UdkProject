@@ -12,6 +12,7 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 	SetTimer(0.10, true, 'ProjHitFlash');
 	Health-=Damage;
 	if(Health<=0){
+		ConsoleCommand("Open SpaceLevel2");
 		Destroy();
 	}
 }

@@ -11,7 +11,7 @@ class BF_Enemy_SuicideFighter extends BF_Enemy_Base;
 
 event PostBeginPlay()
 {
-	NPCInfo.FireRate=0.1;
+	NPCInfo.FireRate=0.2;
 	NPCInfo.ProjClass=class'BF_Proj_Red_Circle';
 	NPCInfo.SoulClass=class'BF_Enemy_SuicideFighter';
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.SuicideFighter_W4';
@@ -28,9 +28,9 @@ function LevelUp(byte CurLevel)
 	`log(NPCInfo.Level);
 	NPCInfo.Level++;
 	if(NPCInfo.Level==1){
-		NPCInfo.FireRate=0.05;
+		NPCInfo.FireRate=0.1;
 	}else if(NPCInfo.Level>=2){
-		NPCInfo.FireRate=0.01;
+		NPCInfo.FireRate=0.05;
 	}
 }
 

@@ -160,7 +160,7 @@ event Tick(float DeltaTime)
 		AbsorbSuccess();
 	}
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>0){
-		Mesh.SetMaterial(0,Material'Pickups.UDamage.Materials.M_Pickups_Udamage_Add');
+		Mesh.SetMaterial(0,Material'BF_Fighters.Material.PlayerGlow');
 	}else{
 		Mesh.SetMaterial(0,Material'EngineDebugMaterials.MaterialError_Mat');
 	}
