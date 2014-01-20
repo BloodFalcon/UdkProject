@@ -9,7 +9,11 @@
 
 class BF_Enemy_Asteroid extends BF_Enemy_Base;
 
-event PostBeginPlay(){}
+event PostBeginPlay()
+{
+    super.PostBeginPlay();
+	NPCInfo.bCanAbsorb=false;
+}
 
 DefaultProperties
 {

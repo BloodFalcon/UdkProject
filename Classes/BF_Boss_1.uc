@@ -2,8 +2,10 @@ class BF_Boss_1 extends BF_Boss_Main;
 
 event PostBeginPlay()
 {
+	super.PostBeginPlay();
 	CylinderComponent.SetActorCollision(false, false); 
 }
+
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
@@ -14,6 +16,7 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 		Destroy();
 	}
 }
+
 
 function ProjHitFlash()
 {
@@ -30,6 +33,7 @@ function ProjHitFlash()
 		ClearTimer('ProjHitFlash');
 	}
 }
+
 
 function tick(float DeltaTime)
 {

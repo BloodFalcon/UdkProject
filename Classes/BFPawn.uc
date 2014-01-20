@@ -127,7 +127,7 @@ event Tick(float DeltaTime)
 			if(TargetEnemy==none){
 				TargetEnemy = BF_Enemy_Base(TracedEnemy); //Locks in your first traced enemy until you try to trace again //TargetEnemy.Class.Name!='BF_Enemy_Asteroid'	
 				if(TargetEnemy!=none){
-					if(TargetEnemy.Class==class'BF_Enemy_Asteroid' || (CS.Current.Level>=3 && CS.Current.SoulClass==TargetEnemy.Class)){ //Ignores Asteroids and Maxed out enemies
+					if(TargetEnemy.NPCInfo.bCanAbsorb==false || (CS.Current.Level>=3 && CS.Current.SoulClass==TargetEnemy.Class)){ //Ignores Asteroids and Maxed out enemies
 						TargetEnemy=none;	
 					}else if(CS.B1.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B2.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B3.SoulClass!=class'BF_Enemy_EmptyBay' && CS.Current.SoulClass!=TargetEnemy.Class){
 						TargetEnemy=none;
@@ -521,21 +521,21 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 
 event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vector HitNormal )
 {
-	local UDKPawn HitPawn;
-	HitPawn = UDKPawn(Other);
-		if(HitPawn != none)
-		{
-			//if(Other.Class==class<BF_Boss_Aux>){
-				Other.Destroy();
-				KillBeam();
-				WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);
-				PlaySound(DeathSound);
-				if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R==false){
-					BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
-					RespawnPlayer();
-				}
-			//}
+	local BF_Enemy_Base HitPawn;
+	HitPawn = BF_Enemy_Base(Other);
+	if(HitPawn != none)
+	{
+		if(HitPawn.NPCInfo.bCanAbsorb){
+			Other.Destroy();
 		}
+		KillBeam();
+		WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);
+		PlaySound(DeathSound);
+		if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R==false){
+			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
+			RespawnPlayer();
+		}
+	}
 }
 
 

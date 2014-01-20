@@ -8,6 +8,7 @@ event PostBeginPlay()
     super.PostBeginPlay();
 	CylinderComponent.SetActorCollision(false, false);
 	Mesh.SetActorCollision(true, true);
+	NPCInfo.bCanAbsorb=false;
 }
 
 
@@ -22,11 +23,7 @@ event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vect
 {
 	local UDKPawn HitPawn;
 	HitPawn = BFPawn(Other);
-
-			if(HitPawn != none)
-			{
-
-			}
+	if(HitPawn != none){}
 }
 
 
