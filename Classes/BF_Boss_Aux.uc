@@ -4,6 +4,8 @@ class BF_Boss_Aux extends BF_Enemy_Base
 
 var BF_Boss_Main BossBase;
 var name Sock;
+var ParticleSystem DestroyEffect;
+var bool PartDestroyed;
 
 event PostBeginPlay()
 {
@@ -17,10 +19,16 @@ event PostBeginPlay()
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
+	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
 	Health-=Damage;
 	if(Health<=0){
 		BossBase.Health=(BossBase.Health/2);
-		Destroy();
+		if(PartDestroyed == true){
+			WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(DestroyEffect, Mesh, 'Attach', true);
+			WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(DestroyEffect, Mesh, 'Nose_Gun', true);
+			PartDestroyed = false;
+		}
+		//Destroy();
 	}
 }
 
@@ -47,11 +55,19 @@ event tick(float DeltaTime)
 			self.SetRotation(SockRot);
 		}
 	}
+	else{
+		self.Destroy();
+	}
+	if(BossBase.Health <= 0){
+		self.Destroy();
+	}
 }
 
 
 DefaultProperties
 {
+	PartDestroyed = true
+	DestroyEffect = ParticleSystem'BloodFalcon.ParticleSystem.EnemyHitSmokeFire'
 	Health=100
 	CollisionType=COLLIDE_TouchAll
     bJumpCapable=false
