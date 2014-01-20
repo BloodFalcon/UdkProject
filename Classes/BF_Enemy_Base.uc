@@ -25,7 +25,7 @@ event tick(float DeltaTime)
 		if(AbsorbRing==none){
 			if(WorldInfo.NetMode != NM_DedicatedServer){
 				AbsorbRing = new class'ParticleSystemComponent';
-				AbsorbRing.SetTemplate(AbsorbRed);
+					AbsorbRing.SetTemplate(AbsorbRed);
 				AbsorbRing.SetScale(0.6);
 				AbsorbRing.SetAbsolute(false, True, True);
 				AbsorbRing.SetLODLevel(WorldInfo.bDropDetail ? 1 : 0);
