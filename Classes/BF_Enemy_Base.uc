@@ -25,7 +25,17 @@ event tick(float DeltaTime)
 		if(AbsorbRing==none){
 			if(WorldInfo.NetMode != NM_DedicatedServer){
 				AbsorbRing = new class'ParticleSystemComponent';
+				if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.BayOpen){
+					if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.SoulClass!=self.Class){
+						AbsorbRing.SetTemplate(AbsorbGreen);
+					}else{
+						AbsorbRing.SetTemplate(AbsorbYellow);
+					}
+				}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.SoulClass==self.Class){
+					AbsorbRing.SetTemplate(AbsorbYellow);
+				}else{	
 					AbsorbRing.SetTemplate(AbsorbRed);
+				}
 				AbsorbRing.SetScale(0.6);
 				AbsorbRing.SetAbsolute(false, True, True);
 				AbsorbRing.SetLODLevel(WorldInfo.bDropDetail ? 1 : 0);
@@ -52,7 +62,9 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=10;	
 		}
 	}
-	SetTimer(0.10, true, 'ProjHitFlash');
+	if(Health>=0){
+		SetTimer(0.10, true, 'ProjHitFlash');
+	}
 	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);  //Must Have To Process Standard Damage
 }
 
@@ -90,9 +102,9 @@ event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vect
 			if(HitPawn != none)
 			{
 				//`Log("Touch Player");
-				WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);
-				PlaySound(DeathSound);
-				self.Destroy();
+				//WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);
+				//PlaySound(DeathSound);
+				//self.Destroy();
 			}
 			else
 			{
@@ -135,5 +147,6 @@ DefaultProperties
 	bCollideWorld = true
 	CollisionType=COLLIDE_TouchAll
 	CylinderComponent=CollisionCylinder
-	EnemyHitFlash=0;
+	EnemyHitFlash=0
+	GroundSpeed=750
 }

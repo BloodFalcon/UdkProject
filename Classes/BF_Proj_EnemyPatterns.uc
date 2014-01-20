@@ -35,12 +35,14 @@ event Activated()
 	}
 }
 
+
 function Straight()
 {
 	MyProj = CastEn.spawn(ProjType, CastEn,, CastEn.Location, CastEn.Rotation);
 	MyProj.Init(vector(CastEn.Rotation));
 	OutputLinks[0].bHasImpulse=true;
 }
+
 
 function Scatter()
 {

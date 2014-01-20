@@ -21,11 +21,6 @@ function FireWeaps()
 	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
 	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
 	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
-	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
-	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
-	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
-	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
-	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
 }
 
 event tick(float DeltaTime)

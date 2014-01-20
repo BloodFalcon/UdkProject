@@ -7,12 +7,12 @@
 // Behavior: Straight-shot basic projectile.
 ***************************************/
 
-class BF_Proj_Blue_Circle extends BF_Proj_PlayerBase;
+class BF_Proj_Blue_Circle extends BF_Proj_EnemyBase;
 
 
 defaultproperties
 {
 	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Blue_Circle'
-	DrawScale=1
+	DrawScale=1.5
 	Damage=5
 }

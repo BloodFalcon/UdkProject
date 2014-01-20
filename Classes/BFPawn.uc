@@ -159,6 +159,14 @@ event Tick(float DeltaTime)
 		ClearTimer('FireWeaps');
 		AbsorbSuccess();
 	}
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>0){
+		Mesh.SetMaterial(0,Material'Pickups.UDamage.Materials.M_Pickups_Udamage_Add');
+	}else{
+		Mesh.SetMaterial(0,Material'EngineDebugMaterials.MaterialError_Mat');
+	}
+	if(CS.B1.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B2.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B3.SoulClass!=class'BF_Enemy_EmptyBay'){
+		CS.BayOpen=false;
+	}
 	HideBays();
 	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS=CS;
 	super.Tick(DeltaTime);
@@ -284,7 +292,7 @@ function NewShipChooser()
 			CS.Current=CS.B3;
 			CS.BayNumber = 3;
 		}else{
-			CS.Current.FireRate=0.01;
+			CS.Current.FireRate=0.2;
 			CS.Current.ProjClass=class'BF_Proj_Red_Circle';
 			CS.Current.SoulClass=class'BF_Enemy_Player';
 			CS.Current.SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player';
@@ -334,7 +342,7 @@ function HideBays()
 
 function AbsorbSuccess()
 {
-	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=1;
 	if(TargetEnemy.Class==CS.Current.SoulClass){
 		TargetEnemy.LevelUp(CS.Current.Level);
 		CS.Current = TargetEnemy.NPCInfo;
@@ -525,13 +533,13 @@ event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vect
 	HitPawn = BF_Enemy_Base(Other);
 	if(HitPawn != none)
 	{
-		if(HitPawn.NPCInfo.bCanAbsorb){
+		if(HitPawn.NPCInfo.bCanAbsorb && FlickerCount==0){
 			Other.Destroy();
 		}
-		KillBeam();
-		WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);
-		PlaySound(DeathSound);
 		if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R==false){
+			KillBeam();
+			WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);
+			PlaySound(DeathSound);
 			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
 			RespawnPlayer();
 		}
@@ -593,6 +601,6 @@ defaultproperties
 		TargetEnemy = none	
 		AbsorbTimer=0
 		RequiredTime=100
-		FireRate=0.01
+		FireRate=0.2
 		ProjClass=class'BF_Proj_Red_Circle'
 }

@@ -12,6 +12,6 @@ class BF_Proj_Blue_Line extends BF_Proj_EnemyBase;
 defaultproperties
 {
 	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Blue_LineCircle'
-	DrawScale=3
+	DrawScale=3.5
 	Damage=5
 }

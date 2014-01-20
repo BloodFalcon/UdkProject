@@ -10,7 +10,6 @@ event PostBeginPlay()
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
 	SetTimer(0.10, true, 'ProjHitFlash');
-	`log(Health);
 	Health-=Damage;
 	if(Health<=0){
 		Destroy();

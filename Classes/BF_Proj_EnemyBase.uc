@@ -22,7 +22,6 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNorma
 {
 	local UDKPawn HitPlayer;
 	HitPlayer = BFPawn(Other);
-	`log("Process Touch");
 	if (Other != Instigator && Other == HitPlayer)
 	{
 		Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);
@@ -35,7 +34,6 @@ simulated function Explode(vector HitLocation, vector HitNormal)
 {
 	if (Damage > 0 && DamageRadius > 0)
 	{
-		`log("Explode");
 		if ( Role == ROLE_Authority )
 		{
 			MakeNoise(1.0);
