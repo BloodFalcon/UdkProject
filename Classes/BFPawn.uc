@@ -19,6 +19,7 @@ struct SoulVars
 	var float Speed;
 	var bool bFXEnabled;
 	var bool Closed;
+	var bool bCanAbsorb;
 
 	structdefaultproperties
 	{
@@ -30,6 +31,7 @@ struct SoulVars
 		Speed=700
 		bFXEnabled=true
 		Closed=false
+		bCanAbsorb=true
 	}
 };
 
@@ -41,10 +43,12 @@ struct CollectedSouls
 	var SoulVars B3;
 	var SoulVars Holder;
 	var byte BayNumber;
+	var bool BayOpen;
 
 	structdefaultproperties
 	{
 		BayNumber=1
+		BayOpen=true
 	}
 };	
 
@@ -330,10 +334,10 @@ function HideBays()
 
 function AbsorbSuccess()
 {
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
 	if(TargetEnemy.Class==CS.Current.SoulClass){
 		TargetEnemy.LevelUp(CS.Current.Level);
 		CS.Current = TargetEnemy.NPCInfo;
-		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
 	}else{
 		if(CS.B1.SoulClass==class'BF_Enemy_EmptyBay'){
 			CS.Current=TargetEnemy.NPCInfo;
@@ -521,14 +525,16 @@ event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vect
 	HitPawn = UDKPawn(Other);
 		if(HitPawn != none)
 		{
-			KillBeam();
-			Other.Destroy();
-			WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);
-			PlaySound(DeathSound);
-			if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R==false){
-				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
-				RespawnPlayer();
-			}
+			//if(Other.Class==class<BF_Boss_Aux>){
+				Other.Destroy();
+				KillBeam();
+				WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);
+				PlaySound(DeathSound);
+				if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R==false){
+					BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
+					RespawnPlayer();
+				}
+			//}
 		}
 }
 
