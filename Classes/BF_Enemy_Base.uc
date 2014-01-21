@@ -57,7 +57,7 @@ function LevelUp(byte CurLevel){}
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter<10 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameSpeed>=1 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R==false){
-		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter+=1;
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter+=BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodIncrement;
 		if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter<10 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>=9.5){
 			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=10;	
 		}

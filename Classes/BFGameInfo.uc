@@ -16,6 +16,7 @@ var float Time;
 var bool bDrain;
 var bool R;
 var bool PauseActive;
+var float BloodIncrement, BloodDecrement;
 var CollectedSouls CS;
 
 
@@ -32,7 +33,7 @@ function tick(float DeltaTime)
 		if(bDrain){
 			Time=DeltaTime;
 			if(BloodMeter>0){
-				BloodMeter-=(Time*2);
+				BloodMeter-=(Time*BloodDecrement);
 				//Time=0;
 			}else if(BloodMeter<=0){
 				BloodMeter=0;
@@ -79,6 +80,8 @@ static event class<GameInfo> SetGameType(string MapName, string Options, string 
 
 defaultproperties
 {
+	BloodDecrement=2
+	BloodIncrement=1
     bDelayedStart=false
     DefaultPawnClass=class'UdkProject.BFPawn'
     PlayerControllerClass=class'UdkProject.BFPlayerController'

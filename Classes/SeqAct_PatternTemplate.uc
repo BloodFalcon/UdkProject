@@ -51,7 +51,30 @@ var() bool Fire15;
 var() float Delay16;
 var() Actor Node16;
 var() bool Fire16;
-
+var() float Delay17;
+var() Actor Node17;
+var() bool Fire17;
+var() float Delay18;
+var() Actor Node18;
+var() bool Fire18;
+var() float Delay19;
+var() Actor Node19;
+var() bool Fire19;
+var() float Delay20;
+var() Actor Node20;
+var() bool Fire20;
+var() float Delay21;
+var() Actor Node21;
+var() bool Fire21;
+var() float Delay22;
+var() Actor Node22;
+var() bool Fire22;
+var() float Delay23;
+var() Actor Node23;
+var() bool Fire23;
+var() float Delay24;
+var() Actor Node24;
+var() bool Fire24;
 var int step;
 var int Offset;
 var float Delay;
@@ -166,12 +189,58 @@ event Activated()
 		Fire = Fire16;
 		step = 17;
 		OutputLinks[1].bHasImpulse=true;
+	}else if(Node17 != none && step == 17){
+		Delay = Delay17;
+		NextNode = Node17;
+		Fire = Fire17;
+		step = 18;
+		OutputLinks[1].bHasImpulse=true;
+	}else if(Node18 != none && step == 18){
+		Delay = Delay18;
+		NextNode = Node18;
+		Fire = Fire18;
+		step = 19;
+		OutputLinks[1].bHasImpulse=true;
+	}else if(Node19 != none && step == 19){
+		Delay = Delay19;
+		NextNode = Node19;
+		Fire = Fire19;
+		step = 20;
+		OutputLinks[1].bHasImpulse=true;
+	}else if(Node20 != none && step == 20){
+		Delay = Delay20;
+		NextNode = Node20;
+		Fire = Fire20;
+		step = 21;
+		OutputLinks[1].bHasImpulse=true;
+	}else if(Node21 != none && step == 21){
+		Delay = Delay21;
+		NextNode = Node21;
+		Fire = Fire21;
+		step = 22;
+		OutputLinks[1].bHasImpulse=true;
+	}else if(Node22 != none && step == 22){
+		Delay = Delay22;
+		NextNode = Node22;
+		Fire = Fire22;
+		step = 23;
+		OutputLinks[1].bHasImpulse=true;
+	}else if(Node23 != none && step == 23){
+		Delay = Delay23;
+		NextNode = Node23;
+		Fire = Fire23;
+		step = 24;
+		OutputLinks[1].bHasImpulse=true;
+	}else if(Node24 != none && step == 24){
+		Delay = Delay24;
+		NextNode = Node24;
+		Fire = Fire24;
+		step = 25;
+		OutputLinks[1].bHasImpulse=true;
 	}else{
 		step = 0;
 		OutputLinks[2].bHasImpulse=true;
 	}
-
-
 }
 
 defaultproperties

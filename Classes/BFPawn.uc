@@ -20,6 +20,9 @@ struct SoulVars
 	var bool bFXEnabled;
 	var bool Closed;
 	var bool bCanAbsorb;
+	var float BloodDecrement;
+	var float BloodIncrement;
+	var byte SecondLife;
 
 	structdefaultproperties
 	{
@@ -28,10 +31,13 @@ struct SoulVars
 		ProjClass=class'BF_Proj_Red_Circle'
 		SoulClass=class'BF_Enemy_EmptyBay'
 		Size=1.5
-		Speed=700
+		Speed=1400
 		bFXEnabled=true
 		Closed=false
 		bCanAbsorb=true
+		BloodDecrement=2
+		BloodIncrement=1
+		SecondLife=0
 	}
 };
 
@@ -255,7 +261,15 @@ function RespawnPlayer()
 {
 	BeamFire = false;
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>0){
-		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter = 0;
+		if(CS.Current.SecondLife==1){
+			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter/2 ;
+			CS.Current.SecondLife=2;
+		}else if(CS.Current.SecondLife==2){
+			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
+			CS.Current.SecondLife=1;
+		}else{
+			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
+		}
 	}else{
 		if(CS.BayNumber==1){
 			CS.B1.SoulClass=class'BF_Enemy_ClosedBay';
@@ -374,6 +388,8 @@ function AbsorbSuccess()
 
 function UpdatePlayer()
 {
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodDecrement=CS.Current.BloodDecrement;
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodIncrement=CS.Current.BloodIncrement;
 	FireRate = CS.Current.FireRate;
 	ProjClass = CS.Current.ProjClass;
 	self.GroundSpeed = CS.Current.Speed;

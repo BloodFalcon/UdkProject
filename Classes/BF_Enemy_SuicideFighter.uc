@@ -28,9 +28,10 @@ function LevelUp(byte CurLevel)
 	`log(NPCInfo.Level);
 	NPCInfo.Level++;
 	if(NPCInfo.Level==1){
-		NPCInfo.FireRate=0.1;
+		NPCInfo.SecondLife=1;
 	}else if(NPCInfo.Level>=2){
-		NPCInfo.FireRate=0.05;
+		NPCInfo.BloodIncrement=5;
+		NPCInfo.BloodDecrement=10;
 	}
 }
 
