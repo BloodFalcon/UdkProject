@@ -17,7 +17,7 @@ event PostBeginPlay()
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_W4';
 	NPCInfo.Level=0;
 	NPCInfo.Size=1.4;
-	NPCInfo.Speed=300;
+	NPCInfo.Speed=350;
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(-1,0,0));
 }
 
@@ -36,7 +36,7 @@ function LevelUp(byte CurLevel)
 
 DefaultProperties
 {
-	Health=25
+	Health=30
     Begin Object Class=SkeletalMeshComponent Name=EP1Mesh
         SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_W4'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Drone_W4_Physics'
@@ -50,6 +50,6 @@ DefaultProperties
     End Object 
     Mesh=EP1Mesh 
     Components.Add(EP1Mesh)
-	GroundSpeed=300
+	GroundSpeed=350
 }
 

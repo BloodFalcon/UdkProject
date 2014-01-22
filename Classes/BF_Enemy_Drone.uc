@@ -9,7 +9,7 @@ event PostBeginPlay()
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_W2';
 	NPCInfo.Level=0;
 	NPCInfo.Size=1;
-	NPCInfo.Speed=500;
+	NPCInfo.Speed=600;
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0), );
 }
 
@@ -44,5 +44,5 @@ DefaultProperties
     End Object
 	Mesh=EP2Mesh
 	Components.Add(EP2Mesh)
-	GroundSpeed=500
+	GroundSpeed=600
 }
