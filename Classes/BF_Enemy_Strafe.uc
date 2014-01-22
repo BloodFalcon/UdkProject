@@ -7,7 +7,7 @@ event PostBeginPlay()
 	NPCInfo.SoulClass=class'BF_Enemy_Strafe';
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.SuicideFighter_W2';
 	NPCInfo.Level=0;
-	NPCInfo.Size=0.5;
+	NPCInfo.Size=0.45;
 	NPCInfo.Speed=500;
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0), );
 }
@@ -27,7 +27,7 @@ function LevelUp(byte CurLevel)
 
 DefaultProperties
 {
-	Health=30
+	Health=20
     Begin Object Class=SkeletalMeshComponent Name=EP2Mesh
         SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.SuicideFighter_W2'
 		//PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.SuicideFighter_W2_Physics'
@@ -37,7 +37,7 @@ DefaultProperties
 		BlockZeroExtent=true
 		BlockActors=false
 		CollideActors=true
-		Scale=0.5
+		Scale=0.45
     End Object
 	Mesh=EP2Mesh
 	Components.Add(EP2Mesh)

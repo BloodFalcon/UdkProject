@@ -17,7 +17,7 @@ event PostBeginPlay()
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.GunShip_W4';
 	NPCInfo.Level=0;
 	NPCInfo.Size=1.4;
-	NPCInfo.Speed=300;
+	NPCInfo.Speed=350;
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(-1,0,0));
 }
 
@@ -50,5 +50,5 @@ DefaultProperties
     End Object 
     Mesh=EP1Mesh 
     Components.Add(EP1Mesh)
-	GroundSpeed=300
+	GroundSpeed=350
 }
