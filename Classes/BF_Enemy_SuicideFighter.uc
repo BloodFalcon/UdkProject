@@ -17,7 +17,7 @@ event PostBeginPlay()
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.SuicideFighter_W4';
 	NPCInfo.Level=0;
 	NPCInfo.Size=1.5;
-	NPCInfo.Speed=800;
+	NPCInfo.Speed=650;
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(-1,0,0));
 }
 
@@ -51,5 +51,5 @@ DefaultProperties
     End Object
 	Mesh=EP3Mesh
 	Components.Add(EP3Mesh)
-	GroundSpeed=800
+	GroundSpeed=650
 }
