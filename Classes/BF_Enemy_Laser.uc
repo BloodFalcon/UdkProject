@@ -7,24 +7,24 @@
 // Behavior: Uses dummy AI.
 ***************************************/
 
-class BF_Enemy_Vulcan extends BF_Enemy_Base;
+class BF_Enemy_Laser extends BF_Enemy_Base;
 
 event PostBeginPlay()
 {
 	NPCInfo.FireRate=1.0;
-	NPCInfo.ProjClass=class'BF_Proj_Red_Tri';
-	NPCInfo.SoulClass=class'BF_Enemy_Vulcan';
-	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.GunShip_W4';
+	NPCInfo.ProjClass=class'BF_Proj_Red_Laser';
+	NPCInfo.SoulClass=class'BF_Enemy_Laser';
+	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_W4';
 	NPCInfo.Level=0;
 	NPCInfo.Size=1.4;
-	NPCInfo.Speed=400;
+	NPCInfo.Speed=350;
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(-1,0,0));
 }
 
 function LevelUp(byte CurLevel)
 {
 	NPCInfo.Level=CurLevel;
-	`log("Vulcan Level");
+	`log("Laser Level");
 	`log(NPCInfo.Level);
 	NPCInfo.Level++;
 	if(NPCInfo.Level==1){
@@ -36,10 +36,10 @@ function LevelUp(byte CurLevel)
 
 DefaultProperties
 {
-	Health=20
+	Health=30
     Begin Object Class=SkeletalMeshComponent Name=EP1Mesh
-        SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.GunShip_W4'
-		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.GunShip_W4_Physics'
+        SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_W4'
+		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Drone_W4_Physics'
         HiddenGame=FALSE
         HiddenEditor=FALSE
 		BlockNonZeroExtent=true
@@ -50,5 +50,6 @@ DefaultProperties
     End Object 
     Mesh=EP1Mesh 
     Components.Add(EP1Mesh)
-	GroundSpeed=400
+	GroundSpeed=350
 }
+
