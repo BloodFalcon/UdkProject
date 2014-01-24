@@ -9,16 +9,7 @@
 class BFHUD extends HUD
 	dependson(BFPawn);
 
-var Texture2D BFUI;
-var Texture2D BFMissile;
-var Texture2D BFMissileEmpty;
-var Texture2D BFFlamethrower;
-var Texture2D BFFlamethrowerEmpty;
-var Texture2D BFTemplate;
-var Texture2D LightOn;
-var Texture2D LightOff;
-var Texture2D BloodMeterBlack;
-var Texture2D BayDoor1, BayDoor2, BayDoor3;
+var Texture2D ArmorPiercing,BulletDamage,BulletSpeed,BulletSpread,FireRate,FlightSpeed,MeterGain,Shielding,BFTemplate,LightOn,LightOff,BloodMeterBlack,BayDoor1,BayDoor2,BayDoor3,BFUI;
 var MultiFont BF_Font;
 		var float OldHUDX; //HUD Scaling variables
 		var float OldHUDY;
@@ -107,21 +98,27 @@ function GameOver()
 
 DefaultProperties
 {
-	BFUI = Texture2D'BF_HUD_Assets.Textures.BF_HUD_Interface'
-	BFMissile = Texture2D'BloodFalcon.Texture.BF_HUD_Missile'
-	BFFlamethrower = Texture2D'BloodFalcon.Texture.BF_HUD_FlameThrower'
-	BFTemplate = Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
-	LightOn = Texture2D'BloodFalcon.Texture.LightOn'
-	LightOff = Texture2D'BloodFalcon.Texture.LightOff'
-	BayDoor1 = Texture2D'BF_HUD_Assets.Textures.BayDoor1'
-	BayDoor2 = Texture2D'BF_HUD_Assets.Textures.BayDoor2'
-	BayDoor3 = Texture2D'BF_HUD_Assets.Textures.BayDoor3'
-	//BF_Font = MultiFont'UI_Fonts_Final.menus.Fonts_AmbexHeavy'
-	//BloodMeterRed = Texture2D'BF_HUD_Assets.Textures.BloodMeterRed'
-	BloodMeterBlack = Texture2D'BF_HUD_Assets.Textures.BloodMeterBlack'
+	ArmorPiercing=Texture2D'BF_HUD_Assets.Textures.BF_HUD_ArmorPiercing'
+	BulletDamage=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletDamage'
+	BulletSpeed=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpeed'
+	BulletSpread=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpread'
+	FireRate=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FireRate'
+	Shielding=Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shielding'
+	FlightSpeed=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed'
+	MeterGain=Texture2D'BF_HUD_Assets.Textures.BF_HUD_MeterGain'
+	BFUI=Texture2D'BF_HUD_Assets.Textures.BF_HUD_Interface'
+	BFTemplate=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
+	LightOn=Texture2D'BloodFalcon.Texture.LightOn'
+	LightOff=Texture2D'BloodFalcon.Texture.LightOff'
+	BayDoor1=Texture2D'BF_HUD_Assets.Textures.BayDoor1'
+	BayDoor2=Texture2D'BF_HUD_Assets.Textures.BayDoor2'
+	BayDoor3=Texture2D'BF_HUD_Assets.Textures.BayDoor3'
+	BF_Font=MultiFont'UI_Fonts_Final.menus.Fonts_AmbexHeavy'
+	//BloodMeterRed=Texture2D'BF_HUD_Assets.Textures.BloodMeterRed'
+	BloodMeterBlack=Texture2D'BF_HUD_Assets.Textures.BloodMeterBlack'
 	OldHUDX=1920
 	OldHUDY=1080
-	RatX = 1
-	RatY = 1
+	RatX=1
+	RatY=1
 }
 
