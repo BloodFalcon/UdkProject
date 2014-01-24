@@ -100,7 +100,6 @@ event Tick(float DeltaTime)
 	local Vector HitLocation, HitNormal;
 	local Actor TracedEnemyAct;
 	local UDKPawn TracedEnemy;
-	`log(GroundSpeed);
 	Health=100000;
 	Mesh.SetScale(CS.Current.Size);
 	BeamStartLoc = Location;
@@ -619,5 +618,5 @@ defaultproperties
 		AbsorbTimer=0
 		RequiredTime=100
 		FireRate=0.2
-		ProjClass=class'BF_Proj_Red_Line'
+		ProjClass=class'BF_Proj_Red_Lightning'
 }

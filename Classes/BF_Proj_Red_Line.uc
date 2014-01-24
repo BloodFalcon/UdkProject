@@ -17,7 +17,7 @@ var byte BulletsLeft;
 var byte Bullets;
 var int AngularWidth;
 
-event PostBeginPlay()
+simulated event PostBeginPlay()
 {
 	SpreadShot();
 }
