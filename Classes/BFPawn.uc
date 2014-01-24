@@ -22,7 +22,7 @@ struct SoulVars
 	var bool bCanAbsorb;
 	var float BloodDecrement;
 	var float BloodIncrement;
-	var byte SecondLife;
+	var bool bSecondLife;
 
 	structdefaultproperties
 	{
@@ -37,7 +37,7 @@ struct SoulVars
 		bCanAbsorb=true
 		BloodDecrement=2
 		BloodIncrement=1
-		SecondLife=0
+		bSecondLife=false
 	}
 };
 
@@ -100,6 +100,7 @@ event Tick(float DeltaTime)
 	local Vector HitLocation, HitNormal;
 	local Actor TracedEnemyAct;
 	local UDKPawn TracedEnemy;
+	`log(CS.Current.Level);
 	Health=100000;
 	Mesh.SetScale(CS.Current.Size);
 	BeamStartLoc = Location;
@@ -236,11 +237,10 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 
 function RespawnFlicker()
 {
-	if(FlickerCount<20){
+	if(FlickerCount<10){
 		if(FlickerCount==0){
-			WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);
+			WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location); 
 			PlaySound(DeathSound);
-			Self.SetLocation(vect(-7040,-892,46130));
 			KillBeam();
 		}
 		if(self.bHidden){
@@ -261,12 +261,8 @@ function RespawnPlayer()
 {
 	BeamFire = false;
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>0){
-		if(CS.Current.SecondLife==1){
-			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter/2 ;
-			CS.Current.SecondLife=2;
-		}else if(CS.Current.SecondLife==2){
-			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
-			CS.Current.SecondLife=1;
+		if(CS.Current.bSecondLife){
+			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter-=5;
 		}else{
 			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
 		}
@@ -283,6 +279,9 @@ function RespawnPlayer()
 		}else {
 
 		}
+		StopFire(0);
+		StopFire(1);
+		Self.SetLocation(vect(-7040,-892,46130));
 		NewShipChooser();
 	}
 	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R=true;
@@ -360,6 +359,13 @@ function AbsorbSuccess()
 	if(TargetEnemy.Class==CS.Current.SoulClass){
 		TargetEnemy.LevelUp(CS.Current.Level);
 		CS.Current = TargetEnemy.NPCInfo;
+		if(CS.BayNumber==1){
+			CS.B1=CS.Current;
+		}else if(CS.BayNumber==2){
+			CS.B2=CS.Current;
+		}else if(CS.BayNumber==3){
+			CS.B3=CS.Current;
+		}
 	}else{
 		if(CS.B1.SoulClass==class'BF_Enemy_EmptyBay'){
 			CS.Current=TargetEnemy.NPCInfo;
@@ -421,7 +427,7 @@ exec function NextShip()
 
 exec function SwitchBay1()
 {
-	if(CS.B1.SoulClass!=class'BF_Enemy_EmptyBay' || CS.B1.SoulClass!=class'BF_Enemy_ClosedBay' || CS.B1.Closed){
+	if(CS.B1.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B1.SoulClass!=class'BF_Enemy_ClosedBay' && CS.B1.Closed==false && CS.BayNumber!=1){
 		CS.Current=CS.B1;
 		CS.BayNumber=1;
 		UpdatePlayer();
@@ -433,7 +439,7 @@ exec function SwitchBay1()
 
 exec function SwitchBay2()
 {
-	if(CS.B2.SoulClass!=class'BF_Enemy_EmptyBay' || CS.B2.SoulClass!=class'BF_Enemy_ClosedBay' || CS.B2.Closed){
+	if(CS.B2.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B2.SoulClass!=class'BF_Enemy_ClosedBay' && CS.B2.Closed==false && CS.BayNumber!=2){
 		CS.Current=CS.B2;
 		CS.BayNumber=2;
 		UpdatePlayer();
@@ -445,7 +451,7 @@ exec function SwitchBay2()
 
 exec function SwitchBay3()
 {
-	if(CS.B3.SoulClass!=class'BF_Enemy_EmptyBay' || CS.B3.SoulClass!=class'BF_Enemy_ClosedBay' || CS.B3.Closed){
+	if(CS.B3.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B3.SoulClass!=class'BF_Enemy_ClosedBay' && CS.B3.Closed==false && CS.BayNumber!=3){
 		CS.Current=CS.B3;
 		CS.BayNumber=3;
 		UpdatePlayer();
@@ -618,5 +624,5 @@ defaultproperties
 		AbsorbTimer=0
 		RequiredTime=100
 		FireRate=0.2
-		ProjClass=class'BF_Proj_Red_Lightning'
+		ProjClass=class'BF_Proj_Red_Line'
 }

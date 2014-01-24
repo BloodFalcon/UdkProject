@@ -25,13 +25,15 @@ event tick(float DeltaTime)
 		if(AbsorbRing==none){
 			if(WorldInfo.NetMode != NM_DedicatedServer){
 				AbsorbRing = new class'ParticleSystemComponent';
-				if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.BayOpen){
+				if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.BayOpen && self.Class!=class'BF_Enemy_Asteroid'){
 					if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.SoulClass!=self.Class){
 						AbsorbRing.SetTemplate(AbsorbGreen);
-					}else{
+					}else if(self.NPCInfo.Level<3){
 						AbsorbRing.SetTemplate(AbsorbYellow);
+					}else{
+						AbsorbRing.SetTemplate(AbsorbRed);
 					}
-				}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.SoulClass==self.Class){
+				}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.SoulClass==self.Class && self.NPCInfo.Level<3){
 					AbsorbRing.SetTemplate(AbsorbYellow);
 				}else{	
 					AbsorbRing.SetTemplate(AbsorbRed);
@@ -57,7 +59,7 @@ function LevelUp(byte CurLevel){}
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter<10 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameSpeed>=1 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R==false){
-		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter+=BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodIncrement;
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter+=(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodIncrement*(Damage*0.1));
 		if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter<10 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>=9.5){
 			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=10;	
 		}

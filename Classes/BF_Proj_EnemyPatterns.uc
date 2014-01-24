@@ -38,26 +38,29 @@ event Activated()
 
 function Straight()
 {
+	if(CastEn.Health>0.1){
 	MyProj = CastEn.spawn(ProjType, CastEn,, CastEn.Location, CastEn.Rotation);
 	MyProj.Init(vector(CastEn.Rotation));
 	OutputLinks[0].bHasImpulse=true;
+	}
 }
 
 
 function Scatter()
 {
-	SpreadIncrement.Yaw = (AngularWidth*DegToUnrRot)/Bullets;
-	BulletsLeft=Bullets;
-	SpreadOffset.Yaw = (AngularWidth*DegToUnrRot)/2;
+	if(CastEn.Health>0.1){
+		SpreadIncrement.Yaw = (AngularWidth*DegToUnrRot)/Bullets;
+		BulletsLeft=Bullets;
+		SpreadOffset.Yaw = (AngularWidth*DegToUnrRot)/2;
 	
-	while(BulletsLeft>0){
-		BulletsLeft--;
-		MyProj = CastEn.spawn(ProjType, CastEn,, CastEn.Location, CastEn.Rotation); //MUST RENAME SOCKETS FOR PRECISE SPAWN LOCATION
-		MyProj.Init(vector(CastEn.Rotation+SpreadOffset));
-		SpreadOffset-=SpreadIncrement;
+		while(BulletsLeft>0){
+			BulletsLeft--;
+			MyProj = CastEn.spawn(ProjType, CastEn,, CastEn.Location, CastEn.Rotation); //MUST RENAME SOCKETS FOR PRECISE SPAWN LOCATION
+			MyProj.Init(vector(CastEn.Rotation+SpreadOffset));
+			SpreadOffset-=SpreadIncrement;
+		}
+		OutputLinks[0].bHasImpulse=true;
 	}
-
-	OutputLinks[0].bHasImpulse=true;
 }
 
 function Arc()

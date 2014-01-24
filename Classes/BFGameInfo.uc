@@ -19,6 +19,10 @@ var bool PauseActive;
 var float BloodIncrement, BloodDecrement;
 var CollectedSouls CS;
 var BFPawn BFPawnInfo;
+var float BulletSpeed;
+var byte BulletSpread;
+var float BulletDamage;
+var byte BulletPenetration;
 
 
 function BulletTime(byte ModeNum)
@@ -83,6 +87,10 @@ defaultproperties
 {
 	BloodDecrement=2
 	BloodIncrement=1
+	BulletSpeed=1
+	BulletSpread=1
+	BulletDamage=1
+	BulletPenetration=1
     bDelayedStart=false
     DefaultPawnClass=class'UdkProject.BFPawn'
     PlayerControllerClass=class'UdkProject.BFPlayerController'

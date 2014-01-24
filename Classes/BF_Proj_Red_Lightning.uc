@@ -35,5 +35,4 @@ defaultproperties
 		HiddenGame=true
     End Object
     Components.Add(MyMesh)
-	ProjSound1=SoundCue'A_Weapon_Link.Cue.A_Weapon_Link_FireCue'
 }

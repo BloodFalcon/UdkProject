@@ -6,7 +6,6 @@ event PostBeginPlay()
 	NPCInfo.ProjClass=class'BF_Proj_Red_Line';
 	NPCInfo.SoulClass=class'BF_Enemy_Strafe';
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.SuicideFighter_W2';
-	NPCInfo.Level=0;
 	NPCInfo.Size=0.45;
 	NPCInfo.Speed=500;
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0), );
@@ -15,13 +14,17 @@ event PostBeginPlay()
 function LevelUp(byte CurLevel)
 {
 	NPCInfo.Level=CurLevel;
-	`log("Drone Level");
+	`log("Strafe Level");
 	`log(NPCInfo.Level);
 	NPCInfo.Level++;
 	if(NPCInfo.Level==1){
-		NPCInfo.FireRate=0.15;
-	}else if(NPCInfo.Level>=2){
-		NPCInfo.FireRate=0.075;
+
+	}else if(NPCInfo.Level==2){
+
+	}else if(NPCInfo.Level==3){
+
+	}else{
+
 	}
 }
 
@@ -30,7 +33,7 @@ DefaultProperties
 	Health=15
     Begin Object Class=SkeletalMeshComponent Name=EP2Mesh
         SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.SuicideFighter_W2'
-		//PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.SuicideFighter_W2_Physics'
+		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.SuicideFighter_W2_Physics'
         HiddenGame=FALSE
         HiddenEditor=FALSE
 		BlockNonZeroExtent=true

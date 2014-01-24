@@ -15,7 +15,6 @@ event PostBeginPlay()
 	NPCInfo.ProjClass=class'BF_Proj_Red_Tri';
 	NPCInfo.SoulClass=class'BF_Enemy_Vulcan';
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.GunShip_W4';
-	NPCInfo.Level=0;
 	NPCInfo.Size=1.4;
 	NPCInfo.Speed=400;
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(-1,0,0));
@@ -28,9 +27,13 @@ function LevelUp(byte CurLevel)
 	`log(NPCInfo.Level);
 	NPCInfo.Level++;
 	if(NPCInfo.Level==1){
-		NPCInfo.FireRate=0.5;
-	}else if(NPCInfo.Level>=2){
-		NPCInfo.FireRate=0.1;
+
+	}else if(NPCInfo.Level==2){
+
+	}else if(NPCInfo.Level==3){
+
+	}else{
+
 	}
 }
 

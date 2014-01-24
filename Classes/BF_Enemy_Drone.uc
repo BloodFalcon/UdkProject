@@ -7,7 +7,6 @@ event PostBeginPlay()
 	NPCInfo.ProjClass=class'BF_Proj_Red_Line';
 	NPCInfo.SoulClass=class'BF_Enemy_Drone';
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_W2';
-	NPCInfo.Level=0;
 	NPCInfo.Size=1;
 	NPCInfo.Speed=600;
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0), );
@@ -21,9 +20,13 @@ function LevelUp(byte CurLevel)
 	`log(NPCInfo.Level);
 	NPCInfo.Level++;
 	if(NPCInfo.Level==1){
-		NPCInfo.FireRate=0.15;
-	}else if(NPCInfo.Level>=2){
-		NPCInfo.FireRate=0.075;
+
+	}else if(NPCInfo.Level==2){
+
+	}else if(NPCInfo.Level==3){
+
+	}else{
+
 	}
 }
 
