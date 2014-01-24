@@ -10,16 +10,39 @@
 
 class BF_Proj_Red_Line extends BF_Proj_PlayerBase;
 
+var BF_Proj_Base MyProj;
+var Rotator SpreadIncrement;
+var Rotator SpreadOffset;
+var byte BulletsLeft;
+var byte Bullets;
+var int AngularWidth;
 
-function tick(float DeltaTime)
+event PostBeginPlay()
 {
-	Velocity = vect(0,-1500,0);
+	SpreadShot();
 }
 
+function SpreadShot()
+{
+	SpreadIncrement.Yaw = (AngularWidth*DegToUnrRot)/Bullets;
+	BulletsLeft=Bullets;
+	SpreadOffset.Yaw = ((AngularWidth*DegToUnrRot)/2)-((((39*DegToUnrRot)/Bullets)/75)*AngularWidth);
+	
+	while(BulletsLeft>0){
+		BulletsLeft--;
+		MyProj = Spawn(class'BF_Proj_Red_SpreadBullet',,, self.Location, self.Rotation); //MUST RENAME SOCKETS FOR PRECISE SPAWN LOCATION
+		MyProj.Speed = 1500;
+		MyProj.Damage = 2;
+		MyProj.Init(vector(self.Rotation+SpreadOffset));
+		SpreadOffset-=SpreadIncrement;
+	}
+	//self.Destroy();
+}
 
 defaultproperties
 {
-	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Red_LineCircle'
-	DrawScale=3
-	Damage=5
+	AngularWidth=30
+	Bullets=3
+	CollisionComponent = none
+	CollisionType = COLLIDE_TouchAll
 }

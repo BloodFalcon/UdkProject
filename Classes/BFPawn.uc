@@ -175,6 +175,7 @@ event Tick(float DeltaTime)
 	}
 	HideBays();
 	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS=CS;
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BFPawnInfo=self;
 	super.Tick(DeltaTime);
 }
 
@@ -618,5 +619,5 @@ defaultproperties
 		AbsorbTimer=0
 		RequiredTime=100
 		FireRate=0.2
-		ProjClass=class'BF_Proj_Red_Circle'
+		ProjClass=class'BF_Proj_Red_Line'
 }

@@ -18,6 +18,7 @@ var bool R;
 var bool PauseActive;
 var float BloodIncrement, BloodDecrement;
 var CollectedSouls CS;
+var BFPawn BFPawnInfo;
 
 
 function BulletTime(byte ModeNum)
