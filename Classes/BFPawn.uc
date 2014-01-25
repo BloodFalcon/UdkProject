@@ -13,6 +13,13 @@ struct UpHUD
 	var Texture2D HBay1;
 	var Texture2D HBay2;
 	var Texture2D HBay3;
+
+	structdefaultproperties
+	{
+		HBay1=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
+		HBay2=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
+		HBay3=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
+	}
 };
 
 struct SoulVars

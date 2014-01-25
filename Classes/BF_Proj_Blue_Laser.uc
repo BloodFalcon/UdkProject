@@ -9,9 +9,14 @@
 
 class BF_Proj_Blue_Laser extends BF_Proj_EnemyBase;
 
+event tick(float DeltaTime)
+{
+Velocity=vect(0,0,0);
+}
+
 defaultproperties
 {
-	ProjFlightTemplate=ParticleSystem'Blood'
+	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.LaserBeamProj'
 	DrawScale=1
 	Damage=5
 }
