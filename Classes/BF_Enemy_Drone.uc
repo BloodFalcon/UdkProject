@@ -19,13 +19,13 @@ function LevelUp(byte CurLevel)
 	`log("Drone Level");
 	`log(NPCInfo.Level);
 	NPCInfo.Level++;
-	if(NPCInfo.Level==1){
+	if(NPCInfo.Level>=1){
+		
+	}
+	if(NPCInfo.Level>=2){
 
-	}else if(NPCInfo.Level==2){
-
-	}else if(NPCInfo.Level==3){
-
-	}else{
+	}
+	if(NPCInfo.Level>=3){
 
 	}
 }

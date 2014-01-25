@@ -8,6 +8,13 @@
 
 class BFPawn extends UDKPawn;
 
+struct UpHUD
+{
+	var Texture2D HBay1;
+	var Texture2D HBay2;
+	var Texture2D HBay3;
+};
+
 struct SoulVars
 {
 	var float FireRate;
@@ -42,6 +49,9 @@ struct SoulVars
 		BloodDecrement=2
 		BloodIncrement=1
 		bSecondLife=false
+		BulletSpeed=1500
+		BulletSpread=1
+		BulletDamage=5
 	}
 };
 
@@ -199,7 +209,9 @@ function DrawBeam()
 
 function FireWeaps()
 {
-	Spawn(ProjClass,self,,self.Location,self.Rotation);
+	local BF_Proj_Base Proj;
+	Proj = Spawn(ProjClass,self,,self.Location,self.Rotation);
+	Proj.Speed = CS.Current.BulletSpeed;
 	WorldInfo.MyEmitterPool.ClearPoolComponents(false);
 }
 
