@@ -28,7 +28,7 @@ function LevelUp(byte CurLevel)
 	`log(NPCInfo.Level);
 	NPCInfo.Level++;
 	if(NPCInfo.Level==1){
-
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodIncrement=3;
 	}else if(NPCInfo.Level==2){
 
 	}else if(NPCInfo.Level==3){

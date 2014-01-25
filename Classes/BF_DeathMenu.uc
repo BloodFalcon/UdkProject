@@ -9,6 +9,28 @@ function bool Start(optional bool StartPaused = false)
     return TRUE;
 }
 
+
+function RestartLevel(string myString, int myInt, bool myBool)
+{
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive = false;
+	ConsoleCommand("open "@(WorldInfo.Title));
+}
+
+
+function ReturntoMenu(string myString, int myInt, bool myBool)
+{
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive = false;
+	ConsoleCommand("open BF_TitleScreen_Map");
+}
+
+
+function QuittoDesktop(string myString, int myInt, bool myBool)
+{
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive = false;
+	ConsoleCommand("quit");
+}
+
+
 DefaultProperties
 {
     bPauseGameWhileActive=true
