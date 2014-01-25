@@ -15,7 +15,7 @@ var float TimeIncrement;
 var float Time;
 var bool bDrain;
 var bool R;
-var bool PauseActive;
+var bool PauseActive, GameOverActive;
 var float BloodIncrement, BloodDecrement;
 var CollectedSouls CS;
 var BFPawn BFPawnInfo;
@@ -101,4 +101,5 @@ defaultproperties
 	BloodMeter=0
 	R=false
 	PauseActive=false
+	GameOverActive=false
 }

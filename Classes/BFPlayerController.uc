@@ -43,13 +43,13 @@ function UpdateRotation( float DeltaTime )
 exec function DoSomethingWithEscape()
 {
 
-	if(WorldInfo.Title != "BF_TitleScreen_Map" && (BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive==false))
+	if(WorldInfo.Title != "BF_TitleScreen_Map" && (BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive==false) && (BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameOverActive==false))
 	{
 		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive = true;
 		PauseMenu = new class'BF_PauseMenu';
 		PauseMenu.Start();
 	}
-	else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive==true){
+	else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive==true && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameOverActive==false){
 		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive = false;
 		PauseMenu.Close();
 	}
