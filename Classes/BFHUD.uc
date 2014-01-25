@@ -9,6 +9,7 @@
 class BFHUD extends HUD
 	dependson(BFPawn);
 
+var BF_DeathMenu DeathMenu;
 var Texture2D ArmorPiercing,BulletDamage,BulletSpeed,BulletSpread,FireRate,FlightSpeed,MeterGain,Shielding,BFTemplate,LightOn,LightOff,BloodMeterBlack,BayDoor1,BayDoor2,BayDoor3,BFUI;
 var MultiFont BF_Font;
 		var float OldHUDX; //HUD Scaling variables
@@ -87,12 +88,16 @@ function CleanHUD()
 
 function GameOver()
 {
-	Canvas.SetPos(0, 0);
-	Canvas.SetDrawColor(0,0,0);
-	Canvas.DrawRect(1980,1080);
-	Canvas.SetPos(((Canvas.ClipX / 2) - 90), Canvas.ClipY / 2);
-	Canvas.SetDrawColor(255, 0, 0);
-	Canvas.DrawText("GAME OVER");
+	if(WorldInfo.Title != "BF_TitleScreen_Map" && (BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive==false))
+	{
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive = true;
+		DeathMenu = new class'BF_DeathMenu';
+		DeathMenu.Start();
+	}
+	else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive==true){
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive = false;
+		DeathMenu.Close();
+	}
 }
 
 
