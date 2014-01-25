@@ -11,7 +11,7 @@ class BF_Proj_Blue_Laser extends BF_Proj_EnemyBase;
 
 defaultproperties
 {
-	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Blue_Laser'
+	ProjFlightTemplate=ParticleSystem'Blood'
 	DrawScale=1
 	Damage=5
 }
