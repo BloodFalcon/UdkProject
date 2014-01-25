@@ -23,6 +23,10 @@ struct SoulVars
 	var float BloodDecrement;
 	var float BloodIncrement;
 	var bool bSecondLife;
+	var float BulletSpeed;
+	var byte BulletSpread;
+	var float BulletDamage;
+	var byte BulletPenetration;
 
 	structdefaultproperties
 	{
@@ -394,7 +398,7 @@ function AbsorbSuccess()
 
 function UpdatePlayer()
 {
-	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodDecrement=CS.Current.BloodDecrement;
+	//BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodDecrement=CS.Current.BloodDecrement;
 	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodIncrement=CS.Current.BloodIncrement;
 	FireRate = CS.Current.FireRate;
 	ProjClass = CS.Current.ProjClass;
