@@ -27,14 +27,14 @@ function LevelUp(byte CurLevel)
 	`log("SF Level");
 	`log(NPCInfo.Level);
 	NPCInfo.Level++;
-	if(NPCInfo.Level==1){
-		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodIncrement=3;
-	}else if(NPCInfo.Level==2){
-
-	}else if(NPCInfo.Level==3){
-
-	}else{
-
+	if(NPCInfo.Level>=1){
+		NPCInfo.bSecondLife=true;
+	}
+	if(NPCInfo.Level>=2){
+		NPCInfo.Speed=1000;
+	}
+	if(NPCInfo.Level>=3){
+		NPCInfo.BloodIncrement=2;
 	}
 }
 

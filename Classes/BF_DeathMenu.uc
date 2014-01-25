@@ -13,7 +13,7 @@ function bool Start(optional bool StartPaused = false)
 function RestartLevel(string myString, int myInt, bool myBool)
 {
 	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive = false;
-	ConsoleCommand("open "@(WorldInfo.Title));
+	ConsoleCommand("open "@BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).WorldInfo.Title);
 }
 
 

@@ -88,6 +88,7 @@ function CleanHUD()
 
 function GameOver()
 {
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead=false;
 	if(WorldInfo.Title != "BF_TitleScreen_Map" && (BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive==false))
 	{
 		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive = true;
