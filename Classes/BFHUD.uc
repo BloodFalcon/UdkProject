@@ -68,9 +68,12 @@ function drawHUD()
 		GameOver();
 	}
 
-	Canvas.SetPos(0,0);
-	Canvas.DrawTile(BloodMeterBlack, 1024*RatX, 1024*RatY*MeterIncrement, 0, 0, 1024, 1024*MeterIncrement,,true);
-	Canvas.SetPos(1490*RatX,921*RatY);
+	Canvas.SetPos(1699*RatX,179*RatY);
+	Canvas.DrawTile(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HUDuP.HBay1, 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
+	Canvas.SetPos(1699*RatX,429*RatY);
+	Canvas.DrawTile(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HUDuP.HBay2, 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
+	Canvas.SetPos(1699*RatX,679*RatY);
+	Canvas.DrawTile(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HUDuP.HBay3, 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
 
 	super.drawHUD();
 }
