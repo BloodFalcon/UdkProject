@@ -23,6 +23,7 @@ var float BulletSpeed;
 var byte BulletSpread;
 var float BulletDamage;
 var byte BulletPenetration;
+var UpHUD HUDuP;
 
 
 function BulletTime(byte ModeNum)

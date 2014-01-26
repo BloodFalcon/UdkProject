@@ -55,7 +55,7 @@ function drawHUD()
 			B3I=1;
 		}
 	}
-
+	
 	Canvas.SetPos(0,0);
 	Canvas.DrawTile(BloodMeterBlack, 1024*RatX, 1024*RatY*MeterIncrement, 0, 0, 1024, 1024*MeterIncrement,,true);
 	Canvas.SetPos(1490*RatX,921*RatY);
@@ -67,6 +67,10 @@ function drawHUD()
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead==true && B1I==1 && B2I==1 && B3I==1){
 		GameOver();
 	}
+
+	Canvas.SetPos(0,0);
+	Canvas.DrawTile(BloodMeterBlack, 1024*RatX, 1024*RatY*MeterIncrement, 0, 0, 1024, 1024*MeterIncrement,,true);
+	Canvas.SetPos(1490*RatX,921*RatY);
 
 	super.drawHUD();
 }

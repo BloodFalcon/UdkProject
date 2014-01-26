@@ -13,5 +13,5 @@ defaultproperties
 {
 	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Red_Circle'
 	DrawScale=1
-	Damage=5
+	Damage=0.5
 }

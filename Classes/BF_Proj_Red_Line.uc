@@ -32,7 +32,7 @@ function SpreadShot()
 		BulletsLeft--;
 		MyProj = Spawn(class'BF_Proj_Red_SpreadBullet',,, self.Location, self.Rotation); //MUST RENAME SOCKETS FOR PRECISE SPAWN LOCATION
 		MyProj.Speed = 1500;
-		MyProj.Damage = 2;
+		MyProj.Damage = 0.5;
 		MyProj.Init(vector(self.Rotation+SpreadOffset));
 		SpreadOffset-=SpreadIncrement;
 	}
