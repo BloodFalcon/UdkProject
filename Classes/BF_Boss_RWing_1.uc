@@ -13,12 +13,12 @@ event PostBeginPlay()
 function FireWeaps()
 {
 	local Vector SockLoc;
-	self.Mesh.GetSocketWorldLocationAndRotation('Nose_Gun', SockLoc);
-	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
-	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
-	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
-	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
-	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
+
+	if(self.Health >= 0 )
+	{
+		self.Mesh.GetSocketWorldLocationAndRotation('Nose_Gun', SockLoc);
+		Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
+	}
 }
 
 event tick(float DeltaTime)
@@ -29,6 +29,7 @@ event tick(float DeltaTime)
 
 DefaultProperties
 {
+	Health=200
 	Begin Object Name=BAMesh
 		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.LVL1_Boss_RWing'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL1_Boss_RWing_Physics'

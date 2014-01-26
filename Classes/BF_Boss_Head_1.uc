@@ -15,6 +15,7 @@ super.tick(DeltaTime);
 
 DefaultProperties
 {
+	Health=150
 	Begin Object Name=BAMesh
 		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.LVL1_Boss_Head1'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL1_Boss_Head1_Physics'

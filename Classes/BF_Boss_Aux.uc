@@ -22,17 +22,56 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 {
 	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
 	Health-=Damage;
-	if(Health<=0){
+	if((Health<=0) && (PartDestroyed==true)){
 		BossBase.Health=(BossBase.Health/2);
 		if(PartDestroyed == true){
 			WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(DestroyEffect, Mesh, 'Attach', true);
 			WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(DestroyEffect, Mesh, 'Nose_Gun', true);
+			self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
 			PartDestroyed = false;
 		}
 		//Destroy();
 	}
+	else if(self.Health <= 0){
+		BossBase.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
+		SetTimer(0.10f, true, 'DeadHitFlash');
+	}
 }
 
+function ProjHitFlash()
+{
+	if(Health >= 0){
+		if(EnemyHitFlash < 6 && EnemyHitFlash != 1 && EnemyHitFlash != 3 && EnemyHitFlash != 5){
+			EnemyHitFlash++;
+			self.Mesh.SetMaterial(0,Material'EngineDebugMaterials.MaterialError_Mat');
+		}
+		else if(EnemyHitFlash == 1 || EnemyHitFlash == 3 || EnemyHitFlash == 5){
+			EnemyHitFlash++;
+			self.Mesh.SetMaterial(0, none);
+		}
+		else{
+			EnemyHitFlash = 0;
+			ClearTimer('ProjHitFlash');
+		}
+	}
+}
+
+function DeadHitFlash()
+{
+	if(EnemyHitFlash < 6 && EnemyHitFlash != 1 && EnemyHitFlash != 3 && EnemyHitFlash != 5){
+		EnemyHitFlash++;
+		self.Mesh.SetMaterial(0,Material'EngineDebugMaterials.MaterialError_Mat');
+	}
+	else if(EnemyHitFlash == 1 || EnemyHitFlash == 3 || EnemyHitFlash == 5){
+		EnemyHitFlash++;
+		self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
+	}
+	else{
+		EnemyHitFlash = 0;
+		self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
+		ClearTimer('DeadHitFlash');
+	}
+}
 
 event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vector HitNormal )
 {
@@ -57,6 +96,12 @@ event tick(float DeltaTime)
 	}
 	if(BossBase.Health <= 0){
 		self.Destroy();
+	}
+	if(BossBase.IsTimerActive('ProjHitFlash') && self.IsTimerActive('ProjHitFlash') == false && Health <= 0){
+		SetTimer(0.10f, true, 'ProjHitFlash');
+	}
+	if(Health <= 0 && self.IsTimerActive('DeadHitFlash') == false){
+		self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
 	}
 }
 
