@@ -3,7 +3,7 @@
 // Date: 1/8/2014
 // Status: Alpha
 // Being Used: Yes
-// Description: Pawn for Blood Falcon. Controls the absorbtion mechanic, life/death of the player, and firing projectiles from the player.
+// Description: Pawn for Blood Falcon. Controls most aspects of the game.
 ***************************************/
 
 class BFPawn extends UDKPawn;
@@ -41,6 +41,7 @@ struct SoulVars
 	var byte BulletSpread;
 	var float BulletDamage;
 	var byte BulletPenetration;
+	var UpHUD HUDuP;
 
 	structdefaultproperties
 	{
@@ -121,7 +122,7 @@ event Tick(float DeltaTime)
 	local Vector HitLocation, HitNormal;
 	local Actor TracedEnemyAct;
 	local UDKPawn TracedEnemy;
-	`log(CS.Current.Level);
+	//BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=100;
 	Health=100000;
 	Mesh.SetScale(CS.Current.Size);
 	BeamStartLoc = Location;
@@ -328,6 +329,9 @@ function NewShipChooser()
 			CS.Current=CS.B3;
 			CS.BayNumber = 3;
 		}else{
+			CS.Current.HUDuP.HBay1=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate';
+		    CS.Current.HUDuP.HBay2=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate';
+			CS.Current.HUDuP.HBay3=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate';
 			CS.Current.FireRate=0.2;
 			CS.Current.ProjClass=class'BF_Proj_Red_Circle';
 			CS.Current.SoulClass=class'BF_Enemy_Player';

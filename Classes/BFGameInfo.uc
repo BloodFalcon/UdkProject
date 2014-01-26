@@ -24,7 +24,6 @@ var float BulletSpeed;
 var byte BulletSpread;
 var float BulletDamage;
 var byte BulletPenetration;
-var UpHUD HUDuP;
 var BF_EndLevelMenu EndLevelMenu;
 
 

@@ -69,11 +69,11 @@ function drawHUD()
 	}
 
 	Canvas.SetPos(1699*RatX,179*RatY);
-	Canvas.DrawTile(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HUDuP.HBay1, 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
+	Canvas.DrawTile(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDuP.HBay1, 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
 	Canvas.SetPos(1699*RatX,429*RatY);
-	Canvas.DrawTile(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HUDuP.HBay2, 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
+	Canvas.DrawTile(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDuP.HBay2, 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
 	Canvas.SetPos(1699*RatX,679*RatY);
-	Canvas.DrawTile(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HUDuP.HBay3, 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
+	Canvas.DrawTile(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDuP.HBay3, 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
 
 	super.drawHUD();
 }

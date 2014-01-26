@@ -28,15 +28,15 @@ function LevelUp(byte CurLevel)
 	`log(NPCInfo.Level);
 	NPCInfo.Level++;
 	if(NPCInfo.Level>=1){
-		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shielding';
+		NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shielding';
 		NPCInfo.bSecondLife=true;
 	}
 	if(NPCInfo.Level>=2){
-		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed';
+		NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed';
 		NPCInfo.Speed=1000;
 	}
 	if(NPCInfo.Level>=3){
-		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_MeterGain';
+		NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_MeterGain';
 		NPCInfo.BloodIncrement=2;
 	}
 }
