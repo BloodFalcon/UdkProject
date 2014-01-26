@@ -9,18 +9,18 @@ event PostBeginPlay()
 	super.PostBeginPlay();
 	WingRot.Yaw = 90*DegToUnrRot;
 	self.SetRotation(WingRot); 
-	SetTimer(1.0, true, 'FireWeaps');
+	SetTimer(1.5, true, 'FireWeaps');
 }
 
 function FireWeaps()
 {
 	local Vector SockLoc;
-	self.Mesh.GetSocketWorldLocationAndRotation('Nose_Gun', SockLoc);
-	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
-	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
-	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
-	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
-	Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
+
+	if(self.Health >= 0 )
+	{
+		self.Mesh.GetSocketWorldLocationAndRotation('Nose_Gun', SockLoc);
+		Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
+	}
 }
 
 event tick(float DeltaTime)
@@ -32,6 +32,7 @@ self.SetRotation(WingRot);
 
 DefaultProperties
 {
+	Health=200
 	Begin Object Name=BAMesh
 		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.LVL1_Boss_LWing'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL1_Boss_LWing_Physics'

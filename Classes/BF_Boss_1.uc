@@ -14,9 +14,30 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Boss1Dead = true;
 		Destroy();
 	}
+	else if(self.Health <= 1001){
+		SetTimer(0.10f, true, 'DeadHitFlash');
+	}
 }
 
 function ProjHitFlash()
+{
+	if(Health >=1001){
+		if(EnemyHitFlash < 6 && EnemyHitFlash != 1 && EnemyHitFlash != 3 && EnemyHitFlash != 5){
+			EnemyHitFlash++;
+			self.Mesh.SetMaterial(0,Material'EngineDebugMaterials.MaterialError_Mat');
+		}
+		else if(EnemyHitFlash == 1 || EnemyHitFlash == 3 || EnemyHitFlash == 5){
+			EnemyHitFlash++;
+			self.Mesh.SetMaterial(0, none);
+		}
+		else{
+			EnemyHitFlash = 0;
+			ClearTimer('ProjHitFlash');
+		}
+	}
+}
+
+function DeadHitFlash()
 {
 	if(EnemyHitFlash < 6 && EnemyHitFlash != 1 && EnemyHitFlash != 3 && EnemyHitFlash != 5){
 		EnemyHitFlash++;
@@ -24,18 +45,21 @@ function ProjHitFlash()
 	}
 	else if(EnemyHitFlash == 1 || EnemyHitFlash == 3 || EnemyHitFlash == 5){
 		EnemyHitFlash++;
-		self.Mesh.SetMaterial(0, none);
+		self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
 	}
 	else{
 		EnemyHitFlash = 0;
-		ClearTimer('ProjHitFlash');
+		self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
+		ClearTimer('DeadHitFlash');
 	}
 }
 
 
 function tick(float DeltaTime)
 {
-
+	if(Health <= 1000 && self.IsTimerActive('DeadHitFlash') == false){
+		self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
+	}
 }
 
 

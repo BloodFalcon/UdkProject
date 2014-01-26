@@ -15,7 +15,7 @@ event Possess(Pawn inPawn, bool bVehicleTransition)
 auto state Idle
 {
 Begin:
-	Pawn.GroundSpeed += 200;
+	//Pawn.GroundSpeed += 200;
 	MoveTo(PointA, none, ,true);
 	GotoState('MoveRight');
 }
@@ -24,7 +24,7 @@ state MoveRight
 {
 Begin:
     Sleep(0.75);
-	Pawn.GroundSpeed += 200;
+	//Pawn.GroundSpeed += 200;
 	MoveTo(PointB, none, ,true);
     GotoState('SwoopDown');
 }
