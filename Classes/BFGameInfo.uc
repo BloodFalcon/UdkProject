@@ -16,6 +16,7 @@ var float Time;
 var bool bDrain;
 var bool R;
 var bool PauseActive, GameOverActive;
+var bool Boss1Dead;
 var float BloodIncrement, BloodDecrement;
 var CollectedSouls CS;
 var BFPawn BFPawnInfo;
@@ -24,6 +25,7 @@ var byte BulletSpread;
 var float BulletDamage;
 var byte BulletPenetration;
 var UpHUD HUDuP;
+var BF_EndLevelMenu EndLevelMenu;
 
 
 function BulletTime(byte ModeNum)
@@ -77,6 +79,18 @@ function tick(float DeltaTime)
 		modeBulletTime=0;
 	}
 	//BloodMeter=10;
+	if(Boss1Dead == true)
+	{
+		Boss1Dead = false;
+		SetTimer(3.0f, false, 'NextLevel');
+	}
+}
+
+function NextLevel()
+{
+	GameOverActive = true;
+	EndLevelMenu = new class'BF_EndLevelMenu';
+	EndLevelMenu.Start();
 }
 
 static event class<GameInfo> SetGameType(string MapName, string Options, string Portal)
@@ -86,6 +100,7 @@ static event class<GameInfo> SetGameType(string MapName, string Options, string 
 
 defaultproperties
 {
+	Boss1Dead = false
 	BloodDecrement=2
 	BloodIncrement=1
 	BulletSpeed=1
