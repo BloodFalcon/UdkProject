@@ -59,7 +59,7 @@ struct SoulVars
 		bSecondLife=false
 		BulletSpeed=1500
 		BulletSpread=1
-		BulletDamage=5
+		BulletDamage=1
 	}
 };
 
@@ -104,7 +104,7 @@ var Vector 	local_cam_loc;
 var SkeletalMesh EnemyMesh;
 var float FireRate;
 var class<BF_Proj_Base> ProjClass;
-var CollectedSouls CS;
+var CollectedSouls CS, DefaultCS;
 var BF_Enemy_Base Bay1,Bay2,Bay3;
 
 
@@ -219,7 +219,8 @@ function FireWeaps()
 {
 	local BF_Proj_Base Proj;
 	Proj = Spawn(ProjClass,self,,self.Location,self.Rotation);
-	Proj.Speed = CS.Current.BulletSpeed;
+	Proj.Speed=CS.Current.BulletSpeed;
+	Proj.Damage*=CS.Current.BulletDamage;
 	WorldInfo.MyEmitterPool.ClearPoolComponents(false);
 }
 
@@ -329,16 +330,17 @@ function NewShipChooser()
 			CS.Current=CS.B3;
 			CS.BayNumber = 3;
 		}else{
-			CS.Current.HUDuP.HBay1=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate';
-		    CS.Current.HUDuP.HBay2=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate';
-			CS.Current.HUDuP.HBay3=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate';
-			CS.Current.FireRate=0.2;
-			CS.Current.ProjClass=class'BF_Proj_Red_Circle';
-			CS.Current.SoulClass=class'BF_Enemy_Player';
-			CS.Current.SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player';
-			CS.Current.Level=0;
-			CS.Current.Size=1.5;
-			CS.Current.Speed=1400;
+			CS.Current=DefaultCS.Current;
+			//CS.Current.HUDuP.HBay1=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate';
+			//CS.Current.HUDuP.HBay2=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate';
+			//CS.Current.HUDuP.HBay3=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate';
+			//CS.Current.FireRate=0.2;
+			//CS.Current.ProjClass=class'BF_Proj_Red_Circle';
+			//CS.Current.SoulClass=class'BF_Enemy_Player';
+			//CS.Current.SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player';
+			//CS.Current.Level=0;
+			//CS.Current.Size=1.5;
+			//CS.Current.Speed=1400;
 			if(CS.B1.SoulClass==class'BF_Enemy_EmptyBay'){
 				CS.BayNumber = 1;
 			}else if(CS.B2.SoulClass==class'BF_Enemy_EmptyBay'){

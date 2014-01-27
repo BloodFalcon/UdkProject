@@ -36,7 +36,7 @@ function LevelUp(byte CurLevel)
 	}
 	if(NPCInfo.Level>=3){
 		NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_ArmorPiercing';
-		NPCInfo.BulletPenetration=2;//Does Nothing
+		//NPCInfo.BulletPenetration=2;//Does Nothing
 	}
 }
 
