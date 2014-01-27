@@ -6,6 +6,8 @@ var BF_Boss_Main BossBase;
 var name Sock;
 var ParticleSystem DestroyEffect;
 var bool PartDestroyed;
+var vector SockLoc;
+var Rotator SockRot;
 
 event PostBeginPlay()
 {
@@ -82,18 +84,6 @@ event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vect
 
 event tick(float DeltaTime)
 {
-	local vector SockLoc;
-	local Rotator SockRot;
-	if(BossBase!=none){
-		if(BossBase.Mesh.GetSocketByName(Sock)!=none){
-			BossBase.Mesh.GetSocketWorldLocationAndRotation(Sock,SockLoc,SockRot,);
-			self.SetLocation(SockLoc);
-			self.SetRotation(SockRot);
-		}
-	}
-	else{
-		self.Destroy();
-	}
 	if(BossBase.Health <= 0){
 		self.Destroy();
 	}

@@ -12,34 +12,68 @@ event Possess(Pawn inPawn, bool bVehicleTransition)
 	Pawn.SetDesiredRotation(FaceThisWay, true, false,0.5,false);
 }
 
-auto state Idle
-{
-Begin:
-	MoveTo(PointA, none, ,true);
-	GotoState('MoveRight');
-	if(Pawn.Health <= 1250)
-		GotoState('SwoopDown');
-}
-
-state MoveRight
-{
-Begin:
-    Sleep(0.75);
-	MoveTo(PointB, none, ,true);
-	if(Pawn.Health <= 5000){
-    GotoState('SwoopDown');
-	}
-	else{
-		GotoState('Idle');
-	}
-}
-
-state SwoopDown
+auto state PhaseOne
 {
 Begin:
 	Sleep(0.75);
+	MoveTo(PointA, none, ,true);
+	Sleep(0.75);
+	MoveTo(PointB, none, ,true);
+	if(Pawn.Health <= 5000){
+		GotoState('PhaseTwo');
+	}
+	else{
+		GotoState('PhaseOne');
+	}
+}
+
+state PhaseTwo
+{
+Begin:
+    Sleep(0.60);
 	MoveTo(PointC, none, ,true);
-	GotoState('Idle');
+	Sleep(0.1);
+	MoveTo(PointA, none, ,true);
+	Sleep(0.60);
+	MoveTo(PointB, none, ,true);
+	if(Pawn.Health <= 1250){
+		GotoState('FinalPhase');
+	}
+	else{
+		GotoState('PhaseTwo');
+	}
+}
+
+state FinalPhase
+{
+Begin:
+	Sleep(0.45);
+	MoveTo(PointC, none, ,true);
+	Sleep(0.1);
+	MoveTo(PointA, none, ,true);
+	Sleep(0.45);
+	MoveTo(PointC, none, ,true);
+	Sleep(0.1);
+	MoveTo(PointB, none, ,true);
+	Sleep(0.45);
+	MoveTo(PointA, none, ,true);
+	Sleep(0.45);
+	MoveTo(PointC, none, ,true);
+	Sleep(0.1);
+	MoveTo(PointA, none, ,true);
+	Sleep(0.45);
+	MoveTo(PointB, none, ,true);
+	GotoState('FinalPhase');
+}
+
+state StrafeShot
+{
+Begin:
+	//Sleep(0.75);
+	MoveTo(PointB, none, ,true);
+	//Sleep(0.75);
+	MoveTo(PointA, none, ,true);
+	GotoState('StrafeShot');
 }
 
 DefaultProperties

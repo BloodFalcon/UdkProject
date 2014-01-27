@@ -1,5 +1,8 @@
 class BF_Boss_Head_1 extends BF_Boss_Aux;
 
+var bool ShouldShoot;
+var float HeadOffset;
+
 event PostBeginPlay()
 {
 	super.PostBeginPlay();
@@ -8,9 +11,41 @@ event PostBeginPlay()
 
 event tick(float DeltaTime)
 {
-super.tick(DeltaTime);
-//self.SetRotation(RotRand());
+	super.tick(DeltaTime);
+	if(BossBase!=none){
+		if(BossBase.Mesh.GetSocketByName(Sock)!=none){
+			BossBase.Mesh.GetSocketWorldLocationAndRotation(Sock,SockLoc,SockRot,);
+			if(BossBase.Controller.IsInState('PhaseOne') && HeadOffset > 0){
+				`log("akdhfkadhfkh");
+				HeadOffset-=0.01;
+			}
+			else if(BossBase.Controller.IsInState('PhaseTwo')){
+				HeadOffset = 0;
+			}
+			SockLoc.Y-=HeadOffset;
+			self.SetLocation(SockLoc);
+			self.SetRotation(SockRot);
+		}
+	}
+	else{
+		self.Destroy();
+	}
+	if(BossBase.Controller.IsInState('PhaseTwo') && (ShouldShoot == true))
+	{
+		`log("Should be shooting");
+		SetTimer(3.0f, true, 'StrafeShooting');
+		ShouldShoot = false;
+	}	
+}
 
+function StrafeShooting()
+{
+	local BF_Proj_Base HeadProj;
+
+	self.Mesh.GetSocketWorldLocationAndRotation('Nose_Gun', SockLoc, SockRot);
+	HeadProj = Spawn(class'BF_Proj_Blue_Tri', ,,SockLoc, SockRot);
+	HeadProj.Velocity = vect(0,1200,0);
+	//ClearTimer('StrafeShooting');
 }
 
 DefaultProperties
@@ -30,4 +65,6 @@ DefaultProperties
 	Mesh=BAMesh
 	Components.Add(BAMesh)
 	bIgnoreForces=true
+	ShouldShoot=true
+	HeadOffset = 350
 }

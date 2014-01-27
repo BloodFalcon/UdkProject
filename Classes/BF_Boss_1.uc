@@ -57,6 +57,7 @@ function DeadHitFlash()
 
 function tick(float DeltaTime)
 {
+	`log(self.Health);
 	if(Health <= 1250 && self.IsTimerActive('DeadHitFlash') == false){
 		self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
 	}

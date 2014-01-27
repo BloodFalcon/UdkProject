@@ -9,24 +9,31 @@ event PostBeginPlay()
 	super.PostBeginPlay();
 	WingRot.Yaw = 90*DegToUnrRot;
 	self.SetRotation(WingRot); 
-	SetTimer(1.5, true, 'FireWeaps');
+	SetTimer(2.0, true, 'FireWeaps');
 }
 
 function FireWeaps()
 {
-	local Vector SockLoc;
-
-	if(self.Health >= 0 )
-	{
+	//if(self.Health >= 0 )
+	//{
 		self.Mesh.GetSocketWorldLocationAndRotation('Nose_Gun', SockLoc);
 		Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
-	}
+	//}
 }
 
 event tick(float DeltaTime)
 {
 super.tick(DeltaTime);
-self.SetRotation(WingRot);
+	if(BossBase!=none){
+		if(BossBase.Mesh.GetSocketByName(Sock)!=none){
+			BossBase.Mesh.GetSocketWorldLocationAndRotation(Sock,SockLoc,SockRot,);
+			self.SetLocation(SockLoc);
+			self.SetRotation(WingRot);
+		}
+	}
+	else{
+		self.Destroy();
+	}
 
 }
 
