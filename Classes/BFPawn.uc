@@ -188,7 +188,7 @@ event Tick(float DeltaTime)
 		AbsorbSuccess();
 	}
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>0){
-		Mesh.SetMaterial(0,Material'BF_Fighters.Material.PlayerGlow');
+		Mesh.SetMaterial(0,Material'BF_Robert.Material.Purple_Falcon');
 	}else{
 		Mesh.SetMaterial(0,Material'EngineDebugMaterials.MaterialError_Mat');
 	}
