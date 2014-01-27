@@ -12,7 +12,7 @@ class BF_Enemy_Laser extends BF_Enemy_Base;
 event PostBeginPlay()
 {
 	NPCInfo.FireRate=1.0;
-	NPCInfo.ProjClass=class'BF_Proj_Red_Laser';
+	NPCInfo.ProjClass=class'BF_Proj_Red_TwoShotBetty';
 	NPCInfo.SoulClass=class'BF_Enemy_Laser';
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_W4';
 	NPCInfo.Size=1.4;
