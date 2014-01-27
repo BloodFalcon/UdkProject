@@ -57,8 +57,14 @@ function DeadHitFlash()
 
 function tick(float DeltaTime)
 {
-	if(Health <= 1000 && self.IsTimerActive('DeadHitFlash') == false){
+	if(Health <= 1250 && self.IsTimerActive('DeadHitFlash') == false){
 		self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
+	}
+	if(Health <= 5000){
+		GroundSpeed = 2000;
+	}
+	if(Health <= 1250){
+		GroundSpeed = 3500;
 	}
 }
 
