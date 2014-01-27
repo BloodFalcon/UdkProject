@@ -16,7 +16,7 @@ event PostBeginPlay()
 	NPCInfo.SoulClass=class'BF_Enemy_Vulcan';
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.GunShip_W4';
 	NPCInfo.Size=1.4;
-	NPCInfo.Speed=400;
+	NPCInfo.Speed=500;
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(-1,0,0));
 }
 
