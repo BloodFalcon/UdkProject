@@ -15,18 +15,23 @@ event Possess(Pawn inPawn, bool bVehicleTransition)
 auto state Idle
 {
 Begin:
-	//Pawn.GroundSpeed += 200;
 	MoveTo(PointA, none, ,true);
 	GotoState('MoveRight');
+	if(Pawn.Health <= 1250)
+		GotoState('SwoopDown');
 }
 
 state MoveRight
 {
 Begin:
     Sleep(0.75);
-	//Pawn.GroundSpeed += 200;
 	MoveTo(PointB, none, ,true);
+	if(Pawn.Health <= 5000){
     GotoState('SwoopDown');
+	}
+	else{
+		GotoState('Idle');
+	}
 }
 
 state SwoopDown
