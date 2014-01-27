@@ -22,7 +22,7 @@ event PostBeginPlay()
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
-	//super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
+	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
 	Health-=Damage;
 	if((Health<=0) && (PartDestroyed==true)){
 		BossBase.Health=(BossBase.Health/2);
