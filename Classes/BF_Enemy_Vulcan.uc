@@ -31,10 +31,12 @@ function LevelUp(byte CurLevel)
 		NPCInfo.FireRate = 0.5;
 	}
 	if(NPCInfo.Level>=2){
-		NPCInfo.BulletDamage=2;
+		NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletDamage';		
+		NPCInfo.BulletDamage=2;//Does Nothing
 	}
 	if(NPCInfo.Level>=3){
-
+		NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_ArmorPiercing';
+		NPCInfo.BulletPenetration=2;//Does Nothing
 	}
 }
 
