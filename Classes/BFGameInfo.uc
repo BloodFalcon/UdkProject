@@ -25,6 +25,7 @@ var byte BulletSpread;
 var float BulletDamage;
 var byte BulletPenetration;
 var BF_EndLevelMenu EndLevelMenu;
+var BF_Enemy_Base BossBase;
 
 
 function BulletTime(byte ModeNum)

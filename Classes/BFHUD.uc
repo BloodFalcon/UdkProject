@@ -24,11 +24,20 @@ var MultiFont BF_Font;
 
 function drawHUD()
 {
+	local float Stringlen;
+	local float Stringleny;
 	//GunShipEquip = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GunShipEquip;
 	CalcScale();
 	Canvas.SetPos(0,0);
 	Canvas.DrawTile(BFUI, 1920*RatX, 1080*RatY, 0, 0, 1920, 1080);
-	
+	Canvas.StrLen(""@BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Health,Stringlen,Stringleny);
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase!=none){
+	Canvas.SetPos(Canvas.Project(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Location).X-Stringlen,Canvas.Project(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Location).Y-200);
+	Canvas.SetDrawColor(0,255,0);
+	Canvas.DrawText(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Health,,2,2,);
+	}
+    Canvas.Reset();
+
 	if(MeterFull<MeterIncrement){
 		MeterIncrement-=0.005;
 	}else{

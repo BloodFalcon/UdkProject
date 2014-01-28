@@ -102,6 +102,7 @@ event tick(float DeltaTime)
 	if(BossBase.Controller == none){
 		self.Destroy();
 	}
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase = BossBase;
 }
 
 
