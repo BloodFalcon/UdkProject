@@ -10,6 +10,29 @@ event PostBeginPlay()
 	SetTimer(1.5, true, 'FireWeaps');
 }
 
+event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
+{
+	if(BossBase.Controller.IsInState('PhaseOne') || BossBase.Controller.IsInState('FinalPhase')){
+		//Health-=Damage;
+		super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
+		if((Health<=0) && (PartDestroyed==true)){
+			BossBase.Health=(BossBase.Health/2);
+			if(PartDestroyed == true){
+				WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(DestroyEffect, Mesh, 'Attach', true);
+				WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(DestroyEffect, Mesh, 'Nose_Gun', true);
+				self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
+				PartDestroyed = false;
+			}
+			//Destroy();
+		}
+		else if(self.Health <= 0){
+			BossBase.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
+			SetTimer(0.10f, true, 'DeadHitFlash');
+		}
+	}
+	//super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
+}
+
 function FireWeaps()
 {
 	//if(self.Health >= 0 )

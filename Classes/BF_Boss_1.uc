@@ -8,17 +8,20 @@ event PostBeginPlay()
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
-	SetTimer(0.10, true, 'ProjHitFlash');
-	Health-=Damage;
-	if(Health<=0){
-		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Boss1Dead = true;
-		`log("Destroyed Boss");
-		Destroy();
+	if(Controller.IsInState('PhaseTwo') || Controller.IsInState('FinalPhase')){
+		SetTimer(0.10, true, 'ProjHitFlash');
+		//Health-=Damage;
+		super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
+		if(Health<=0){
+			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Boss1Dead = true;
+			`log("Destroyed Boss");
+			Destroy();
+		}
+		else if(self.Health <= 625){
+			SetTimer(0.10f, true, 'DeadHitFlash');
+		}
 	}
-	else if(self.Health <= 625){
-		SetTimer(0.10f, true, 'DeadHitFlash');
-	}
-	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
+	//super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
 }
 
 function bool Died(Controller Killer, class<DamageType> damageType, vector HitLocation)
@@ -67,7 +70,7 @@ function DeadHitFlash()
 
 function tick(float DeltaTime)
 {
-	`log(self.Health);
+	//`log(self.Health);
 	if(Health <= 625 && self.IsTimerActive('DeadHitFlash') == false && Controller.IsInState('FinalPhase')){
 		self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
 	}

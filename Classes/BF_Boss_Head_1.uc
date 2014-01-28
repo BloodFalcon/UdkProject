@@ -11,32 +11,27 @@ event PostBeginPlay()
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
-	if(BossBase.Controller.IsInState('PhaseTwo')){
+	if(BossBase.Controller.IsInState('PhaseTwo') || BossBase.IsInState('FinalPhase')){
 		//Health-=Damage;
+		BossBase.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
 		super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
-		if((Health<=0) && (PartDestroyed==true)){
+		if(((self.Health<=0) || (BossBase.Controller.IsInState('FinalPhase')) || (BossBase.Health <= 625)) && (PartDestroyed==true)){
 			BossBase.Health=(BossBase.Health/2);
-			if(PartDestroyed == true || BossBase.Controller.IsInState('FinalPhase')){
-				WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(DestroyEffect, Mesh, 'Attach', true);
-				WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(DestroyEffect, Mesh, 'Nose_Gun', true);
-				self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
-				PartDestroyed = false;
-			}
-			//Destroy();
+			WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(DestroyEffect, Mesh, 'Attach', true);
+			WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(DestroyEffect, Mesh, 'Nose_Gun', true);
+			self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
+			PartDestroyed = false;
 		}
 		else if(self.Health <= 0){
 			BossBase.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
 			SetTimer(0.10f, true, 'DeadHitFlash');
 		}
 	}
-	else{
-		BossBase.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
-	}
 }
 
 event tick(float DeltaTime)
 {
-	`log(self.Health);
+	//`log(self.Health);
 	super.tick(DeltaTime);
 	if(BossBase.Controller==none || BossBase==none){
 		self.Destroy();
@@ -51,6 +46,9 @@ event tick(float DeltaTime)
 				}
 				else if(BossBase.Controller.IsInState('PhaseTwo')){
 					HeadOffset = 0;
+				}
+				else if(BossBase.Controller.IsInState('FinalPhase') && HeadOffset == 0){
+					HeadOffset = 350;
 				}
 				SockLoc.Y-=HeadOffset;
 				self.SetLocation(SockLoc);
