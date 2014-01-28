@@ -22,7 +22,6 @@ event PostBeginPlay()
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
-	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
 	Health-=Damage;
 	if((Health<=0) && (PartDestroyed==true)){
 		BossBase.Health=(BossBase.Health/2);
@@ -38,6 +37,13 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 		BossBase.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
 		SetTimer(0.10f, true, 'DeadHitFlash');
 	}
+	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
+}
+
+function bool Died(Controller Killer, class<DamageType> damageType, vector HitLocation)
+{
+`log("Please Dont Die!");
+return true;
 }
 
 function ProjHitFlash()
@@ -92,6 +98,9 @@ event tick(float DeltaTime)
 	}
 	if(Health <= 0 && self.IsTimerActive('DeadHitFlash') == false){
 		self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
+	}
+	if(BossBase.Controller == none){
+		self.Destroy();
 	}
 }
 

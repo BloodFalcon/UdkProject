@@ -9,33 +9,64 @@ event PostBeginPlay()
 
 }
 
-event tick(float DeltaTime)
+event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
-	super.tick(DeltaTime);
-	if(BossBase!=none){
-		if(BossBase.Mesh.GetSocketByName(Sock)!=none){
-			BossBase.Mesh.GetSocketWorldLocationAndRotation(Sock,SockLoc,SockRot,);
-			if(BossBase.Controller.IsInState('PhaseOne') && HeadOffset > 0){
-				`log("akdhfkadhfkh");
-				HeadOffset-=0.01;
+	if(BossBase.Controller.IsInState('PhaseTwo')){
+		//Health-=Damage;
+		super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
+		if((Health<=0) && (PartDestroyed==true)){
+			BossBase.Health=(BossBase.Health/2);
+			if(PartDestroyed == true || BossBase.Controller.IsInState('FinalPhase')){
+				WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(DestroyEffect, Mesh, 'Attach', true);
+				WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(DestroyEffect, Mesh, 'Nose_Gun', true);
+				self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
+				PartDestroyed = false;
 			}
-			else if(BossBase.Controller.IsInState('PhaseTwo')){
-				HeadOffset = 0;
-			}
-			SockLoc.Y-=HeadOffset;
-			self.SetLocation(SockLoc);
-			self.SetRotation(SockRot);
+			//Destroy();
+		}
+		else if(self.Health <= 0){
+			BossBase.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
+			SetTimer(0.10f, true, 'DeadHitFlash');
 		}
 	}
 	else{
+		BossBase.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
+	}
+}
+
+event tick(float DeltaTime)
+{
+	`log(self.Health);
+	super.tick(DeltaTime);
+	if(BossBase.Controller==none || BossBase==none){
 		self.Destroy();
 	}
-	if(BossBase.Controller.IsInState('PhaseTwo') && (ShouldShoot == true))
-	{
-		`log("Should be shooting");
-		SetTimer(3.0f, true, 'StrafeShooting');
-		ShouldShoot = false;
-	}	
+	else{
+		if(BossBase!=none && BossBase.Controller!=none){
+			if(BossBase.Mesh.GetSocketByName(Sock)!=none){
+				BossBase.Mesh.GetSocketWorldLocationAndRotation(Sock,SockLoc,SockRot,);
+				if(BossBase.Controller.IsInState('PhaseOne') && HeadOffset > 0){
+					//`log("akdhfkadhfkh");
+					HeadOffset-=0.01;
+				}
+				else if(BossBase.Controller.IsInState('PhaseTwo')){
+					HeadOffset = 0;
+				}
+				SockLoc.Y-=HeadOffset;
+				self.SetLocation(SockLoc);
+				self.SetRotation(SockRot);
+			}
+		}
+		else{
+			self.Destroy();
+		}
+		if(BossBase.Controller.IsInState('PhaseTwo') && (ShouldShoot == true) && BossBase.Controller!=none)
+		{
+			`log("Should be shooting");
+			SetTimer(3.0f, true, 'StrafeShooting');
+			ShouldShoot = false;
+		}
+	}
 }
 
 function StrafeShooting()
@@ -50,7 +81,7 @@ function StrafeShooting()
 
 DefaultProperties
 {
-	Health=150
+	Health=250
 	Begin Object Name=BAMesh
 		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.LVL1_Boss_Head1'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL1_Boss_Head1_Physics'

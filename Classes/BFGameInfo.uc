@@ -80,6 +80,7 @@ function tick(float DeltaTime)
 	//BloodMeter=10;
 	if(Boss1Dead == true)
 	{
+		`log("OPEN COMPLETE");
 		Boss1Dead = false;
 		SetTimer(3.0f, false, 'NextLevel');
 	}

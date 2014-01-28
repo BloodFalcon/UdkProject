@@ -29,14 +29,14 @@ event tick(float DeltaTime)
 			self.SetRotation(WingRot);
 		}
 	}
-	else{
+	else if(BossBase==none || BossBase.Controller==none){
 		self.Destroy();
 	}
 }
 
 DefaultProperties
 {
-	Health=200
+	Health=300
 	Begin Object Name=BAMesh
 		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.LVL1_Boss_RWing'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL1_Boss_RWing_Physics'

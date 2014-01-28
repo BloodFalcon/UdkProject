@@ -12,11 +12,11 @@ event PostBeginPlay()
 }
 
 
-event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
-{
-	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
-	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter+=1;
-}
+//event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
+//{
+//	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
+//	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter+=1;
+//}
 
 
 event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vector HitNormal )
@@ -29,7 +29,7 @@ event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vect
 
 DefaultProperties
 {
-	Health=20000
+	//Health=20000
 	GroundSpeed=50
 	CollisionType=COLLIDE_TouchAll
     bJumpCapable=false
