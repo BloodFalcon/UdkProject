@@ -22,13 +22,14 @@ event PostBeginPlay()
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
-	Health-=Damage;
+	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
 	if((Health<=0) && (PartDestroyed==true)){
-		BossBase.Health=(BossBase.Health/2);
+		//BossBase.Health=(BossBase.Health/2);
 		if(PartDestroyed == true){
 			WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(DestroyEffect, Mesh, 'Attach', true);
-			WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(DestroyEffect, Mesh, 'Nose_Gun', true);
+			//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(DestroyEffect, Mesh, 'Nose_Gun', true);
 			self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
+			BossBase.Health-=1;
 			PartDestroyed = false;
 		}
 		//Destroy();
@@ -36,14 +37,13 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 	else if(self.Health <= 0){
 		BossBase.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
 		SetTimer(0.10f, true, 'DeadHitFlash');
-	}
-	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
+	}	
 }
 
 function bool Died(Controller Killer, class<DamageType> damageType, vector HitLocation)
 {
-`log("Please Dont Die!");
-return true;
+	`log("Please Dont Die!");
+	return true;
 }
 
 function ProjHitFlash()
@@ -103,6 +103,12 @@ event tick(float DeltaTime)
 		self.Destroy();
 	}
 	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase = BossBase;
+	if(Health<=0 && IsTimerActive('DeadHitFlash')==false){
+		self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
+	}
+	else if(Health>=0 && IsTimerActive('ProjHitFlash')==false){
+		self.Mesh.SetMaterial(0, none);
+	}
 }
 
 
@@ -110,7 +116,7 @@ DefaultProperties
 {
 	PartDestroyed = true
 	DestroyEffect = ParticleSystem'BloodFalcon.ParticleSystem.EnemyHitSmokeFire'
-	Health=100
+	Health=150
 	CollisionType=COLLIDE_TouchAll
     bJumpCapable=false
     bCanJump=false

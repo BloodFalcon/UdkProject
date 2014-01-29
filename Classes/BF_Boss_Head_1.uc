@@ -6,26 +6,12 @@ var float HeadOffset;
 event PostBeginPlay()
 {
 	super.PostBeginPlay();
-
 }
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
 	if(BossBase.Controller.IsInState('PhaseTwo') || BossBase.IsInState('FinalPhase')){
-		//Health-=Damage;
-		BossBase.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
 		super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
-		if(((self.Health<=0) || (BossBase.Controller.IsInState('FinalPhase')) || (BossBase.Health <= 625)) && (PartDestroyed==true)){
-			BossBase.Health=(BossBase.Health/2);
-			WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(DestroyEffect, Mesh, 'Attach', true);
-			WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(DestroyEffect, Mesh, 'Nose_Gun', true);
-			self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
-			PartDestroyed = false;
-		}
-		else if(self.Health <= 0){
-			BossBase.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
-			SetTimer(0.10f, true, 'DeadHitFlash');
-		}
 	}
 }
 
@@ -59,11 +45,11 @@ event tick(float DeltaTime)
 			self.Destroy();
 		}
 		if(BossBase.Controller.IsInState('PhaseTwo') && (ShouldShoot == true) && BossBase.Controller!=none)
-		{
-			`log("Should be shooting");
-			SetTimer(3.0f, true, 'StrafeShooting');
-			ShouldShoot = false;
-		}
+ 		{
+ 			`log("Should be shooting");
+ 			SetTimer(2.5f, true, 'StrafeShooting');
+ 			ShouldShoot = false;
+ 		}
 	}
 }
 
@@ -73,13 +59,13 @@ function StrafeShooting()
 
 	self.Mesh.GetSocketWorldLocationAndRotation('Nose_Gun', SockLoc, SockRot);
 	HeadProj = Spawn(class'BF_Proj_Blue_Tri', ,,SockLoc, SockRot);
-	HeadProj.Velocity = vect(0,1200,0);
+	HeadProj.Velocity = vect(0,800,0);
 	//ClearTimer('StrafeShooting');
 }
 
 DefaultProperties
 {
-	Health=250
+	Health=150
 	Begin Object Name=BAMesh
 		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.LVL1_Boss_Head1'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL1_Boss_Head1_Physics'

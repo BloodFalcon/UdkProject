@@ -15,24 +15,8 @@ event PostBeginPlay()
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
 	if(BossBase.Controller.IsInState('PhaseOne') || BossBase.Controller.IsInState('FinalPhase')){
-		//Health-=Damage;
 		super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
-		if((Health<=0) && (PartDestroyed==true)){
-			BossBase.Health=(BossBase.Health/2);
-			if(PartDestroyed == true){
-				WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(DestroyEffect, Mesh, 'Attach', true);
-				WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(DestroyEffect, Mesh, 'Nose_Gun', true);
-				self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
-				PartDestroyed = false;
-			}
-			//Destroy();
-		}
-		else if(self.Health <= 0){
-			BossBase.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
-			SetTimer(0.10f, true, 'DeadHitFlash');
-		}
 	}
-	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
 }
 
 function FireWeaps()
@@ -62,7 +46,7 @@ super.tick(DeltaTime);
 
 DefaultProperties
 {
-	Health=300
+	Health=150
 	Begin Object Name=BAMesh
 		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.LVL1_Boss_LWing'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL1_Boss_LWing_Physics'

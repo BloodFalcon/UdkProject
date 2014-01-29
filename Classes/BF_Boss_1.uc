@@ -8,20 +8,19 @@ event PostBeginPlay()
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
-	if(Controller.IsInState('PhaseTwo') || Controller.IsInState('FinalPhase')){
-		SetTimer(0.10, true, 'ProjHitFlash');
-		//Health-=Damage;
-		super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
-		if(Health<=0){
-			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Boss1Dead = true;
-			`log("Destroyed Boss");
-			Destroy();
-		}
-		else if(self.Health <= 625){
-			SetTimer(0.10f, true, 'DeadHitFlash');
+	if(Controller != none && Controller.IsInState('FinalPhase')){
+		if(Controller.IsInState('FinalPhase')){
+			super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);	
+			if(Health<=0){
+				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).Boss1Dead = true;
+				`log("Destroyed Boss");
+				Destroy();
+			}
+			else if(Health <= 421){
+				SetTimer(0.10f, true, 'DeadHitFlash');
+			}
 		}
 	}
-	//super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
 }
 
 function bool Died(Controller Killer, class<DamageType> damageType, vector HitLocation)
@@ -34,7 +33,7 @@ function bool Died(Controller Killer, class<DamageType> damageType, vector HitLo
 
 function ProjHitFlash()
 {
-	if(Health >=626){
+	if(Health >=426){
 		if(EnemyHitFlash < 6 && EnemyHitFlash != 1 && EnemyHitFlash != 3 && EnemyHitFlash != 5){
 			EnemyHitFlash++;
 			self.Mesh.SetMaterial(0,Material'EngineDebugMaterials.MaterialError_Mat');
@@ -71,7 +70,13 @@ function DeadHitFlash()
 function tick(float DeltaTime)
 {
 	//`log(self.Health);
-	if(Health <= 625 && self.IsTimerActive('DeadHitFlash') == false && Controller.IsInState('FinalPhase')){
+	if(Health==423 && Controller.IsInState('PhaseOne')){
+		Controller.GotoState('PhaseTwo');
+	}
+	if(Health==421 && Controller.IsInState('PhaseTwo')){
+		Controller.GotoState('FinalPhase');
+	}
+	if(Health <= 421 && self.IsTimerActive('DeadHitFlash') == false && Controller.IsInState('FinalPhase')){
 		self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
 	}
 	if(Controller.IsInState('PhaseTwo')){
@@ -85,7 +90,7 @@ function tick(float DeltaTime)
 
 DefaultProperties
 {
-	Health=10000
+	Health=425
 	Begin Object Class=SkeletalMeshComponent Name=M1Mesh
 		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.LVL1_Boss_Body'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL1_Boss_Body_Physics'
