@@ -80,11 +80,11 @@ function drawHUD()
 	}
 
 	Canvas.SetPos(1699*RatX,179*RatY);
-	Canvas.DrawTile(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDuP.HBay1, 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
+	Canvas.DrawTile(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDuP.HBay1, 128*RatX, 128*RatY, 0, 0, 128, 128,,true);
 	Canvas.SetPos(1699*RatX,429*RatY);
-	Canvas.DrawTile(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDuP.HBay2, 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
+	Canvas.DrawTile(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDuP.HBay2, 128*RatX, 128*RatY, 0, 0, 128, 128,,true);
 	Canvas.SetPos(1699*RatX,679*RatY);
-	Canvas.DrawTile(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDuP.HBay3, 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
+	Canvas.DrawTile(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDuP.HBay3, 128*RatX, 128*RatY, 0, 0, 128, 128,,true);
 
 	super.drawHUD();
 }
@@ -123,7 +123,7 @@ DefaultProperties
 	Shielding=Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shielding'
 	FlightSpeed=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed'
 	MeterGain=Texture2D'BF_HUD_Assets.Textures.BF_HUD_MeterGain'
-	BFUI=Texture2D'BF_HUD_Assets.Textures.BF_HUD_Interface'
+	BFUI=Texture2D'BF_HUD_Assets.BF_HUD_Interface'
 	BFTemplate=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
 	LightOn=Texture2D'BloodFalcon.Texture.LightOn'
 	LightOff=Texture2D'BloodFalcon.Texture.LightOff'
