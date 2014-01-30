@@ -2,6 +2,10 @@ class BF_Boss_Head_1 extends BF_Boss_Aux;
 
 var bool ShouldShoot;
 var float HeadOffset;
+var BF_Proj_Base HeadProj;
+var Actor TracedEnemyAct;
+var UDKPawn TracedEnemyPawn;
+var Vector BeamEnd;
 
 event PostBeginPlay()
 {
@@ -17,6 +21,7 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 
 event tick(float DeltaTime)
 {
+	local Vector HitLocation, HitNormal;
 	//`log(self.Health);
 	super.tick(DeltaTime);
 	if(BossBase.Controller==none || BossBase==none){
@@ -47,19 +52,34 @@ event tick(float DeltaTime)
 		if(BossBase.Controller.IsInState('PhaseTwo') && (ShouldShoot == true) && BossBase.Controller!=none)
  		{
  			`log("Should be shooting");
- 			SetTimer(2.5f, true, 'StrafeShooting');
+ 			SetTimer(5.0f, true, 'StrafeShooting');
  			ShouldShoot = false;
  		}
+	}
+	if(GetRemainingTimeForTimer('StrafeShooting') > 3.5 && HeadProj != none){		
+		SockLoc.Y+=175;		
+		HeadProj.SetLocation(SockLoc);
+		SockLoc.Z=BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BFPawnInfo.Location.Z;
+		TracedEnemyAct = Trace(HitLocation, HitNormal, (SockLoc+BeamEnd), SockLoc, true);
+		DrawDebugLine(SockLoc,(SockLoc+BeamEnd),255,0,0);
+		if(TracedEnemyAct!=none){
+			TracedEnemyPawn = UDKPawn(TracedEnemyAct);
+			if(TracedEnemyPawn.Name == 'BFPawn_0'){
+				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BFPawnInfo.TakeDamage(1, BossBase.Controller, Location, Velocity, class'DamageType',, self);
+			}
+		}
+	}
+	else if(HeadProj!=none){
+		HeadProj.Destroy();
+		HeadProj=none;
 	}
 }
 
 function StrafeShooting()
 {
-	local BF_Proj_Base HeadProj;
 
 	self.Mesh.GetSocketWorldLocationAndRotation('Nose_Gun', SockLoc, SockRot);
-	HeadProj = Spawn(class'BF_Proj_Blue_Tri', ,,SockLoc, SockRot);
-	HeadProj.Velocity = vect(0,800,0);
+	HeadProj = Spawn(class'BF_Proj_Blue_Laser', ,,SockLoc, SockRot);
 	//ClearTimer('StrafeShooting');
 }
 
@@ -82,4 +102,5 @@ DefaultProperties
 	bIgnoreForces=true
 	ShouldShoot=true
 	HeadOffset = 350
+	BeamEnd = (X=0,Y=2000,Z=0)
 }

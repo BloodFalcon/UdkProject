@@ -83,7 +83,7 @@ function tick(float DeltaTime)
 		GroundSpeed = 2000;
 	}
 	if(Controller.IsInState('FinalPhase')){
-		GroundSpeed = 3500;
+		GroundSpeed = 2250;
 	}
 }
 

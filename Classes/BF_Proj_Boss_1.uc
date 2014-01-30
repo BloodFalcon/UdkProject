@@ -14,6 +14,15 @@ simulated event PostBeginPlay()
 
 function SpreadShot()
 {
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Controller.IsInState('PhaseTwo')){
+		Bullets=2;
+		AngularWidth=90;
+	}
+	else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Controller.IsInState('FinalPhase')){
+		Bullets=4;
+		AngularWidth=75;
+	}
+
 	SpreadIncrement.Yaw = (AngularWidth*DegToUnrRot)/Bullets;
 	BulletsLeft=Bullets;
 	SpreadOffset.Yaw = ((AngularWidth*DegToUnrRot)/2)-((((39*DegToUnrRot)/Bullets)/75)*AngularWidth);

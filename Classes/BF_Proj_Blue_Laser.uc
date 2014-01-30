@@ -16,7 +16,7 @@ Velocity=vect(0,0,0);
 
 defaultproperties
 {
-	ProjFlightTemplate=ParticleSystem'BloodFalcon.ParticleSystem.LaserBeamProj'
+	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Blue_Laser'
 	DrawScale=1
 	Damage=5
 }
