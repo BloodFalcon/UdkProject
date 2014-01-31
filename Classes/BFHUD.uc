@@ -38,10 +38,16 @@ function drawHUD()
 		Canvas.DrawText(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Health,,2,2,);
 		}
 	}
+		Canvas.SetDrawColor(0,0,0);
 		Canvas.StrLen(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore), XL, YL);
-		Canvas.DrawText(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore),,,);
-		Canvas.StrLen(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore), XL, YL);
-		Canvas.DrawText(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillCount),,,);
+		Canvas.SetPos((225-(XL))*RatX,0);
+		Canvas.DrawText(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore),,2,2);
+		Canvas.StrLen(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillCount), XL, YL);
+		Canvas.SetPos((225-(XL))*RatX,1050*RatY);
+		Canvas.DrawText(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillCount),,2,2);
+		Canvas.StrLen(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.SoulClass.Name), XL, YL);
+		Canvas.SetPos((1694-(XL))*RatX,1048*RatY);
+		Canvas.DrawText(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.SoulClass.Name),,2,2);
 		Canvas.Reset();
 	
 
