@@ -91,12 +91,12 @@ function drawHUD()
 	
 	Canvas.SetPos(0,0);
 	Canvas.DrawTile(BloodMeterBlack, 1024*RatX, 1024*RatY*MeterIncrement, 0, 0, 1024, 1024*MeterIncrement,,true);
-	Canvas.SetPos(1490*RatX,921*RatY);
-	Canvas.DrawTile(BayDoor1, 140*RatX, 140*RatY*B1I, 0, 0, 140, 140*B1I,,true);
-	Canvas.SetPos(1630*RatX,921*RatY);
-	Canvas.DrawTile(BayDoor2, 140*RatX, 140*RatY*B2I, 0, 0, 140, 140*B2I,,true);
-	Canvas.SetPos(1770*RatX,921*RatY);
-	Canvas.DrawTile(BayDoor3, 140*RatX, 140*RatY*B3I, 0, 0, 140, 140*B3I,,true);
+	Canvas.SetPos(1497*RatX,910*RatY);
+	Canvas.DrawTile(BayDoor3, 132*RatX, 132*RatY*B1I, 0, 0, 132, 132*B1I,,true);
+	Canvas.SetPos(1629*RatX,910*RatY);
+	Canvas.DrawTile(BayDoor3, 132*RatX, 132*RatY*B2I, 0, 0, 132, 132*B2I,,true);
+	Canvas.SetPos(1761*RatX,910*RatY);
+	Canvas.DrawTile(BayDoor3, 132*RatX, 132*RatY*B3I, 0, 0, 132, 132*B3I,,true);
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead==true && B1I==1 && B2I==1 && B3I==1){
 		GameOver();
 	}
@@ -149,9 +149,9 @@ DefaultProperties
 	BFTemplate=Texture2D'BF_HUD_Assets.Textures.BF_HUD_IconTemplate'
 	LightOn=Texture2D'BloodFalcon.Texture.LightOn'
 	LightOff=Texture2D'BloodFalcon.Texture.LightOff'
-	BayDoor1=Texture2D'BF_HUD_Assets.Textures.BayDoor1'
-	BayDoor2=Texture2D'BF_HUD_Assets.Textures.BayDoor2'
-	BayDoor3=Texture2D'BF_HUD_Assets.Textures.BayDoor3'
+	BayDoor1=Texture2D'BF_HUD_Assets.Textures.BayDoor'
+	BayDoor2=Texture2D'BF_HUD_Assets.Textures.BayDoorOpen'
+	BayDoor3=Texture2D'BF_HUD_Assets.Textures.BayDoorClosed'
 	BF_Font=MultiFont'UI_Fonts_Final.menus.Fonts_AmbexHeavy'
 	//BloodMeterRed=Texture2D'BF_HUD_Assets.Textures.BloodMeterRed'
 	BloodMeterBlack=Texture2D'BF_HUD_Assets.Textures.BloodMeterBlack'
