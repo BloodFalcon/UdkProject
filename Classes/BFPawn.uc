@@ -284,6 +284,7 @@ function RespawnFlicker()
 function RespawnPlayer()
 {
 	BeamFire = false;
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillCount=0;
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>0){
 		if(CS.Current.bSecondLife){
 			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter-=5;

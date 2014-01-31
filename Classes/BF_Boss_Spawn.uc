@@ -10,6 +10,7 @@ var() class<BF_Boss_Aux> BodyPiece;
 var() array<name> BodyPieceSocks;
 var() actor Target;
 var Object BossOut;
+var float BossHealth;
 
 
 event Activated()
@@ -19,6 +20,8 @@ event Activated()
 	local BF_Boss_Aux A;
 	local int ArrayPos;
 	local name SockName;
+	
+	if(InputLinks[0].bHasImpulse){
 	ArrayPos=0;
 
 	Boss=Target.Spawn(BossType,,,Target.Location,Target.Rotation,,);
@@ -61,6 +64,10 @@ event Activated()
 	}
 	ArrayPos=0;
 	OutputLinks[0].bHasImpulse=true;
+	}else{
+		BossHealth=Boss.Health;
+	OutputLinks[1].bHasImpulse=true;
+	}
 }
 
 
@@ -73,12 +80,15 @@ defaultproperties
 
 	OutputLinks.Empty
 	OutputLinks[0]=(LinkDesc="Done")
+	OutputLinks[1]=(LinkDesc="HealthOut")
 
 	InputLinks.Empty
 	InputLinks[0]=(LinkDesc="Spawn")
+	InputLinks[1]=(LinkDesc="HealthIn")
 
 	VariableLinks.Empty
 	VariableLinks[0]=(ExpectedType=class'SeqVar_Object',LinkDesc="Location",PropertyName=Target,MaxVars=1,MinVars=1)
 	VariableLinks[1]=(ExpectedType=class'SeqVar_Object',LinkDesc="Boss",PropertyName=BossOut,bWriteable=true)
+	VariableLinks[2]=(ExpectedType=class'SeqVar_Float',LinkDesc="Health",PropertyName=BossHealth,bWriteable=false)
 }
 

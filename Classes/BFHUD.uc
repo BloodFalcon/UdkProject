@@ -24,21 +24,26 @@ var MultiFont BF_Font;
 
 function drawHUD()
 {
-	local float Stringlen;
-	local float Stringleny;
-	//GunShipEquip = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GunShipEquip;
+	local float XL;
+	local float YL;
+
 	CalcScale();
 	Canvas.SetPos(0,0);
 	Canvas.DrawTile(BFUI, 1920*RatX, 1080*RatY, 0, 0, 1920, 1080);
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase != none){
-		Canvas.StrLen(""@BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Health,Stringlen,Stringleny);
+		Canvas.StrLen(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Health), XL, YL);
 		if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase!=none){
-		Canvas.SetPos(Canvas.Project(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Location).X-Stringlen,Canvas.Project(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Location).Y-200);
+		Canvas.SetPos(Canvas.Project(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Location).X-XL,Canvas.Project(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Location).Y-200);
 		Canvas.SetDrawColor(0,255,0);
 		Canvas.DrawText(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Health,,2,2,);
 		}
-		Canvas.Reset();
 	}
+		Canvas.StrLen(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore), XL, YL);
+		Canvas.DrawText(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore),,,);
+		Canvas.StrLen(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore), XL, YL);
+		Canvas.DrawText(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillCount),,,);
+		Canvas.Reset();
+	
 
 	if(MeterFull<MeterIncrement){
 		MeterIncrement-=0.005;
@@ -79,11 +84,11 @@ function drawHUD()
 		GameOver();
 	}
 
-	Canvas.SetPos(1699*RatX,179*RatY);
+	Canvas.SetPos(1629*RatX,128*RatY);
 	Canvas.DrawTile(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDuP.HBay1, 128*RatX, 128*RatY, 0, 0, 128, 128,,true);
-	Canvas.SetPos(1699*RatX,429*RatY);
+	Canvas.SetPos(1629*RatX,376*RatY);
 	Canvas.DrawTile(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDuP.HBay2, 128*RatX, 128*RatY, 0, 0, 128, 128,,true);
-	Canvas.SetPos(1699*RatX,679*RatY);
+	Canvas.SetPos(1629*RatX,624*RatY);
 	Canvas.DrawTile(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDuP.HBay3, 128*RatX, 128*RatY, 0, 0, 128, 128,,true);
 
 	super.drawHUD();
