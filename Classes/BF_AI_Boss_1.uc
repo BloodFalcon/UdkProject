@@ -1,7 +1,7 @@
 class BF_AI_Boss_1 extends UDKBot;
 
 var Rotator FaceThisWay;
-var Vector PointA, PointB, PointC;
+var Vector PointA, PointB, PointC, PointS1;
 
 event Possess(Pawn inPawn, bool bVehicleTransition)
 {
@@ -27,6 +27,14 @@ Begin:
 	}
 }
 
+state Swarm1
+{
+Begin:
+	MoveTo(PointS1, none, ,true);
+	Sleep(20.0);
+	GotoState('PhaseTwo');
+}
+
 state PhaseTwo
 {
 Begin:
@@ -42,6 +50,14 @@ Begin:
 	else{
 		GotoState('PhaseTwo');
 	}
+}
+
+state Swarm2
+{
+Begin:
+	MoveTo(PointS1, none, ,true);
+	Sleep(30.0);
+	GotoState('FinalPhase');
 }
 
 state FinalPhase
@@ -82,5 +98,6 @@ DefaultProperties
 	PointA=(X=-7600, Y=-2178, Z=46129)
 	PointB=(X=-6400, Y=-2178, Z=46129)
 	PointC=(X=-7000, Y=-1650, Z=46129)
+	PointS1=(X=-7000, Y=-2400, Z=46129)
 	FaceThisWay = (Pitch=0,Yaw=16384,Roll=0)
 }

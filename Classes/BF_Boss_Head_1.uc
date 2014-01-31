@@ -38,7 +38,7 @@ event tick(float DeltaTime)
 				else if(BossBase.Controller.IsInState('PhaseTwo')){
 					HeadOffset = 0;
 				}
-				else if(BossBase.Controller.IsInState('FinalPhase') && HeadOffset == 0){
+				else if(BossBase.Controller.IsInState('Swarm2')  && HeadOffset == 0){
 					HeadOffset = 350;
 				}
 				SockLoc.Y-=HeadOffset;
@@ -77,7 +77,6 @@ event tick(float DeltaTime)
 
 function StrafeShooting()
 {
-
 	self.Mesh.GetSocketWorldLocationAndRotation('Nose_Gun', SockLoc, SockRot);
 	HeadProj = Spawn(class'BF_Proj_Blue_Laser', ,,SockLoc, SockRot);
 	//ClearTimer('StrafeShooting');
