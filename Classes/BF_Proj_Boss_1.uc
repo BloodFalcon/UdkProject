@@ -6,6 +6,7 @@ var Rotator SpreadOffset;
 var byte BulletsLeft;
 var byte Bullets;
 var int AngularWidth;
+var class BFClasses;
 
 simulated event PostBeginPlay()
 {
@@ -27,7 +28,7 @@ function SpreadShot()
 	BulletsLeft=Bullets;
 	SpreadOffset.Yaw = ((AngularWidth*DegToUnrRot)/2)-((((39*DegToUnrRot)/Bullets)/75)*AngularWidth);
 	
-	while(BulletsLeft>0){
+	while(BulletsLeft>0 && (BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Controller.IsInState('PhaseOne') || BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Controller.IsInState('PhaseTwo') || BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Controller.IsInState('FinalPhase'))){
 		BulletsLeft--;
 		MyProj = Spawn(class'BF_Proj_Blue_Circle',,, self.Location, self.Rotation); //MUST RENAME SOCKETS FOR PRECISE SPAWN LOCATION
 		MyProj.Speed = 850;

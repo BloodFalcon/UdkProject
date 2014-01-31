@@ -71,10 +71,10 @@ function tick(float DeltaTime)
 {
 	//`log(self.Health);
 	if(Health==423 && Controller.IsInState('PhaseOne')){
-		Controller.GotoState('PhaseTwo');
+		Controller.GotoState('Swarm1');
 	}
 	if(Health==421 && Controller.IsInState('PhaseTwo')){
-		Controller.GotoState('FinalPhase');
+		Controller.GotoState('Swarm2');
 	}
 	if(Health <= 421 && self.IsTimerActive('DeadHitFlash') == false && Controller.IsInState('FinalPhase')){
 		self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
