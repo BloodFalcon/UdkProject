@@ -108,6 +108,29 @@ function drawHUD()
 	Canvas.SetPos(1629*RatX,624*RatY);
 	Canvas.DrawTile(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDuP.HBay3, 128*RatX, 128*RatY, 0, 0, 128, 128,,true);
 
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.BayNumber==1){
+		Canvas.SetPos(1529*RatX,845*RatY);
+		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.Selector', 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
+		Canvas.SetPos(1661*RatX,845*RatY);
+		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.Selector_Dark', 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
+		Canvas.SetPos(1793*RatX,845*RatY);
+		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.Selector_Dark', 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
+	}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.BayNumber==2){
+		Canvas.SetPos(1529*RatX,845*RatY);
+		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.Selector_Dark', 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
+		Canvas.SetPos(1661*RatX,845*RatY);
+		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.Selector', 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
+		Canvas.SetPos(1793*RatX,845*RatY);
+		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.Selector_Dark', 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
+	}else{
+		Canvas.SetPos(1529*RatX,845*RatY);
+		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.Selector_Dark', 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
+		Canvas.SetPos(1661*RatX,845*RatY);
+		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.Selector_Dark', 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
+		Canvas.SetPos(1793*RatX,845*RatY);
+		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.Selector', 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
+	}
+
 	super.drawHUD();
 }
 
