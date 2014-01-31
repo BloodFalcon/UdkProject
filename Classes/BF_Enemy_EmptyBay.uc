@@ -11,9 +11,6 @@ event PostBeginPlay()
 	NPCInfo.Speed=0;
 	NPCInfo.bFXEnabled=false;
 	NPCInfo.Closed=true;
-	NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_IconTemplate';
-	NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_IconTemplate';
-	NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_IconTemplate';
 }
 
 

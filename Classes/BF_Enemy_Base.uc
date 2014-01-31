@@ -60,8 +60,6 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 {
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter<10 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameSpeed>=1 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R==false){
 		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter+=(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodIncrement*(Damage*0.1));
-		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore++;
-		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillCount++;
 		if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter<10 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>=9.5){
 			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=10;	
 		}
@@ -91,6 +89,8 @@ function ProjHitFlash()
 
 function bool Died(Controller Killer, class<DamageType> damageType, vector HitLocation)
 {
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore++;
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillCount++;
 	owner.Destroy();
 	Self.Destroy();
 	WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);

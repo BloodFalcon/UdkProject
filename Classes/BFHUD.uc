@@ -41,13 +41,24 @@ function drawHUD()
 		Canvas.SetDrawColor(0,0,0);
 		Canvas.StrLen(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore), XL, YL);
 		Canvas.SetPos((225-(XL))*RatX,0);
-		Canvas.DrawText(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore),,2,2);
+		Canvas.DrawText(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore),,2*RatX,2*RatY);
 		Canvas.StrLen(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillCount), XL, YL);
 		Canvas.SetPos((225-(XL))*RatX,1050*RatY);
-		Canvas.DrawText(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillCount),,2,2);
+		Canvas.DrawText(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillCount),,2*RatX,2*RatY);
 		Canvas.StrLen(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.SoulClass.Name), XL, YL);
-		Canvas.SetPos((1694-(XL))*RatX,1048*RatY);
-		Canvas.DrawText(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.SoulClass.Name),,2,2);
+ 		Canvas.SetPos((1694-(XL))*RatX,1048*RatY);
+ 		Canvas.DrawText(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.SoulClass.Name),,2*RatX,2*RatY);
+		
+		Canvas.SetDrawColor(255,0,0);
+		Canvas.StrLen(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDuP.HB1, XL, YL);
+		Canvas.SetPos((1694-(XL))*RatX,270*RatY);
+		Canvas.DrawText(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDuP.HB1,,2*RatX,2*RatY);
+		Canvas.StrLen(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDuP.HB2, XL, YL);
+		Canvas.SetPos((1694-(XL))*RatX,518*RatY);
+		Canvas.DrawText(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDuP.HB2,,2*RatX,2*RatY);
+		Canvas.StrLen(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDuP.HB3, XL, YL);
+		Canvas.SetPos((1694-(XL))*RatX,766*RatY);
+		Canvas.DrawText(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDuP.HB3,,2*RatX,2*RatY);
 		Canvas.Reset();
 	
 
@@ -135,7 +146,7 @@ DefaultProperties
 	FlightSpeed=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed'
 	MeterGain=Texture2D'BF_HUD_Assets.Textures.BF_HUD_MeterGain'
 	BFUI=Texture2D'BF_HUD_Assets.BF_HUD_Interface'
-	BFTemplate=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
+	BFTemplate=Texture2D'BF_HUD_Assets.Textures.BF_HUD_IconTemplate'
 	LightOn=Texture2D'BloodFalcon.Texture.LightOn'
 	LightOff=Texture2D'BloodFalcon.Texture.LightOff'
 	BayDoor1=Texture2D'BF_HUD_Assets.Textures.BayDoor1'

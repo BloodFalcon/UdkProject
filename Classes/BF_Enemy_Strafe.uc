@@ -11,6 +11,9 @@ event PostBeginPlay()
 	NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed_Dark';
 	NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpread_Dark';
 	NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FireRate_Dark';
+	NPCInfo.HUDuP.HB1="Flight Speed";
+	NPCInfo.HUDuP.HB2="Bullet Spread";
+	NPCInfo.HUDuP.HB3="Fire Rate";
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0), );
 }
 

@@ -13,12 +13,18 @@ struct UpHUD
 	var Texture2D HBay1;
 	var Texture2D HBay2;
 	var Texture2D HBay3;
+	var string HB1;
+	var string HB2;
+	var string HB3;
 
 	structdefaultproperties
 	{
-		HBay1=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
-		HBay2=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
-		HBay3=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate'
+		HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_IconTemplate'
+		HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_IconTemplate'
+		HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_IconTemplate'
+		HB1="Empty"
+		HB2="Empty"
+		HB3="Empty"
 	}
 };
 
