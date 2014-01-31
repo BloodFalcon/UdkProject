@@ -78,6 +78,7 @@ event tick(float DeltaTime)
 function StrafeShooting()
 {
 	self.Mesh.GetSocketWorldLocationAndRotation('Nose_Gun', SockLoc, SockRot);
+	//SockRot.Yaw+=(30*DegToUnrRot);
 	HeadProj = Spawn(class'BF_Proj_Blue_Laser', ,,SockLoc, SockRot);
 	//ClearTimer('StrafeShooting');
 }
