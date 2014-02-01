@@ -67,7 +67,7 @@ struct SoulVars
 		BulletSpeed=1500
 		BulletSpread=1
 		BulletDamage=1
-		HUDName=Falcon
+		HUDName="Falcon"
 	}
 };
 
