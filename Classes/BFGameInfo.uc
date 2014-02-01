@@ -8,6 +8,22 @@
 
 class BFGameInfo extends GameInfo;
 
+
+struct HitD
+{
+	var Vector HitLoc;
+	var int Damage;
+	var byte LocCount;
+
+	structdefaultproperties
+	{
+		HitLoc=(X=0,Y=0,Z=0)
+		Damage=0
+		LocCount=0
+	}
+};
+
+
 var float BloodMeter;
 var bool PlayerDead;
 var byte modeBulletTime;
@@ -28,6 +44,7 @@ var BF_EndLevelMenu EndLevelMenu;
 var BF_Enemy_Base BossBase;
 var int KillScore, KillCount;
 var vector ScreenBounds;
+var HitD HitData;
 
 
 function BulletTime(byte ModeNum)

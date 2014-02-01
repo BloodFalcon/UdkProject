@@ -2,6 +2,7 @@ class BF_Boss_Aux extends BF_Enemy_Base
 	dependson(BF_Boss_Main)
 	placeable;
 
+
 var BF_Boss_Main BossBase;
 var name Sock;
 var ParticleSystem DestroyEffect;
@@ -135,4 +136,5 @@ DefaultProperties
     End Object 
 	Mesh=BAMesh
 	Components.Add(BAMesh)
+	bIsBoss=true
 }

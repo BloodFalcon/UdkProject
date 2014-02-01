@@ -16,6 +16,7 @@ var MultiFont BF_Font;
 var float OldHUDX, OldHUDY, RatX, RatY;
 /**Used for animating textures*/
 var float MeterFull, MeterIncrement, B1I, B2I, B3I;
+var array<HitD> HitDraws;
 
 
 function drawHUD()
@@ -27,6 +28,7 @@ function drawHUD()
 	/*Draws the HUD background.*/
 	Canvas.SetPos(0,0);
 	Canvas.DrawTile(BFUI, 1920*RatX, 1080*RatY, 0, 0, 1920, 1080);
+	DisplayHitData();
 	BloodMeter();
 	BossHealthBar();
 	BayDoors();
@@ -68,6 +70,37 @@ function drawHUD()
 }
 
 
+/**Prints bullet damage to the HUD*/
+function DisplayHitData()
+{
+	local int ArrayLen;
+
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage!=0){
+		HitDraws.AddItem(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData);
+		HitDraws[HitDraws.Length-1].HitLoc = Canvas.Project(HitDraws[HitDraws.Length-1].HitLoc);
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=0;
+	}
+	while(ArrayLen<HitDraws.Length && HitDraws.Length!=0){
+		Canvas.SetDrawColor(255,0,0);
+		Canvas.SetPos(HitDraws[ArrayLen].HitLoc.X,HitDraws[ArrayLen].HitLoc.Y);
+		Canvas.DrawText(string(HitDraws[ArrayLen].Damage),,2*RatX,2*RatY,);
+		Canvas.Reset();
+
+		HitDraws[ArrayLen].LocCount++;
+		HitDraws[ArrayLen].HitLoc.Y-=1;
+		if(HitDraws[ArrayLen].LocCount>30){
+			HitDraws.Remove(ArrayLen,1);
+			ArrayLen--;
+		}
+		ArrayLen++;
+	}
+}
+
+function HitDataTimer()
+{
+
+}
+
 /**Animates the blood meter.*/
 function BloodMeter()
 {
@@ -84,17 +117,17 @@ function BloodMeter()
 /**Displays the boss's health bar.*/
 function BossHealthBar()
 {
-	local float XL;
-	local float YL;
+	//local float XL;
+	//local float YL;
 
-	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase != none){
-		Canvas.StrLen(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Health), XL, YL);
-		if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase!=none){
-		Canvas.SetPos(Canvas.Project(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Location).X-XL,Canvas.Project(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Location).Y-200);
-		Canvas.SetDrawColor(0,255,0);
-		Canvas.DrawText(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Health,,2,2,);
-		}
-	}
+	//if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase != none){
+	//	Canvas.StrLen(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Health), XL, YL);
+	//	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase!=none){
+	//	Canvas.SetPos(Canvas.Project(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Location).X-XL,Canvas.Project(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Location).Y-200);
+	//	Canvas.SetDrawColor(0,255,0);
+	//	Canvas.DrawText(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Health,,2,2,);
+	//	}
+	//}
 }
 
 

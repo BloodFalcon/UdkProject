@@ -3,6 +3,8 @@ class BF_Boss_Main extends BF_Enemy_Base
 	placeable;
 
 
+
+
 event PostBeginPlay()
 {
     super.PostBeginPlay();
@@ -39,6 +41,7 @@ DefaultProperties
 	bCollideActors = true
 	bCollideWorld = true
 	bCanBeBaseForPawns=true
+	bIsBoss=true
 	//Begin Object Class=SkeletalMeshComponent Name=BMMesh
 	//	SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.testboss'
 	//	PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.testboss_Physics'

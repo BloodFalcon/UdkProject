@@ -15,11 +15,19 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNorma
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.BulletPenetration){
 		if (Other != Instigator)
 		{
+			//if(BF_Enemy_Base(Other).bIsBoss){
+			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.HitLoc=self.Location;
+			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=Damage;
+			//}
 			Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);
 		}
 	}else{
 		if (Other != Instigator)
 		{
+			//if(BF_Enemy_Base(Other).bIsBoss){
+			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.HitLoc=self.Location;
+			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=Damage;
+			//}
 			Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);
 			self.Destroy();	
 		}

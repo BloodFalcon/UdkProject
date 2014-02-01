@@ -2,6 +2,7 @@ class BF_Enemy_Base extends UDKPawn
 	dependson(BFPawn)
 	placeable;
 
+var bool bIsBoss;
 var int EnemyAbsorbTime;
 var ParticleSystem EngineFire, DeathExplosion, ProjHitEffect, AbsorbRed, AbsorbYellow, AbsorbGreen;
 var ParticleSystemComponent AbsorbRing;
@@ -153,4 +154,5 @@ DefaultProperties
 	CylinderComponent=CollisionCylinder
 	EnemyHitFlash=0
 	GroundSpeed=750
+		bIsBoss=false
 }
