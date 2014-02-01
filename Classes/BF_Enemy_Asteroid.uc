@@ -31,5 +31,5 @@ DefaultProperties
     End Object
 	Mesh=EP3Mesh
 	Components.Add(EP3Mesh)
-	GroundSpeed=200
+	GroundSpeed=450
 }
