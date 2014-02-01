@@ -14,6 +14,7 @@ class BF_Proj_Blue_Tri extends BF_Proj_EnemyBase;
 function tick(float DeltaTime)
 {
 	SetRotation(RotRand());
+	super.Tick(DeltaTime);
 }
 
 

@@ -14,6 +14,7 @@ class BF_Proj_Red_Laser extends BF_Proj_PlayerBase;
 function tick(float DeltaTime)
 {
 	Velocity = vect(0,0,0);
+	super.Tick(DeltaTime);
 }
 
 

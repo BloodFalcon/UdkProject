@@ -34,17 +34,22 @@ simulated event SpawnFlightEffects()
 }
 
 
-//function tick(float DeltaTime) //Never runs for some reason...
-//{
-//	local bool bDeath;
-//	Time+=DeltaTime;
-//	`log(Time);
-//	if(Time>=5){
-//		bDeath=self.Destroy();
-//		WorldInfo.MyEmitterPool.ClearPoolComponents(false);
-//		`log(bDeath);
-//	}
-//}
+function tick(float DeltaTime) 
+{
+	if(self.Location.X-920>=BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).ScreenBounds.X){
+		self.Destroy();	
+	}
+	if(self.Location.X+920<=BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).ScreenBounds.X){
+		self.Destroy();	
+	}
+	if(self.Location.Y-895>=BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).ScreenBounds.Y){
+		self.Destroy();	
+	}
+	if(self.Location.Y+895<=BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).ScreenBounds.Y){
+		self.Destroy();	
+	}
+super.Tick(DeltaTime);
+}
 
 
 simulated function Destroyed()

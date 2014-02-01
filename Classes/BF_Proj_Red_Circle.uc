@@ -14,6 +14,7 @@ class BF_Proj_Red_Circle extends BF_Proj_PlayerBase;
 function tick(float DeltaTime)
 {
 	Velocity = vect(0,-1500,0);
+	super.tick(DeltaTime);
 }
 
 

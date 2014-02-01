@@ -27,6 +27,7 @@ var byte BulletPenetration;
 var BF_EndLevelMenu EndLevelMenu;
 var BF_Enemy_Base BossBase;
 var int KillScore, KillCount;
+var vector ScreenBounds;
 
 
 function BulletTime(byte ModeNum)

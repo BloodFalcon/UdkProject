@@ -96,6 +96,7 @@ var Vector BeamStartLoc, BeamEndLoc; //Trace
 var ParticleSystemComponent AbsorbBeam;
 var ParticleSystemComponent EnemyDeath;
 var ParticleSystemComponent Shield;
+var ParticleSystem ShieldSystem;
 var ParticleSystem DeathExplosion, ShieldDeathExplosion;
 var SoundCue EnemyDeathSound;
 var SoundCue DeathSound;
@@ -195,14 +196,43 @@ event Tick(float DeltaTime)
 		ClearTimer('FireWeaps');
 		AbsorbSuccess();
 	}
-	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>0 && Shield==none){
-				Shield = new class'ParticleSystemComponent';
-				Shield.SetTemplate(ParticleSystem'BF_Fighters.ParticleSystem.Shield');
-				Shield.SetScale(4);
-				Shield.SetAbsolute(false, True, True);
-				Shield.SetLODLevel(WorldInfo.bDropDetail ? 1 : 0);
-				Shield.bUpdateComponentInTick = true;
-				self.AttachComponent(Shield);
+
+		if(CS.Current.HUDuP.HB1=="Shield"){
+			if(CS.Current.HUDuP.HBay1==Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shielding'){
+				ShieldSystem=ParticleSystem'BF_Fighters.ParticleSystem.SuperShield';
+			}else{
+				ShieldSystem=ParticleSystem'BF_Fighters.ParticleSystem.Shield';
+			}
+		}else if(CS.Current.HUDuP.HB2=="Shield"){
+			if(CS.Current.HUDuP.HBay2==Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shielding'){
+				ShieldSystem=ParticleSystem'BF_Fighters.ParticleSystem.SuperShield';
+			}else{
+				ShieldSystem=ParticleSystem'BF_Fighters.ParticleSystem.Shield';
+			}
+		}else if(CS.Current.HUDuP.HB3=="Shield"){
+			if(CS.Current.HUDuP.HBay3==Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shielding'){
+				ShieldSystem=ParticleSystem'BF_Fighters.ParticleSystem.SuperShield';
+			}else{
+				ShieldSystem=ParticleSystem'BF_Fighters.ParticleSystem.Shield';
+			}
+		}else{
+			ShieldSystem=ParticleSystem'BF_Fighters.ParticleSystem.Shield';
+		}
+
+
+	if((BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>2 && Shield==none) || (ShieldSystem!=Shield.Template && Shield!=none && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>2)){
+		if(Shield!=none){
+			Shield.SetKillOnDeactivate(0,true);
+			Shield.DeactivateSystem();
+			Shield=none;
+		}
+		Shield = new class'ParticleSystemComponent';
+		Shield.SetTemplate(ShieldSystem);
+		Shield.SetScale(4);
+		Shield.SetAbsolute(false, True, True);
+		Shield.SetLODLevel(WorldInfo.bDropDetail ? 1 : 0);
+		Shield.bUpdateComponentInTick = true;
+		self.AttachComponent(Shield);
 	}
 	if(CS.B1.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B2.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B3.SoulClass!=class'BF_Enemy_EmptyBay'){
 		CS.BayOpen=false;
@@ -351,16 +381,6 @@ function NewShipChooser()
 			CS.BayNumber = 3;
 		}else{
 			CS.Current=DefaultCS.Current;
-			//CS.Current.HUDuP.HBay1=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate';
-			//CS.Current.HUDuP.HBay2=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate';
-			//CS.Current.HUDuP.HBay3=Texture2D'BloodFalcon.Texture.BF_HUD_IconTemplate';
-			//CS.Current.FireRate=0.2;
-			//CS.Current.ProjClass=class'BF_Proj_Red_Circle';
-			//CS.Current.SoulClass=class'BF_Enemy_Player';
-			//CS.Current.SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player';
-			//CS.Current.Level=0;
-			//CS.Current.Size=1.5;
-			//CS.Current.Speed=1400;
 			if(CS.B1.SoulClass==class'BF_Enemy_EmptyBay'){
 				CS.BayNumber = 1;
 			}else if(CS.B2.SoulClass==class'BF_Enemy_EmptyBay'){
@@ -450,7 +470,6 @@ function UpdatePlayer()
 	self.GroundSpeed = CS.Current.Speed;
 	self.Mesh.SetSkeletalMesh(CS.Current.SoulMesh);
 	self.Mesh.SetScale(CS.Current.Size);
-	//self.Mesh.SetMaterial(0,Material'EngineDebugMaterials.MaterialError_Mat');
 }
 
 
@@ -544,6 +563,7 @@ simulated function StopFire(byte FireModeNum)
 simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out rotator out_CamRot, out float out_FOV )
 {
 	local_cam_loc = out_CamLoc;
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).ScreenBounds = out_CamLoc;
 
 	if(FirstRun)
 	{
