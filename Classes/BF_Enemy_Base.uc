@@ -28,7 +28,7 @@ event tick(float DeltaTime)
 				if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.BayOpen && self.Class!=class'BF_Enemy_Asteroid'){
 					if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.SoulClass!=self.Class){
 						AbsorbRing.SetTemplate(AbsorbGreen);
-					}else if(self.NPCInfo.Level<3){
+					}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.Level<3){
 						AbsorbRing.SetTemplate(AbsorbYellow);
 					}else{
 						AbsorbRing.SetTemplate(AbsorbRed);

@@ -95,7 +95,8 @@ var Vector PawnLoc, BFcamLoc; //Used for player bounding on the screen
 var Vector BeamStartLoc, BeamEndLoc; //Trace
 var ParticleSystemComponent AbsorbBeam;
 var ParticleSystemComponent EnemyDeath;
-var ParticleSystem DeathExplosion;
+var ParticleSystemComponent Shield;
+var ParticleSystem DeathExplosion, ShieldDeathExplosion;
 var SoundCue EnemyDeathSound;
 var SoundCue DeathSound;
 var AudioComponent BeamFireSound, BeamAbsorbSound;
@@ -130,7 +131,7 @@ event Tick(float DeltaTime)
 	local Vector HitLocation, HitNormal;
 	local Actor TracedEnemyAct;
 	local UDKPawn TracedEnemy;
-	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=100; //.0115 .0164
+	//BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=100; //.0115 .0164
 	Health=100000;
 	Mesh.SetScale(CS.Current.Size);
 	BeamStartLoc = Location;
@@ -194,10 +195,14 @@ event Tick(float DeltaTime)
 		ClearTimer('FireWeaps');
 		AbsorbSuccess();
 	}
-	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>0){
-		Mesh.SetMaterial(0,Material'BF_Fighters.Material.PlayerGlow');
-	}else{
-		Mesh.SetMaterial(0,Material'EngineDebugMaterials.MaterialError_Mat');
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>0 && Shield==none){
+				Shield = new class'ParticleSystemComponent';
+				Shield.SetTemplate(ParticleSystem'BF_Fighters.ParticleSystem.Shield');
+				Shield.SetScale(4);
+				Shield.SetAbsolute(false, True, True);
+				Shield.SetLODLevel(WorldInfo.bDropDetail ? 1 : 0);
+				Shield.bUpdateComponentInTick = true;
+				self.AttachComponent(Shield);
 	}
 	if(CS.B1.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B2.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B3.SoulClass!=class'BF_Enemy_EmptyBay'){
 		CS.BayOpen=false;
@@ -271,7 +276,14 @@ function RespawnFlicker()
 {
 	if(FlickerCount<10){
 		if(FlickerCount==0){
-			WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location); 
+			if(Shield!=none){
+				WorldInfo.MyEmitterPool.SpawnEmitter(ShieldDeathExplosion, Location);
+				Shield.SetKillOnDeactivate(0,true);
+				Shield.DeactivateSystem();
+				Shield=none;
+			}else{
+				WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location); 
+			}
 			PlaySound(DeathSound);
 			KillBeam();
 		}
@@ -438,7 +450,7 @@ function UpdatePlayer()
 	self.GroundSpeed = CS.Current.Speed;
 	self.Mesh.SetSkeletalMesh(CS.Current.SoulMesh);
 	self.Mesh.SetScale(CS.Current.Size);
-	self.Mesh.SetMaterial(0,Material'EngineDebugMaterials.MaterialError_Mat');
+	//self.Mesh.SetMaterial(0,Material'EngineDebugMaterials.MaterialError_Mat');
 }
 
 
@@ -612,6 +624,7 @@ defaultproperties
 		bCanFly=false
 		DeathExplosion = ParticleSystem'FX_VehicleExplosions.Effects.P_FX_VehicleDeathExplosion'
 		DeathSound = SoundCue'A_Vehicle_Scorpion.SoundCues.A_Vehicle_Scorpion_Eject_Cue'
+		ShieldDeathExplosion = ParticleSystem'Pickups.Flag.Effects.P_Flagbase_FlagCaptured_Red'
         Begin Object Class=DynamicLightEnvironmentComponent Name=MyLightEnvironment
                 bEnabled=TRUE
         End Object
