@@ -46,7 +46,7 @@ struct SoulVars
 	var float BulletSpeed;
 	var byte BulletSpread;
 	var float BulletDamage;
-	var byte BulletPenetration;
+	var bool BulletPenetration;
 	var UpHUD HUDuP;
 	var string HUDName;
 
@@ -67,6 +67,7 @@ struct SoulVars
 		BulletSpeed=1500
 		BulletSpread=1
 		BulletDamage=1
+		BulletPenetration=false
 		HUDName="Falcon"
 	}
 };
@@ -132,7 +133,7 @@ event Tick(float DeltaTime)
 	local Vector HitLocation, HitNormal;
 	local Actor TracedEnemyAct;
 	local UDKPawn TracedEnemy;
-	//BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=100; //.0115 .0164
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=100; //.0115 .0164
 	Health=100000;
 	Mesh.SetScale(CS.Current.Size);
 	BeamStartLoc = Location;
@@ -167,6 +168,12 @@ event Tick(float DeltaTime)
 					if(TargetEnemy.NPCInfo.bCanAbsorb==false || (CS.Current.Level>=3 && CS.Current.SoulClass==TargetEnemy.Class)){ //Ignores Asteroids and Maxed out enemies
 						TargetEnemy=none;	
 					}else if(CS.B1.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B2.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B3.SoulClass!=class'BF_Enemy_EmptyBay' && CS.Current.SoulClass!=TargetEnemy.Class){
+						TargetEnemy=none;
+					}else if(CS.B1.SoulClass==TargetEnemy.Class && CS.Current.SoulClass!=TargetEnemy.Class){
+						TargetEnemy=none;
+					}else if(CS.B2.SoulClass==TargetEnemy.Class && CS.Current.SoulClass!=TargetEnemy.Class){
+						TargetEnemy=none;
+					}else if(CS.B3.SoulClass==TargetEnemy.Class && CS.Current.SoulClass!=TargetEnemy.Class){
 						TargetEnemy=none;
 					}else{
 						BeamFireSound.Stop();

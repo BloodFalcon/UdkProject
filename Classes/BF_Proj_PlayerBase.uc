@@ -12,10 +12,17 @@ class BF_Proj_PlayerBase extends BF_Proj_Base;
 
 simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNormal)
 {
-	if (Other != Instigator)
-	{
-		Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);
-		self.Destroy();	
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.BulletPenetration){
+		if (Other != Instigator)
+		{
+			Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);
+		}
+	}else{
+		if (Other != Instigator)
+		{
+			Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);
+			self.Destroy();	
+		}
 	}
 }
 

@@ -13,7 +13,7 @@ var BF_DeathMenu DeathMenu;
 var Texture2D BloodMeterBlack,BayDoor,BayDoorOpen,BayDoorClosed,BFUI;
 var MultiFont BF_Font;
 /**Used for scaling.*/
-var float OldHUDX, OldHUDY, CurHUDX, CurHUDY, RatX, RatY;
+var float OldHUDX, OldHUDY, RatX, RatY;
 /**Used for animating textures*/
 var float MeterFull, MeterIncrement, B1I, B2I, B3I;
 
