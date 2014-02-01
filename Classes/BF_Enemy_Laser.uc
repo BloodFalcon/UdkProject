@@ -23,6 +23,7 @@ event PostBeginPlay()
 	NPCInfo.HUDuP.HB1="Fire Rate";
 	NPCInfo.HUDuP.HB2="Fire Rate";
 	NPCInfo.HUDuP.HB3="Fire Rate";
+	NPCInfo.HUDName="Laser";
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(-1,0,0));
 }
 

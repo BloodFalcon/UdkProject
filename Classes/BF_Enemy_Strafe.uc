@@ -14,6 +14,7 @@ event PostBeginPlay()
 	NPCInfo.HUDuP.HB1="Flight Speed";
 	NPCInfo.HUDuP.HB2="Bullet Spread";
 	NPCInfo.HUDuP.HB3="Fire Rate";
+	NPCInfo.HUDName="Strafe";
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0), );
 }
 

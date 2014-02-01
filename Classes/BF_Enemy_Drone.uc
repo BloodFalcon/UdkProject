@@ -15,6 +15,7 @@ event PostBeginPlay()
 	NPCInfo.HUDuP.HB1="Bullet Spread";
 	NPCInfo.HUDuP.HB2="Bullet Speed";
 	NPCInfo.HUDuP.HB3="Bullet Damage";
+	NPCInfo.HUDName="Drone";
 
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0), );
 }

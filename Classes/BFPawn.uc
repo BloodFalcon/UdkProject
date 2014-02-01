@@ -48,6 +48,7 @@ struct SoulVars
 	var float BulletDamage;
 	var byte BulletPenetration;
 	var UpHUD HUDuP;
+	var string HUDName;
 
 	structdefaultproperties
 	{
@@ -66,6 +67,7 @@ struct SoulVars
 		BulletSpeed=1500
 		BulletSpread=1
 		BulletDamage=1
+		HUDName=Falcon
 	}
 };
 

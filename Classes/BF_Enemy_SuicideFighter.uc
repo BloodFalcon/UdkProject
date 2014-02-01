@@ -23,6 +23,7 @@ event PostBeginPlay()
 	NPCInfo.HUDuP.HB1="Shield";
 	NPCInfo.HUDuP.HB2="Flight Speed";
 	NPCInfo.HUDuP.HB3="Meter Fill Rate";
+	NPCInfo.HUDName="Suicide Fighter";
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(-1,0,0));
 }
 

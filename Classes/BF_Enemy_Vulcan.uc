@@ -23,6 +23,7 @@ event PostBeginPlay()
 	NPCInfo.HUDuP.HB1="Fire Rate";
 	NPCInfo.HUDuP.HB2="Bullet Damage";
 	NPCInfo.HUDuP.HB3="Armor Piercing";
+	NPCInfo.HUDName="Vulcan";
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(-1,0,0));
 }
 

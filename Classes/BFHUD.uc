@@ -39,16 +39,19 @@ function drawHUD()
 
 	/*Draws all the HUD text.*/
 		Canvas.SetDrawColor(0,0,0);
+		//Total Score
 		Canvas.StrLen(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore), XL, YL);
 		Canvas.SetPos((225-(XL))*RatX,0);
 		Canvas.DrawText(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore),,2*RatX,2*RatY);
+		//Kill Streak
 		Canvas.StrLen(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillCount), XL, YL);
 		Canvas.SetPos((225-(XL))*RatX,1050*RatY);
 		Canvas.DrawText(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillCount),,2*RatX,2*RatY);
-		Canvas.StrLen(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.SoulClass.Name), XL, YL);
+		//Ship Name
+		Canvas.StrLen(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDName, XL, YL);
  		Canvas.SetPos((1694-(XL))*RatX,1048*RatY);
- 		Canvas.DrawText(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.SoulClass.Name),,2*RatX,2*RatY);
-		
+ 		Canvas.DrawText(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDName,,2*RatX,2*RatY);
+		//Upgrade Names
 		Canvas.SetDrawColor(255,0,0);
 		Canvas.StrLen(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.HUDuP.HB1, XL, YL);
 		Canvas.SetPos((1694-(XL))*RatX,771*RatY);
@@ -146,22 +149,10 @@ function ShipSelectorCursor()
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.BayNumber==1){
 		Canvas.SetPos(1529*RatX,861*RatY);
 		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.Selector', 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
-		Canvas.SetPos(1661*RatX,861*RatY);
-		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.Selector_Dark', 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
-		Canvas.SetPos(1793*RatX,861*RatY);
-		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.Selector_Dark', 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
 	}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.BayNumber==2){
-		Canvas.SetPos(1529*RatX,861*RatY);
-		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.Selector_Dark', 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
 		Canvas.SetPos(1661*RatX,861*RatY);
 		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.Selector', 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
-		Canvas.SetPos(1793*RatX,861*RatY);
-		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.Selector_Dark', 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
 	}else{
-		Canvas.SetPos(1529*RatX,861*RatY);
-		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.Selector_Dark', 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
-		Canvas.SetPos(1661*RatX,861*RatY);
-		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.Selector_Dark', 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
 		Canvas.SetPos(1793*RatX,861*RatY);
 		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.Selector', 64*RatX, 64*RatY, 0, 0, 64, 64,,true);
 	}
