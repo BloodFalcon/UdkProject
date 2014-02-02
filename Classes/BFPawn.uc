@@ -226,7 +226,6 @@ event Tick(float DeltaTime)
 			ShieldSystem=ParticleSystem'BF_Fighters.ParticleSystem.Shield';
 		}
 
-
 	if((BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>2 && Shield==none) || (ShieldSystem!=Shield.Template && Shield!=none && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>2)){
 		if(Shield!=none){
 			Shield.SetKillOnDeactivate(0,true);
@@ -267,10 +266,13 @@ function DrawBeam()
 function FireWeaps()
 {
 	local BF_Proj_Base Proj;
-	Proj = Spawn(ProjClass,self,,self.Location,self.Rotation);
-	Proj.Speed=CS.Current.BulletSpeed;
-	Proj.Damage*=CS.Current.BulletDamage;
-	WorldInfo.MyEmitterPool.ClearPoolComponents(false);
+
+	if(ProjClass!=none){
+		Proj = Spawn(ProjClass,self,,self.Location,self.Rotation);
+		Proj.Speed=CS.Current.BulletSpeed;
+		Proj.Damage*=CS.Current.BulletDamage;
+		WorldInfo.MyEmitterPool.ClearPoolComponents(false);
+	}
 }
 
 
@@ -376,6 +378,10 @@ function NewShipChooser()
 	if(CS.B1.SoulClass==class'BF_Enemy_ClosedBay' && CS.B2.SoulClass==class'BF_Enemy_ClosedBay' && CS.B3.SoulClass==class'BF_Enemy_ClosedBay'){
 		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead=true;
 		Mesh.SetHidden(true);
+		Shield.SetKillOnDeactivate(0,true);
+		Shield.DeactivateSystem();
+		Shield=none;
+		ProjClass=none;
 	}else{
 		if(CS.B1.SoulClass!=class'BF_Enemy_ClosedBay' && CS.B1.SoulClass!=class'BF_Enemy_EmptyBay'){
 			CS.Current=CS.B1;

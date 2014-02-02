@@ -17,7 +17,11 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNorma
 		{
 			//if(BF_Enemy_Base(Other).bIsBoss){
 			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.HitLoc=self.Location;
-			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=Damage;
+			if(BF_Enemy_Base(Other).Health<Damage){
+				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=BF_Enemy_Base(Other).Health;
+			}else{
+				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=Damage;
+			}
 			//}
 			Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);
 		}
@@ -26,7 +30,11 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNorma
 		{
 			//if(BF_Enemy_Base(Other).bIsBoss){
 			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.HitLoc=self.Location;
-			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=Damage;
+			if(BF_Enemy_Base(Other).Health<Damage){
+				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=BF_Enemy_Base(Other).Health;
+			}else{
+				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=Damage;
+			}
 			//}
 			Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);
 			self.Destroy();	

@@ -96,10 +96,6 @@ function DisplayHitData()
 	}
 }
 
-function HitDataTimer()
-{
-
-}
 
 /**Animates the blood meter.*/
 function BloodMeter()
