@@ -15,6 +15,9 @@ event PostBeginPlay()
 	NPCInfo.HUDuP.HB2="Bullet Spread";
 	NPCInfo.HUDuP.HB3="Fire Rate";
 	NPCInfo.HUDName="Strafe";
+	NPCInfo.AngularWidth=30;
+	NPCInfo.Bullets=5;
+	NPCInfo.BulletDamage=1;
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0), );
 }
 
@@ -30,6 +33,8 @@ function LevelUp(byte CurLevel)
 	}
 	if(NPCInfo.Level>=2){
 		NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpread';
+		NPCInfo.AngularWidth=55;
+		NPCInfo.Bullets=5;
 	}
 	if(NPCInfo.Level>=3){
 		NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FireRate';

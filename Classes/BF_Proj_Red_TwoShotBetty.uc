@@ -13,8 +13,9 @@ class BF_Proj_Red_TwoShotBetty extends BF_Proj_PlayerBase;
 
 function tick(float DeltaTime)
 {
-	Velocity = vect(0,-1500,0);
-	super.Tick(DeltaTime);
+	Damage=BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.BulletDamage;
+	Velocity=BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.BulletSpeed;
+	super.tick(DeltaTime);
 }
 
 

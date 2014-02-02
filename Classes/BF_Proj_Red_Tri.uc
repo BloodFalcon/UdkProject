@@ -1,5 +1,5 @@
 /***************************************
-// Author(s): Tyler Keller, Sean Mackey
+// Author(s): Tyler Keller
 // Date: 1/8/2014
 // Status: Alpha
 // Being Used: Yes
@@ -10,14 +10,13 @@
 
 class BF_Proj_Red_Tri extends BF_Proj_PlayerBase;
 
-
 function tick(float DeltaTime)
 {
 	SetRotation(RotRand());
-	Velocity = vect(0,-1500,0);
-	super.Tick(DeltaTime);
+	Damage=BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.BulletDamage;
+	Velocity=BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.BulletSpeed;
+	super.tick(DeltaTime);
 }
-
 
 defaultproperties
 {

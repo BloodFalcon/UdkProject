@@ -14,15 +14,13 @@ var BF_Proj_Base MyProj;
 var Rotator SpreadIncrement;
 var Rotator SpreadOffset;
 var byte BulletsLeft;
-var byte Bullets;
-var int AngularWidth;
 
 simulated event PostBeginPlay()
 {
-	SpreadShot();
+	SpreadShot(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.Bullets,BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.AngularWidth);
 }
 
-function SpreadShot()
+function SpreadShot(byte Bullets,int AngularWidth)
 {
 	SpreadIncrement.Yaw = (AngularWidth*DegToUnrRot)/Bullets;
 	BulletsLeft=Bullets;
@@ -31,8 +29,6 @@ function SpreadShot()
 	while(BulletsLeft>0){
 		BulletsLeft--;
 		MyProj = Spawn(class'BF_Proj_Red_SpreadBullet',Owner,, self.Location, self.Rotation); //MUST RENAME SOCKETS FOR PRECISE SPAWN LOCATION
-		MyProj.Speed = 1500;
-		MyProj.Damage = 1;
 		MyProj.Init(vector(self.Rotation+SpreadOffset));
 		SpreadOffset-=SpreadIncrement;
 	}
@@ -41,8 +37,6 @@ function SpreadShot()
 
 defaultproperties
 {
-	AngularWidth=30
-	Bullets=3
 	CollisionComponent = none
 	CollisionType = COLLIDE_TouchAll
 }

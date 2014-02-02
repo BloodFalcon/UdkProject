@@ -16,7 +16,7 @@ event PostBeginPlay()
 	NPCInfo.HUDuP.HB2="Bullet Speed";
 	NPCInfo.HUDuP.HB3="Bullet Damage";
 	NPCInfo.HUDName="Drone";
-
+	NPCInfo.BulletDamage=1;
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0), );
 }
 
@@ -29,11 +29,12 @@ function LevelUp(byte CurLevel)
 	NPCInfo.Level++;
 	if(NPCInfo.Level>=1){
 		NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpread';
-		//Not Done
+		NPCInfo.AngularWidth=55;
+		NPCInfo.Bullets=5;
 	}
 	if(NPCInfo.Level>=2){
 		NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpeed';
-		NPCInfo.BulletSpeed=3000;
+		NPCInfo.BulletSpeed=vect(0,-3000,0);
 	}
 	if(NPCInfo.Level>=3){
 		NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletDamage';

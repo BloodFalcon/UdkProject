@@ -43,12 +43,14 @@ struct SoulVars
 	var float BloodDecrement;
 	var float BloodIncrement;
 	var bool bSecondLife;
-	var float BulletSpeed;
+	var vector BulletSpeed;
 	var byte BulletSpread;
 	var float BulletDamage;
 	var bool BulletPenetration;
 	var UpHUD HUDuP;
 	var string HUDName;
+	var byte Bullets;
+	var int AngularWidth;
 
 	structdefaultproperties
 	{
@@ -64,10 +66,12 @@ struct SoulVars
 		BloodDecrement=2
 		BloodIncrement=1
 		bSecondLife=false
-		BulletSpeed=1500
+		BulletSpeed=(X=0,Y=-2000,Z=0)
 		BulletSpread=1
-		BulletDamage=1
+		BulletDamage=5
 		BulletPenetration=false
+		Bullets=3
+		AngularWidth=30
 		HUDName="Falcon"
 	}
 };
@@ -133,7 +137,7 @@ event Tick(float DeltaTime)
 	local Vector HitLocation, HitNormal;
 	local Actor TracedEnemyAct;
 	local UDKPawn TracedEnemy;
-	//BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=100; //.0115 .0164
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=100; //.0115 .0164
 	Health=100000;
 	Mesh.SetScale(CS.Current.Size);
 	BeamStartLoc = Location;
@@ -267,11 +271,12 @@ function FireWeaps()
 {
 	local BF_Proj_Base Proj;
 
-	if(ProjClass!=none){
+	if(ProjClass!=none && Proj==none){
 		Proj = Spawn(ProjClass,self,,self.Location,self.Rotation);
-		Proj.Speed=CS.Current.BulletSpeed;
-		Proj.Damage*=CS.Current.BulletDamage;
-		WorldInfo.MyEmitterPool.ClearPoolComponents(false);
+		//Proj.Speed=CS.Current.BulletSpeed;  //Pawn is too slow to update bullets
+		//Proj.Damage*=50;
+		//Proj=none;
+		//WorldInfo.MyEmitterPool.ClearPoolComponents(false);
 	}
 }
 
