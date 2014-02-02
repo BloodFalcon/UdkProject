@@ -51,7 +51,8 @@ function Scatter()
 	if(CastEn.Health>0.1){
 		SpreadIncrement.Yaw = (AngularWidth*DegToUnrRot)/Bullets;
 		BulletsLeft=Bullets;
-		SpreadOffset.Yaw = (AngularWidth*DegToUnrRot)/2;
+		SpreadOffset.Yaw = ((AngularWidth*DegToUnrRot)/2)-((((39*DegToUnrRot)/Bullets)/75)*AngularWidth);
+			//(AngularWidth*DegToUnrRot)/2;
 	
 		while(BulletsLeft>0){
 			BulletsLeft--;
