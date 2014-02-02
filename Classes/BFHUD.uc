@@ -81,7 +81,7 @@ function DisplayHitData()
 		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=0;
 	}
 	while(ArrayLen<HitDraws.Length && HitDraws.Length!=0){
-		Canvas.SetDrawColor(255,0,0);
+		Canvas.SetDrawColor(RandRange(200,255),RandRange(0,200),RandRange(0,50));
 		Canvas.SetPos(HitDraws[ArrayLen].HitLoc.X,HitDraws[ArrayLen].HitLoc.Y);
 		Canvas.DrawText(string(HitDraws[ArrayLen].Damage),,2*RatX,2*RatY,);
 		Canvas.Reset();
