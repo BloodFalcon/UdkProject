@@ -8,7 +8,7 @@ event PostBeginPlay()
 	NPCInfo.SoulClass=class'BF_Enemy_Drone';
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_W2';
 	NPCInfo.Size=1;
-	NPCInfo.Speed=600;
+	NPCInfo.Speed=1700;
 	NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpread_Dark';
 	NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpeed_Dark';
 	NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletDamage_Dark';
@@ -29,7 +29,7 @@ function LevelUp(byte CurLevel)
 	NPCInfo.Level++;
 	if(NPCInfo.Level>=1){
 		NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpread';
-		NPCInfo.AngularWidth=55;
+		NPCInfo.AngularWidth=75;
 		NPCInfo.Bullets=5;
 	}
 	if(NPCInfo.Level>=2){

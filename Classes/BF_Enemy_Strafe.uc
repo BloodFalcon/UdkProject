@@ -7,7 +7,7 @@ event PostBeginPlay()
 	NPCInfo.SoulClass=class'BF_Enemy_Strafe';
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.SuicideFighter_W2';
 	NPCInfo.Size=0.45;
-	NPCInfo.Speed=500;
+	NPCInfo.Speed=1600;
 	NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed_Dark';
 	NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpread_Dark';
 	NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FireRate_Dark';
@@ -33,7 +33,7 @@ function LevelUp(byte CurLevel)
 	}
 	if(NPCInfo.Level>=2){
 		NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpread';
-		NPCInfo.AngularWidth=55;
+		NPCInfo.AngularWidth=75;
 		NPCInfo.Bullets=5;
 	}
 	if(NPCInfo.Level>=3){
