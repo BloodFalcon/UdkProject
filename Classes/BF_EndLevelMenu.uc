@@ -15,7 +15,7 @@ function NextLevel(string myString, int myInt, bool myBool)
 {
 	//BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive = false;
 	//ConsoleCommand("open "@BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).WorldInfo.Title);
-	ConsoleCommand("open SpaceLevel2");
+	ConsoleCommand("open BF_TitleScreen_Map");
 }
 
 
