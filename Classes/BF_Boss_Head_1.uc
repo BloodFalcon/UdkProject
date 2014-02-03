@@ -74,7 +74,7 @@ event tick(float DeltaTime)
 		HeadProj.Destroy();
 		HeadProj=none;
 	}
-	if(GetRemainingTimeForTimer('StrafeShooting') > 2.5 && GetRemainingTimeForTimer('StrafeShooting') < 2.6){
+	if(GetRemainingTimeForTimer('StrafeShooting') > 1.0 && GetRemainingTimeForTimer('StrafeShooting') < 1.1){
 		WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(LaserMuzzle,Mesh,'Nose_Gun', true);
 	}
 }
