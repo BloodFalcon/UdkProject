@@ -109,19 +109,19 @@ function BloodMeter()
 	Canvas.DrawTile(BloodMeterBlack, 1024*RatX, 1024*RatY*MeterIncrement, 0, 0, 1024, 1024*MeterIncrement,,true);
 	
 	if(MeterIncrement<=0.99){
-		Canvas.SetPos(58,901);
+		Canvas.SetPos(58*RatX,901*RatY);
 		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletTime', 176*RatX, 128*RatY, 0, 0, 176, 128,,true);
 	}
 	if(MeterIncrement<=0.8){
-		Canvas.SetPos(58,751);
+		Canvas.SetPos(58*RatX,751*RatY);
 		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shield', 176*RatX, 128*RatY, 0, 0, 176, 128,,true);
 	}
 	if(MeterIncrement<=0.5){
-		Canvas.SetPos(58,444);
+		Canvas.SetPos(58*RatX,444*RatY);
 		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_SwapBays', 176*RatX, 128*RatY, 0, 0, 176, 128,,true);
 	}
 	if(MeterIncrement<=0){
-		Canvas.SetPos(58,89);
+		Canvas.SetPos(58*RatX,89*RatY);
 		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_Absorb', 176*RatX, 128*RatY, 0, 0, 176, 128,,true);
 	}
 }
