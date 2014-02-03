@@ -137,7 +137,7 @@ event Tick(float DeltaTime)
 	local Vector HitLocation, HitNormal;
 	local Actor TracedEnemyAct;
 	local UDKPawn TracedEnemy;
-	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=100; //.0115 .0164
+	//BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=100; //.0115 .0164
 	Health=100000;
 	Mesh.SetScale(CS.Current.Size);
 	BeamStartLoc = Location;
@@ -513,36 +513,45 @@ exec function NextShip()
 
 exec function SwitchBay1()
 {
-	if(CS.B1.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B1.SoulClass!=class'BF_Enemy_ClosedBay' && CS.B1.Closed==false && CS.BayNumber!=1){
-		CS.Current=CS.B1;
-		CS.BayNumber=1;
-		UpdatePlayer();
-	}else{
-		//Flash BloodMeter
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>=5){
+		if(CS.B1.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B1.SoulClass!=class'BF_Enemy_ClosedBay' && CS.B1.Closed==false && CS.BayNumber!=1){
+			CS.Current=CS.B1;
+			CS.BayNumber=1;
+			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter-=5;
+			UpdatePlayer();
+		}else{
+			//Flash BloodMeter
+		}
 	}
 }
 
 
 exec function SwitchBay2()
 {
-	if(CS.B2.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B2.SoulClass!=class'BF_Enemy_ClosedBay' && CS.B2.Closed==false && CS.BayNumber!=2){
-		CS.Current=CS.B2;
-		CS.BayNumber=2;
-		UpdatePlayer();
-	}else{
-		//Flash BloodMeter
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>=5){
+		if(CS.B2.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B2.SoulClass!=class'BF_Enemy_ClosedBay' && CS.B2.Closed==false && CS.BayNumber!=2){
+			CS.Current=CS.B2;
+			CS.BayNumber=2;
+			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter-=5;
+			UpdatePlayer();
+		}else{
+			//Flash BloodMeter
+		}
 	}
 }
 
 
 exec function SwitchBay3()
 {
-	if(CS.B3.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B3.SoulClass!=class'BF_Enemy_ClosedBay' && CS.B3.Closed==false && CS.BayNumber!=3){
-		CS.Current=CS.B3;
-		CS.BayNumber=3;
-		UpdatePlayer();
-	}else{
-		//Flash BloodMeter
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>=5){
+		if(CS.B3.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B3.SoulClass!=class'BF_Enemy_ClosedBay' && CS.B3.Closed==false && CS.BayNumber!=3){
+			CS.Current=CS.B3;
+			CS.BayNumber=3;
+			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter-=5;
+			UpdatePlayer();
+		}else{
+			//Flash BloodMeter
+		}
 	}
 }//KeyBinds
 
@@ -649,7 +658,7 @@ event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vect
 			KillBeam();
 			WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location);
 			PlaySound(DeathSound);
-			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
+			//BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=0;
 			RespawnPlayer();
 		}
 	}
