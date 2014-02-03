@@ -19,7 +19,7 @@ Begin:
 	MoveTo(PointA, none, ,true);
 	Sleep(0.75);
 	MoveTo(PointB, none, ,true);
-	if(Pawn.Health == 623){
+	if(Pawn.Health == 423){
 		GotoState('PhaseTwo');
 	}
 	else{
@@ -44,7 +44,7 @@ Begin:
 	MoveTo(PointA, none, ,true);
 	Sleep(0.60);
 	MoveTo(PointB, none, ,true);
-	if(Pawn.Health == 621){
+	if(Pawn.Health == 421){
 		GotoState('FinalPhase');
 	}
 	else{

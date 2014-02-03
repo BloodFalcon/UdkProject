@@ -9,6 +9,7 @@ var ParticleSystem DestroyEffect;
 var bool PartDestroyed;
 var vector SockLoc;
 var Rotator SockRot;
+var byte HealthIndex;
 
 event PostBeginPlay()
 {
@@ -16,6 +17,8 @@ event PostBeginPlay()
 	CylinderComponent.SetActorCollision(false, false); 
 	Mesh.SetActorCollision(true, true);
 	NPCInfo.bCanAbsorb=false;
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossHealths.AddItem(Health);
+	HealthIndex=BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossHealths.Length-1;
 	//self.SpawnDefaultController();
 	//self.SetMovementPhysics();
 }
@@ -91,6 +94,7 @@ event Touch( Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vect
 
 event tick(float DeltaTime)
 {
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossHealths[HealthIndex]=Health;
 	if(BossBase.Health <= 0){
 		self.Destroy();
 	}
@@ -117,7 +121,7 @@ DefaultProperties
 {
 	PartDestroyed = true
 	DestroyEffect = ParticleSystem'BloodFalcon.ParticleSystem.EnemyHitSmokeFire'
-	Health=150
+	Health=100
 	CollisionType=COLLIDE_TouchAll
     bJumpCapable=false
     bCanJump=false

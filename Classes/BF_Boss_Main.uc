@@ -3,7 +3,7 @@ class BF_Boss_Main extends BF_Enemy_Base
 	placeable;
 
 
-
+var byte HealthIndex;
 
 event PostBeginPlay()
 {
@@ -11,6 +11,8 @@ event PostBeginPlay()
 	CylinderComponent.SetActorCollision(false, false);
 	Mesh.SetActorCollision(true, true);
 	NPCInfo.bCanAbsorb=false;
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossHealths.AddItem(Health);
+	HealthIndex=BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossHealths.Length-1;
 }
 
 

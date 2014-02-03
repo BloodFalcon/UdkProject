@@ -132,13 +132,20 @@ function BossHealthBar()
 {
 	local float XL;
 	local float YL;
+	local byte IndexLoc;
+	local int BossesHealth;
+
+	while(IndexLoc<BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossHealths.Length){
+		BossesHealth+=BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossHealths[IndexLoc];
+		IndexLoc++;
+	}
 
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase != none){
-		Canvas.StrLen(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Health), XL, YL);
+		Canvas.StrLen(string(BossesHealth), XL, YL);
 		if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase!=none){
 		Canvas.SetPos(Canvas.Project(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Location).X-XL,Canvas.Project(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Location).Y-200);
 		Canvas.SetDrawColor(0,255,0);
-		Canvas.DrawText(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Health,,2,2,);
+		Canvas.DrawText(BossesHealth,,2,2,);
 		}
 	}
 	Canvas.Reset();

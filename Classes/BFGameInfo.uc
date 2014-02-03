@@ -24,6 +24,7 @@ struct HitD
 };
 
 
+var array<int> BossHealths;
 var float BloodMeter;
 var bool PlayerDead;
 var byte modeBulletTime;

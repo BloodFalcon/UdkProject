@@ -230,7 +230,7 @@ event Tick(float DeltaTime)
 			ShieldSystem=ParticleSystem'BF_Fighters.ParticleSystem.Shield';
 		}
 
-	if((BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>2 && Shield==none) || (ShieldSystem!=Shield.Template && Shield!=none && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>2)){
+	if((BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>2 && Shield==none) || (Shield!=none && ShieldSystem!=Shield.Template && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>2)){
 		if(Shield!=none){
 			Shield.SetKillOnDeactivate(0,true);
 			Shield.DeactivateSystem();
