@@ -482,6 +482,8 @@ function AbsorbSuccess()
 function UpdatePlayer()
 {
 	//BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodDecrement=CS.Current.BloodDecrement;
+	StopFire(0);
+	StopFire(1);
 	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodIncrement=CS.Current.BloodIncrement;
 	FireRate = CS.Current.FireRate;
 	ProjClass = CS.Current.ProjClass;
