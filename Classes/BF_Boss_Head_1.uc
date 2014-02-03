@@ -6,6 +6,7 @@ var BF_Proj_Base HeadProj;
 var Actor TracedEnemyAct;
 var UDKPawn TracedEnemyPawn;
 var Vector BeamEnd;
+var ParticleSystem LaserMuzzle;
 
 event PostBeginPlay()
 {
@@ -73,6 +74,9 @@ event tick(float DeltaTime)
 		HeadProj.Destroy();
 		HeadProj=none;
 	}
+	if(GetRemainingTimeForTimer('StrafeShooting') > 1.0 && GetRemainingTimeForTimer('StrafeShooting') < 1.1){
+		WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(LaserMuzzle,Mesh,'Nose_Gun', true);
+	}
 }
 
 function StrafeShooting()
@@ -103,4 +107,5 @@ DefaultProperties
 	ShouldShoot=true
 	HeadOffset = 350
 	BeamEnd = (X=0,Y=2000,Z=0)
+	LaserMuzzle=ParticleSystem'BF_Robert.ParticleSystem.Missile_Destroy'
 }
