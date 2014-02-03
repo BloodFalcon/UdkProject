@@ -141,6 +141,7 @@ function BossHealthBar()
 		Canvas.DrawText(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Health,,2,2,);
 		}
 	}
+	Canvas.Reset();
 }
 
 

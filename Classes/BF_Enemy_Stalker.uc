@@ -15,6 +15,7 @@ event PostBeginPlay()
 	NPCInfo.HUDuP.HB2="Flight Speed";
 	NPCInfo.HUDuP.HB3="Armor Piercing";
 	NPCInfo.HUDName="Stalker";
+	NPCInfo.BulletDamage=3;
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0), );
 }
 
