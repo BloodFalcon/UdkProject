@@ -22,6 +22,6 @@ function tick(float DeltaTime)
 defaultproperties
 {
 	ProjFlightTemplate=ParticleSystem'BF_Robert.ParticleSystem.Red_Circle'
-	DrawScale=1
+	DrawScale=0.5
 	Damage=5
 }

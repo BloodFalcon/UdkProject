@@ -3,8 +3,8 @@ class BF_Enemy_Drone extends BF_Enemy_Base;
 
 event PostBeginPlay()
 {
-	NPCInfo.FireRate=0.2;
-	NPCInfo.ProjClass=class'BF_Proj_Red_Line';
+	NPCInfo.FireRate=0.01;
+	NPCInfo.ProjClass=class'BF_Proj_Red_Circle';
 	NPCInfo.SoulClass=class'BF_Enemy_Drone';
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_0';
 	NPCInfo.Size=1;

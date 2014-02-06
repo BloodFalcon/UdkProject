@@ -121,6 +121,7 @@ var float FireRate;
 var class<BF_Proj_Base> ProjClass;
 var CollectedSouls CS, DefaultCS;
 var BF_Enemy_Base Bay1,Bay2,Bay3;
+var byte D2;
 
 
 event PostBeginPlay()
@@ -270,18 +271,66 @@ function DrawBeam()
 function FireWeaps()
 {
 	local BF_Proj_Base Proj;
+	local Vector locoff;
 
-	if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Suicide_1'){
+	locoff=self.Location;
+
+	if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Suicide_0'){
+
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Suicide_1'){
 
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Suicide_2'){
 
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Suicide_3'){
 
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_0'){
+		Spawn(ProjClass,self,,self.Location,self.Rotation);
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.Drone_1'){
-
+		Spawn(ProjClass,self,,self.Location,self.Rotation);
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.Drone_2'){
-
+		if(D2==0){
+			locoff.X+=20;
+			Spawn(ProjClass,self,,locoff,self.Rotation);
+			D2++;
+		}else if(D2==1 || D2==3){
+			Spawn(ProjClass,self,,self.Location,self.Rotation);
+			if(D2==1){
+				D2++;
+			}else{
+				D2=0;
+			}
+		}else if(D2==2){
+			locoff.X-=20;
+			Spawn(ProjClass,self,,locoff,self.Rotation);
+			D2++;
+		}else{
+			D2=0;
+		}
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.Drone_3'){
+		if(D2==0){
+			locoff.X+=25;
+			Spawn(ProjClass,self,,locoff,self.Rotation);
+			D2++;
+		}else if(D2==1 || D2==5){
+			locoff.X+=15;
+			Spawn(ProjClass,self,,self.Location,self.Rotation);
+			if(D2==1){
+				D2++;
+			}else{
+				D2=0;
+			}
+		}else if(D2==2 || D2==4){
+			locoff.X-=15;
+			Spawn(ProjClass,self,,locoff,self.Rotation);
+			D2++;
+		}else if(D2==3){
+			locoff.X-=25;
+			Spawn(ProjClass,self,,locoff,self.Rotation);
+			D2++;			
+		}else{
+			D2=0;
+		}
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Vulcan_0'){
 
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Vulcan_1'){
 
@@ -289,17 +338,23 @@ function FireWeaps()
 
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Vulcan_3'){
 
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Stalker_0'){
+
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Stalker_1'){
 
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Stalker_2'){
 
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Stalker_3'){
 
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Strafe_0'){
+
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Strafe_1'){
 
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Strafe_2'){
 
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Strafe_3'){
+
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Lazer_0'){
 
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Lazer_1'){
 
@@ -308,10 +363,9 @@ function FireWeaps()
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Lazer_3'){
 
 	}else{
-
-	}
-	if(ProjClass!=none){
-		Proj = Spawn(ProjClass,self,,self.Location,self.Rotation);
+		if(ProjClass!=none){
+			Proj = Spawn(ProjClass,self,,self.Location,self.Rotation);
+		}
 	}
 }
 
@@ -526,13 +580,13 @@ function UpdatePlayer()
 	self.Mesh.SetSkeletalMesh(CS.Current.SoulMesh);
 	if(CS.BayNumber==1){
 		Bay1.Mesh.SetSkeletalMesh(CS.Current.SoulMesh);
-		Bay1.Mesh.SetScale(CS.Current.Size);
+		Bay1.Mesh.SetScale(CS.Current.Size*0.8);
 	}else if(CS.BayNumber==2){
 		Bay2.Mesh.SetSkeletalMesh(CS.Current.SoulMesh);
-		Bay2.Mesh.SetScale(CS.Current.Size);
+		Bay2.Mesh.SetScale(CS.Current.Size*0.8);
 	}else if(CS.BayNumber==3){
 		Bay3.Mesh.SetSkeletalMesh(CS.Current.SoulMesh);
-		Bay3.Mesh.SetScale(CS.Current.Size);
+		Bay3.Mesh.SetScale(CS.Current.Size*0.8);
 	}
 	self.Mesh.SetScale(CS.Current.Size);
 }
