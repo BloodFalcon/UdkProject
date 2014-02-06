@@ -6,7 +6,7 @@ event PostBeginPlay()
 	NPCInfo.FireRate=0.2;
 	NPCInfo.ProjClass=class'BF_Proj_Red_Line';
 	NPCInfo.SoulClass=class'BF_Enemy_Drone';
-	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_W2';
+	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_0';
 	NPCInfo.Size=1;
 	NPCInfo.Speed=1700;
 	NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpread_Dark';
@@ -29,15 +29,18 @@ function LevelUp(byte CurLevel)
 	NPCInfo.Level++;
 	if(NPCInfo.Level>=1){
 		NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpread';
+		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.Drone_1';
 		NPCInfo.AngularWidth=75;
 		NPCInfo.Bullets=5;
 	}
 	if(NPCInfo.Level>=2){
 		NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpeed';
+		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.Drone_2';
 		NPCInfo.BulletSpeed=vect(0,-3000,0);
 	}
 	if(NPCInfo.Level>=3){
 		NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletDamage';
+		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.Drone_3';
 		NPCInfo.BulletDamage=3;
 	}
 }
@@ -47,15 +50,15 @@ DefaultProperties
 {
 	Health = 10
     Begin Object Class=SkeletalMeshComponent Name=EP2Mesh
-        SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_W2'
-		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Drone_W2_Physics'
+        SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_0'
+		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Drone_0_Physics'
         HiddenGame=FALSE
         HiddenEditor=FALSE
 		BlockNonZeroExtent=true
 		BlockZeroExtent=true
 		BlockActors=false
 		CollideActors=true
-		Scale = 1
+		Scale = 0.85
     End Object
 	Mesh=EP2Mesh
 	Components.Add(EP2Mesh)

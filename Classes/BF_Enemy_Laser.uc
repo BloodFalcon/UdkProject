@@ -14,7 +14,7 @@ event PostBeginPlay()
 	NPCInfo.FireRate=1.0;
 	NPCInfo.ProjClass=class'BF_Proj_Red_TwoShotBetty';
 	NPCInfo.SoulClass=class'BF_Enemy_Laser';
-	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_W4';
+	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Lazer_0';
 	NPCInfo.Size=1.4;
 	NPCInfo.Speed=1900;
 	NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FireRate_Dark';
@@ -35,14 +35,17 @@ function LevelUp(byte CurLevel)
 	NPCInfo.Level++;
 	if(NPCInfo.Level>=1){
 		NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FireRate';
+		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Lazer_1';
 		NPCInfo.FireRate=0.1;
 	}
 	if(NPCInfo.Level>=2){
 		NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FireRate';
+		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Lazer_2';
 		NPCInfo.FireRate=0.05;
 	}
 	if(NPCInfo.Level>=3){
 		NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FireRate';
+		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Lazer_3';
 		NPCInfo.FireRate=0.01;
 	}
 }
@@ -51,8 +54,8 @@ DefaultProperties
 {
 	Health=30
     Begin Object Class=SkeletalMeshComponent Name=EP1Mesh
-        SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_W4'
-		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Drone_W4_Physics'
+        SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Lazer_0'
+		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Lazer_0_Physics'
         HiddenGame=FALSE
         HiddenEditor=FALSE
 		BlockNonZeroExtent=true

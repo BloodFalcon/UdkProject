@@ -137,7 +137,7 @@ event Tick(float DeltaTime)
 	local Vector HitLocation, HitNormal;
 	local Actor TracedEnemyAct;
 	local UDKPawn TracedEnemy;
-	//BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=100; //.0115 .0164
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=100; //.0115 .0164
 	Health=100000;
 	Mesh.SetScale(CS.Current.Size);
 	BeamStartLoc = Location;
@@ -271,12 +271,47 @@ function FireWeaps()
 {
 	local BF_Proj_Base Proj;
 
-	if(ProjClass!=none && Proj==none){
+	if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Suicide_1'){
+
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Suicide_2'){
+
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Suicide_3'){
+
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.Drone_1'){
+
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.Drone_2'){
+
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.Drone_3'){
+
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Vulcan_1'){
+
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Vulcan_2'){
+
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Vulcan_3'){
+
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Stalker_1'){
+
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Stalker_2'){
+
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Stalker_3'){
+
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Strafe_1'){
+
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Strafe_2'){
+
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Strafe_3'){
+
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Lazer_1'){
+
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Lazer_2'){
+
+	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Lazer_3'){
+
+	}else{
+
+	}
+	if(ProjClass!=none){
 		Proj = Spawn(ProjClass,self,,self.Location,self.Rotation);
-		//Proj.Speed=CS.Current.BulletSpeed;  //Pawn is too slow to update bullets
-		//Proj.Damage*=50;
-		//Proj=none;
-		//WorldInfo.MyEmitterPool.ClearPoolComponents(false);
 	}
 }
 

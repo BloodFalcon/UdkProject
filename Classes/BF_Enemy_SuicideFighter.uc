@@ -14,7 +14,7 @@ event PostBeginPlay()
 	NPCInfo.FireRate=0.2;
 	NPCInfo.ProjClass=class'BF_Proj_Red_Circle';
 	NPCInfo.SoulClass=class'BF_Enemy_SuicideFighter';
-	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.SuicideFighter_W4';
+	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Suicide_0';
 	NPCInfo.Size=1.5;
 	NPCInfo.Speed=1900;
 	NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shielding_Dark';
@@ -36,14 +36,17 @@ function LevelUp(byte CurLevel)
 	NPCInfo.Level++;
 	if(NPCInfo.Level>=1){
 		NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shielding';
+		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Suicide_1';
 		NPCInfo.bSecondLife=true;
 	}
 	if(NPCInfo.Level>=2){
 		NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed';
+		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Suicide_2';
 		NPCInfo.Speed=2100;
 	}
 	if(NPCInfo.Level>=3){
 		NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_MeterGain';
+		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Suicide_3';
 		NPCInfo.BloodIncrement=2;
 	}
 }
@@ -53,8 +56,8 @@ DefaultProperties
 {
 	Health = 5
     Begin Object Class=SkeletalMeshComponent Name=EP3Mesh
-        SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.SuicideFighter_W4'
-		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.SuicideFighter_W4_Physics'
+        SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Suicide_0'
+		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Suicide_0_Physics'
         HiddenGame=FALSE
         HiddenEditor=FALSE
 		BlockNonZeroExtent=true

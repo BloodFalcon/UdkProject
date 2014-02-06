@@ -5,7 +5,7 @@ event PostBeginPlay()
 	NPCInfo.FireRate=0.4;
 	NPCInfo.ProjClass=class'BF_Proj_Red_Line';
 	NPCInfo.SoulClass=class'BF_Enemy_Stalker';
-	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_W3';
+	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Stalker_0';
 	NPCInfo.Size=1.1;
 	NPCInfo.Speed=1800;
 	NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_MeterGain_Dark';
@@ -27,14 +27,17 @@ function LevelUp(byte CurLevel)
 	NPCInfo.Level++;
 	if(NPCInfo.Level>=1){
 		NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_MeterGain';
+		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Stalker_1';
 		NPCInfo.bSecondLife=true;
 	}
 	if(NPCInfo.Level>=2){
 		NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed';
+		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Stalker_2';
 		NPCInfo.Speed=2000;
 	}
 	if(NPCInfo.Level>=3){
 		NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_ArmorPiercing';
+		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Stalker_3';
 		NPCInfo.BulletPenetration=true;
 	}
 }
@@ -43,8 +46,8 @@ DefaultProperties
 {
 	Health=25
     Begin Object Class=SkeletalMeshComponent Name=EP2Mesh
-        SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_W3'
-		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Drone_W3_Physics'
+        SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Stalker_0'
+		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Stalker_0_Physics'
         HiddenGame=FALSE
         HiddenEditor=FALSE
 		BlockNonZeroExtent=true
