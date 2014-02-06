@@ -16,7 +16,7 @@ event PostBeginPlay()
 	NPCInfo.HUDuP.HB3="Fire Rate";
 	NPCInfo.HUDName="Strafe";
 	NPCInfo.AngularWidth=30;
-	NPCInfo.Bullets=5;
+	NPCInfo.Bullets=3;
 	NPCInfo.BulletDamage=1;
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0), );
 }

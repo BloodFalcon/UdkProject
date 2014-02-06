@@ -524,6 +524,16 @@ function UpdatePlayer()
 	ProjClass = CS.Current.ProjClass;
 	self.GroundSpeed = CS.Current.Speed;
 	self.Mesh.SetSkeletalMesh(CS.Current.SoulMesh);
+	if(CS.BayNumber==1){
+		Bay1.Mesh.SetSkeletalMesh(CS.Current.SoulMesh);
+		Bay1.Mesh.SetScale(CS.Current.Size);
+	}else if(CS.BayNumber==2){
+		Bay2.Mesh.SetSkeletalMesh(CS.Current.SoulMesh);
+		Bay2.Mesh.SetScale(CS.Current.Size);
+	}else if(CS.BayNumber==3){
+		Bay3.Mesh.SetSkeletalMesh(CS.Current.SoulMesh);
+		Bay3.Mesh.SetScale(CS.Current.Size);
+	}
 	self.Mesh.SetScale(CS.Current.Size);
 }
 
