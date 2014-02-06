@@ -320,7 +320,7 @@ function FireWeaps()
 				D2=0;
 			}
 		}else if(D2==2 || D2==4){
-			locoff.X-=15;
+			locoff.X-=18;
 			Spawn(ProjClass,self,,locoff,self.Rotation);
 			D2++;
 		}else if(D2==3){
@@ -331,7 +331,10 @@ function FireWeaps()
 			D2=0;
 		}
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Vulcan_0'){
-
+			
+		Spawn(ProjClass,self,,locoff,self.Rotation);
+						
+		Spawn(ProjClass,self,,locoff,self.Rotation);
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Vulcan_1'){
 
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Vulcan_2'){
