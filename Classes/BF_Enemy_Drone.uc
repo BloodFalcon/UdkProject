@@ -4,7 +4,7 @@ event PostBeginPlay()
 {
 	NPCInfo.FireRate=1.0;
 	NPCInfo.ProjClass=class'BF_Proj_Red_Tri';
-	NPCInfo.SoulClass=class'BF_Enemy_Vulcan';
+	NPCInfo.SoulClass=class'BF_Enemy_Drone';
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Vulcan_0';
 	NPCInfo.Size=1.4;
 	NPCInfo.Speed=1200;

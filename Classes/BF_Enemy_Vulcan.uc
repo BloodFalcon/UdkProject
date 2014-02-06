@@ -14,7 +14,7 @@ event PostBeginPlay()
 {
 	NPCInfo.FireRate=0.01;
 	NPCInfo.ProjClass=class'BF_Proj_Red_Circle';
-	NPCInfo.SoulClass=class'BF_Enemy_Drone';
+	NPCInfo.SoulClass=class'BF_Enemy_Vulcan';
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_0';
 	NPCInfo.Size=1;
 	NPCInfo.Speed=1700;
