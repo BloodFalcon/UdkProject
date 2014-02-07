@@ -1,11 +1,22 @@
 class BF_DeathMenu extends GFxMoviePlayer;
 
+var GFxObject FinalScore;
+var GFxObject TotalKills;
+var string KillCount;
+var string EndScore;
+
 function bool Start(optional bool StartPaused = false)
 {
     super.Start();
     Advance(0.f);
     SetPause(false);
 	SetTimingMode( TM_Real );
+	KillCount = string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillCount);
+	EndScore = string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore);
+	TotalKills = GetVariableObject("TotalKills");
+	TotalKills.SetString("text", KillCount);
+	FinalScore = GetVariableObject("FinalScore");
+	FinalScore.SetString("text", EndScore);
     return TRUE;
 }
 

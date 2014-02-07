@@ -52,6 +52,7 @@ function ReturntoMenu(string myString, int myInt, bool myBool)
 {
 	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive = false;
 	ConsoleCommand("open BF_TitleScreen_Map");
+
 }
 
 function QuittoDesktop(string myString, int myInt, bool myBool)
@@ -69,5 +70,4 @@ DefaultProperties
 	Priority = 1
 	TimingMode = TM_Real
 	MovieInfo = SwfMovie'BloodFalcon.PauseMenu.BFPauseMenu'
-	
 }
