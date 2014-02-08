@@ -72,12 +72,12 @@ function tick(float DeltaTime)
 	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossHealths[HealthIndex]=Health;
 	//`log(self.Health);
 	if(Health==423 && Controller.IsInState('PhaseOne')){
-		//Controller.GotoState('Swarm1');
-		Controller.GotoState('PhaseTwo');
+		Controller.GotoState('Swarm1');
+		//Controller.GotoState('PhaseTwo');
 	}
 	if(Health==421 && Controller.IsInState('PhaseTwo')){
-		//Controller.GotoState('Swarm2');
-		Controller.GotoState('FinalPhase');
+		Controller.GotoState('Swarm2');
+		//Controller.GotoState('FinalPhase');
 	}
 	if(Health <= 421 && self.IsTimerActive('DeadHitFlash') == false && Controller.IsInState('FinalPhase')){
 		self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');

@@ -20,7 +20,7 @@ Begin:
 	Sleep(0.75);
 	MoveTo(PointB, none, ,true);
 	if(Pawn.Health == 423){
-		GotoState('PhaseTwo');
+		GotoState('Swarm1');
 	}
 	else{
 		GotoState('PhaseOne');
@@ -45,7 +45,7 @@ Begin:
 	Sleep(0.60);
 	MoveTo(PointB, none, ,true);
 	if(Pawn.Health == 421){
-		GotoState('FinalPhase');
+		GotoState('Swarm2');
 	}
 	else{
 		GotoState('PhaseTwo');

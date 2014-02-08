@@ -62,7 +62,7 @@ event tick(float DeltaTime)
 		HeadProj.SetLocation(SockLoc);
 		SockLoc.Z=BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BFPawnInfo.Location.Z;
 		TracedEnemyAct = Trace(HitLocation, HitNormal, (SockLoc+BeamEnd), SockLoc, true);
-		DrawDebugLine(SockLoc,(SockLoc+BeamEnd),255,0,0);
+		//DrawDebugLine(SockLoc,(SockLoc+BeamEnd),255,0,0);
 		if(TracedEnemyAct!=none){
 			TracedEnemyPawn = UDKPawn(TracedEnemyAct);
 			if(TracedEnemyPawn.Name == 'BFPawn_0'){
