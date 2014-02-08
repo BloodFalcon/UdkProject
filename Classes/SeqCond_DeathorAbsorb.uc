@@ -16,7 +16,7 @@ event Activated()
 	}else if(CurState=='Swarm2'){
 		OutputLinks[1].bHasImpulse=true;
 	}else{
-		
+		OutputLinks[2].bHasImpulse=true;
 	}
 }
 
@@ -31,6 +31,7 @@ defaultproperties
 	OutputLinks.Empty
 	OutputLinks[0]=(LinkDesc="1")
 	OutputLinks[1]=(LinkDesc="2")
+	OutputLinks[2]=(LinkDesc="false")
 
 	InputLinks.Empty
 	InputLinks[0]=(LinkDesc="Check")
