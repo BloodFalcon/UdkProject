@@ -10,10 +10,9 @@ event Activated()
 {
 	Boss=BF_Boss_1(BossIn);
 	BossController=BF_AI_Boss_1(Boss.Controller);
-	BossController.IsInState(CurState);
-	if(CurState=='Swarm1'){
+	if(BossController.IsInState('Swarm1')){
 		OutputLinks[0].bHasImpulse=true;
-	}else if(CurState=='Swarm2'){
+	}else if(BossController.IsInState('Swarm2')){
 		OutputLinks[1].bHasImpulse=true;
 	}else{
 		OutputLinks[2].bHasImpulse=true;
