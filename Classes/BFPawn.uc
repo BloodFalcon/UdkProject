@@ -308,23 +308,23 @@ function FireWeaps()
 		}
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.Drone_3'){
 		if(D2==0){
-			locoff.X+=25;
+			locoff.X+=27;
 			Spawn(ProjClass,self,,locoff,self.Rotation);
 			D2++;
 		}else if(D2==1 || D2==5){
-			locoff.X+=15;
-			Spawn(ProjClass,self,,self.Location,self.Rotation);
+			locoff.X+=17;
+			Spawn(ProjClass,self,,locoff,self.Rotation);
 			if(D2==1){
 				D2++;
 			}else{
 				D2=0;
 			}
 		}else if(D2==2 || D2==4){
-			locoff.X-=18;
+			locoff.X-=17;
 			Spawn(ProjClass,self,,locoff,self.Rotation);
 			D2++;
 		}else if(D2==3){
-			locoff.X-=25;
+			locoff.X-=27;
 			Spawn(ProjClass,self,,locoff,self.Rotation);
 			D2++;			
 		}else{
@@ -794,7 +794,7 @@ defaultproperties
 		BeamAbsorbSound = AbsorbSound
 
         Begin Object Class=SkeletalMeshComponent Name=MyMesh
-                SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
+                SkeletalMesh=SkeletalMesh'BF_Fighters2.Drone_2'
 				PhysicsAsset=PhysicsAsset'BloodFalcon.SkeletalMesh.Player_Physics'
 				Scale=1.5
                 HiddenGame=FALSE
