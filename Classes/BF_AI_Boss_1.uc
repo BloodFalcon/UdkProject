@@ -95,9 +95,9 @@ Begin:
 DefaultProperties
 {
 	bForceStrafe = true
-	PointA=(X=-7600, Y=-2178, Z=46129)
-	PointB=(X=-6400, Y=-2178, Z=46129)
-	PointC=(X=-7000, Y=-1650, Z=46129)
-	PointS1=(X=-7000, Y=-2400, Z=46129)
+	PointA=(X=-7575, Y=-2178, Z=46129)
+	PointB=(X=-6425, Y=-2178, Z=46129)
+	PointC=(X=-7050, Y=-1650, Z=46129)
+	PointS1=(X=-7050, Y=-2400, Z=46129)
 	FaceThisWay = (Pitch=0,Yaw=16384,Roll=0)
 }
