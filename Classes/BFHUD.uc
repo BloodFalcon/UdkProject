@@ -110,19 +110,27 @@ function BloodMeter()
 	
 	if(MeterIncrement<=0.99){
 		Canvas.SetPos(58*RatX,901*RatY);
-		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletTime', 176*RatX, 128*RatY, 0, 0, 176, 128,,true);
+		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletTime', 128*RatX, 128*RatY, 0, 0, 128, 128,,true);
+		Canvas.SetPos(58*RatX,873*RatY);
+		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_Bar', 48*RatX, 48*RatY, 0, 0, 48, 48,,true);
 	}
 	if(MeterIncrement<=0.8){
 		Canvas.SetPos(58*RatX,751*RatY);
-		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shield', 176*RatX, 128*RatY, 0, 0, 176, 128,,true);
+		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shield', 128*RatX, 128*RatY, 0, 0, 128, 128,,true);
+		Canvas.SetPos(58*RatX,723*RatY);		
+		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_Bar', 48*RatX, 48*RatY, 0, 0, 48, 48,,true);
 	}
 	if(MeterIncrement<=0.5){
 		Canvas.SetPos(58*RatX,444*RatY);
-		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_SwapBays', 176*RatX, 128*RatY, 0, 0, 176, 128,,true);
+		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_SwapBays', 128*RatX, 128*RatY, 0, 0, 128, 128,,true);
+		Canvas.SetPos(58*RatX,416*RatY);
+		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_Bar', 48*RatX, 48*RatY, 0, 0, 48, 48,,true);
 	}
 	if(MeterIncrement<=0){
 		Canvas.SetPos(58*RatX,89*RatY);
-		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_Absorb', 176*RatX, 128*RatY, 0, 0, 176, 128,,true);
+		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_Absorb', 128*RatX, 128*RatY, 0, 0, 128, 128,,true);
+		Canvas.SetPos(58*RatX,61*RatY);
+		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_Bar', 48*RatX, 48*RatY, 0, 0, 48, 48,,true);
 	}
 }
 
@@ -141,11 +149,30 @@ function BossHealthBar()
 	}
 
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase != none){
-		Canvas.StrLen(string(BossesHealth), XL, YL);
-		if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase!=none){
-		Canvas.SetPos(Canvas.Project(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Location).X-XL,Canvas.Project(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Location).Y-200);
-		Canvas.SetDrawColor(0,255,0);
-		Canvas.DrawText(BossesHealth,,2,2,);
+			Canvas.SetPos(452*RatX,32*RatY);
+			Canvas.SetDrawColor(0,0,0);	
+			Canvas.DrawRect(1016*RatX,21*RatY); /** MAKE SURE TO CHANGE THE VARIABLE WHEN MODIFYING BOSSES HEALTH **/
+			Canvas.SetPos(450*RatX,30*RatY);
+			Canvas.SetDrawColor(125,0,0);
+			Canvas.DrawRect(BossesHealth*1.2364*RatX,25*RatY); /** MAKE SURE TO CHANGE THE VARIABLE WHEN MODIFYING BOSSES HEALTH **/
+			Canvas.SetPos(450*RatX,30*RatY);
+			Canvas.SetDrawColor(125,0,0);
+			Canvas.DrawBox(1020*RatX,25*RatY); /** MAKE SURE TO CHANGE THE VARIABLE WHEN MODIFYING BOSSES HEALTH **/
+		if(BossesHealth>=150){
+			Canvas.StrLen("Boss Health:"@BossesHealth, XL, YL);
+			Canvas.SetPos(((((BossesHealth*1.2364)+440)-(XL*1.5))*RatX),32*RatY);
+			Canvas.SetDrawColor(0,0,0);
+			Canvas.DrawText("Boss Health:"@BossesHealth,,1.5*RatX,1.5*RatY,);
+		}else if(BossesHealth>=0){
+			Canvas.StrLen("Boss Health:"@BossesHealth, XL, YL);
+			Canvas.SetPos(((((BossesHealth*1.2364)+460))*RatX),32*RatY);
+			Canvas.SetDrawColor(125,0,0);
+			Canvas.DrawText("Boss Health:"@BossesHealth,,1.5*RatX,1.5*RatY,);
+		}else{
+			Canvas.StrLen("Boss Health: 0", XL, YL);
+			Canvas.SetPos(((((BossesHealth*1.2364)+460))*RatX),32*RatY);
+			Canvas.SetDrawColor(125,0,0);
+			Canvas.DrawText("Boss Health: 0",,1.5*RatX,1.5*RatY,);
 		}
 	}
 	Canvas.Reset();
