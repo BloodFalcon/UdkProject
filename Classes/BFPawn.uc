@@ -796,7 +796,7 @@ defaultproperties
 		BeamAbsorbSound = AbsorbSound
 
         Begin Object Class=SkeletalMeshComponent Name=MyMesh
-                SkeletalMesh=SkeletalMesh'BF_Fighters2.Drone_2'
+                SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
 				PhysicsAsset=PhysicsAsset'BloodFalcon.SkeletalMesh.Player_Physics'
 				Scale=1.5
                 HiddenGame=FALSE
