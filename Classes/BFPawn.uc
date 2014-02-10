@@ -68,7 +68,7 @@ struct SoulVars
 		bSecondLife=false
 		BulletSpeed=(X=0,Y=-2000,Z=0)
 		BulletSpread=1
-		BulletDamage=5
+		BulletDamage=15
 		BulletPenetration=false
 		Bullets=3
 		AngularWidth=30
@@ -331,16 +331,77 @@ function FireWeaps()
 			D2=0;
 		}
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Vulcan_0'){
-			
-		Spawn(ProjClass,self,,locoff,self.Rotation);
-						
-		Spawn(ProjClass,self,,locoff,self.Rotation);
+		locoff.X-=15;	
+		Proj = Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
+		locoff.X+=30;	
+		Proj = Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
+		locoff.X-=55;	
+		Proj = Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
+		locoff.X+=80;	
+		Proj = Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Vulcan_1'){
-
+		locoff.X-=15;	
+		Proj = Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
+		locoff.X+=30;	
+		Proj = Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
+		locoff.X-=40;	
+		Proj = Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
+		locoff.X+=50;	
+		Proj = Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
+		locoff.X-=60;	
+		Proj = Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
+		locoff.X+=70;	
+		Proj = Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Vulcan_2'){
-
+		locoff.X-=15;	
+		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
+		locoff.X+=30;	
+		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
+		locoff.X-=40;	
+		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
+		locoff.X+=50;	
+		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
+		locoff.X-=60;	
+		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
+		locoff.X+=70;	
+		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Vulcan_3'){
-
+		Proj = Spawn(ProjClass,self,,self.Location,self.Rotation);
+		Proj.SetDrawScale(0.1);
+		locoff.X-=15;	
+		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
+		locoff.X+=30;	
+		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
+		locoff.X-=40;	
+		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
+		locoff.X+=50;	
+		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
+		locoff.X-=60;	
+		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
+		locoff.X+=70;	
+		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
+		Proj.SetDrawScale(0.1);
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Stalker_0'){
 
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Stalker_1'){
@@ -664,7 +725,7 @@ simulated function StartFire(byte FireModeNum)
 {	
 	CurFire = true;
 	if(BeamFire == false && FireModeNum == 0){
-		Spawn(ProjClass,self,,self.Location,self.Rotation);
+		//Spawn(ProjClass,self,,self.Location,self.Rotation);
 		SetTimer(FireRate, true, 'FireWeaps');
 	}
 	else if(FireModeNum == 1 && false==IsTimerActive('FireWeaps')){
@@ -794,7 +855,7 @@ defaultproperties
 		BeamAbsorbSound = AbsorbSound
 
         Begin Object Class=SkeletalMeshComponent Name=MyMesh
-                SkeletalMesh=SkeletalMesh'BF_Fighters2.Drone_2'
+                SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
 				PhysicsAsset=PhysicsAsset'BloodFalcon.SkeletalMesh.Player_Physics'
 				Scale=1.5
                 HiddenGame=FALSE

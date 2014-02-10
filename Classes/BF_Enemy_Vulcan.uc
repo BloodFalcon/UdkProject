@@ -25,7 +25,7 @@ event PostBeginPlay()
 	NPCInfo.HUDuP.HB2="Bullet Spread";
 	NPCInfo.HUDuP.HB3="Bullet Damage";
 	NPCInfo.HUDName="Drone";
-	NPCInfo.BulletDamage=1;
+	NPCInfo.BulletDamage=2;
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0), );
 }
 
@@ -58,7 +58,7 @@ function LevelUp(byte CurLevel)
 
 DefaultProperties
 {
-	Health = 10
+	Health = 30
     Begin Object Class=SkeletalMeshComponent Name=EP2Mesh
         SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_0'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Drone_0_Physics'
