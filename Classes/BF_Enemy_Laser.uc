@@ -52,7 +52,7 @@ function LevelUp(byte CurLevel)
 
 DefaultProperties
 {
-	Health=30
+	Health=90
     Begin Object Class=SkeletalMeshComponent Name=EP1Mesh
         SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Lazer_0'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Lazer_0_Physics'

@@ -2,8 +2,8 @@ class BF_Enemy_Drone extends BF_Enemy_Base;
 
 event PostBeginPlay()
 {
-	NPCInfo.FireRate=1.0;
-	NPCInfo.ProjClass=class'BF_Proj_Red_Tri';
+	NPCInfo.FireRate=0.5;
+	NPCInfo.ProjClass=class'BF_Proj_Red_Line';
 	NPCInfo.SoulClass=class'BF_Enemy_Drone';
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Vulcan_0';
 	NPCInfo.Size=1.4;
@@ -15,8 +15,10 @@ event PostBeginPlay()
 	NPCInfo.HUDuP.HB2="Bullet Damage";
 	NPCInfo.HUDuP.HB3="Armor Piercing";
 	NPCInfo.HUDName="Vulcan";
-	NPCInfo.BulletDamage=10;
+	NPCInfo.BulletDamage=1;
 	NPCInfo.BulletSpeed=vect(0,-1500,0);
+	NPCInfo.AngularWidth=25;
+	NPCInfo.Bullets=3;
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(-1,0,0));
 }
 
@@ -34,7 +36,7 @@ function LevelUp(byte CurLevel)
 	if(NPCInfo.Level>=2){
 		NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletDamage';
 		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Vulcan_2';
-		NPCInfo.BulletDamage=20;
+		NPCInfo.BulletDamage=2;
 	}
 	if(NPCInfo.Level>=3){
 		NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_ArmorPiercing';
@@ -45,7 +47,7 @@ function LevelUp(byte CurLevel)
 
 DefaultProperties
 {
-	Health=20
+	Health=60
     Begin Object Class=SkeletalMeshComponent Name=EP1Mesh
         SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Vulcan_0'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Vulcan_0_Physics'
