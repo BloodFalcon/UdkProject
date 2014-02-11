@@ -13,9 +13,17 @@ function bool Start(optional bool StartPaused = false)
 
 function NextLevel(string myString, int myInt, bool myBool)
 {
-	//BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PauseActive = false;
-	//ConsoleCommand("open "@BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).WorldInfo.Title);
-	ConsoleCommand("open BF_TitleScreen_Map");
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).WorldInfo.Title == "FirstLevel_Test"){
+		ConsoleCommand("open AtmoLevel");
+	}
+	else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).WorldInfo.Title == "AtmoLevel"){
+		ConsoleCommand("open W3_Form_Test");
+	}
+	else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).WorldInfo.Title == "W3_Form_Test"){
+		ConsoleCommand("open Boss_Level");
+	}else{
+		ConsoleCommand("open BF_TitleScreen_Map");
+	}
 }
 
 
@@ -35,7 +43,7 @@ function QuittoDesktop(string myString, int myInt, bool myBool)
 
 DefaultProperties
 {
-    bPauseGameWhileActive=true
+    bPauseGameWhileActive=false
     bCaptureInput=false
 	//bCaptureMouseInput=true
 	//bIgnoreMouseInput=false
