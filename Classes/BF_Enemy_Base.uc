@@ -22,34 +22,36 @@ event PostBeginPlay()
 
 event tick(float DeltaTime)
 {
-	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameSpeed<1){
-		if(AbsorbRing==none){
-			if(WorldInfo.NetMode != NM_DedicatedServer){
-				AbsorbRing = new class'ParticleSystemComponent';
-				if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.BayOpen && self.Class!=class'BF_Enemy_Asteroid'){
-					if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.SoulClass!=self.Class){
-						AbsorbRing.SetTemplate(AbsorbGreen);
-					}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.Level<3){
+	if(Location.X-900<BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).ScreenBounds.X){
+		if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameSpeed<1){
+			if(AbsorbRing==none){
+				if(WorldInfo.NetMode != NM_DedicatedServer){
+					AbsorbRing = new class'ParticleSystemComponent';
+					if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.BayOpen && self.Class!=class'BF_Enemy_Asteroid'){
+						if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.SoulClass!=self.Class){
+							AbsorbRing.SetTemplate(AbsorbGreen);
+						}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.Level<3){
+							AbsorbRing.SetTemplate(AbsorbYellow);
+						}else{
+							AbsorbRing.SetTemplate(AbsorbRed);
+						}
+					}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.SoulClass==self.Class && self.NPCInfo.Level<3){
 						AbsorbRing.SetTemplate(AbsorbYellow);
-					}else{
+					}else{	
 						AbsorbRing.SetTemplate(AbsorbRed);
 					}
-				}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.SoulClass==self.Class && self.NPCInfo.Level<3){
-					AbsorbRing.SetTemplate(AbsorbYellow);
-				}else{	
-					AbsorbRing.SetTemplate(AbsorbRed);
+					AbsorbRing.SetScale(0.6);
+					AbsorbRing.SetAbsolute(false, True, True);
+					AbsorbRing.SetLODLevel(WorldInfo.bDropDetail ? 1 : 0);
+					AbsorbRing.bUpdateComponentInTick = true;
+					AttachComponent(AbsorbRing);
 				}
-				AbsorbRing.SetScale(0.6);
-				AbsorbRing.SetAbsolute(false, True, True);
-				AbsorbRing.SetLODLevel(WorldInfo.bDropDetail ? 1 : 0);
-				AbsorbRing.bUpdateComponentInTick = true;
-				AttachComponent(AbsorbRing);
 			}
+		}else if(AbsorbRing!=none){
+			AbsorbRing.SetKillOnDeactivate(0,true);
+			AbsorbRing.DeactivateSystem();
+			AbsorbRing=none;
 		}
-	}else if(AbsorbRing!=none){
-		AbsorbRing.SetKillOnDeactivate(0,true);
-		AbsorbRing.DeactivateSystem();
-		AbsorbRing=none;
 	}
 }
 
@@ -74,6 +76,7 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 	}
 	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);  //Must Have To Process Standard Damage
 }
+
 
 function ProjHitFlash()
 {
