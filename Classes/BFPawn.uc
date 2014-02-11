@@ -248,6 +248,7 @@ event Tick(float DeltaTime)
 	if(CS.B1.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B2.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B3.SoulClass!=class'BF_Enemy_EmptyBay'){
 		CS.BayOpen=false;
 	}
+	
 	HideBays();
 	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS=CS;
 	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BFPawnInfo=self;
@@ -525,6 +526,16 @@ function RespawnPlayer()
 		StopFire(0);
 		StopFire(1);
 		Self.SetLocation(vect(-7040,-892,46130));
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays=0;
+		if(CS.B1.SoulClass!=class'BF_Enemy_ClosedBay'){
+			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays++;
+		}
+		if(CS.B2.SoulClass==class'BF_Enemy_ClosedBay'){
+			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays++;
+		}
+		if(CS.B3.SoulClass==class'BF_Enemy_ClosedBay'){
+			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays++;
+		}
 		NewShipChooser();
 	}
 	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).R=true;

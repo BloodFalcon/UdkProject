@@ -46,7 +46,9 @@ var BF_Enemy_Base BossBase;
 var int KillScore, KillCount;
 var vector ScreenBounds;
 var HitD HitData;
-
+var int LongKillStreak;
+var int GameScore;
+var byte RemainingBays;
 
 function BulletTime(byte ModeNum)
 {
@@ -57,6 +59,11 @@ function BulletTime(byte ModeNum)
 function tick(float DeltaTime)
 {
 	super.Tick(DeltaTime);
+
+	if(KillCount>LongKillStreak){
+		LongKillStreak=KillCount;
+	}
+
 	if(modeBulletTime==0){
 		if(bDrain){
 			Time=DeltaTime;
