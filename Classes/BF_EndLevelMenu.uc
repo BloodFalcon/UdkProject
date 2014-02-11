@@ -1,5 +1,15 @@
 class BF_EndLevelMenu extends GFxMoviePlayer;
 
+var GFxObject KillStreak;
+var GFxObject TotalKills;
+var GFxObject FinalScore;
+var GFxObject BaysLeft;
+var GFxObject RankText;
+var string EndStreak;
+var string EndKills;
+var string EndScore;
+var string EndBays;
+var string EndRank;
 
 function bool Start(optional bool StartPaused = false)
 {
@@ -7,6 +17,22 @@ function bool Start(optional bool StartPaused = false)
     Advance(0.f);
     SetPause(false);
 	SetTimingMode( TM_Real );
+	EndStreak = string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak);
+	EndKills = string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore);
+	EndScore = string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameScore);
+	EndBays = string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays);
+	EndRank = "S";
+		//string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore);
+	KillStreak = GetVariableObject("KillStreak");
+	KillStreak.SetString("text", EndStreak);
+	TotalKills = GetVariableObject("TotalKills");
+	TotalKills.SetString("text", EndKills);
+	FinalScore = GetVariableObject("FinalScore");
+	FinalScore.SetString("text", EndScore);
+	BaysLeft = GetVariableObject("BaysLeft");
+	BaysLeft.SetString("text", EndBays);
+	RankText = GetVariableObject("RankText");
+	RankText.SetString("text", EndRank);
     return TRUE;
 }
 
