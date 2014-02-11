@@ -42,9 +42,9 @@ function drawHUD()
 	/*Draws all the HUD text.*/
 		Canvas.SetDrawColor(0,0,0);
 		//Total Score
-		Canvas.StrLen(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore), XL, YL);
+		Canvas.StrLen(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameScore), XL, YL);
 		Canvas.SetPos((296-(XL))*RatX,0);
-		Canvas.DrawText(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore),,2*RatX,2*RatY);
+		Canvas.DrawText(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameScore),,2*RatX,2*RatY);
 		//Kill Streak
 		Canvas.StrLen(string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillCount), XL, YL);
 		Canvas.SetPos((296-(XL))*RatX,1050*RatY);
