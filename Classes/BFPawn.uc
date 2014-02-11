@@ -530,10 +530,10 @@ function RespawnPlayer()
 		if(CS.B1.SoulClass!=class'BF_Enemy_ClosedBay'){
 			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays++;
 		}
-		if(CS.B2.SoulClass==class'BF_Enemy_ClosedBay'){
+		if(CS.B2.SoulClass!=class'BF_Enemy_ClosedBay'){
 			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays++;
 		}
-		if(CS.B3.SoulClass==class'BF_Enemy_ClosedBay'){
+		if(CS.B3.SoulClass!=class'BF_Enemy_ClosedBay'){
 			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays++;
 		}
 		NewShipChooser();

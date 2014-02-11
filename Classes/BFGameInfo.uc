@@ -128,6 +128,7 @@ static event class<GameInfo> SetGameType(string MapName, string Options, string 
 
 defaultproperties
 {
+	RemainingBays=3
 	Boss1Dead = false
 	BloodDecrement=2
 	BloodIncrement=1
