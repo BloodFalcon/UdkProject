@@ -54,7 +54,7 @@ struct SoulVars
 
 	structdefaultproperties
 	{
-		FireRate=0.4
+		FireRate=0.2
 		SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
 		ProjClass=class'BF_Proj_Red_Circle'
 		SoulClass=class'BF_Enemy_EmptyBay'
@@ -277,13 +277,13 @@ function FireWeaps()
 	locoff=self.Location;
 
 	if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Suicide_0'){
-
+		Spawn(ProjClass,self,,self.Location,self.Rotation);		
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Suicide_1'){
-
+		Spawn(ProjClass,self,,self.Location,self.Rotation);
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Suicide_2'){
-
+		Spawn(ProjClass,self,,self.Location,self.Rotation);
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Suicide_3'){
-
+		Spawn(ProjClass,self,,self.Location,self.Rotation);
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_0'){
 		Spawn(ProjClass,self,,self.Location,self.Rotation);
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.Drone_1'){
@@ -428,10 +428,9 @@ function FireWeaps()
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Lazer_3'){
 
 	}else{
-	
-	}
-	if(ProjClass!=none){
-		Proj = Spawn(ProjClass,self,,self.Location,self.Rotation);
+		if(ProjClass!=none){
+			Proj = Spawn(ProjClass,self,,self.Location,self.Rotation);
+		}
 	}
 }
 
@@ -737,7 +736,7 @@ simulated function StartFire(byte FireModeNum)
 {	
 	CurFire = true;
 	if(BeamFire == false && FireModeNum == 0){
-		//Spawn(ProjClass,self,,self.Location,self.Rotation);
+		FireWeaps();
 		SetTimer(FireRate, true, 'FireWeaps');
 	}
 	else if(FireModeNum == 1 && false==IsTimerActive('FireWeaps')){
