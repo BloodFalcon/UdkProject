@@ -68,7 +68,7 @@ struct SoulVars
 		bSecondLife=false
 		BulletSpeed=(X=0,Y=-2000,Z=0)
 		BulletSpread=1
-		BulletDamage=15
+		BulletDamage=5
 		BulletPenetration=false
 		Bullets=3
 		AngularWidth=30
@@ -138,7 +138,7 @@ event Tick(float DeltaTime)
 	local Vector HitLocation, HitNormal;
 	local Actor TracedEnemyAct;
 	local UDKPawn TracedEnemy;
-	//BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=100; //.0115 .0164
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=100; //.0115 .0164
 	Health=100000;
 	Mesh.SetScale(CS.Current.Size);
 	BeamStartLoc = Location;
