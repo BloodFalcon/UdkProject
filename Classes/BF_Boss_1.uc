@@ -16,7 +16,7 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 				`log("Destroyed Boss");
 				Destroy();
 			}
-			else if(Health <= 421){
+			else if(Health <= 49996){
 				SetTimer(0.10f, true, 'DeadHitFlash');
 			}
 		}
@@ -33,7 +33,7 @@ function bool Died(Controller Killer, class<DamageType> damageType, vector HitLo
 
 function ProjHitFlash()
 {
-	if(Health >=926){
+	if(Health >=92699){
 		if(EnemyHitFlash < 6 && EnemyHitFlash != 1 && EnemyHitFlash != 3 && EnemyHitFlash != 5){
 			EnemyHitFlash++;
 			self.Mesh.SetMaterial(0,Material'EngineDebugMaterials.MaterialError_Mat');
@@ -71,15 +71,15 @@ function tick(float DeltaTime)
 {
 	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossHealths[HealthIndex]=Health;
 	//`log(self.Health);
-	if(Health==423 && Controller.IsInState('PhaseOne')){
+	if(Health==49998 && Controller.IsInState('PhaseOne')){
 		Controller.GotoState('Swarm1');
 		//Controller.GotoState('PhaseTwo');
 	}
-	if(Health==421 && Controller.IsInState('PhaseTwo')){
+	if(Health==49996 && Controller.IsInState('PhaseTwo')){
 		Controller.GotoState('Swarm2');
 		//Controller.GotoState('FinalPhase');
 	}
-	if(Health <= 421 && self.IsTimerActive('DeadHitFlash') == false && Controller.IsInState('FinalPhase')){
+	if(Health <= 49996 && self.IsTimerActive('DeadHitFlash') == false && Controller.IsInState('FinalPhase')){
 		self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
 	}
 	if(Controller.IsInState('PhaseTwo')){
@@ -93,7 +93,7 @@ function tick(float DeltaTime)
 
 DefaultProperties
 {
-	Health=425
+	Health=50000
 	Begin Object Class=SkeletalMeshComponent Name=M1Mesh
 		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.LVL1_Boss_Body'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL1_Boss_Body_Physics'

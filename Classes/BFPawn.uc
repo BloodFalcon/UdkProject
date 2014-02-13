@@ -68,7 +68,7 @@ struct SoulVars
 		bSecondLife=false
 		BulletSpeed=(X=0,Y=-2000,Z=0)
 		BulletSpread=1
-		BulletDamage=5
+		BulletDamage=10
 		BulletPenetration=false
 		Bullets=3
 		AngularWidth=30
@@ -332,101 +332,196 @@ function FireWeaps()
 			D2=0;
 		}
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Vulcan_0'){
-		locoff.X-=15;	
-		Proj = Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
-		locoff.X+=30;	
-		Proj = Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
-		locoff.X-=55;	
-		Proj = Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
-		locoff.X+=80;	
-		Proj = Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
+		if(D2==0){
+			locoff.X-=15;	
+			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+			D2++;
+		}else if(D2==1 || D2==5){
+			locoff.X+=30;	
+			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+			if(D2==5){
+				D2=0;
+			}else{
+				D2++;
+			}
+		}else if(D2==2 || D2==4){
+			locoff.X-=55;	
+			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+			D2++;
+		}else if(D2==3){
+			locoff.X+=80;	
+			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+			D2++;
+		}else{
+			D2=0;
+		}
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Vulcan_1'){
-		locoff.X-=15;	
-		Proj = Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
-		locoff.X+=30;	
-		Proj = Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
-		locoff.X-=40;	
-		Proj = Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
-		locoff.X+=50;	
-		Proj = Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
-		locoff.X-=60;	
-		Proj = Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
-		locoff.X+=70;	
-		Proj = Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
+		if(D2==0){
+			locoff.X-=15;	
+			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+			D2++;
+		}else if(D2==1 || D2==9){
+			locoff.X+=30;	
+			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+			if(D2==9){
+				D2=0;
+			}else{
+				D2++;
+			}
+		}else if(D2==2 || D2==8){
+			locoff.X-=40;	
+			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+			D2++;
+		}else if(D2==3 || D2==7){
+			locoff.X+=50;	
+			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+			D2++;
+		}else if(D2==4 || D2==6){
+			locoff.X-=60;	
+			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+			D2++;
+		}else if(D2==5){
+			locoff.X+=70;	
+			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+			D2++;
+		}else{
+			D2=0;
+		}
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Vulcan_2'){
-		locoff.X-=15;	
-		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
-		locoff.X+=30;	
-		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
-		locoff.X-=40;	
-		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
-		locoff.X+=50;	
-		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
-		locoff.X-=60;	
-		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
-		locoff.X+=70;	
-		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
+		if(D2==0){
+			locoff.X-=15;	
+			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+			D2++;
+		}else if(D2==1 || D2==9){
+			locoff.X+=30;	
+			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+			if(D2==9){
+				D2=0;
+			}else{
+				D2++;
+			}
+		}else if(D2==2 || D2==8){
+			locoff.X-=40;	
+			Spawn(ProjClass,self,,locoff,self.Rotation);
+			D2++;
+		}else if(D2==3 || D2==7){
+			locoff.X+=50;	
+			Spawn(ProjClass,self,,locoff,self.Rotation);
+			D2++;
+		}else if(D2==4 || D2==6){
+			locoff.X-=60;	
+			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+			D2++;
+		}else if(D2==5){
+			locoff.X+=70;	
+			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+			D2++;
+		}else{
+			D2=0;
+		}
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Vulcan_3'){
-		Proj = Spawn(ProjClass,self,,self.Location,self.Rotation);
-		Proj.SetDrawScale(0.1);
-		locoff.X-=15;	
-		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
-		locoff.X+=30;	
-		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
-		locoff.X-=40;	
-		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
-		locoff.X+=50;	
-		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
-		locoff.X-=60;	
-		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
-		locoff.X+=70;	
-		Proj = Spawn(ProjClass,self,,locoff,self.Rotation);
-		Proj.SetDrawScale(0.1);
+		if(D2==4){
+			Spawn(ProjClass,self,,self.Location,self.Rotation);
+		}
+		if(D2==0){
+			locoff.X-=15;	
+			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+			D2++;
+		}else if(D2==1 || D2==9){
+			locoff.X+=30;	
+			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+			if(D2==9){
+				D2=0;
+			}else{
+				D2++;
+			}
+		}else if(D2==2 || D2==8){
+			locoff.X-=40;	
+			Spawn(ProjClass,self,,locoff,self.Rotation);
+			D2++;
+		}else if(D2==3 || D2==7){
+			locoff.X+=50;	
+			Spawn(ProjClass,self,,locoff,self.Rotation);
+			D2++;
+		}else if(D2==4 || D2==6){
+			locoff.X-=60;	
+			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+			D2++;
+		}else if(D2==5){
+			locoff.X+=70;	
+			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+			D2++;
+		}else{
+			D2=0;
+		}
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Stalker_0'){
-
+		Spawn(class'BF_Proj_Red_Tri',self,,self.Location,self.Rotation);
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Stalker_1'){
-
+		Spawn(class'BF_Proj_Red_Tri',self,,self.Location,self.Rotation);
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Stalker_2'){
-
+		Spawn(class'BF_Proj_Red_Tri',self,,self.Location,self.Rotation);
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Stalker_3'){
-
+		if(D2==0){
+			locoff.X+=10;
+			Spawn(class'BF_Proj_Red_Tri',self,,locoff,self.Rotation);	
+			D2=1;
+		}else if(D2==1){
+			locoff.X-=10;
+			Spawn(class'BF_Proj_Red_Tri',self,,locoff,self.Rotation);	
+			D2=0;
+		}else{
+			D2=0;
+		}
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Strafe_0'){
-
+		Spawn(class'BF_Proj_Red_Tri',self,,self.Location,self.Rotation);
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Strafe_1'){
-
+		Spawn(class'BF_Proj_Red_Tri',self,,self.Location,self.Rotation);
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Strafe_2'){
-
+		Spawn(class'BF_Proj_Red_Tri',self,,self.Location,self.Rotation);
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Strafe_3'){
-
+		if(D2==0){
+			locoff.X+=20;
+			Spawn(class'BF_Proj_Red_Tri',self,,locoff,self.Rotation);
+			D2++;
+		}else if(D2==1 || D2==3){
+			Spawn(class'BF_Proj_Red_Tri',self,,self.Location,self.Rotation);
+			if(D2==1){
+				D2++;
+			}else{
+				D2=0;
+			}
+		}else if(D2==2){
+			locoff.X-=20;
+			Spawn(class'BF_Proj_Red_Tri',self,,locoff,self.Rotation);
+			D2++;
+		}else{
+			D2=0;
+		}
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Lazer_0'){
-
+		Spawn(ProjClass,self,,self.Location,self.Rotation);	
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Lazer_1'){
-
+		if(D2==0){
+			locoff.X+=10;
+			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
+			D2=1;
+		}else if(D2==1){
+			locoff.X-=10;
+			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);	
+			D2=0;
+		}else{
+			D2=0;
+		}
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Lazer_2'){
-
+			locoff.X+=10;
+			Spawn(ProjClass,self,,locoff,self.Rotation);	
+			locoff.X-=20;
+			Spawn(ProjClass,self,,locoff,self.Rotation);	
 	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Lazer_3'){
-
+			Spawn(ProjClass,self,,locoff,self.Rotation);		
+			locoff.X+=15;
+			Spawn(ProjClass,self,,locoff,self.Rotation);	
+			locoff.X-=30;
+			Spawn(ProjClass,self,,locoff,self.Rotation);
 	}else{
 		if(ProjClass!=none){
 			Proj = Spawn(ProjClass,self,,self.Location,self.Rotation);
@@ -896,6 +991,6 @@ defaultproperties
 		TargetEnemy = none	
 		AbsorbTimer=0
 		RequiredTime=100
-		FireRate=0.2
+		FireRate=0.05
 		ProjClass=class'BF_Proj_Red_Circle'
 }

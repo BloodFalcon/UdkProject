@@ -19,7 +19,7 @@ Begin:
 	MoveTo(PointA, none, ,true);
 	Sleep(0.75);
 	MoveTo(PointB, none, ,true);
-	if(Pawn.Health == 423){
+	if(Pawn.Health == 49998){
 		GotoState('Swarm1');
 	}
 	else{
@@ -44,7 +44,7 @@ Begin:
 	MoveTo(PointA, none, ,true);
 	Sleep(0.60);
 	MoveTo(PointB, none, ,true);
-	if(Pawn.Health == 421){
+	if(Pawn.Health == 49996){
 		GotoState('Swarm2');
 	}
 	else{

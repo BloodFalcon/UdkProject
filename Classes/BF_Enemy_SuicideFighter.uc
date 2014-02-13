@@ -11,7 +11,7 @@ class BF_Enemy_SuicideFighter extends BF_Enemy_Base;
 
 event PostBeginPlay()
 {
-	NPCInfo.FireRate=0.2;
+	NPCInfo.FireRate=0.05;
 	NPCInfo.ProjClass=class'BF_Proj_Red_Circle';
 	NPCInfo.SoulClass=class'BF_Enemy_SuicideFighter';
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Suicide_0';
@@ -24,7 +24,7 @@ event PostBeginPlay()
 	NPCInfo.HUDuP.HB2="Flight Speed";
 	NPCInfo.HUDuP.HB3="Meter Fill Rate";
 	NPCInfo.HUDName="Suicide Fighter";
-	NPCInfo.BulletDamage=4;
+	NPCInfo.BulletDamage=10;
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(-1,0,0));
 }
 
@@ -39,29 +39,29 @@ function LevelUp(byte CurLevel)
 		NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shielding';
 		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Suicide_1';
 		NPCInfo.bSecondLife=true;
-		NPCInfo.FireRate=0.1;
-		NPCInfo.BulletDamage=3;
+		NPCInfo.FireRate=0.05;
+		NPCInfo.BulletDamage=15;
 	}
 	if(NPCInfo.Level>=2){
 		NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed';
 		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Suicide_2';
 		NPCInfo.Speed=2100;
-		NPCInfo.FireRate=0.07;
-		NPCInfo.BulletDamage=3;
+		NPCInfo.FireRate=0.05;
+		NPCInfo.BulletDamage=20;
 	}
 	if(NPCInfo.Level>=3){
 		NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_MeterGain';
 		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Suicide_3';
 		NPCInfo.BloodIncrement=2;
 		NPCInfo.FireRate=0.05;
-		NPCInfo.BulletDamage=3;
+		NPCInfo.BulletDamage=30;
 	}
 }
 
 
 DefaultProperties
 {
-	Health = 5
+	Health = 75
     Begin Object Class=SkeletalMeshComponent Name=EP3Mesh
         SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Suicide_0'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Suicide_0_Physics'

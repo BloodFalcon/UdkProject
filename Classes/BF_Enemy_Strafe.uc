@@ -2,7 +2,7 @@ class BF_Enemy_Strafe extends BF_Enemy_Base;
 
 event PostBeginPlay()
 {
-	NPCInfo.FireRate=0.1;
+	NPCInfo.FireRate=0.05;
 	NPCInfo.ProjClass=class'BF_Proj_Red_Line';
 	NPCInfo.SoulClass=class'BF_Enemy_Strafe';
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Strafe_0';
@@ -17,7 +17,7 @@ event PostBeginPlay()
 	NPCInfo.HUDName="Strafe";
 	NPCInfo.AngularWidth=30;
 	NPCInfo.Bullets=3;
-	NPCInfo.BulletDamage=4;
+	NPCInfo.BulletDamage=10;
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0), );
 }
 
@@ -32,27 +32,27 @@ function LevelUp(byte CurLevel)
 		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Strafe_1';
 		NPCInfo.Speed=1900;
 		NPCInfo.FireRate=0.05;
-		NPCInfo.BulletDamage=3;
+		NPCInfo.BulletDamage=15;
 	}
 	if(NPCInfo.Level>=2){
 		NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpread';
 		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Strafe_2';
 		NPCInfo.AngularWidth=75;
 		NPCInfo.Bullets=5;
-		NPCInfo.FireRate=0.025;
-		NPCInfo.BulletDamage=2;
+		NPCInfo.FireRate=0.05;
+		NPCInfo.BulletDamage=20;
 	}
 	if(NPCInfo.Level>=3){
 		NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FireRate';
 		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Strafe_3';
-		NPCInfo.FireRate=0.013;
-		NPCInfo.BulletDamage=2;
+		NPCInfo.FireRate=0.05;
+		NPCInfo.BulletDamage=30;
 	}
 }
 
 DefaultProperties
 {
-	Health=40
+	Health=275
     Begin Object Class=SkeletalMeshComponent Name=EP2Mesh
         SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Strafe_0'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Strafe_0_Physics'
