@@ -75,7 +75,7 @@ function DisplayHitData()
 {
 	local int ArrayLen;
 
-	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage!=0){
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage>0){
 		HitDraws.AddItem(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData);
 		HitDraws[HitDraws.Length-1].HitLoc = Canvas.Project(HitDraws[HitDraws.Length-1].HitLoc);
 		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=0;

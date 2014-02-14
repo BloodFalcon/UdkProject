@@ -30,13 +30,18 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNorma
 	}else if(BF_Enemy_Base(Other).bIsBoss){
 		if(BossController.IsInState('PhaseOne')){
 			if(Other.class==class'BF_Boss2_Head' || Other.class==class'BF_Boss2_LWing' || Other.class==class'BF_Boss2_RWing' || Other.Class==class'BF_Boss_LWing_1' || Other.Class==class'BF_Boss_RWing_1'){
-				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.HitLoc=self.Location;
-				if(BF_Enemy_Base(Other).Health<Damage){
-					BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=BF_Enemy_Base(Other).Health;
+				if(BF_Boss_Aux(Other).PartDestroyed==false){
+					BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.HitLoc=self.Location;
+					BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=0;
 				}else{
-					BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=Damage;
+					BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.HitLoc=self.Location;
+					if(BF_Enemy_Base(Other).Health<Damage){
+						BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=BF_Enemy_Base(Other).Health;
+					}else{
+						BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=Damage;
+					}
+					Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);	
 				}
-				Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);	
 			}else{
 				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.HitLoc=self.Location;
 				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=0;
@@ -46,13 +51,18 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNorma
 			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=0;
 		}else if(BossController.IsInState('PhaseTwo')){
 			if(Other.class==class'BF_Boss2_Head' || Other.class==class'BF_Boss2_LWing' || Other.class==class'BF_Boss2_RWing' || Other.class==class'BF_Boss_2' || Other.Class==class'BF_Boss_Head_1'){
-				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.HitLoc=self.Location;
-				if(BF_Enemy_Base(Other).Health<Damage){
-					BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=BF_Enemy_Base(Other).Health;
+				if(Other.Class==class'BF_Boss_Head_1' && BF_Boss_Head_1(Other).PartDestroyed==false){
+					BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.HitLoc=self.Location;
+					BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=0;
 				}else{
-					BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=Damage;
+					BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.HitLoc=self.Location;
+					if(BF_Enemy_Base(Other).Health<Damage){
+						BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=BF_Enemy_Base(Other).Health;
+					}else{
+						BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=Damage;
+					}
+					Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);	
 				}
-				Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);	
 			}else{
 				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.HitLoc=self.Location;
 				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=0;
