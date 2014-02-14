@@ -25,6 +25,7 @@ struct HitD
 
 
 var array<int> BossHealths;
+var int CurBossHealthMax;
 var float BloodMeter;
 var bool PlayerDead;
 var byte modeBulletTime;
@@ -128,6 +129,7 @@ static event class<GameInfo> SetGameType(string MapName, string Options, string 
 
 defaultproperties
 {
+	CurBossHealthMax=11500
 	RemainingBays=3
 	Boss1Dead = false
 	BloodDecrement=2

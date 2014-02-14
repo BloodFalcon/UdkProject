@@ -66,7 +66,7 @@ event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector
 			Damage=Health;
 		}
 		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameScore+=Damage;
-		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter+=(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodIncrement*(Damage*0.1));
+		BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter+=(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodIncrement*(Damage*0.01));
 		if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter<10 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>=9.5){
 			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=10;	
 		}

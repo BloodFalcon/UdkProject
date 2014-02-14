@@ -271,7 +271,7 @@ function DrawBeam()
 
 function FireWeaps()
 {
-	local BF_Proj_Base Proj;
+	//local BF_Proj_Base Proj;
 	local Vector locoff;
 
 	locoff=self.Location;
@@ -524,7 +524,7 @@ function FireWeaps()
 			Spawn(ProjClass,self,,locoff,self.Rotation);
 	}else{
 		if(ProjClass!=none){
-			Proj = Spawn(ProjClass,self,,self.Location,self.Rotation);
+			Spawn(ProjClass,self,,self.Location,self.Rotation);
 		}
 	}
 }
