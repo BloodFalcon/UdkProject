@@ -39,6 +39,9 @@ function drawHUD()
 		GameOver();
 	}
 
+	//if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameOverActive){
+
+	//}
 	/*Draws all the HUD text.*/
 		Canvas.SetDrawColor(0,0,0);
 		//Total Score
@@ -253,15 +256,8 @@ function CalcScale()
 
 function GameOver()
 {
-	local float XL;
-	local float YL;
-
 	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).PlayerDead=false;
 	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameOverActive = true;
-	Canvas.StrLen("Boss Health: 0", XL, YL);
-	Canvas.SetPos((((460))*RatX),32*RatY);
-	Canvas.SetDrawColor(125,0,0);
-	Canvas.DrawText("Boss Health: 0",,1.5*RatX,1.5*RatY,);
 	DeathMenu = new class'BF_DeathMenu';
 	DeathMenu.Start();
 }
