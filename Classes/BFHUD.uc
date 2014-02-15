@@ -17,6 +17,7 @@ var float OldHUDX, OldHUDY, RatX, RatY;
 /**Used for animating textures*/
 var float MeterFull, MeterIncrement, B1I, B2I, B3I;
 var array<HitD> HitDraws;
+var bool bosshealth0;
 
 
 function drawHUD()
@@ -39,9 +40,6 @@ function drawHUD()
 		GameOver();
 	}
 
-	//if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameOverActive){
-
-	//}
 	/*Draws all the HUD text.*/
 		Canvas.SetDrawColor(0,0,0);
 		//Total Score
@@ -149,20 +147,22 @@ function BossHealthBar()
 	local float MaxHealth;
 	MaxHealth=BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CurBossHealthMax;
 	
-		while(IndexLoc<BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossHealths.Length){
+	while(IndexLoc<BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossHealths.Length){
 		BossesHealth+=BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossHealths[IndexLoc];
 		IndexLoc++;
 	}
+
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase != none){
-			Canvas.SetPos(452*RatX,32*RatY);
-			Canvas.SetDrawColor(0,0,0);	
-			Canvas.DrawRect(1016*RatX,21*RatY); /** MAKE SURE TO CHANGE THE VARIABLE WHEN MODIFYING BOSSES HEALTH **/
-			Canvas.SetPos(450*RatX,30*RatY);
-			Canvas.SetDrawColor(125,0,0);
-			Canvas.DrawRect(BossesHealth*(1020/MaxHealth)*RatX,25*RatY);
-			Canvas.SetPos(450*RatX,30*RatY);
-			Canvas.SetDrawColor(125,0,0);
-			Canvas.DrawBox(1020*RatX,25*RatY); /** MAKE SURE TO CHANGE THE VARIABLE WHEN MODIFYING BOSSES HEALTH **/
+		bosshealth0=true;	
+		Canvas.SetPos(452*RatX,32*RatY);
+		Canvas.SetDrawColor(0,0,0);	
+		Canvas.DrawRect(1016*RatX,21*RatY); /** MAKE SURE TO CHANGE THE VARIABLE WHEN MODIFYING BOSSES HEALTH **/
+		Canvas.SetPos(450*RatX,30*RatY);
+		Canvas.SetDrawColor(125,0,0);
+		Canvas.DrawRect(BossesHealth*(1020/MaxHealth)*RatX,25*RatY);
+		Canvas.SetPos(450*RatX,30*RatY);
+		Canvas.SetDrawColor(125,0,0);
+		Canvas.DrawBox(1020*RatX,25*RatY); /** MAKE SURE TO CHANGE THE VARIABLE WHEN MODIFYING BOSSES HEALTH **/
 		if(BossesHealth>=(MaxHealth*0.181818)){
 			Canvas.StrLen("Boss Health:"@int(BossesHealth), XL, YL);
 			Canvas.SetPos(((((BossesHealth*(1020/MaxHealth))+440)-(XL*1.5))*RatX),32*RatY);
@@ -179,7 +179,13 @@ function BossHealthBar()
 			Canvas.SetDrawColor(125,0,0);
 			Canvas.DrawText("Boss Health: 0",,1.5*RatX,1.5*RatY,);
 		}
+	}else if(bosshealth0==true){
+		Canvas.StrLen("Boss Health: 0", XL, YL);
+		Canvas.SetPos((((460))*RatX),32*RatY);
+		Canvas.SetDrawColor(125,0,0);
+		Canvas.DrawText("Boss Health: 0",,1.5*RatX,1.5*RatY,);
 	}
+
 	Canvas.Reset();
 }
 
