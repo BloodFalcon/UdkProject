@@ -115,24 +115,40 @@ function BloodMeter()
 		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletTime', 128*RatX, 128*RatY, 0, 0, 128, 128,,true);
 		Canvas.SetPos(186*RatX,961*RatY);
 		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_Bar', 48*RatX, 48*RatY, 0, 0, 48, 48,,true);
+		Canvas.SetDrawColor(255,0,0);
+		Canvas.SetPos(69*RatX,991*RatY);
+		Canvas.DrawText("Bullet Time",,1.5,1.5,);
+		Canvas.Reset();
 	}
 	if(MeterIncrement<=0.8){
 		Canvas.SetPos(58*RatX,692*RatY);
 		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shield', 128*RatX, 128*RatY, 0, 0, 128, 128,,true);
 		Canvas.SetPos(186*RatX,792*RatY);		
 		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_Bar', 48*RatX, 48*RatY, 0, 0, 48, 48,,true);
+		Canvas.SetDrawColor(255,0,0);
+		Canvas.SetPos(90*RatX,822*RatY);
+		Canvas.DrawText("Shield",,1.5,1.5,);
+		Canvas.Reset();
 	}
 	if(MeterIncrement<=0.5){
 		Canvas.SetPos(58*RatX,385*RatY);
 		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_SwapBays', 128*RatX, 128*RatY, 0, 0, 128, 128,,true);
 		Canvas.SetPos(186*RatX,485*RatY);
 		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_Bar', 48*RatX, 48*RatY, 0, 0, 48, 48,,true);
+		Canvas.SetDrawColor(255,0,0);
+		Canvas.SetPos(70*RatX,515*RatY);
+		Canvas.DrawText("Swap Ship",,1.5,1.5,);
+		Canvas.Reset();
 	}
 	if(MeterIncrement<=0){
 		Canvas.SetPos(58*RatX,89*RatY);
 		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_Absorb', 128*RatX, 128*RatY, 0, 0, 128, 128,,true);
 		Canvas.SetPos(186*RatX,69*RatY);
 		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_Bar', 48*RatX, 48*RatY, 0, 0, 48, 48,,true);
+		Canvas.SetDrawColor(255,0,0);
+		Canvas.SetPos(45*RatX,219*RatY);
+		Canvas.DrawText("Absorb Enemies",,1.5,1.5,);
+		Canvas.Reset();
 	}
 }
 

@@ -72,11 +72,7 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNorma
 			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=0;
 		}else if(BossController.IsInState('FinalPhase')){
 			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.HitLoc=self.Location;
-			if(BF_Enemy_Base(Other).Health<Damage){
-				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=BF_Enemy_Base(Other).Health;
-			}else{
-				BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=Damage;
-			}
+			BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).HitData.Damage=Damage;
 			Other.TakeDamage(Damage, InstigatorController, Location, MomentumTransfer * Normal(Velocity), MyDamageType,, self);		
 		}else{
 			//Shouldn't Be Here. Idiot.

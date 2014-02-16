@@ -8,10 +8,10 @@ event PostBeginPlay()
 	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Stalker_0';
 	NPCInfo.Size=1.1;
 	NPCInfo.Speed=1800;
-	NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_MeterGain_Dark';
+	NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shielding_Dark';
 	NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed_Dark';
 	NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_ArmorPiercing_Dark';
-	NPCInfo.HUDuP.HB1="Meter Fill Rate";
+	NPCInfo.HUDuP.HB1="Shield";
 	NPCInfo.HUDuP.HB2="Flight Speed";
 	NPCInfo.HUDuP.HB3="Armor Piercing";
 	NPCInfo.HUDName="Stalker";
@@ -26,9 +26,9 @@ function LevelUp(byte CurLevel)
 	`log(NPCInfo.Level);
 	NPCInfo.Level++;
 	if(NPCInfo.Level>=1){
-		NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_MeterGain';
+		NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shielding';
 		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Stalker_1';
-		NPCInfo.bSecondLife=true;
+		NPCInfo.bSecondLife=true; //Check This Out Later
 		NPCInfo.BulletDamage=15;
 		NPCInfo.FireRate=0.05;
 	}

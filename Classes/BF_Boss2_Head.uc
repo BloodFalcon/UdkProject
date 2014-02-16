@@ -67,7 +67,7 @@ event tick(float DeltaTime)
 	//	HeadProj=none;
 	//}
 	//if(GetRemainingTimeForTimer('FireWeaps') > 0.5 && GetRemainingTimeForTimer('FireWeaps') < 0.6){
-	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(LaserMuzzle,Mesh,'Nose_Gun', true, vect);
+	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(LaserMuzzle,Mesh,'Nose_Gun', true,);
 	//}
 }
 

@@ -21,7 +21,64 @@ function bool Start(optional bool StartPaused = false)
 	EndKills = string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore);
 	EndScore = string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameScore);
 	EndBays = string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays);
-	EndRank = "S";
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).WorldInfo.Title == "FirstLevel_Test"){
+		if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore>=200 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays>=3 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak>=50){
+			EndRank = "S";
+		}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore>=150 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays>=3 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak>=20){
+			EndRank = "A";
+		}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore>=150 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays>=2 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak>=20){
+			EndRank = "B";
+		}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore>=100 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays>=2 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak>=20){
+			EndRank = "C";
+		}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore>=50 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays>=1 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak>=10){
+			EndRank = "D";
+		}else{
+			EndRank = "F";
+		}
+	}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).WorldInfo.Title == "AtmoLevel"){
+		if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore>=160 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays>=3 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak>=50){
+			EndRank = "S";
+		}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore>=120 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays>=3 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak>=20){
+			EndRank = "A";
+		}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore>=120 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays>=2 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak>=20){
+			EndRank = "B";
+		}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore>=80 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays>=2 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak>=20){
+			EndRank = "C";
+		}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore>=40 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays>=1 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak>=10){
+			EndRank = "D";
+		}else{
+			EndRank = "F";
+		}
+	}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).WorldInfo.Title == "W3_Form_Test"){
+		if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore>=240 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays>=3 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak>=50){
+			EndRank = "S";
+		}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore>=180 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays>=3 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak>=20){
+			EndRank = "A";
+		}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore>=180 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays>=2 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak>=20){
+			EndRank = "B";
+		}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore>=120 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays>=2 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak>=20){
+			EndRank = "C";
+		}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore>=60 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays>=1 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak>=10){
+			EndRank = "D";
+		}else{
+			EndRank = "F";
+		}
+	}else{
+		if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore>=240 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays>=3 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak>=50){
+			EndRank = "S";
+		}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore>=180 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays>=3 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak>=20){
+			EndRank = "A";
+		}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore>=180 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays>=2 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak>=20){
+			EndRank = "B";
+		}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore>=120 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays>=2 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak>=20){
+			EndRank = "C";
+		}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore>=60 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).RemainingBays>=1 && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).LongKillStreak>=10){
+			EndRank = "D";
+		}else{
+			EndRank = "F";
+		}
+	}
+
 		//string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore);
 	KillStreak = GetVariableObject("KillStreak");
 	KillStreak.SetString("text", EndStreak);
@@ -41,11 +98,9 @@ function NextLevel(string myString, int myInt, bool myBool)
 {
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).WorldInfo.Title == "FirstLevel_Test"){
 		ConsoleCommand("open AtmoLevel");
-	}
-	else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).WorldInfo.Title == "AtmoLevel"){
+	}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).WorldInfo.Title == "AtmoLevel"){
 		ConsoleCommand("open W3_Form_Test");
-	}
-	else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).WorldInfo.Title == "W3_Form_Test"){
+	}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).WorldInfo.Title == "W3_Form_Test"){
 		ConsoleCommand("open Boss_Level");
 	}else{
 		ConsoleCommand("open BF_TitleScreen_Map");

@@ -19,11 +19,11 @@ event PostBeginPlay()
 	NPCInfo.Size=1;
 	NPCInfo.Speed=1700;
 	NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpeed_Dark';
-	NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpread_Dark';
-	NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletDamage_Dark';
+	NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed_Dark';
+	NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_ArmorPiercing_Dark';
 	NPCInfo.HUDuP.HB1="Bullet Speed";
-	NPCInfo.HUDuP.HB2="Bullet Spread";
-	NPCInfo.HUDuP.HB3="Bullet Damage";
+	NPCInfo.HUDuP.HB2="Flight Speed";
+	NPCInfo.HUDuP.HB3="Armor Piercing";
 	NPCInfo.HUDName="Drone";
 	NPCInfo.BulletDamage=10;
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(0,0,0), );
@@ -44,16 +44,18 @@ function LevelUp(byte CurLevel)
 		NPCInfo.BulletDamage=10;
 	}
 	if(NPCInfo.Level>=2){
-		NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpread';
+		NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed';
 		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.Drone_2';
+		NPCInfo.Speed=1900;
 		NPCInfo.FireRate=0.025;
 		NPCInfo.BulletDamage=10;
 		//NPCInfo.AngularWidth=75;
 		//NPCInfo.Bullets=5; //TAKEN CARE OF IN PAWN
 	}
 	if(NPCInfo.Level>=3){
-		NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletDamage';
+		NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_ArmorPiercing';
 		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.Drone_3';
+		NPCInfo.BulletPenetration=true;
 		NPCInfo.FireRate=0.025;
 		NPCInfo.BulletDamage=15;
 	}

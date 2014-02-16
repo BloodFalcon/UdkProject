@@ -21,8 +21,8 @@ event PostBeginPlay()
 	NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FireRate_Dark';
 	NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FireRate_Dark';
 	NPCInfo.HUDuP.HB1="Fire Rate";
-	NPCInfo.HUDuP.HB2="Fire Rate";
-	NPCInfo.HUDuP.HB3="Fire Rate";
+	NPCInfo.HUDuP.HB2="Fire Rate+";
+	NPCInfo.HUDuP.HB3="Fire Rate++";
 	NPCInfo.HUDName="Laser";
 	NPCInfo.BulletDamage=10;
 	//WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(EngineFire, Mesh, 'Thruster', true, vect(-1,0,0));

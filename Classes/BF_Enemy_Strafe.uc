@@ -9,11 +9,11 @@ event PostBeginPlay()
 	NPCInfo.Size=0.45;
 	NPCInfo.Speed=1600;
 	NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed_Dark';
-	NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpread_Dark';
-	NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FireRate_Dark';
+	NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpeed_Dark';
+	NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_ArmorPiercing_Dark';
 	NPCInfo.HUDuP.HB1="Flight Speed";
-	NPCInfo.HUDuP.HB2="Bullet Spread";
-	NPCInfo.HUDuP.HB3="Fire Rate";
+	NPCInfo.HUDuP.HB2="Bullet Speed";
+	NPCInfo.HUDuP.HB3="Armor Piercing";
 	NPCInfo.HUDName="Strafe";
 	NPCInfo.AngularWidth=30;
 	NPCInfo.Bullets=3;
@@ -35,16 +35,18 @@ function LevelUp(byte CurLevel)
 		NPCInfo.BulletDamage=15;
 	}
 	if(NPCInfo.Level>=2){
-		NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpread';
+		NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpeed';
 		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Strafe_2';
-		NPCInfo.AngularWidth=75;
-		NPCInfo.Bullets=5;
+		//NPCInfo.AngularWidth=75;
+		//NPCInfo.Bullets=5;
+		NPCInfo.BulletSpeed=vect(0,-3000,0);
 		NPCInfo.FireRate=0.05;
 		NPCInfo.BulletDamage=20;
 	}
 	if(NPCInfo.Level>=3){
-		NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FireRate';
+		NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_ArmorPiercing';
 		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Strafe_3';
+		NPCInfo.BulletPenetration=true;
 		NPCInfo.FireRate=0.05;
 		NPCInfo.BulletDamage=30;
 	}
