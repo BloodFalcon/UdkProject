@@ -17,7 +17,7 @@ event PostBeginPlay()
 
 DefaultProperties
 {
-	Health = 600
+	Health = 500
     Begin Object Class=SkeletalMeshComponent Name=EP3Mesh
         SkeletalMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Dewayne_Cameron'
 		PhysicsAsset=PhysicsAsset'BF_Fighters2.physicsassets.Dewayne_Cameron_Physics'
