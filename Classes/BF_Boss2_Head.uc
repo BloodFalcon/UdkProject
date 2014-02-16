@@ -1,23 +1,29 @@
 class BF_Boss2_Head extends BF_Boss_Aux;
 
-var bool ShouldShoot;
-var float HeadOffset;
 var BF_Proj_Base HeadProj;
-var Actor TracedEnemyAct;
-var UDKPawn TracedEnemyPawn;
-var Vector BeamEnd;
 var ParticleSystem LaserMuzzle;
+var Rotator ProjRot;
+var bool ShouldShoot;
 
 event PostBeginPlay()
 {
 	super.PostBeginPlay();
+	//SetTimer(3.0, true, 'FireWeaps');
+	ProjRot.Yaw = 180*DegToUnrRot;
 }
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
-	if(BossBase.Controller.IsInState('PhaseTwo') || BossBase.IsInState('FinalPhase')){
-		super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
-	}
+	//if(BossBase.Controller.IsInState('PhaseTwo') || BossBase.IsInState('FinalPhase')){
+	super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
+	//}
+}
+
+function FireWeaps()
+{
+	self.Mesh.GetSocketWorldLocationAndRotation('Nose_Gun', SockLoc);
+	HeadProj = Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation-ProjRot);
+	HeadProj.Velocity = vect(0,750,0);
 }
 
 event tick(float DeltaTime)
@@ -38,10 +44,9 @@ event tick(float DeltaTime)
 	else{
 		self.Destroy();
 	}
-	if(BossBase.Controller.IsInState('PhaseTwo') && (ShouldShoot == true) && BossBase.Controller!=none)
+	if(BossBase.Controller.IsInState('FinalPhase') && (ShouldShoot == true) && BossBase.Controller!=none)
  	{
- 		`log("Should be shooting");
- 		SetTimer(5.0f, true, 'StrafeShooting');
+ 		SetTimer(3.0f, true, 'FireWeaps');
  		ShouldShoot = false;
  	}
 	//if(GetRemainingTimeForTimer('StrafeShooting') > 3.5 && HeadProj != none){		
@@ -61,18 +66,18 @@ event tick(float DeltaTime)
 	//	HeadProj.Destroy();
 	//	HeadProj=none;
 	//}
-	if(GetRemainingTimeForTimer('StrafeShooting') > 1.0 && GetRemainingTimeForTimer('StrafeShooting') < 1.1){
-		WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(LaserMuzzle,Mesh,'Nose_Gun', true);
-	}
+	//if(GetRemainingTimeForTimer('FireWeaps') > 0.5 && GetRemainingTimeForTimer('FireWeaps') < 0.6){
+	WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(LaserMuzzle,Mesh,'Nose_Gun', true, vect);
+	//}
 }
 
-function StrafeShooting()
-{
-	self.Mesh.GetSocketWorldLocationAndRotation('Nose_Gun', SockLoc, SockRot);
-	//SockRot.Yaw+=(30*DegToUnrRot);
-	HeadProj = Spawn(class'BF_Proj_Blue_Laser', ,,SockLoc, SockRot);
-	//ClearTimer('StrafeShooting');
-}
+//function StrafeShooting()
+//{
+//	self.Mesh.GetSocketWorldLocationAndRotation('Nose_Gun', SockLoc, SockRot);
+//	//SockRot.Yaw+=(30*DegToUnrRot);
+//	HeadProj = Spawn(class'BF_Proj_Blue_Laser', ,,SockLoc, SockRot);
+//	//ClearTimer('StrafeShooting');
+//}
 
 DefaultProperties
 {
@@ -92,7 +97,5 @@ DefaultProperties
 	Components.Add(BAMesh)
 	bIgnoreForces=true
 	ShouldShoot=true
-	//HeadOffset = 350
-	BeamEnd = (X=0,Y=2000,Z=0)
 	LaserMuzzle=ParticleSystem'BF_Robert.ParticleSystem.Missile_Destroy'
 }

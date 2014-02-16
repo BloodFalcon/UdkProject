@@ -71,22 +71,18 @@ function tick(float DeltaTime)
 {
 	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossHealths[HealthIndex]=Health;
 	//`log(self.Health);
-	if(Health==7498 && Controller.IsInState('PhaseOne')){
-		Controller.GotoState('Swarm1');
-		//Controller.GotoState('PhaseTwo');
-	}
-	if(Health==7497 && Controller.IsInState('PhaseTwo')){
-		Controller.GotoState('Swarm2');
-		//Controller.GotoState('FinalPhase');
+	//if(Health==7498 && Controller.IsInState('PhaseOne')){
+	//	Controller.GotoState('Swarm1');
+	//	//Controller.GotoState('PhaseTwo');
+	//}
+	if(Health==7497 && Controller.IsInState('PhaseOne')){
+		Controller.GotoState('FinalPhase');
 	}
 	if(Health <= 7497 && self.IsTimerActive('DeadHitFlash') == false && Controller.IsInState('FinalPhase')){
 		self.Mesh.SetMaterial(0, Material'BF_Fighters.Material.PlayerGlow');
 	}
-	if(Controller.IsInState('PhaseTwo')){
-		GroundSpeed = 2000;
-	}
 	if(Controller.IsInState('FinalPhase')){
-		GroundSpeed = 2250;
+		GroundSpeed = 1500;
 	}
 }
 
@@ -115,6 +111,6 @@ DefaultProperties
 	bCollideActors = true
 	bCollideWorld = true
 	CollisionType=COLLIDE_TouchAll
-	GroundSpeed=1000
+	GroundSpeed=750
 	AccelRate=10000
 }

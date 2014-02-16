@@ -16,82 +16,82 @@ event Possess(Pawn inPawn, bool bVehicleTransition)
 auto state PhaseOne
 {
 Begin:
-	Sleep(0.75);
+	Sleep(0.05);
 	MoveTo(PointA, none, ,true);
-	Sleep(0.75);
+	Sleep(0.05);
 	MoveTo(PointB, none, ,true);
-	if(Pawn.Health == 7498){
-		GotoState('Swarm1');
+	if(Pawn.Health == 7497){
+		GotoState('FinalPhase');
 	}
 	else{
 		GotoState('PhaseOne');
 	}
 }
 
-state Swarm1
-{
-Begin:
-	MoveTo(PointS1, none, ,true);
-	Sleep(20.0);
-	GotoState('PhaseTwo');
-}
+//state Swarm1
+//{
+//Begin:
+//	//MoveTo(PointS1, none, ,true);
+//	//Sleep(1.5);
+//	GotoState('PhaseTwo');
+//}
 
-state PhaseTwo
-{
-Begin:
-    Sleep(0.60);
-	MoveTo(PointC, none, ,true);
-	Sleep(0.1);
-	MoveTo(PointA, none, ,true);
-	Sleep(0.60);
-	MoveTo(PointB, none, ,true);
-	if(Pawn.Health == 7497){
-		GotoState('Swarm2');
-	}
-	else{
-		GotoState('PhaseTwo');
-	}
-}
+//state PhaseTwo
+//{
+//Begin:
+//    Sleep(0.05);
+//	MoveTo(PointC, none, ,true);
+//	Sleep(0.05);
+//	MoveTo(PointA, none, ,true);
+//	Sleep(0.05);
+//	MoveTo(PointB, none, ,true);
+//	if(Pawn.Health == 7497){
+//		GotoState('Swarm2');
+//	}
+//	else{
+//		GotoState('PhaseTwo');
+//	}
+//}
 
-state Swarm2
-{
-Begin:
-	MoveTo(PointS1, none, ,true);
-	Sleep(30.0);
-	GotoState('FinalPhase');
-}
+//state Swarm2
+//{
+//Begin:
+//	//MoveTo(PointS1, none, ,true);
+//	//Sleep(1.5);
+//	GotoState('FinalPhase');
+//}
 
 state FinalPhase
 {
 Begin:
-	Sleep(0.45);
+	Sleep(0.05);
 	MoveTo(PointC, none, ,true);
-	Sleep(0.1);
+	Sleep(0.05);
 	MoveTo(PointA, none, ,true);
-	Sleep(0.45);
+	Sleep(0.05);
 	MoveTo(PointC, none, ,true);
-	Sleep(0.1);
+	Sleep(0.05);
 	MoveTo(PointB, none, ,true);
-	Sleep(0.45);
+	Sleep(0.05);
 	MoveTo(PointA, none, ,true);
-	Sleep(0.45);
+	Sleep(0.05);
 	MoveTo(PointC, none, ,true);
-	Sleep(0.1);
+	Sleep(0.05);
 	MoveTo(PointA, none, ,true);
-	Sleep(0.45);
+	Sleep(0.05);
 	MoveTo(PointB, none, ,true);
 	GotoState('FinalPhase');
 }
 
-state StrafeShot
-{
-Begin:
-	//Sleep(0.75);
-	MoveTo(PointB, none, ,true);
-	//Sleep(0.75);
-	MoveTo(PointA, none, ,true);
-	GotoState('StrafeShot');
-}
+//state StrafeShot
+//{
+//Begin:
+//	//Sleep(0.75);
+//	MoveTo(PointB, none, ,true);
+//	//Sleep(0.75);
+//	MoveTo(PointA, none, ,true);
+//	GotoState('StrafeShot');
+//}
 
 DefaultProperties
 {

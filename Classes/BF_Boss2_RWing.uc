@@ -1,22 +1,20 @@
 class BF_Boss2_RWing extends BF_Boss_Aux;
 
 var Rotator WingRot;
-var ParticleSystemComponent WingProj;
-
 
 event PostBeginPlay()
 {
 	super.PostBeginPlay();
 	WingRot.Yaw = 90*DegToUnrRot;
 	self.SetRotation(WingRot); 
-	SetTimer(2.0, true, 'FireWeaps');
+	SetTimer(0.5, true, 'FireWeaps');
 }
 
 event TakeDamage(int Damage, Controller InstigatedBy, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
 {
-	if(BossBase.Controller.IsInState('PhaseOne') || BossBase.Controller.IsInState('FinalPhase')){
+	//if(BossBase.Controller.IsInState('PhaseOne') || BossBase.Controller.IsInState('FinalPhase')){
 		super.TakeDamage(Damage, InstigatedBy, HitLocation, Momentum, DamageType, HitInfo, DamageCauser);
-	}
+	//}
 }
 
 function FireWeaps()
@@ -24,7 +22,7 @@ function FireWeaps()
 	//if(self.Health >= 0 )
 	//{
 		self.Mesh.GetSocketWorldLocationAndRotation('Nose_Gun', SockLoc);
-		Spawn(class'BF_Proj_Boss_1', self,,SockLoc,self.Rotation);
+		Spawn(class'BF_Proj_Boss_2', self,,SockLoc,self.Rotation);
 	//}
 }
 
