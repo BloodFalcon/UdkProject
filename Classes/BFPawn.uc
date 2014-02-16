@@ -139,7 +139,6 @@ event Tick(float DeltaTime)
 	local Actor TracedEnemyAct;
 	local UDKPawn TracedEnemy;
 	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=100; //.0115 .0164
-	`log(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameScore);
 	Health=100000;
 	Mesh.SetScale(CS.Current.Size);
 	BeamStartLoc = Location;

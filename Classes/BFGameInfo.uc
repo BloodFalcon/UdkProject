@@ -35,6 +35,7 @@ var bool bDrain;
 var bool R;
 var bool PauseActive, GameOverActive;
 var bool Boss1Dead;
+var bool FirstBossDead;
 var float BloodIncrement, BloodDecrement;
 var CollectedSouls CS;
 var BFPawn BFPawnInfo;
