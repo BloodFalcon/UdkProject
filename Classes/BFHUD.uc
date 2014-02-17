@@ -147,7 +147,7 @@ function BloodMeter()
 		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_Bar', 48*RatX, 48*RatY, 0, 0, 48, 48,,true);
 		Canvas.SetDrawColor(255,0,0);
 		Canvas.SetPos(45*RatX,219*RatY);
-		Canvas.DrawText("Absorb Enemies",,1.5,1.5,);
+		Canvas.DrawText("Absorb Enemies",,1.5*RatX,1.5*RatY,);
 		Canvas.Reset();
 	}
 }
