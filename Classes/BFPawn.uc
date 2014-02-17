@@ -54,7 +54,7 @@ struct SoulVars
 
 	structdefaultproperties
 	{
-		FireRate=0.2
+		FireRate=0.05
 		SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
 		ProjClass=class'BF_Proj_Red_Circle'
 		SoulClass=class'BF_Enemy_EmptyBay'
