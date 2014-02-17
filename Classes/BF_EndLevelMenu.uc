@@ -102,6 +102,8 @@ function NextLevel(string myString, int myInt, bool myBool)
 		ConsoleCommand("open W3_Form_Test");
 	}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).WorldInfo.Title == "W3_Form_Test"){
 		ConsoleCommand("open Boss_Level");
+	}else if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).WorldInfo.Title == "Boss_Level"){
+		ConsoleCommand("open BF_CreditScreen");
 	}else{
 		ConsoleCommand("open BF_TitleScreen_Map");
 	}
