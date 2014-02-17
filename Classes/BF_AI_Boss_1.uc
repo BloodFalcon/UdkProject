@@ -10,7 +10,7 @@ event Possess(Pawn inPawn, bool bVehicleTransition)
 	Pawn.FaceRotation(FaceThisWay, 0.5);
 	Pawn.SetRotation(FaceThisWay);
 	Pawn.SetDesiredRotation(FaceThisWay, true, false,0.5,false);
-	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CurBossHealthMax=70000;
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CurBossHealthMax=28000;
 }
 
 auto state PhaseOne
