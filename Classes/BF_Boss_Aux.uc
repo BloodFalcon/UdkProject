@@ -121,7 +121,7 @@ DefaultProperties
 {
 	PartDestroyed = true
 	DestroyEffect = ParticleSystem'BloodFalcon.ParticleSystem.EnemyHitSmokeFire'
-	Health=5000
+	Health=2000
 	CollisionType=COLLIDE_TouchAll
     bJumpCapable=false
     bCanJump=false

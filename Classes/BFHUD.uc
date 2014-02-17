@@ -117,7 +117,7 @@ function BloodMeter()
 		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_Bar', 48*RatX, 48*RatY, 0, 0, 48, 48,,true);
 		Canvas.SetDrawColor(255,0,0);
 		Canvas.SetPos(69*RatX,991*RatY);
-		Canvas.DrawText("Bullet Time",,1.5,1.5,);
+		Canvas.DrawText("Bullet Time",,1.5*RatX,1.5*RatY,);
 		Canvas.Reset();
 	}
 	if(MeterIncrement<=0.8){
@@ -127,7 +127,7 @@ function BloodMeter()
 		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_Bar', 48*RatX, 48*RatY, 0, 0, 48, 48,,true);
 		Canvas.SetDrawColor(255,0,0);
 		Canvas.SetPos(90*RatX,822*RatY);
-		Canvas.DrawText("Shield",,1.5,1.5,);
+		Canvas.DrawText("Shield",,1.5*RatX,1.5*RatY,);
 		Canvas.Reset();
 	}
 	if(MeterIncrement<=0.5){
@@ -137,7 +137,7 @@ function BloodMeter()
 		Canvas.DrawTile(Texture2D'BF_HUD_Assets.Textures.BF_HUD_Bar', 48*RatX, 48*RatY, 0, 0, 48, 48,,true);
 		Canvas.SetDrawColor(255,0,0);
 		Canvas.SetPos(70*RatX,515*RatY);
-		Canvas.DrawText("Swap Ship",,1.5,1.5,);
+		Canvas.DrawText("Swap Ship",,1.5*RatX,1.5*RatY,);
 		Canvas.Reset();
 	}
 	if(MeterIncrement<=0){
