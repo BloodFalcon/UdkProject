@@ -244,7 +244,15 @@ event Tick(float DeltaTime)
 		Shield.SetLODLevel(WorldInfo.bDropDetail ? 1 : 0);
 		Shield.bUpdateComponentInTick = true;
 		self.AttachComponent(Shield);
+	}else{
+		if(Shield!=none){
+			Shield.SetKillOnDeactivate(0,true);
+			Shield.DeactivateSystem();
+			Shield=none;
+		}
 	}
+
+
 	if(CS.B1.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B2.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B3.SoulClass!=class'BF_Enemy_EmptyBay'){
 		CS.BayOpen=false;
 	}
