@@ -1,12 +1,14 @@
 class SeqCond_CheckHealth extends SequenceCondition;
 
 var BF_Enemy_Base Enemy;
+var byte count;
 
 event Activated()
 {
 	if(InputLinks[0].bHasImpulse){
-		if(Enemy.Controller==none || Enemy==none || Enemy.Mesh==none){
+		if((Enemy.Controller==none || Enemy==none || Enemy.Mesh==none) && count==0){
 			OutputLinks[0].bHasImpulse=true;
+			count++;
 		}
 	}
 	OutputLinks[1].bHasImpulse=true;
