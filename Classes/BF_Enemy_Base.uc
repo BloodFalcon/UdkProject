@@ -160,5 +160,5 @@ DefaultProperties
 	CylinderComponent=CollisionCylinder
 	EnemyHitFlash=0
 	GroundSpeed=750
-		bIsBoss=false
+	bIsBoss=false
 }
