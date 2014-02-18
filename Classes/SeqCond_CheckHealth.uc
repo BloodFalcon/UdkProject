@@ -9,6 +9,7 @@ event Activated()
 			OutputLinks[0].bHasImpulse=true;
 		}
 	}
+	OutputLinks[1].bHasImpulse=true;
 }
 
 defaultproperties
@@ -20,6 +21,7 @@ defaultproperties
 
 	OutputLinks.Empty
 	OutputLinks[0]=(LinkDesc="Dead")
+	OutputLinks[1]=(LinkDesc="Alive")
 
 	InputLinks.Empty
 	InputLinks[0]=(LinkDesc="Check")
