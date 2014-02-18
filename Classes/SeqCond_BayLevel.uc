@@ -24,6 +24,9 @@ event Activated()
 
 defaultproperties
 {
+	LOS=false
+	BOS=false
+
 	ObjName="Check Bays and Levels"
 	ObjCategory="Tut Level"
 
