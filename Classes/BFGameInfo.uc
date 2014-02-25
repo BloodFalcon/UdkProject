@@ -145,7 +145,7 @@ defaultproperties
 	TimeIncrement=2
 	Time=0
 	bDrain=false
-	BloodMeter=0
+	BloodMeter=10
 	R=false
 	PauseActive=false
 	GameOverActive=false
