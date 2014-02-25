@@ -11,8 +11,8 @@ function bool Start(optional bool StartPaused = false)
     Advance(0.f);
     SetPause(false);
 	SetTimingMode( TM_Real );
-	KillCount = string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillCount);
-	EndScore = string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore);
+	KillCount = string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).KillScore);
+	EndScore = string(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).GameScore);
 	TotalKills = GetVariableObject("TotalKills");
 	TotalKills.SetString("text", KillCount);
 	FinalScore = GetVariableObject("FinalScore");
