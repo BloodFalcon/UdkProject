@@ -96,14 +96,14 @@ DefaultProperties
 	Health=20000
 	Begin Object Class=SkeletalMeshComponent Name=M1Mesh
 		SkeletalMesh=SkeletalMesh'MyMesh.SkeletalMesh.finalbossbody'
-		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL1_Boss_Body_Physics'
+		PhysicsAsset=PhysicsAsset'MyMesh.Physics.finalbossbody_Physics'
 		HiddenGame=false
 		HiddenEditor=false
 		BlockNonZeroExtent=true
 		BlockZeroExtent=true
 		BlockActors=true
 		CollideActors=true
-		Scale=5
+		Scale=2
     End Object 
 	Mesh=M1Mesh
 	Components.Add(M1Mesh)

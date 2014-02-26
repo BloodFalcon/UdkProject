@@ -63,14 +63,14 @@ DefaultProperties
 {
 	Begin Object Name=BAMesh
 		SkeletalMesh=SkeletalMesh'MyMesh.SkeletalMesh.LVL1_Boss_RWing'
-		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL1_Boss_RWing_Physics'
+		PhysicsAsset=PhysicsAsset'MyMesh.Physics.LVL1_Boss_RWing_Physics'
 		HiddenGame=false
 		HiddenEditor=false
 		BlockNonZeroExtent=true
 		BlockZeroExtent=true
 		BlockActors=true
 		CollideActors=true
-		Scale=5
+		Scale=2
     End Object 
 	Mesh=BAMesh
 	Components.Add(BAMesh)

@@ -34,13 +34,13 @@ event tick(float DeltaTime)
 				BossBase.Mesh.GetSocketWorldLocationAndRotation(Sock,SockLoc,SockRot,);
 				if(BossBase.Controller.IsInState('PhaseOne') && HeadOffset > 0){
 					//`log("akdhfkadhfkh");
-					HeadOffset-=0.01;
+					HeadOffset = 150;
 				}
 				else if(BossBase.Controller.IsInState('PhaseTwo')){
-					HeadOffset = 0;
+					HeadOffset = -150;
 				}
 				else if(BossBase.Controller.IsInState('Swarm2')  && HeadOffset == 0){
-					HeadOffset = 350;
+					HeadOffset = 150;
 				}
 				SockLoc.Y-=HeadOffset;
 				self.SetLocation(SockLoc);
@@ -91,20 +91,20 @@ DefaultProperties
 {
 	Begin Object Name=BAMesh
 		SkeletalMesh=SkeletalMesh'MyMesh.SkeletalMesh.LVL1_Boss_Head1'
-		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL1_Boss_Head1_Physics'
+		PhysicsAsset=PhysicsAsset'MyMesh.Physics.LVL1_Boss_Head1_Physics'
 		HiddenGame=false
 		HiddenEditor=false
 		BlockNonZeroExtent=true
 		BlockZeroExtent=true
 		BlockActors=true
 		CollideActors=true
-		Scale=5
+		Scale=2
     End Object 
 	Mesh=BAMesh
 	Components.Add(BAMesh)
 	bIgnoreForces=true
 	ShouldShoot=true
-	HeadOffset = 350
+	HeadOffset = 300
 	BeamEnd = (X=0,Y=2000,Z=0)
 	LaserMuzzle=ParticleSystem'BF_Robert.ParticleSystem.Missile_Destroy'
 }
