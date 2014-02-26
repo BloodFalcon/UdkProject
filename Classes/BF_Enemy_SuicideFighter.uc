@@ -32,8 +32,6 @@ event PostBeginPlay()
 function LevelUp(byte CurLevel)
 {
 	NPCInfo.Level=CurLevel;
-	`log("SF Level");
-	`log(NPCInfo.Level);
 	NPCInfo.Level++;
 	if(NPCInfo.Level>=1){
 		NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shielding';
@@ -41,6 +39,7 @@ function LevelUp(byte CurLevel)
 		NPCInfo.bSecondLife=true;
 		NPCInfo.FireRate=0.05;
 		NPCInfo.BulletDamage=15;
+		NPCInfo.Size=0.55;
 	}
 	if(NPCInfo.Level>=2){
 		NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed';
@@ -48,6 +47,7 @@ function LevelUp(byte CurLevel)
 		NPCInfo.Speed=2100;
 		NPCInfo.FireRate=0.05;
 		NPCInfo.BulletDamage=20;
+		NPCInfo.Size=0.55;
 	}
 	if(NPCInfo.Level>=3){
 		NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_MeterGain';
@@ -55,6 +55,7 @@ function LevelUp(byte CurLevel)
 		NPCInfo.BloodIncrement=2;
 		NPCInfo.FireRate=0.05;
 		NPCInfo.BulletDamage=30;
+		NPCInfo.Size=0.55;
 	}
 }
 
