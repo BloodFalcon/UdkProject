@@ -122,6 +122,7 @@ var class<BF_Proj_Base> ProjClass;
 var CollectedSouls CS, DefaultCS;
 var BF_Enemy_Base Bay1,Bay2,Bay3;
 var byte D2;
+var int anus;
 
 
 event PostBeginPlay()
@@ -234,11 +235,12 @@ event Tick(float DeltaTime)
 	}
 
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>2){
-		if(ShieldSystem.Name!=Shield.TemplateName && Shield!=none){
+		if(ShieldSystem.Name!=Shield.Template.Name && Shield!=none){
 			if(Shield!=none){
 				Shield.SetKillOnDeactivate(0,true);
 				Shield.DeactivateSystem();
 				Shield=none;
+				anus--;
 			}
 			Shield = new class'ParticleSystemComponent';
 			Shield.SetTemplate(ShieldSystem);
@@ -247,6 +249,7 @@ event Tick(float DeltaTime)
 			Shield.SetLODLevel(WorldInfo.bDropDetail ? 1 : 0);
 			Shield.bUpdateComponentInTick = false;
 			self.AttachComponent(Shield);
+			anus++;
 		}else if(Shield==none){
 			Shield = new class'ParticleSystemComponent';
 			Shield.SetTemplate(ShieldSystem);
@@ -255,12 +258,14 @@ event Tick(float DeltaTime)
 			Shield.SetLODLevel(WorldInfo.bDropDetail ? 1 : 0);
 			Shield.bUpdateComponentInTick = false;
 			self.AttachComponent(Shield);
+			anus++;
 		}
 	}else{
 		if(Shield!=none){
 			Shield.SetKillOnDeactivate(0,true);
 			Shield.DeactivateSystem();
 			Shield=none;
+			anus--;
 		}
 	}
 
@@ -272,6 +277,7 @@ event Tick(float DeltaTime)
 	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS=CS;
 	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BFPawnInfo=self;
 	super.Tick(DeltaTime);
+	`log(anus);
 }
 
 
@@ -350,7 +356,7 @@ function FireWeaps()
 		}else{
 			D2=0;
 		}
-	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerDrone_0'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerVulcan_0'){
 		if(D2==0){
 			locoff.X-=15;	
 			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
@@ -374,7 +380,7 @@ function FireWeaps()
 		}else{
 			D2=0;
 		}
-	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerDrone_1'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerVulcan_1'){
 		if(D2==0){
 			locoff.X-=15;	
 			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
@@ -406,7 +412,7 @@ function FireWeaps()
 		}else{
 			D2=0;
 		}
-	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerDrone_2'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerVulcan_2'){
 		if(D2==0){
 			locoff.X-=15;	
 			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
@@ -438,7 +444,7 @@ function FireWeaps()
 		}else{
 			D2=0;
 		}
-	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerDrone_3'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerVulcan_3'){
 		if(D2==4){
 			Spawn(ProjClass,self,,self.Location,self.Rotation);
 		}
@@ -593,6 +599,7 @@ function RespawnFlicker()
 				Shield.SetKillOnDeactivate(0,true);
 				Shield.DeactivateSystem();
 				Shield=none;
+				anus--;
 			}else{
 				WorldInfo.MyEmitterPool.SpawnEmitter(DeathExplosion, Location); 
 			}
