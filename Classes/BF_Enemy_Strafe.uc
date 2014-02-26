@@ -5,7 +5,7 @@ event PostBeginPlay()
 	NPCInfo.FireRate=0.05;
 	NPCInfo.ProjClass=class'BF_Proj_Red_Line';
 	NPCInfo.SoulClass=class'BF_Enemy_Strafe';
-	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Strafe_0';
+	NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerStrafe_0';
 	NPCInfo.Size=0.45;
 	NPCInfo.Speed=1600;
 	NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed_Dark';
@@ -29,14 +29,14 @@ function LevelUp(byte CurLevel)
 	NPCInfo.Level++;
 	if(NPCInfo.Level>=1){
 		NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed';
-		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Strafe_1';
+		NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerStrafe_1';
 		NPCInfo.Speed=1900;
 		NPCInfo.FireRate=0.05;
 		NPCInfo.BulletDamage=15;
 	}
 	if(NPCInfo.Level>=2){
 		NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletSpeed';
-		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Strafe_2';
+		NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerStrafe_2';
 		//NPCInfo.AngularWidth=75;
 		//NPCInfo.Bullets=5;
 		NPCInfo.BulletSpeed=vect(0,-3000,0);
@@ -45,7 +45,7 @@ function LevelUp(byte CurLevel)
 	}
 	if(NPCInfo.Level>=3){
 		NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_ArmorPiercing';
-		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Strafe_3';
+		NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerStrafe_3';
 		NPCInfo.BulletPenetration=true;
 		NPCInfo.FireRate=0.05;
 		NPCInfo.BulletDamage=30;
@@ -56,7 +56,7 @@ DefaultProperties
 {
 	Health=275
     Begin Object Class=SkeletalMeshComponent Name=EP2Mesh
-        SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Strafe_0'
+        SkeletalMesh=SkeletalMesh'MyMesh.SkeletalMesh.EnemyStrafe'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Strafe_0_Physics'
         HiddenGame=FALSE
         HiddenEditor=FALSE
@@ -64,7 +64,7 @@ DefaultProperties
 		BlockZeroExtent=true
 		BlockActors=false
 		CollideActors=true
-		Scale=0.45
+		Scale= .20
     End Object
 	Mesh=EP2Mesh
 	Components.Add(EP2Mesh)

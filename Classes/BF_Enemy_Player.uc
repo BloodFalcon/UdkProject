@@ -13,9 +13,9 @@ event PostBeginPlay()
 NPCInfo.FireRate=0.2;
 NPCInfo.ProjClass=class'BF_Proj_Red_Circle';
 NPCInfo.SoulClass=class'BF_Enemy_Player';
-NPCInfo.SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player';
+NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerModel_BF';
 NPCInfo.Level=0;
-NPCInfo.Size=1.5;
+NPCInfo.Size=0.7;
 NPCInfo.Speed=1400;
 }
 
@@ -28,7 +28,7 @@ DefaultProperties
     End Object
 
     Begin Object Class=SkeletalMeshComponent Name=EP1Mesh
-        SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
+        SkeletalMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerModel_BF'
 		PhysicsAsset=PhysicsAsset'BloodFalcon.SkeletalMesh.Player_Physics'
         HiddenGame=FALSE
         HiddenEditor=FALSE
@@ -36,7 +36,7 @@ DefaultProperties
 		BlockZeroExtent=true
 		BlockActors=false
 		CollideActors=true
-		Scale = 1.5
+		Scale = 0.7
     End Object 
     Mesh=EP1Mesh 
     Components.Add(EP1Mesh)

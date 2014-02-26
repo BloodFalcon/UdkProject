@@ -51,7 +51,7 @@ DefaultProperties
 {
 	Health=125
     Begin Object Class=SkeletalMeshComponent Name=EP1Mesh
-        SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Vulcan_0'
+        SkeletalMesh=SkeletalMesh'MyMesh.SkeletalMesh.EnemyVulcan'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Vulcan_0_Physics'
         HiddenGame=FALSE
         HiddenEditor=FALSE
@@ -59,7 +59,7 @@ DefaultProperties
 		BlockZeroExtent=true
 		BlockActors=false
 		CollideActors=true
-		Scale=1.4
+		Scale= 0.55
     End Object 
     Mesh=EP1Mesh 
     Components.Add(EP1Mesh)

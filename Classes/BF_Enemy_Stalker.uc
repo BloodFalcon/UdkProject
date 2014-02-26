@@ -52,7 +52,7 @@ DefaultProperties
 {
 	Health=225
     Begin Object Class=SkeletalMeshComponent Name=EP2Mesh
-        SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Stalker_0'
+        SkeletalMesh=SkeletalMesh'MyMesh.SkeletalMesh.EnemyStalker'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Stalker_0_Physics'
         HiddenGame=FALSE
         HiddenEditor=FALSE
@@ -60,7 +60,7 @@ DefaultProperties
 		BlockZeroExtent=true
 		BlockActors=false
 		CollideActors=true
-		Scale=1.1
+		Scale= .5
     End Object
 	Mesh=EP2Mesh
 	Components.Add(EP2Mesh)

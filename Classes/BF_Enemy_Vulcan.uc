@@ -66,7 +66,7 @@ DefaultProperties
 {
 	Health = 100
     Begin Object Class=SkeletalMeshComponent Name=EP2Mesh
-        SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_0'
+        SkeletalMesh=SkeletalMesh'MyMesh.SkeletalMesh.Enemy_Drone'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Drone_0_Physics'
         HiddenGame=FALSE
         HiddenEditor=FALSE
@@ -74,7 +74,7 @@ DefaultProperties
 		BlockZeroExtent=true
 		BlockActors=false
 		CollideActors=true
-		Scale = 0.85
+		Scale = .5
     End Object
 	Mesh=EP2Mesh
 	Components.Add(EP2Mesh)

@@ -55,10 +55,10 @@ struct SoulVars
 	structdefaultproperties
 	{
 		FireRate=0.05
-		SoulMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
+		SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerModel_BF'
 		ProjClass=class'BF_Proj_Red_Circle'
 		SoulClass=class'BF_Enemy_EmptyBay'
-		Size=1.5
+		Size=0.7
 		Speed=1400
 		bFXEnabled=true
 		Closed=false
@@ -209,6 +209,7 @@ event Tick(float DeltaTime)
 		AbsorbSuccess();
 	}
 
+	if(Shield!=none){
 		if(CS.Current.HUDuP.HB1=="Shield"){
 			if(CS.Current.HUDuP.HBay1==Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shielding'){
 				ShieldSystem=ParticleSystem'BF_Fighters.ParticleSystem.SuperShield';
@@ -230,20 +231,31 @@ event Tick(float DeltaTime)
 		}else{
 			ShieldSystem=ParticleSystem'BF_Fighters.ParticleSystem.Shield';
 		}
+	}
 
-	if((BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>2 && Shield==none) || (Shield!=none && ShieldSystem!=Shield.Template && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>2)){
-		if(Shield!=none){
-			Shield.SetKillOnDeactivate(0,true);
-			Shield.DeactivateSystem();
-			Shield=none;
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>2){
+		if(ShieldSystem.Name!=Shield.TemplateName && Shield!=none){
+			if(Shield!=none){
+				Shield.SetKillOnDeactivate(0,true);
+				Shield.DeactivateSystem();
+				Shield=none;
+			}
+			Shield = new class'ParticleSystemComponent';
+			Shield.SetTemplate(ShieldSystem);
+			Shield.SetScale(4);
+			Shield.SetAbsolute(false, True, True);
+			Shield.SetLODLevel(WorldInfo.bDropDetail ? 1 : 0);
+			Shield.bUpdateComponentInTick = false;
+			self.AttachComponent(Shield);
+		}else if(Shield==none){
+			Shield = new class'ParticleSystemComponent';
+			Shield.SetTemplate(ShieldSystem);
+			Shield.SetScale(4);
+			Shield.SetAbsolute(false, True, True);
+			Shield.SetLODLevel(WorldInfo.bDropDetail ? 1 : 0);
+			Shield.bUpdateComponentInTick = false;
+			self.AttachComponent(Shield);
 		}
-		Shield = new class'ParticleSystemComponent';
-		Shield.SetTemplate(ShieldSystem);
-		Shield.SetScale(4);
-		Shield.SetAbsolute(false, True, True);
-		Shield.SetLODLevel(WorldInfo.bDropDetail ? 1 : 0);
-		Shield.bUpdateComponentInTick = true;
-		self.AttachComponent(Shield);
 	}else{
 		if(Shield!=none){
 			Shield.SetKillOnDeactivate(0,true);
@@ -251,6 +263,28 @@ event Tick(float DeltaTime)
 			Shield=none;
 		}
 	}
+
+	//if((BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>2 && Shield==none) || (ShieldSystem!=Shield.Template && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>2)){
+
+	//	if(Shield!=none){
+	//		Shield.SetKillOnDeactivate(0,true);
+	//		Shield.DeactivateSystem();
+	//		Shield=none;
+	//	}
+	//	Shield = new class'ParticleSystemComponent';
+	//	Shield.SetTemplate(ShieldSystem);
+	//	Shield.SetScale(4);
+	//	Shield.SetAbsolute(false, True, True);
+	//	Shield.SetLODLevel(WorldInfo.bDropDetail ? 1 : 0);
+	//	Shield.bUpdateComponentInTick = false;
+	//	self.AttachComponent(Shield);
+	//}else{
+	//	if(Shield!=none){
+	//		Shield.SetKillOnDeactivate(0,true);
+	//		Shield.DeactivateSystem();
+	//		Shield=none;
+	//	}
+	//}
 
 
 	if(CS.B1.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B2.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B3.SoulClass!=class'BF_Enemy_EmptyBay'){
@@ -969,9 +1003,9 @@ defaultproperties
 		BeamAbsorbSound = AbsorbSound
 
         Begin Object Class=SkeletalMeshComponent Name=MyMesh
-                SkeletalMesh=SkeletalMesh'BloodFalcon.SkeletalMesh.Player'
+                SkeletalMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerModel_BF'
 				PhysicsAsset=PhysicsAsset'BloodFalcon.SkeletalMesh.Player_Physics'
-				Scale=1.5
+				Scale=0.7
                 HiddenGame=FALSE
                 HiddenEditor=FALSE
 				BlockNonZeroExtent=true

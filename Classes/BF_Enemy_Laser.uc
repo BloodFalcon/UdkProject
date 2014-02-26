@@ -58,7 +58,7 @@ DefaultProperties
 {
 	Health=175
     Begin Object Class=SkeletalMeshComponent Name=EP1Mesh
-        SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Lazer_0'
+        SkeletalMesh=SkeletalMesh'MyMesh.SkeletalMesh.EnemyLazer'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.Lazer_0_Physics'
         HiddenGame=FALSE
         HiddenEditor=FALSE
@@ -66,7 +66,7 @@ DefaultProperties
 		BlockZeroExtent=true
 		BlockActors=false
 		CollideActors=true
-		Scale=1.4
+		Scale= .6
     End Object 
     Mesh=EP1Mesh 
     Components.Add(EP1Mesh)
