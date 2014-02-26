@@ -47,7 +47,7 @@ super.tick(DeltaTime);
 DefaultProperties
 {
 	Begin Object Name=BAMesh
-		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.LVL1_Boss_LWing'
+		SkeletalMesh=SkeletalMesh'MyMesh.SkeletalMesh.LVL1_Boss_LWing'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL1_Boss_LWing_Physics'
 		HiddenGame=false
 		HiddenEditor=false

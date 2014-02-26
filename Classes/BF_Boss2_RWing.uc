@@ -46,7 +46,7 @@ DefaultProperties
 {
 	Health=1000
 	Begin Object Name=BAMesh
-		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.LVL2_Boss_RARM'
+		SkeletalMesh=SkeletalMesh'MyMesh.SkeletalMesh.LVL2_Boss_RARM'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL2_Boss_RARM_Physics'
 		HiddenGame=false
 		HiddenEditor=false

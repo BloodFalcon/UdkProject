@@ -91,7 +91,7 @@ DefaultProperties
 {
 	Health=7500
 	Begin Object Class=SkeletalMeshComponent Name=M1Mesh
-		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.LVL2_Boss_Body'
+		SkeletalMesh=SkeletalMesh'MyMesh.SkeletalMesh.LVL2_Boss_Body'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL2_Boss_Body_Physics'
 		HiddenGame=false
 		HiddenEditor=false

@@ -90,7 +90,7 @@ function StrafeShooting()
 DefaultProperties
 {
 	Begin Object Name=BAMesh
-		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.LVL1_Boss_Head1'
+		SkeletalMesh=SkeletalMesh'MyMesh.SkeletalMesh.LVL1_Boss_Head1'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL1_Boss_Head1_Physics'
 		HiddenGame=false
 		HiddenEditor=false

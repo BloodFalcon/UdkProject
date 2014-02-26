@@ -62,7 +62,7 @@ event tick(float DeltaTime)
 DefaultProperties
 {
 	Begin Object Name=BAMesh
-		SkeletalMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.LVL1_Boss_RWing'
+		SkeletalMesh=SkeletalMesh'MyMesh.SkeletalMesh.LVL1_Boss_RWing'
 		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL1_Boss_RWing_Physics'
 		HiddenGame=false
 		HiddenEditor=false
