@@ -15,7 +15,7 @@ event PostBeginPlay()
 	NPCInfo.ProjClass=class'BF_Proj_Red_Circle';
 	NPCInfo.SoulClass=class'BF_Enemy_SuicideFighter';
 	NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerSuicideFighter_0';
-	NPCInfo.Size=1.5;
+	NPCInfo.Size=0.65;
 	NPCInfo.Speed=1900;
 	NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shielding_Dark';
 	NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed_Dark';

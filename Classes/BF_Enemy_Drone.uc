@@ -6,7 +6,7 @@ event PostBeginPlay()
 	NPCInfo.ProjClass=class'BF_Proj_Red_Line';
 	NPCInfo.SoulClass=class'BF_Enemy_Drone';
 	NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerVulcan_0';
-	NPCInfo.Size=1.4;
+	NPCInfo.Size=0.55;
 	NPCInfo.Speed=1200;
 	NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FireRate_Dark';
 	NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletDamage_Dark';

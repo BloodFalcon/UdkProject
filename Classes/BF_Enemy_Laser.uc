@@ -15,7 +15,7 @@ event PostBeginPlay()
 	NPCInfo.ProjClass=class'BF_Proj_Red_TwoShotBetty';
 	NPCInfo.SoulClass=class'BF_Enemy_Laser';
 	NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerLazer_0';
-	NPCInfo.Size=1.4;
+	NPCInfo.Size=0.6;
 	NPCInfo.Speed=1900;
 	NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FireRate_Dark';
 	NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FireRate_Dark';

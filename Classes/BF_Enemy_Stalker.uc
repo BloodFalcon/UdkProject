@@ -6,7 +6,7 @@ event PostBeginPlay()
 	NPCInfo.ProjClass=class'BF_Proj_Red_Line';
 	NPCInfo.SoulClass=class'BF_Enemy_Stalker';
 	NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerStalker_0';
-	NPCInfo.Size=1.1;
+	NPCInfo.Size=0.5;
 	NPCInfo.Speed=1800;
 	NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shielding_Dark';
 	NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed_Dark';

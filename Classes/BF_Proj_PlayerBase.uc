@@ -14,7 +14,9 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNorma
 {
 	local Controller BossController;
 
-	BossController = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Controller;
+	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase!=none){
+		BossController = BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BossBase.Controller;
+	}
 
 	if(BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).CS.Current.BulletPenetration && BF_Enemy_Base(Other).bIsBoss!=true){
 		if (Other != Instigator)

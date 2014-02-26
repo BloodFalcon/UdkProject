@@ -138,7 +138,7 @@ event Tick(float DeltaTime)
 	local Vector HitLocation, HitNormal;
 	local Actor TracedEnemyAct;
 	local UDKPawn TracedEnemy;
-	//BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=100; //.0115 .0164
+	BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter=100; //.0115 .0164
 	Health=100000;
 	Mesh.SetScale(CS.Current.Size);
 	BeamStartLoc = Location;
@@ -264,29 +264,6 @@ event Tick(float DeltaTime)
 		}
 	}
 
-	//if((BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>2 && Shield==none) || (ShieldSystem!=Shield.Template && BFGameInfo(class'WorldInfo'.static.GetWorldInfo().Game).BloodMeter>2)){
-
-	//	if(Shield!=none){
-	//		Shield.SetKillOnDeactivate(0,true);
-	//		Shield.DeactivateSystem();
-	//		Shield=none;
-	//	}
-	//	Shield = new class'ParticleSystemComponent';
-	//	Shield.SetTemplate(ShieldSystem);
-	//	Shield.SetScale(4);
-	//	Shield.SetAbsolute(false, True, True);
-	//	Shield.SetLODLevel(WorldInfo.bDropDetail ? 1 : 0);
-	//	Shield.bUpdateComponentInTick = false;
-	//	self.AttachComponent(Shield);
-	//}else{
-	//	if(Shield!=none){
-	//		Shield.SetKillOnDeactivate(0,true);
-	//		Shield.DeactivateSystem();
-	//		Shield=none;
-	//	}
-	//}
-
-
 	if(CS.B1.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B2.SoulClass!=class'BF_Enemy_EmptyBay' && CS.B3.SoulClass!=class'BF_Enemy_EmptyBay'){
 		CS.BayOpen=false;
 	}
@@ -318,19 +295,19 @@ function FireWeaps()
 
 	locoff=self.Location;
 
-	if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Suicide_0'){
+	if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerSuicideFighter_0'){
 		Spawn(ProjClass,self,,self.Location,self.Rotation);		
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Suicide_1'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerSuicideFighter_1'){
 		Spawn(ProjClass,self,,self.Location,self.Rotation);
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Suicide_2'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerSuicideFighter_2'){
 		Spawn(ProjClass,self,,self.Location,self.Rotation);
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Suicide_3'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerSuicideFighter_3'){
 		Spawn(ProjClass,self,,self.Location,self.Rotation);
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Drone_0'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerDrone_0'){
 		Spawn(ProjClass,self,,self.Location,self.Rotation);
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.Drone_1'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerDrone_1'){
 		Spawn(ProjClass,self,,self.Location,self.Rotation);
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.Drone_2'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerDrone_2'){
 		if(D2==0){
 			locoff.X+=20;
 			Spawn(ProjClass,self,,locoff,self.Rotation);
@@ -349,7 +326,7 @@ function FireWeaps()
 		}else{
 			D2=0;
 		}
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.Drone_3'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerDrone_3'){
 		if(D2==0){
 			locoff.X+=27;
 			Spawn(ProjClass,self,,locoff,self.Rotation);
@@ -373,7 +350,7 @@ function FireWeaps()
 		}else{
 			D2=0;
 		}
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Vulcan_0'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerDrone_0'){
 		if(D2==0){
 			locoff.X-=15;	
 			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
@@ -397,7 +374,7 @@ function FireWeaps()
 		}else{
 			D2=0;
 		}
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Vulcan_1'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerDrone_1'){
 		if(D2==0){
 			locoff.X-=15;	
 			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
@@ -429,7 +406,7 @@ function FireWeaps()
 		}else{
 			D2=0;
 		}
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Vulcan_2'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerDrone_2'){
 		if(D2==0){
 			locoff.X-=15;	
 			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
@@ -461,7 +438,7 @@ function FireWeaps()
 		}else{
 			D2=0;
 		}
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Vulcan_3'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerDrone_3'){
 		if(D2==4){
 			Spawn(ProjClass,self,,self.Location,self.Rotation);
 		}
@@ -496,13 +473,13 @@ function FireWeaps()
 		}else{
 			D2=0;
 		}
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Stalker_0'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerStalker_0'){
 		Spawn(class'BF_Proj_Red_Tri',self,,self.Location,self.Rotation);
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Stalker_1'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerStalker_1'){
 		Spawn(class'BF_Proj_Red_Tri',self,,self.Location,self.Rotation);
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Stalker_2'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerStalker_2'){
 		Spawn(class'BF_Proj_Red_Tri',self,,self.Location,self.Rotation);
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Stalker_3'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerStalker_3'){
 		if(D2==0){
 			locoff.X+=10;
 			Spawn(class'BF_Proj_Red_Tri',self,,locoff,self.Rotation);	
@@ -514,13 +491,13 @@ function FireWeaps()
 		}else{
 			D2=0;
 		}
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Strafe_0'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerStrafe_0'){
 		Spawn(class'BF_Proj_Red_Tri',self,,self.Location,self.Rotation);
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Strafe_1'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerStrafe_1'){
 		Spawn(class'BF_Proj_Red_Tri',self,,self.Location,self.Rotation);
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Strafe_2'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerStrafe_2'){
 		Spawn(class'BF_Proj_Red_Tri',self,,self.Location,self.Rotation);
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Strafe_3'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerStrafe_3'){
 		if(D2==0){
 			locoff.X+=20;
 			Spawn(class'BF_Proj_Red_Tri',self,,locoff,self.Rotation);
@@ -539,9 +516,9 @@ function FireWeaps()
 		}else{
 			D2=0;
 		}
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters.SkeletalMesh.Lazer_0'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerLazer_0'){
 		Spawn(ProjClass,self,,self.Location,self.Rotation);	
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Lazer_1'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerLazer_1'){
 		if(D2==0){
 			locoff.X+=10;
 			Spawn(class'BF_Proj_Red_Circle',self,,locoff,self.Rotation);
@@ -553,12 +530,12 @@ function FireWeaps()
 		}else{
 			D2=0;
 		}
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Lazer_2'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerLazer_2'){
 			locoff.X+=10;
 			Spawn(ProjClass,self,,locoff,self.Rotation);	
 			locoff.X-=20;
 			Spawn(ProjClass,self,,locoff,self.Rotation);	
-	}else if(CS.Current.SoulMesh==SkeletalMesh'BF_Fighters2.SkeletalMesh.Lazer_3'){
+	}else if(CS.Current.SoulMesh==SkeletalMesh'MyMesh.SkeletalMesh.PlayerLazer_3'){
 			Spawn(ProjClass,self,,locoff,self.Rotation);		
 			locoff.X+=15;
 			Spawn(ProjClass,self,,locoff,self.Rotation);	
