@@ -5,7 +5,7 @@ event PostBeginPlay()
 	NPCInfo.FireRate=0.05;
 	NPCInfo.ProjClass=class'BF_Proj_Red_Line';
 	NPCInfo.SoulClass=class'BF_Enemy_Stalker';
-	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Stalker_0';
+	NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerStalker_0';
 	NPCInfo.Size=1.1;
 	NPCInfo.Speed=1800;
 	NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shielding_Dark';
@@ -27,21 +27,21 @@ function LevelUp(byte CurLevel)
 	NPCInfo.Level++;
 	if(NPCInfo.Level>=1){
 		NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shielding';
-		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Stalker_1';
+		NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerStalker_1';
 		NPCInfo.bSecondLife=true; //Check This Out Later
 		NPCInfo.BulletDamage=15;
 		NPCInfo.FireRate=0.05;
 	}
 	if(NPCInfo.Level>=2){
 		NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed';
-		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Stalker_2';
+		NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerStalker_2';
 		NPCInfo.Speed=2000;
 		NPCInfo.BulletDamage=20;
 		NPCInfo.FireRate=0.05;
 	}
 	if(NPCInfo.Level>=3){
 		NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_ArmorPiercing';
-		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Stalker_3';
+		NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerStalker_3';
 		NPCInfo.BulletPenetration=true;
 		NPCInfo.BulletDamage=20;
 		NPCInfo.FireRate=0.033;

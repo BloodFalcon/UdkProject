@@ -5,7 +5,7 @@ event PostBeginPlay()
 	NPCInfo.FireRate=0.05;
 	NPCInfo.ProjClass=class'BF_Proj_Red_Line';
 	NPCInfo.SoulClass=class'BF_Enemy_Drone';
-	NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters.SkeletalMesh.Vulcan_0';
+	NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerVulcan_0';
 	NPCInfo.Size=1.4;
 	NPCInfo.Speed=1200;
 	NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FireRate_Dark';
@@ -30,17 +30,17 @@ function LevelUp(byte CurLevel)
 	NPCInfo.Level++;
 	if(NPCInfo.Level>=1){
 		NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FireRate';
-		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Vulcan_1';
+		NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerVulcan_1';
 		NPCInfo.FireRate=0.033;
 	}
 	if(NPCInfo.Level>=2){
 		NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_BulletDamage';
-		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Vulcan_2';
+		NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerVulcan_2';
 		NPCInfo.FireRate=0.025;
 	}
 	if(NPCInfo.Level>=3){
 		NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_ArmorPiercing';
-		NPCInfo.SoulMesh=SkeletalMesh'BF_Fighters2.SkeletalMesh.Vulcan_3';
+		NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerVulcan_3';
 		NPCInfo.BulletPenetration=true;
 		NPCInfo.FireRate=0.025;
 		NPCInfo.BulletDamage=15;

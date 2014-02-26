@@ -14,7 +14,7 @@ event PostBeginPlay()
 	NPCInfo.FireRate=0.05;
 	NPCInfo.ProjClass=class'BF_Proj_Red_Circle';
 	NPCInfo.SoulClass=class'BF_Enemy_SuicideFighter';
-	NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerSuicide_0';
+	NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerSuicideFighter_0';
 	NPCInfo.Size=1.5;
 	NPCInfo.Speed=1900;
 	NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shielding_Dark';
@@ -37,21 +37,21 @@ function LevelUp(byte CurLevel)
 	NPCInfo.Level++;
 	if(NPCInfo.Level>=1){
 		NPCInfo.HUDuP.HBay1=Texture2D'BF_HUD_Assets.Textures.BF_HUD_Shielding';
-		NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerSuicide_1';
+		NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerSuicideFighter_1';
 		NPCInfo.bSecondLife=true;
 		NPCInfo.FireRate=0.05;
 		NPCInfo.BulletDamage=15;
 	}
 	if(NPCInfo.Level>=2){
 		NPCInfo.HUDuP.HBay2=Texture2D'BF_HUD_Assets.Textures.BF_HUD_FlightSpeed';
-		NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerSuicide_2';
+		NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerSuicideFighter_2';
 		NPCInfo.Speed=2100;
 		NPCInfo.FireRate=0.05;
 		NPCInfo.BulletDamage=20;
 	}
 	if(NPCInfo.Level>=3){
 		NPCInfo.HUDuP.HBay3=Texture2D'BF_HUD_Assets.Textures.BF_HUD_MeterGain';
-		NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerSuicide_3';
+		NPCInfo.SoulMesh=SkeletalMesh'MyMesh.SkeletalMesh.PlayerSuicideFighter_3';
 		NPCInfo.BloodIncrement=2;
 		NPCInfo.FireRate=0.05;
 		NPCInfo.BulletDamage=30;
