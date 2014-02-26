@@ -47,14 +47,14 @@ DefaultProperties
 	Health=1000
 	Begin Object Name=BAMesh
 		SkeletalMesh=SkeletalMesh'MyMesh.SkeletalMesh.LVL2_Boss_LARM'
-		PhysicsAsset=PhysicsAsset'BF_Fighters.SkeletalMesh.LVL2_Boss_LARM_Physics'
+		PhysicsAsset=PhysicsAsset'MyMesh.Physics.LVL2_Boss_LARM_Physics'
 		HiddenGame=false
 		HiddenEditor=false
 		BlockNonZeroExtent=true
 		BlockZeroExtent=true
 		BlockActors=true
 		CollideActors=true
-		Scale=2.5
+		Scale=1
     End Object 
 	Mesh=BAMesh
 	Components.Add(BAMesh)
